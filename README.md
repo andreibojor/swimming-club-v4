@@ -85,3 +85,6 @@ REVOKE USAGE ON SCHEMA public FROM anon, authenticated;
 - [Supabase Documentation](https://supabase.com/docs)
 - This stack originates from [create-t3-app](https://github.com/t3-oss/create-t3-app).
 - A [blog post](https://jumr.dev/blog/t3-turbo) where I wrote how to migrate a T3 app into this.
+
+Repo Link:
+https://github.com/supabase-community/create-t3-turbo
