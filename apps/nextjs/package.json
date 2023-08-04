@@ -3,10 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "build": "pnpm with-env next build",
+    "clean": "git clean -xdf .next .turbo node_modules",
+    "dev": "pnpm with-env next dev",
+    "lint": "dotenv -v SKIP_ENV_VALIDATION=1 next lint",
+    "lint:fix": "pnpm lint --fix",
+    "start": "pnpm with-env next start",
+    "type-check": "tsc --noEmit",
+    "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
     "@acme/api": "^0.1.0",
@@ -14,10 +18,18 @@
     "@acme/ui": "^0.1.0",
     "next": "13.4.12",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-wrap-balancer": "^1.0.0"
   },
   "devDependencies": {
-    "@acme/eslint-config": "^0.1.0",
+    "@acme/eslint-config": "^0.2.0",
+    "@acme/tailwind-config": "^0.1.0",
+    "@stripe/stripe-js": "^1.53.0",
+    "@supabase/auth-helpers-nextjs": "^0.7.0",
+    "@supabase/auth-helpers-react": "^0.4.0",
+    "@supabase/auth-ui-react": "^0.4.2",
+    "@supabase/auth-ui-shared": "^0.1.6",
+    "@supabase/supabase-js": "^2.23.0",
     "@types/node": "^18.15.11",
     "@types/react": "^18.0.33",
     "@types/react-dom": "^18.0.11",

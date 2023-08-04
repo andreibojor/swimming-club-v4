@@ -20,7 +20,7 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@acme/eslint-config": "^0.1.0",
+    "@acme/eslint-config": "^0.2.0",
     "eslint": "^8.38.0",
     "typescript": "^5.0.4"
   }
