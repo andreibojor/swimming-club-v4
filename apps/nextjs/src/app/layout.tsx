@@ -55,16 +55,10 @@ export default function RootLayout(props: { children: React.ReactNode }) {
         )}
       >
         <SupabaseProvider>
-          <UserProvider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-            />
-            {props.children}
-            <TailwindIndicator />
-          </UserProvider>
+          <UserProvider>{props.children}</UserProvider>
         </SupabaseProvider>
+        <TailwindIndicator />
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem />
       </body>
     </html>
   );
