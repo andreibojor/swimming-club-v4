@@ -29,7 +29,7 @@ export function SiteFooter(props: { className?: string }) {
           href="/"
           className="col-start-1 row-start-1 flex items-center gap-2 md:mr-2"
         >
-          <Icons.Logo className="h-6 w-6" />
+          {/* <Icons.Logo className="h-6 w-6" /> */}
           <p className="text-lg font-medium md:hidden">{siteConfig.name}</p>
         </Link>
         <p className="col-span-full row-start-2 text-center text-sm leading-loose text-muted-foreground md:flex-1 md:text-left">
