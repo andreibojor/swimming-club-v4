@@ -188,13 +188,13 @@ importers:
         specifier: ^0.1.0
         version: link:../../packages/config/tailwind
       '@stripe/stripe-js':
-        specifier: ^1.54.2
+        specifier: ^1.53.0
         version: 1.54.2
       '@supabase/auth-helpers-nextjs':
-        specifier: ^0.7.4
+        specifier: ^0.7.0
         version: 0.7.4(@supabase/supabase-js@2.31.0)
       '@supabase/auth-helpers-react':
-        specifier: ^0.4.2
+        specifier: ^0.4.0
         version: 0.4.2(@supabase/supabase-js@2.31.0)
       '@supabase/auth-ui-react':
         specifier: ^0.4.2
@@ -203,37 +203,37 @@ importers:
         specifier: ^0.1.6
         version: 0.1.6(@supabase/supabase-js@2.31.0)
       '@supabase/supabase-js':
-        specifier: ^2.31.0
+        specifier: ^2.23.0
         version: 2.31.0
       '@types/node':
-        specifier: ^18.17.2
+        specifier: ^18.15.11
         version: 18.17.2
       '@types/react':
-        specifier: ^18.2.18
+        specifier: ^18.0.33
         version: 18.2.18
       '@types/react-dom':
-        specifier: ^18.2.7
+        specifier: ^18.0.11
         version: 18.2.7
       autoprefixer:
         specifier: ^10.4.14
         version: 10.4.14(postcss@8.4.27)
       dotenv-cli:
-        specifier: ^7.2.1
-        version: 7.2.1
+        specifier: ^7.1.0
+        version: 7.1.0
       eslint:
-        specifier: ^8.46.0
+        specifier: ^8.38.0
         version: 8.46.0
       postcss:
-        specifier: ^8.4.27
+        specifier: ^8.4.21
         version: 8.4.27
       stripe:
-        specifier: ^12.17.0
+        specifier: ^12.7.0
         version: 12.17.0
       tailwindcss:
-        specifier: ^3.3.3
+        specifier: ^3.3.1
         version: 3.3.3
       typescript:
-        specifier: ^5.1.6
+        specifier: ^5.0.4
         version: 5.1.6
 
   packages/api:
@@ -3081,7 +3081,7 @@ packages:
       getenv: 1.0.0
       glob: 7.1.6
       resolve-from: 5.0.0
-      semver: 7.5.3
+      semver: 7.5.4
       slash: 3.0.0
       xcode: 3.0.1
       xml2js: 0.6.0
@@ -3553,7 +3553,7 @@ packages:
       '@jest/schemas': 29.6.0
       '@types/istanbul-lib-coverage': 2.0.4
       '@types/istanbul-reports': 3.0.1
-      '@types/node': 20.4.7
+      '@types/node': 18.17.2
       '@types/yargs': 17.0.24
       chalk: 4.1.2
     dev: false
@@ -5941,10 +5941,6 @@ packages:
   /@types/node@18.17.2:
     resolution: {integrity: sha512-wBo3KqP/PBqje5TI9UTiuL3yWfP6sdPtjtygSOqcYZWT232dfDeDOnkDps5wqZBP9NgGgYrNejinl0faAuE+HQ==}
 
-  /@types/node@20.4.7:
-    resolution: {integrity: sha512-bUBrPjEry2QUTsnuEjzjbS7voGWCc30W0qzgMf90GPeDGFRakvrz47ju+oqDAKCXLUCe39u57/ORMl/O/04/9g==}
-    dev: false
-
   /@types/phoenix@1.5.5:
     resolution: {integrity: sha512-1eWWT19k0L4ZiTvdXjAvJ9KvW0B8SdiVftQmFPJGTEx78Q4PCSIQDpz+EfkFVR1N4U9gREjlW4JXL8YCIlY0bw==}
     dev: false
@@ -7724,16 +7720,6 @@ packages:
 
   /dotenv-cli@7.1.0:
     resolution: {integrity: sha512-motytjZFQB3ZtGTIN4c0vnFgv4kuNZ2WxVnGY6PVFiygCzkm3IFBBguDUzezd9HgNA0OYYd6vNCWlozs0Q1Zxg==}
-    hasBin: true
-    dependencies:
-      cross-spawn: 7.0.3
-      dotenv: 16.3.1
-      dotenv-expand: 10.0.0
-      minimist: 1.2.8
-    dev: true
-
-  /dotenv-cli@7.2.1:
-    resolution: {integrity: sha512-ODHbGTskqRtXAzZapDPvgNuDVQApu4oKX8lZW7Y0+9hKA6le1ZJlyRS687oU9FXjOVEDU/VFV6zI125HzhM1UQ==}
     hasBin: true
     dependencies:
       cross-spawn: 7.0.3
