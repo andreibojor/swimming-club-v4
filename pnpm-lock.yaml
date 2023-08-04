@@ -169,13 +169,13 @@ importers:
         specifier: ^0.1.0
         version: link:../../packages/ui
       '@stripe/stripe-js':
-        specifier: ^1.53.0
+        specifier: ^1.54.2
         version: 1.54.2
       '@supabase/auth-helpers-nextjs':
-        specifier: ^0.7.0
+        specifier: ^0.7.4
         version: 0.7.4(@supabase/supabase-js@2.31.0)
       '@supabase/auth-helpers-react':
-        specifier: ^0.4.0
+        specifier: ^0.4.2
         version: 0.4.2(@supabase/supabase-js@2.31.0)
       '@supabase/auth-ui-react':
         specifier: ^0.4.2
@@ -184,7 +184,7 @@ importers:
         specifier: ^0.1.6
         version: 0.1.6(@supabase/supabase-js@2.31.0)
       '@supabase/supabase-js':
-        specifier: ^2.23.0
+        specifier: ^2.31.0
         version: 2.31.0
       next:
         specifier: 13.4.12
@@ -202,7 +202,7 @@ importers:
         specifier: ^1.0.0
         version: 1.0.0(react@18.2.0)
       stripe:
-        specifier: ^12.7.0
+        specifier: ^12.17.0
         version: 12.17.0
     devDependencies:
       '@acme/eslint-config':
@@ -212,34 +212,34 @@ importers:
         specifier: ^0.1.0
         version: link:../../packages/config/tailwind
       '@types/node':
-        specifier: ^18.15.11
+        specifier: ^18.17.2
         version: 18.17.2
       '@types/react':
-        specifier: ^18.0.33
+        specifier: ^18.2.18
         version: 18.2.18
       '@types/react-dom':
-        specifier: ^18.0.11
+        specifier: ^18.2.7
         version: 18.2.7
       autoprefixer:
         specifier: ^10.4.14
         version: 10.4.14(postcss@8.4.27)
       dotenv-cli:
-        specifier: ^7.1.0
-        version: 7.1.0
+        specifier: ^7.2.1
+        version: 7.2.1
       eslint:
-        specifier: ^8.38.0
+        specifier: ^8.46.0
         version: 8.46.0
       postcss:
-        specifier: ^8.4.21
+        specifier: ^8.4.27
         version: 8.4.27
       supabase:
-        specifier: ^1.64.2
-        version: 1.64.2
+        specifier: ^1.82.6
+        version: 1.82.6
       tailwindcss:
-        specifier: ^3.3.1
+        specifier: ^3.3.3
         version: 3.3.3
       typescript:
-        specifier: ^5.0.4
+        specifier: ^5.1.6
         version: 5.1.6
 
   packages/api:
@@ -6538,8 +6538,8 @@ packages:
     peerDependencies:
       postcss: ^8.1.0
     dependencies:
-      browserslist: 4.21.5
-      caniuse-lite: 1.0.30001469
+      browserslist: 4.21.10
+      caniuse-lite: 1.0.30001519
       fraction.js: 4.2.0
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -7760,6 +7760,16 @@ packages:
       minimist: 1.2.8
     dev: true
 
+  /dotenv-cli@7.2.1:
+    resolution: {integrity: sha512-ODHbGTskqRtXAzZapDPvgNuDVQApu4oKX8lZW7Y0+9hKA6le1ZJlyRS687oU9FXjOVEDU/VFV6zI125HzhM1UQ==}
+    hasBin: true
+    dependencies:
+      cross-spawn: 7.0.3
+      dotenv: 16.3.1
+      dotenv-expand: 10.0.0
+      minimist: 1.2.8
+    dev: true
+
   /dotenv-expand@10.0.0:
     resolution: {integrity: sha512-GopVGCpVS1UKH75VKHGuQFqS1Gusej0z4FyQkPdwjil2gNIv+LNsqBlboOzpJFZKVT95GkCyWJbBSdFEFUWI2A==}
     engines: {node: '>=12'}
@@ -8915,7 +8925,7 @@ packages:
     resolution: {integrity: sha512-V/JgOLFCS+R6Vcq0slCuaeWEdNC3ouDlJMNIsacH2VtALiu9mV4LPrHc5cDl8k5aw6J8jwgWWpiTo5RYhmIzvg==}
     engines: {node: '>= 8'}
     dependencies:
-      minipass: 3.1.6
+      minipass: 3.3.6
 
   /fs.realpath@1.0.0:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
@@ -11001,12 +11011,17 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       yallist: 4.0.0
+    dev: false
 
-  /minipass@4.0.0:
-    resolution: {integrity: sha512-g2Uuh2jEKoht+zvO6vJqXmYpflPqzRBT+Th2h01DKh5z7wbY/AZ2gCQ78cP70YoHPyFdY30YBV5WxgLOEwOykw==}
+  /minipass@3.3.6:
+    resolution: {integrity: sha512-DxiNidxSEK+tHG6zOIklvNOwm3hvCrbUrdtzY74U6HKTJxvIDfOUL5W5P2Ghd3DTkhhKPYGqeNUIh5qcM4YBfw==}
     engines: {node: '>=8'}
     dependencies:
       yallist: 4.0.0
+
+  /minipass@4.2.8:
+    resolution: {integrity: sha512-fNzuVyifolSLFL4NzpF+wEF4qrgqaaKX0haXPQEdQ7NKAN+WecoKMHV09YcuL/DHxrUsYQOK3MiuDf7Ip2OXfQ==}
+    engines: {node: '>=8'}
     dev: false
 
   /minipass@5.0.0:
@@ -11018,7 +11033,7 @@ packages:
     resolution: {integrity: sha512-bAxsR8BVfj60DWXHE3u30oHzfl4G7khkSuPW+qvpd7jFRHm7dLxOjUk1EHACJ/hxLY8phGJ0YhYHZo7jil7Qdg==}
     engines: {node: '>= 8'}
     dependencies:
-      minipass: 3.1.6
+      minipass: 3.3.6
       yallist: 4.0.0
 
   /mixin-deep@1.3.2:
@@ -13412,8 +13427,9 @@ packages:
     resolution: {integrity: sha512-Mu7R0g4ig9TUuGSxJavny5Rv0egCEtpZRNMrZaYS1vxkiIxGiGUwoezU3LazIQ+KE04hTrTfNPgxU5gzi7F5Pw==}
     dev: false
 
-  /supabase@1.64.2:
-    resolution: {integrity: sha512-h9xd/xZ7WLdJykPXdOSbZn8IpOwqi/AlJx6AZTIhw8YhVLFXpaM8ieoGhUtP63CecWPDHBDXOd+6tf0badtdHA==}
+  /supabase@1.82.6:
+    resolution: {integrity: sha512-WpXFScfNodp7TGiJsCp70uEKu7kahvh/OkugjIyy6gVUMDPmXxQsvvg2doJfDIfzFL7b3osSccWmqfJ0h5Vy6g==}
+    engines: {npm: '>=8'}
     hasBin: true
     requiresBuild: true
     dependencies:
@@ -13543,7 +13559,7 @@ packages:
     dependencies:
       chownr: 2.0.0
       fs-minipass: 2.1.0
-      minipass: 4.0.0
+      minipass: 4.2.8
       minizlib: 2.1.2
       mkdirp: 1.0.4
       yallist: 4.0.0

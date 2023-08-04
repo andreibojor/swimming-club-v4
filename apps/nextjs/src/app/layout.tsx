@@ -2,13 +2,13 @@ import { Inter } from "next/font/google";
 
 import "@/styles/globals.css";
 import LocalFont from "next/font/local";
+import { TailwindIndicator } from "@/components/tailwind-indicator";
+import { ThemeProvider } from "@/components/theme-provider";
 import SupabaseProvider from "@/providers/SupabaseProvider";
 import UserProvider from "@/providers/UserProvider";
 
 import { cn } from "@acme/ui";
 
-// import { TailwindIndicator } from "~/components/tailwind-indicator";
-// import { ThemeProvider } from "~/components/theme-provider";
 import { siteConfig } from "./config";
 
 // import { TRPCReactProvider } from "./providers";
@@ -56,9 +56,13 @@ export default function RootLayout(props: { children: React.ReactNode }) {
       >
         <SupabaseProvider>
           <UserProvider>
-            {/* <ThemeProvider attribute="class" defaultTheme="system" enableSystem> */}
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+            />
             {props.children}
-            {/* <TailwindIndicator /> */}
+            <TailwindIndicator />
           </UserProvider>
         </SupabaseProvider>
       </body>

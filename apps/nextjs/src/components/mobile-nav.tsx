@@ -12,7 +12,7 @@ import {
   PopoverTrigger,
   ScrollArea,
 } from "@acme/ui";
-import * as Icons from "@acme/ui";
+import * as Icons from "@acme/ui/src/icons";
 
 import ThemeToggle from "./theme-toggle";
 
@@ -29,6 +29,7 @@ export function MobileDropdown() {
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
+      {/* TODO: This PopoverTrigger has this error: Prop `aria-controls` did not match. Server: "radix-:R15mcq:" Client: "radix-:R4mpj9:" */}
       <PopoverTrigger asChild>
         <Button
           variant="ghost"
@@ -41,7 +42,7 @@ export function MobileDropdown() {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="z-40 mt-2 h-[calc(100vh-4rem)] w-screen animate-none rounded-none border-none transition-transform">
-        <Search />
+        {/* <Search /> */}
         <ScrollArea className="py-8">
           {navItems.map((item) => (
             <Link
