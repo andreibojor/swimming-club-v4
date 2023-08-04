@@ -54,13 +54,13 @@ export default function RootLayout(props: { children: React.ReactNode }) {
           fontCal.variable,
         )}
       >
-        <SupabaseProvider>
-          <UserProvider>
-            {/* <ThemeProvider attribute="class" defaultTheme="system" enableSystem> */}
-            {props.children}
-            {/* <TailwindIndicator /> */}
-          </UserProvider>
-        </SupabaseProvider>
+        {/* <SupabaseProvider> */}
+        {/* <UserProvider> */}
+        {/* <ThemeProvider attribute="class" defaultTheme="system" enableSystem> */}
+        {props.children}
+        {/* <TailwindIndicator /> */}
+        {/* </UserProvider> */}
+        {/* </SupabaseProvider> */}
       </body>
     </html>
   );
