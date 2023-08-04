@@ -12,7 +12,9 @@ import {
 } from "@acme/ui";
 import * as Icons from "@acme/ui/src/icons";
 
-export const runtime = "edge";
+// export const runtime = "edge";
+
+export const revalidate = 0;
 
 export default function Home() {
   return (
