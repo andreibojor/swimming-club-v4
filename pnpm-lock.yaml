@@ -269,17 +269,17 @@ importers:
         specifier: ^0.1.0
         version: link:../db
       '@supabase/auth-helpers-nextjs':
-        specifier: ^0.6.0
-        version: 0.6.0(@supabase/supabase-js@2.20.0)
+        specifier: ^0.6.1
+        version: 0.6.1(@supabase/supabase-js@2.31.0)
       '@supabase/supabase-js':
-        specifier: ^2.20.0
-        version: 2.20.0
+        specifier: ^2.31.0
+        version: 2.31.0
       '@trpc/client':
-        specifier: ^10.19.1
-        version: 10.19.1(@trpc/server@10.19.1)
+        specifier: ^10.37.1
+        version: 10.37.1(@trpc/server@10.37.1)
       '@trpc/server':
-        specifier: ^10.19.1
-        version: 10.19.1
+        specifier: ^10.37.1
+        version: 10.37.1
       superjson:
         specifier: 1.9.1
         version: 1.9.1
@@ -291,11 +291,11 @@ importers:
         specifier: ^0.2.0
         version: link:../config/eslint
       eslint:
-        specifier: ^8.38.0
-        version: 8.38.0
+        specifier: ^8.46.0
+        version: 8.46.0
       typescript:
-        specifier: ^5.0.4
-        version: 5.0.4
+        specifier: ^5.1.6
+        version: 5.1.6
 
   packages/config/eslint:
     dependencies:
@@ -3107,7 +3107,7 @@ packages:
       getenv: 1.0.0
       glob: 7.1.6
       resolve-from: 5.0.0
-      semver: 7.5.4
+      semver: 7.5.3
       slash: 3.0.0
       xcode: 3.0.1
       xml2js: 0.6.0
@@ -3579,7 +3579,7 @@ packages:
       '@jest/schemas': 29.6.0
       '@types/istanbul-lib-coverage': 2.0.4
       '@types/istanbul-reports': 3.0.1
-      '@types/node': 18.17.2
+      '@types/node': 20.4.7
       '@types/yargs': 17.0.24
       chalk: 4.1.2
     dev: false
@@ -5624,13 +5624,13 @@ packages:
     resolution: {integrity: sha512-R1PwtDvUfs99cAjfuQ/WpwJ3c92+DAMy9xGApjqlWQMj0FKQabUAys2swfTRNzuYAYJh7NqK2dzcYVNkKLEKUg==}
     dev: false
 
-  /@supabase/auth-helpers-nextjs@0.6.0(@supabase/supabase-js@2.20.0):
-    resolution: {integrity: sha512-f1e5blmpt9F/Bnb2hKreWHqf3zEhl29P357d5fnXzQ3Ph7DuW2Wha7uwQVTgE2QH3niqVpJpY0Pg0zBT5NmNWQ==}
+  /@supabase/auth-helpers-nextjs@0.6.1(@supabase/supabase-js@2.31.0):
+    resolution: {integrity: sha512-ffDAR4pW2Cosj/CuuGRAhzOFfHtqzdgax7zqRGGyq334gxxPplsmJFGaLPRJ3Z/4mTSIJHyFd6LYdHMN0a+5Bw==}
     peerDependencies:
       '@supabase/supabase-js': ^2.0.4
     dependencies:
-      '@supabase/auth-helpers-shared': 0.3.3(@supabase/supabase-js@2.20.0)
-      '@supabase/supabase-js': 2.20.0
+      '@supabase/auth-helpers-shared': 0.3.4(@supabase/supabase-js@2.31.0)
+      '@supabase/supabase-js': 2.31.0
     dev: false
 
   /@supabase/auth-helpers-nextjs@0.7.4(@supabase/supabase-js@2.31.0):
@@ -5659,13 +5659,13 @@ packages:
       '@supabase/supabase-js': 2.31.0
     dev: false
 
-  /@supabase/auth-helpers-shared@0.3.3(@supabase/supabase-js@2.20.0):
-    resolution: {integrity: sha512-ZwZGffApfyz9MiT3knnZoF1DMWE56H/Q0Mrsn22J9ubhss7/+e7TP3dChxxwlUYqtDmjmLV6OV8W0BANENfUew==}
+  /@supabase/auth-helpers-shared@0.3.4(@supabase/supabase-js@2.31.0):
+    resolution: {integrity: sha512-8I3D0SPHHexkFTSfPg0nZgJSVazWoB3tZDpT6IjRv6w89vDMUzO99Lit4H9anVLF4teW8c/nJJxawDNbDlgbgg==}
     peerDependencies:
       '@supabase/supabase-js': ^2.0.4
     dependencies:
-      '@supabase/supabase-js': 2.20.0
-      js-base64: 3.7.5
+      '@supabase/supabase-js': 2.31.0
+      jose: 4.14.4
     dev: false
 
   /@supabase/auth-helpers-shared@0.4.1(@supabase/supabase-js@2.31.0):
@@ -5863,6 +5863,14 @@ packages:
       '@trpc/server': 10.19.1
     dev: false
 
+  /@trpc/client@10.37.1(@trpc/server@10.37.1):
+    resolution: {integrity: sha512-OSblNfeI0Z9ERn3usgLV2x63CwwPoNOHf1FQK85cOT7F8MNaWyEHoEv7tHUwNGJwyzKXmpU+ockZ0movzX3D0g==}
+    peerDependencies:
+      '@trpc/server': 10.37.1
+    dependencies:
+      '@trpc/server': 10.37.1
+    dev: false
+
   /@trpc/react-query@10.19.1(@tanstack/react-query@4.28.0)(@trpc/client@10.19.1)(@trpc/server@10.19.1)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-bKtv/hz1ssoH/56i72skRcJ2Q4/gUJhrxvqDD0sJ6PczsPq4xbyO2GDs/cPaVqDpYf2EEAG9nHo48t8fW/XQ/w==}
     peerDependencies:
@@ -5881,6 +5889,10 @@ packages:
 
   /@trpc/server@10.19.1:
     resolution: {integrity: sha512-LAa8BQhMYJL+GU28cigOPKlEogCEBeff1wIKflnUj34ou1ythwTboe7Mi6rjDW3Q9EasP7s9YmqRv9Fkp8fL4Q==}
+    dev: false
+
+  /@trpc/server@10.37.1:
+    resolution: {integrity: sha512-r3VeA319/braYMBIzj+XLgLKQ9lJSVglvPvP9HUv4kr5w6Y5grQMxMcExhTiZWltE9bnSJHKtBBzHafOo7KC8A==}
     dev: false
 
   /@types/babel__core@7.20.0:
@@ -5967,6 +5979,10 @@ packages:
 
   /@types/node@18.17.2:
     resolution: {integrity: sha512-wBo3KqP/PBqje5TI9UTiuL3yWfP6sdPtjtygSOqcYZWT232dfDeDOnkDps5wqZBP9NgGgYrNejinl0faAuE+HQ==}
+
+  /@types/node@20.4.7:
+    resolution: {integrity: sha512-bUBrPjEry2QUTsnuEjzjbS7voGWCc30W0qzgMf90GPeDGFRakvrz47ju+oqDAKCXLUCe39u57/ORMl/O/04/9g==}
+    dev: false
 
   /@types/phoenix@1.5.5:
     resolution: {integrity: sha512-1eWWT19k0L4ZiTvdXjAvJ9KvW0B8SdiVftQmFPJGTEx78Q4PCSIQDpz+EfkFVR1N4U9gREjlW4JXL8YCIlY0bw==}
@@ -9917,10 +9933,6 @@ packages:
 
   /jose@4.14.4:
     resolution: {integrity: sha512-j8GhLiKmUAh+dsFXlX1aJCbt5KMibuKb+d7j1JaOJG6s2UjX1PQlW+OKB/sD4a/5ZYF4RcmYmLSndOoU3Lt/3g==}
-    dev: false
-
-  /js-base64@3.7.5:
-    resolution: {integrity: sha512-3MEt5DTINKqfScXKfJFrRbxkrnk2AxPWGBL/ycjz4dK8iqiSJ06UxD8jh8xuh6p10TX4t2+7FsBYVxxQbMg+qA==}
     dev: false
 
   /js-sdsl@4.4.0:

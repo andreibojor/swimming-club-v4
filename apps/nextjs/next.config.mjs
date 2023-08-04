@@ -23,7 +23,7 @@ const config = {
   //   },
   // },
   images: {
-    domains: ["avatars.githubusercontent.com"],
+    domains: ["avatars.githubusercontent.com", "images.unsplash.com"],
   },
   /** We already do linting and typechecking as separate tasks in CI */
   eslint: { ignoreDuringBuilds: true },
