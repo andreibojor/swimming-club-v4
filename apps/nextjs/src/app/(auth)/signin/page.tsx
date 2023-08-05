@@ -1,14 +1,14 @@
 import type { Route } from "next";
 import Link from "next/link";
 
-import { EmailSignIn } from "./email-signin";
+// import { EmailSignIn } from "./email-signin";
 import { OAuthSignIn } from "./oauth-signin";
 
-export const runtime = "edge";
+// export const runtime = "edge";
 
 export default function AuthenticationPage() {
   return (
-    <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+    <div className="sm:w-[350px] mx-auto flex w-full flex-col justify-center space-y-6">
       <div className="flex flex-col space-y-2 text-center">
         <h1 className="text-2xl font-semibold tracking-tight">
           Create an account
@@ -18,7 +18,7 @@ export default function AuthenticationPage() {
         </p>
       </div>
       <div className="grid gap-6">
-        <EmailSignIn />
+        {/* <EmailSignIn /> */}
 
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
