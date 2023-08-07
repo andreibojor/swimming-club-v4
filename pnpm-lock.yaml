@@ -114,9 +114,6 @@ importers:
         specifier: 1.9.1
         version: 1.9.1
     devDependencies:
-      '@acme/api':
-        specifier: '*'
-        version: link:../../packages/api
       '@acme/eslint-config':
         specifier: '*'
         version: link:../../packages/config/eslint
@@ -159,12 +156,6 @@ importers:
 
   apps/nextjs:
     dependencies:
-      '@acme/api':
-        specifier: ^0.1.0
-        version: link:../../packages/api
-      '@acme/db':
-        specifier: ^0.1.0
-        version: link:../../packages/db
       '@acme/tailwind-config':
         specifier: ^0.1.0
         version: link:../../packages/config/tailwind
@@ -266,40 +257,6 @@ importers:
         specifier: ^5.1.6
         version: 5.1.6
 
-  packages/api:
-    dependencies:
-      '@acme/db':
-        specifier: ^0.1.0
-        version: link:../db
-      '@supabase/auth-helpers-nextjs':
-        specifier: ^0.6.1
-        version: 0.6.1(@supabase/supabase-js@2.31.0)
-      '@supabase/supabase-js':
-        specifier: ^2.31.0
-        version: 2.31.0(encoding@0.1.13)
-      '@trpc/client':
-        specifier: ^10.37.1
-        version: 10.37.1(@trpc/server@10.37.1)
-      '@trpc/server':
-        specifier: ^10.37.1
-        version: 10.37.1
-      superjson:
-        specifier: 1.9.1
-        version: 1.9.1
-      zod:
-        specifier: ^3.21.4
-        version: 3.21.4
-    devDependencies:
-      '@acme/eslint-config':
-        specifier: ^0.2.0
-        version: link:../config/eslint
-      eslint:
-        specifier: ^8.46.0
-        version: 8.46.0
-      typescript:
-        specifier: ^5.1.6
-        version: 5.1.6
-
   packages/config/eslint:
     dependencies:
       '@next/eslint-plugin-next':
@@ -351,22 +308,6 @@ importers:
       tailwindcss:
         specifier: ^3.3.3
         version: 3.3.3
-
-  packages/db:
-    dependencies:
-      '@prisma/client':
-        specifier: ^5.1.1
-        version: 5.1.1(prisma@5.1.1)
-    devDependencies:
-      dotenv-cli:
-        specifier: ^7.1.0
-        version: 7.1.0
-      prisma:
-        specifier: ^5.1.1
-        version: 5.1.1
-      typescript:
-        specifier: ^5.0.4
-        version: 5.0.4
 
   packages/ui:
     dependencies:
@@ -825,7 +766,7 @@ packages:
       '@babel/helper-plugin-utils': 7.22.5
       debug: 4.3.4
       lodash.debounce: 4.0.8
-      resolve: 1.22.2
+      resolve: 1.22.3
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -3824,28 +3765,6 @@ packages:
       rimraf: 3.0.2
     dev: false
 
-  /@prisma/client@5.1.1(prisma@5.1.1):
-    resolution: {integrity: sha512-fxcCeK5pMQGcgCqCrWsi+I2rpIbk0rAhdrN+ke7f34tIrgPwA68ensrpin+9+fZvuV2OtzHmuipwduSY6HswdA==}
-    engines: {node: '>=16.13'}
-    requiresBuild: true
-    peerDependencies:
-      prisma: '*'
-    peerDependenciesMeta:
-      prisma:
-        optional: true
-    dependencies:
-      '@prisma/engines-version': 5.1.1-1.6a3747c37ff169c90047725a05a6ef02e32ac97e
-      prisma: 5.1.1
-    dev: false
-
-  /@prisma/engines-version@5.1.1-1.6a3747c37ff169c90047725a05a6ef02e32ac97e:
-    resolution: {integrity: sha512-owZqbY/wucbr65bXJ/ljrHPgQU5xXTSkmcE/JcbqE1kusuAXV/TLN3/exmz21SZ5rJ7WDkyk70J2G/n68iogbQ==}
-    dev: false
-
-  /@prisma/engines@5.1.1:
-    resolution: {integrity: sha512-NV/4nVNWFZSJCCIA3HIFJbbDKO/NARc9ej0tX5S9k2EVbkrFJC4Xt9b0u4rNZWL4V+F5LAjvta8vzEUw0rw+HA==}
-    requiresBuild: true
-
   /@radix-ui/number@1.0.1:
     resolution: {integrity: sha512-T5gIdVO2mmPW3NNhjNgEP3cqMXjXL9UbO0BzWcXfvdBs+BohbQxvd/K5hSVKmn9/lbTdsQVKbUcP5WLCwvUbBg==}
     dependencies:
@@ -5627,15 +5546,6 @@ packages:
     resolution: {integrity: sha512-R1PwtDvUfs99cAjfuQ/WpwJ3c92+DAMy9xGApjqlWQMj0FKQabUAys2swfTRNzuYAYJh7NqK2dzcYVNkKLEKUg==}
     dev: false
 
-  /@supabase/auth-helpers-nextjs@0.6.1(@supabase/supabase-js@2.31.0):
-    resolution: {integrity: sha512-ffDAR4pW2Cosj/CuuGRAhzOFfHtqzdgax7zqRGGyq334gxxPplsmJFGaLPRJ3Z/4mTSIJHyFd6LYdHMN0a+5Bw==}
-    peerDependencies:
-      '@supabase/supabase-js': ^2.0.4
-    dependencies:
-      '@supabase/auth-helpers-shared': 0.3.4(@supabase/supabase-js@2.31.0)
-      '@supabase/supabase-js': 2.31.0(encoding@0.1.13)
-    dev: false
-
   /@supabase/auth-helpers-nextjs@0.7.4(@supabase/supabase-js@2.31.0):
     resolution: {integrity: sha512-MyGCkB7LEDcGrKmesKGjyG54Jlbiss8VGTegrNde/ywXujQyRFnzycijoASDBc6i9SmE7eE1qWBsMr2URb07nw==}
     peerDependencies:
@@ -5660,15 +5570,6 @@ packages:
       '@supabase/supabase-js': ^2.19.0
     dependencies:
       '@supabase/supabase-js': 2.31.0(encoding@0.1.13)
-    dev: false
-
-  /@supabase/auth-helpers-shared@0.3.4(@supabase/supabase-js@2.31.0):
-    resolution: {integrity: sha512-8I3D0SPHHexkFTSfPg0nZgJSVazWoB3tZDpT6IjRv6w89vDMUzO99Lit4H9anVLF4teW8c/nJJxawDNbDlgbgg==}
-    peerDependencies:
-      '@supabase/supabase-js': ^2.0.4
-    dependencies:
-      '@supabase/supabase-js': 2.31.0(encoding@0.1.13)
-      jose: 4.14.4
     dev: false
 
   /@supabase/auth-helpers-shared@0.4.1(@supabase/supabase-js@2.31.0):
@@ -5866,14 +5767,6 @@ packages:
       '@trpc/server': 10.19.1
     dev: false
 
-  /@trpc/client@10.37.1(@trpc/server@10.37.1):
-    resolution: {integrity: sha512-OSblNfeI0Z9ERn3usgLV2x63CwwPoNOHf1FQK85cOT7F8MNaWyEHoEv7tHUwNGJwyzKXmpU+ockZ0movzX3D0g==}
-    peerDependencies:
-      '@trpc/server': 10.37.1
-    dependencies:
-      '@trpc/server': 10.37.1
-    dev: false
-
   /@trpc/react-query@10.19.1(@tanstack/react-query@4.28.0)(@trpc/client@10.19.1)(@trpc/server@10.19.1)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-bKtv/hz1ssoH/56i72skRcJ2Q4/gUJhrxvqDD0sJ6PczsPq4xbyO2GDs/cPaVqDpYf2EEAG9nHo48t8fW/XQ/w==}
     peerDependencies:
@@ -5892,10 +5785,6 @@ packages:
 
   /@trpc/server@10.19.1:
     resolution: {integrity: sha512-LAa8BQhMYJL+GU28cigOPKlEogCEBeff1wIKflnUj34ou1ythwTboe7Mi6rjDW3Q9EasP7s9YmqRv9Fkp8fL4Q==}
-    dev: false
-
-  /@trpc/server@10.37.1:
-    resolution: {integrity: sha512-r3VeA319/braYMBIzj+XLgLKQ9lJSVglvPvP9HUv4kr5w6Y5grQMxMcExhTiZWltE9bnSJHKtBBzHafOo7KC8A==}
     dev: false
 
   /@types/babel__core@7.20.0:
@@ -7756,16 +7645,6 @@ packages:
     engines: {node: '>=6.0.0'}
     dependencies:
       esutils: 2.0.3
-
-  /dotenv-cli@7.1.0:
-    resolution: {integrity: sha512-motytjZFQB3ZtGTIN4c0vnFgv4kuNZ2WxVnGY6PVFiygCzkm3IFBBguDUzezd9HgNA0OYYd6vNCWlozs0Q1Zxg==}
-    hasBin: true
-    dependencies:
-      cross-spawn: 7.0.3
-      dotenv: 16.3.1
-      dotenv-expand: 10.0.0
-      minimist: 1.2.8
-    dev: true
 
   /dotenv-cli@7.2.1:
     resolution: {integrity: sha512-ODHbGTskqRtXAzZapDPvgNuDVQApu4oKX8lZW7Y0+9hKA6le1ZJlyRS687oU9FXjOVEDU/VFV6zI125HzhM1UQ==}
@@ -12065,14 +11944,6 @@ packages:
       ansi-styles: 5.2.0
       react-is: 18.2.0
     dev: false
-
-  /prisma@5.1.1:
-    resolution: {integrity: sha512-WJFG/U7sMmcc6TjJTTifTfpI6Wjoh55xl4AzopVwAdyK68L9/ogNo8QQ2cxuUjJf/Wa82z/uhyh3wMzvRIBphg==}
-    engines: {node: '>=16.13'}
-    hasBin: true
-    requiresBuild: true
-    dependencies:
-      '@prisma/engines': 5.1.1
 
   /process-nextick-args@2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
