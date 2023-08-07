@@ -40,7 +40,6 @@
     "superjson": "1.9.1"
   },
   "devDependencies": {
-
     "@acme/eslint-config": "*",
     "@acme/tailwind-config": "*",
     "@babel/core": "^7.21.4",
