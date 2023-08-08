@@ -1,5 +1,7 @@
 import { Suspense } from "react";
 import Link from "next/link";
+import getUsers from "@/actions/getUsers";
+import { supabase } from "@supabase/auth-ui-shared";
 import { formatRelative } from "date-fns";
 import { Activity, CreditCard, DollarSign, Users } from "lucide-react";
 
@@ -19,11 +21,16 @@ import {
 } from "@acme/ui";
 import * as Icons from "@acme/ui/src/icons";
 
+import { columns } from "../_components/_table-components/columns";
+import { DataTable } from "../_components/_table-components/data-table";
 // import { Overview } from "~/app/(dashboard)/[workspaceId]/[projectId]/_components/overview";
 // import { userCanAccess } from "~/lib/project-guard";
 // import type { RouterOutputs } from "~/trpc/server";
 // import { api } from "~/trpc/server";
 import { DashboardShell } from "../_components/dashboard-shell";
+import { LoadingCard } from "../_components/loading-card";
+import { Overview } from "../_components/overview";
+import { RecentSales } from "../_components/recent-sales";
 
 // import { LoadingCard } from "./_components/loading-card";
 
@@ -33,7 +40,14 @@ import { DashboardShell } from "../_components/dashboard-shell";
 //   const { projectId, workspaceId } = props.params;
 //   await userCanAccess(projectId);
 
+// this page will never be cached and the data will always be up to date
+// export const revalidate = 0;
+
 export default async function DashboardPage() {
+  const users = await getUsers();
+
+  console.log(users);
+
   return (
     <DashboardShell
       title="Dashboard"
@@ -42,16 +56,11 @@ export default async function DashboardPage() {
       <Tabs defaultValue="overview" className="space-y-4">
         <TabsList>
           <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="analytics" disabled>
-            Analytics
-          </TabsTrigger>
-          <TabsTrigger value="reports" disabled>
-            Reports
-          </TabsTrigger>
-          <TabsTrigger value="notifications" disabled>
-            Notifications
-          </TabsTrigger>
+          <TabsTrigger value="analytics">Analytics</TabsTrigger>
+          <TabsTrigger value="attendances">Attendances</TabsTrigger>
         </TabsList>
+
+        {/* TAB CONTENT - OVERVIEW */}
         <TabsContent value="overview" className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             <Card>
@@ -117,7 +126,7 @@ export default async function DashboardPage() {
               <CardContent className="pl-2">{/* <Overview /> */}</CardContent>
             </Card>
 
-            {/* <Suspense
+            <Suspense
               fallback={
                 <LoadingCard
                   title="Recent Ingestions"
@@ -125,101 +134,266 @@ export default async function DashboardPage() {
                   className="col-span-7 md:col-span-2 lg:col-span-3"
                 />
               }
-            >
-              <RecentIngestions
-                projectId={projectId}
-                workspaceId={workspaceId}
-              />
-            </Suspense> */}
+            ></Suspense>
+          </div>
+        </TabsContent>
+
+        {/* TAB CONTENT - ANALYTICS */}
+        <TabsContent value="analytics" className="space-y-4">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">
+                  Total Revenue
+                </CardTitle>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  className="h-4 w-4 text-muted-foreground"
+                >
+                  <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                </svg>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">$45,231.89</div>
+                <p className="text-xs text-muted-foreground">
+                  +20.1% from last month
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">
+                  Subscriptions
+                </CardTitle>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  className="h-4 w-4 text-muted-foreground"
+                >
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">+2350</div>
+                <p className="text-xs text-muted-foreground">
+                  +180.1% from last month
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Sales</CardTitle>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  className="h-4 w-4 text-muted-foreground"
+                >
+                  <rect width="20" height="14" x="2" y="5" rx="2" />
+                  <path d="M2 10h20" />
+                </svg>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">+12,234</div>
+                <p className="text-xs text-muted-foreground">
+                  +19% from last month
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">
+                  Active Now
+                </CardTitle>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  className="h-4 w-4 text-muted-foreground"
+                >
+                  <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                </svg>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">+573</div>
+                <p className="text-xs text-muted-foreground">
+                  +201 since last hour
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+            <Card className="col-span-4">
+              <CardHeader>
+                <CardTitle>Overview</CardTitle>
+              </CardHeader>
+              <CardContent className="pl-2">
+                <Overview />
+              </CardContent>
+            </Card>
+            <Card className="col-span-3">
+              <CardHeader>
+                <CardTitle>Recent Sales</CardTitle>
+                <CardDescription>
+                  You made 265 sales this month.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <RecentSales />
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+
+        {/* TAB CONTENT - DATA TABLE - ATTENDANCES */}
+        <TabsContent value="attendances" className="space-y-4">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">
+                  Total Revenue
+                </CardTitle>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  className="h-4 w-4 text-muted-foreground"
+                >
+                  <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                </svg>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">$45,231.89</div>
+                <p className="text-xs text-muted-foreground">
+                  +20.1% from last month
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">
+                  Subscriptions
+                </CardTitle>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  className="h-4 w-4 text-muted-foreground"
+                >
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">+2350</div>
+                <p className="text-xs text-muted-foreground">
+                  +180.1% from last month
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Sales</CardTitle>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  className="h-4 w-4 text-muted-foreground"
+                >
+                  <rect width="20" height="14" x="2" y="5" rx="2" />
+                  <path d="M2 10h20" />
+                </svg>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">+12,234</div>
+                <p className="text-xs text-muted-foreground">
+                  +19% from last month
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">
+                  Active Now
+                </CardTitle>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  className="h-4 w-4 text-muted-foreground"
+                >
+                  <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                </svg>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">+573</div>
+                <p className="text-xs text-muted-foreground">
+                  +201 since last hour
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+            <Card className="col-span-4">
+              <CardHeader>
+                <CardTitle>Overview</CardTitle>
+              </CardHeader>
+              <CardContent className="pl-2">
+                <DataTable data={users} columns={columns} />
+              </CardContent>
+            </Card>
+            <Card className="col-span-3">
+              <CardHeader>
+                <CardTitle>Recent Sales</CardTitle>
+                <CardDescription>
+                  You made 265 sales this month.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <RecentSales />
+              </CardContent>
+            </Card>
           </div>
         </TabsContent>
       </Tabs>
     </DashboardShell>
-  );
-}
-
-function IngestionCard(props: {
-  projectId: string;
-  workspaceId: string;
-  ingestion: RouterOutputs["ingestion"]["list"][number];
-}) {
-  const { ingestion } = props;
-  const { adds, subs } = ingestion;
-
-  const N_SQUARES = 5;
-  const addSquares = Math.round((adds / (adds + subs)) * N_SQUARES);
-
-  const truncatedHash = ingestion.hash.slice(0, 15);
-
-  return (
-    <Link
-      href={`/${props.workspaceId}/${props.projectId}/ingestions/${ingestion.id}`}
-    >
-      <div className="flex items-center rounded p-1 hover:bg-muted">
-        <div className="space-y-1">
-          <p className="text-sm font-medium leading-none">{truncatedHash}</p>
-          <p className="text-sm text-muted-foreground">
-            {formatRelative(ingestion.createdAt, new Date())}
-          </p>
-        </div>
-        <div className="ml-auto flex flex-col items-center text-sm">
-          <div>
-            +{adds} -{subs}
-          </div>
-          <div className="flex gap-[2px]">
-            {new Array(N_SQUARES).fill(null).map((_, i) => (
-              <span
-                key={i}
-                className={cn(
-                  "inline-block h-2 w-2",
-                  i < addSquares ? "bg-green-500" : "bg-red-500",
-                  adds + subs === 0 && "bg-gray-200",
-                )}
-              />
-            ))}
-          </div>
-        </div>
-
-        <Icons.ChevronRight className="ml-2 h-4 w-4" />
-      </div>
-    </Link>
-  );
-}
-
-async function RecentIngestions(props: {
-  projectId: string;
-  workspaceId: string;
-}) {
-  const ingestions = await api.ingestion.list.query({
-    projectId: props.projectId,
-    limit: 5,
-  });
-
-  return (
-    <Card className="col-span-7 md:col-span-2 lg:col-span-3">
-      <CardHeader>
-        <CardTitle>Recent Ingestions</CardTitle>
-        <CardDescription>
-          {ingestions.length} ingestion{ingestions.length > 1 ? "s" : null}{" "}
-          recorded this period.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        {ingestions.map((ingestion) => (
-          <IngestionCard
-            key={ingestion.id}
-            ingestion={ingestion}
-            projectId={props.projectId}
-            workspaceId={props.workspaceId}
-          />
-        ))}
-      </CardContent>
-      <CardFooter>
-        <Button size="sm" className="ml-auto">
-          View all
-          <Icons.ChevronRight className="ml-1 h-4 w-4" />
-        </Button>
-      </CardFooter>
-    </Card>
   );
 }
