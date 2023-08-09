@@ -254,7 +254,7 @@ export default async function DashboardPage() {
             </Card>
             <Card className="col-span-3">
               <CardHeader>
-                <CardTitle>Recent Sales</CardTitle>
+                <CardTitle>All Students</CardTitle>
                 <CardDescription>
                   You made 265 sales this month.
                 </CardDescription>
@@ -382,7 +382,7 @@ export default async function DashboardPage() {
             </Card>
             <Card className="col-span-3">
               <CardHeader>
-                <CardTitle>Recent Sales</CardTitle>
+                <CardTitle>All Students</CardTitle>
                 <CardDescription>
                   You made 265 sales this month.
                 </CardDescription>

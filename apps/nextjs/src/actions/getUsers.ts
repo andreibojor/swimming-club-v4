@@ -13,7 +13,10 @@ const getUsers = async (): Promise<UserInterface[]> => {
     cookies: cookies,
   });
 
-  const { data, error } = await supabase.from("users").select("*");
+  const { data, error } = await supabase
+    .from("users")
+    .select("*")
+    .eq("role", "student");
 
   if (error) {
     console.log(error);

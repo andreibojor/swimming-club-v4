@@ -1,15 +1,15 @@
 import { Suspense, type ReactNode } from "react";
+import { cookies } from "next/headers";
 import Link from "next/link";
 import { siteConfig } from "@/app/config";
 import { SiteFooter } from "@/components/footer";
 import { MobileDropdown } from "@/components/mobile-nav";
-
-// import { auth } from "@clerk/nextjs";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
 import { buttonVariants } from "@acme/ui";
 import * as Icons from "@acme/ui/src/icons";
 
-// import { MainNav } from "../dashboard/_components/main-nav";
+import { MainNav } from "../(dashboard)/_components/main-nav";
 
 export default function MarketingLayout(props: { children: ReactNode }) {
   return (
@@ -22,9 +22,11 @@ export default function MarketingLayout(props: { children: ReactNode }) {
           </span>
         </div>
         <MobileDropdown />
-        {/* <MainNav /> */}
+        <MainNav />
         <div className="ml-auto flex items-center space-x-4">
-          <Suspense>{/* <DashboardLink /> */}</Suspense>
+          <Suspense>
+            <DashboardLink />
+          </Suspense>
         </div>
       </nav>
 
@@ -34,23 +36,27 @@ export default function MarketingLayout(props: { children: ReactNode }) {
   );
 }
 
-function DashboardLink() {
-  //   const { userId, orgId } = auth();
-  //   if (!userId) {
-  //     return (
-  //       <Link href="/signin" className={buttonVariants({ variant: "outline" })}>
-  //         Sign In
-  //         <Icons.ChevronRight className="ml-1 h-4 w-4" />
-  //       </Link>
-  //     );
-  //   }
-  //   return (
-  //     <Link
-  //       href={`/${orgId ?? userId}`}
-  //       className={buttonVariants({ variant: "outline" })}
-  //     >
-  //       Dashboard
-  //       <Icons.ChevronRight className="ml-1 h-4 w-4" />
-  //     </Link>
-  //   );
+async function DashboardLink() {
+  const supabase = createServerComponentClient({
+    cookies: cookies,
+  });
+  const { data, error } = await supabase.auth.getSession();
+
+  if (!data) {
+    return (
+      <Link href="/signin" className={buttonVariants({ variant: "outline" })}>
+        Sign In
+        <Icons.ChevronRight className="ml-1 h-4 w-4" />
+      </Link>
+    );
+  }
+  return (
+    <Link
+      href={`/dashboard`}
+      className={buttonVariants({ variant: "outline" })}
+    >
+      Dashboard
+      <Icons.ChevronRight className="ml-1 h-4 w-4" />
+    </Link>
+  );
 }
