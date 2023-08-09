@@ -178,7 +178,7 @@ importers:
         specifier: ^0.1.6
         version: 0.1.6(@supabase/supabase-js@2.32.0)
       '@supabase/supabase-js':
-        specifier: ^2.32.0
+        specifier: ^2.31.0
         version: 2.32.0(encoding@0.1.13)
       '@vercel/analytics':
         specifier: ^1.0.1
@@ -199,8 +199,8 @@ importers:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
       react-hook-form:
-        specifier: ^7.45.4
-        version: 7.45.4(react@18.2.0)
+        specifier: ^7.45.1
+        version: 7.45.2(react@18.2.0)
       react-image-crop:
         specifier: ^10.1.5
         version: 10.1.5(react@18.2.0)
@@ -224,11 +224,11 @@ importers:
         specifier: ^0.2.0
         version: link:../../packages/config/eslint
       '@types/node':
-        specifier: ^18.17.4
+        specifier: ^18.17.2
         version: 18.17.4
       '@types/react':
-        specifier: ^18.2.19
-        version: 18.2.19
+        specifier: ^18.2.18
+        version: 18.2.18
       '@types/react-dom':
         specifier: ^18.2.7
         version: 18.2.7
@@ -248,7 +248,7 @@ importers:
         specifier: ^8.4.27
         version: 8.4.27
       supabase:
-        specifier: ^1.83.7
+        specifier: ^1.82.6
         version: 1.83.7
       tailwindcss:
         specifier: ^3.3.3
@@ -3001,7 +3001,7 @@ packages:
       send: 0.18.0
       slugify: 1.6.5
       structured-headers: 0.4.1
-      tar: 6.1.13
+      tar: 6.1.15
       tempy: 0.7.1
       terminal-link: 2.1.1
       text-table: 0.2.0
@@ -3056,7 +3056,7 @@ packages:
       getenv: 1.0.0
       glob: 7.1.6
       resolve-from: 5.0.0
-      semver: 7.5.3
+      semver: 7.5.4
       slash: 3.0.0
       xcode: 3.0.1
       xml2js: 0.6.0
@@ -3457,7 +3457,7 @@ packages:
     dependencies:
       '@jest/fake-timers': 29.4.2
       '@jest/types': 29.4.2
-      '@types/node': 20.4.9
+      '@types/node': 18.17.4
       jest-mock: 29.4.2
     dev: false
 
@@ -3467,7 +3467,7 @@ packages:
     dependencies:
       '@jest/types': 29.4.2
       '@sinonjs/fake-timers': 10.0.2
-      '@types/node': 20.4.9
+      '@types/node': 18.17.4
       jest-message-util: 29.4.2
       jest-mock: 29.4.2
       jest-util: 29.4.2
@@ -3493,7 +3493,7 @@ packages:
     dependencies:
       '@types/istanbul-lib-coverage': 2.0.4
       '@types/istanbul-reports': 3.0.1
-      '@types/node': 20.4.9
+      '@types/node': 18.17.4
       '@types/yargs': 15.0.15
       chalk: 4.1.2
     dev: false
@@ -3504,7 +3504,7 @@ packages:
     dependencies:
       '@types/istanbul-lib-coverage': 2.0.4
       '@types/istanbul-reports': 3.0.1
-      '@types/node': 20.4.9
+      '@types/node': 18.17.4
       '@types/yargs': 16.0.5
       chalk: 4.1.2
     dev: false
@@ -3516,7 +3516,7 @@ packages:
       '@jest/schemas': 29.4.2
       '@types/istanbul-lib-coverage': 2.0.4
       '@types/istanbul-reports': 3.0.1
-      '@types/node': 20.4.9
+      '@types/node': 18.17.4
       '@types/yargs': 17.0.19
       chalk: 4.1.2
     dev: false
@@ -3528,7 +3528,7 @@ packages:
       '@jest/schemas': 29.6.0
       '@types/istanbul-lib-coverage': 2.0.4
       '@types/istanbul-reports': 3.0.1
-      '@types/node': 20.4.9
+      '@types/node': 18.17.4
       '@types/yargs': 17.0.24
       chalk: 4.1.2
     dev: false
@@ -5620,7 +5620,7 @@ packages:
   /@supabase/functions-js@2.1.0:
     resolution: {integrity: sha512-vRziB+AqRXRaGHjEFHwBo0kuNDTuAxI7VUeqU24Fe86ISoD8YEQm0dGdpleJEcqgDGWaO6pxT1tfj1BRY5PwMg==}
     dependencies:
-      cross-fetch: 3.1.5
+      cross-fetch: 3.1.8(encoding@0.1.13)
     transitivePeerDependencies:
       - encoding
     dev: false
@@ -5636,7 +5636,7 @@ packages:
   /@supabase/gotrue-js@2.22.1:
     resolution: {integrity: sha512-hwM8dFzGqqU/xqv9coxIpujSU++bs2Vw6EiZZSeUdGZkeKQ07YXFlNG56aQKkwnpHRIQjHSgZ2bAoVX1n9Owbw==}
     dependencies:
-      cross-fetch: 3.1.5
+      cross-fetch: 3.1.8(encoding@0.1.13)
     transitivePeerDependencies:
       - encoding
     dev: false
@@ -5652,7 +5652,7 @@ packages:
   /@supabase/postgrest-js@1.5.0:
     resolution: {integrity: sha512-YaU1HBE43Ba+FGmnXuvK+xYeHylkDKd04PYeKDUCoE2bUHoxSDqnjHbOwmLjnusGZi3X1MrFeUH1Wwb4bHYyIg==}
     dependencies:
-      cross-fetch: 3.1.5
+      cross-fetch: 3.1.8(encoding@0.1.13)
     transitivePeerDependencies:
       - encoding
     dev: false
@@ -5668,7 +5668,7 @@ packages:
   /@supabase/realtime-js@2.7.2:
     resolution: {integrity: sha512-Fi6xAl5PUkqnjl3wo4rdcQIbMG3+yTRX1aUZe/yfvTG84RMvmCXJ1yN6MmafVLeZpU1xkaz5Vx4L0tnHcLiy6w==}
     dependencies:
-      '@types/phoenix': 1.5.5
+      '@types/phoenix': 1.6.0
       '@types/websocket': 1.0.5
       websocket: 1.0.34
     transitivePeerDependencies:
@@ -5877,7 +5877,7 @@ packages:
   /@types/keyv@3.1.4:
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
     dependencies:
-      '@types/node': 20.4.9
+      '@types/node': 18.17.4
     dev: false
 
   /@types/node@12.20.55:
@@ -5886,14 +5886,6 @@ packages:
 
   /@types/node@18.17.4:
     resolution: {integrity: sha512-ATL4WLgr7/W40+Sp1WnNTSKbgVn6Pvhc/2RHAdt8fl6NsQyp4oPCi2eKcGOvA494bwf1K/W6nGgZ9TwDqvpjdw==}
-
-  /@types/node@20.4.9:
-    resolution: {integrity: sha512-8e2HYcg7ohnTUbHk8focoklEQYvemQmu9M/f43DZVx43kHn0tE3BY/6gSDxS7k0SprtS0NHvj+L80cGLnoOUcQ==}
-    dev: false
-
-  /@types/phoenix@1.5.5:
-    resolution: {integrity: sha512-1eWWT19k0L4ZiTvdXjAvJ9KvW0B8SdiVftQmFPJGTEx78Q4PCSIQDpz+EfkFVR1N4U9gREjlW4JXL8YCIlY0bw==}
-    dev: false
 
   /@types/phoenix@1.6.0:
     resolution: {integrity: sha512-qwfpsHmFuhAS/dVd4uBIraMxRd56vwBUYQGZ6GpXnFuM2XMRFJbIyruFKKlW2daQliuYZwe0qfn/UjFCDKic5g==}
@@ -5940,7 +5932,7 @@ packages:
   /@types/responselike@1.0.0:
     resolution: {integrity: sha512-85Y2BjiufFzaMIlvJDvTTB8Fxl2xfLo4HgmHzVBz08w4wDePCTjYw66PdrolO0kzli3yam/YCgRufyo1DdQVTA==}
     dependencies:
-      '@types/node': 20.4.9
+      '@types/node': 18.17.4
     dev: false
 
   /@types/scheduler@0.16.2:
@@ -6900,7 +6892,7 @@ packages:
       glob: 7.2.3
       infer-owner: 1.0.4
       lru-cache: 6.0.0
-      minipass: 3.1.6
+      minipass: 3.3.6
       minipass-collect: 1.0.2
       minipass-flush: 1.0.5
       minipass-pipeline: 1.2.4
@@ -6909,7 +6901,7 @@ packages:
       promise-inflight: 1.0.1
       rimraf: 3.0.2
       ssri: 8.0.1
-      tar: 6.1.13
+      tar: 6.1.15
       unique-filename: 1.1.1
     transitivePeerDependencies:
       - bluebird
@@ -9715,7 +9707,7 @@ packages:
       '@jest/environment': 29.4.2
       '@jest/fake-timers': 29.4.2
       '@jest/types': 29.4.2
-      '@types/node': 20.4.9
+      '@types/node': 18.17.4
       jest-mock: 29.4.2
       jest-util: 29.4.2
     dev: false
@@ -9750,7 +9742,7 @@ packages:
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
       '@jest/types': 29.4.2
-      '@types/node': 20.4.9
+      '@types/node': 18.17.4
       jest-util: 29.4.2
     dev: false
 
@@ -9763,7 +9755,7 @@ packages:
     resolution: {integrity: sha512-jZCyo6iIxO1aqUxpuBlwTDMkzOAJS4a3eYz3YzgxxVQFwLeSA7Jfq5cbqCY+JLvTDrWirgusI/0KwxKMgrdf7w==}
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
     dependencies:
-      '@types/node': 20.4.9
+      '@types/node': 18.17.4
       graceful-fs: 4.2.11
     dev: false
 
@@ -9772,7 +9764,7 @@ packages:
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
     dependencies:
       '@jest/types': 27.5.1
-      '@types/node': 20.4.9
+      '@types/node': 18.17.4
       chalk: 4.1.2
       ci-info: 3.7.1
       graceful-fs: 4.2.11
@@ -9784,7 +9776,7 @@ packages:
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
       '@jest/types': 29.4.2
-      '@types/node': 20.4.9
+      '@types/node': 18.17.4
       chalk: 4.1.2
       ci-info: 3.7.1
       graceful-fs: 4.2.11
@@ -9819,7 +9811,7 @@ packages:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 20.4.9
+      '@types/node': 18.17.4
       merge-stream: 2.0.0
       supports-color: 8.1.1
     dev: false
@@ -10914,21 +10906,21 @@ packages:
     resolution: {integrity: sha512-6T6lH0H8OG9kITm/Jm6tdooIbogG9e0tLgpY6mphXSm/A9u8Nq1ryBG+Qspiub9LjWlBPsPS3tWQ/Botq4FdxA==}
     engines: {node: '>= 8'}
     dependencies:
-      minipass: 3.1.6
+      minipass: 3.3.6
     dev: false
 
   /minipass-flush@1.0.5:
     resolution: {integrity: sha512-JmQSYYpPUqX5Jyn1mXaRwOda1uQ8HP5KAT/oDSLCzt1BYRhQU0/hDtsB1ufZfEEzMZ9aAVmsBw8+FWsIXlClWw==}
     engines: {node: '>= 8'}
     dependencies:
-      minipass: 3.1.6
+      minipass: 3.3.6
     dev: false
 
   /minipass-pipeline@1.2.4:
     resolution: {integrity: sha512-xuIq7cIOt09RPRJ19gdi4b+RiNvDFYe5JH+ggNvBqGqpQXcru3PcRmOZuHBKWK1Txf9+cQ+HMVN4d6z46LZP7A==}
     engines: {node: '>=8'}
     dependencies:
-      minipass: 3.1.6
+      minipass: 3.3.6
     dev: false
 
   /minipass@3.1.6:
@@ -10944,15 +10936,9 @@ packages:
     dependencies:
       yallist: 4.0.0
 
-  /minipass@4.2.8:
-    resolution: {integrity: sha512-fNzuVyifolSLFL4NzpF+wEF4qrgqaaKX0haXPQEdQ7NKAN+WecoKMHV09YcuL/DHxrUsYQOK3MiuDf7Ip2OXfQ==}
-    engines: {node: '>=8'}
-    dev: false
-
   /minipass@5.0.0:
     resolution: {integrity: sha512-3FnjYuehv9k6ovOEbyOswadCDPX1piCfhV8ncmYtHOjuPwylVWsghTLo7rabjC3Rx5xD4HDx8Wm1xnMF7S5qFQ==}
     engines: {node: '>=8'}
-    dev: true
 
   /minizlib@2.1.2:
     resolution: {integrity: sha512-bAxsR8BVfj60DWXHE3u30oHzfl4G7khkSuPW+qvpd7jFRHm7dLxOjUk1EHACJ/hxLY8phGJ0YhYHZo7jil7Qdg==}
@@ -12184,16 +12170,6 @@ packages:
       react: ^16.8.0 || ^17 || ^18
     dependencies:
       react: 18.2.0
-    dev: true
-
-  /react-hook-form@7.45.4(react@18.2.0):
-    resolution: {integrity: sha512-HGDV1JOOBPZj10LB3+OZgfDBTn+IeEsNOKiq/cxbQAIbKaiJUe/KV8DBUzsx0Gx/7IG/orWqRRm736JwOfUSWQ==}
-    engines: {node: '>=12.22.0'}
-    peerDependencies:
-      react: ^16.8.0 || ^17 || ^18
-    dependencies:
-      react: 18.2.0
-    dev: false
 
   /react-image-crop@10.1.5(react@18.2.0):
     resolution: {integrity: sha512-BL8Rd/UHCE4O5GcYQiWDKVh5JOJb0Ic/Gde2W171v5nY7RyQzFLM1cxIzlYfESLO/lNgBVhDHuEV9RHnqALMkA==}
@@ -13138,7 +13114,7 @@ packages:
     resolution: {integrity: sha512-97qShzy1AiyxvPNIkLWoGua7xoQzzPjQ0HAH4B0rWKo7SZ6USuPcrUiAFrws0UH8RrbWmgq3LMTObhPIHbbBeQ==}
     engines: {node: '>= 8'}
     dependencies:
-      minipass: 3.1.6
+      minipass: 3.3.6
     dev: false
 
   /stack-utils@2.0.6:
@@ -13491,18 +13467,6 @@ packages:
     transitivePeerDependencies:
       - ts-node
 
-  /tar@6.1.13:
-    resolution: {integrity: sha512-jdIBIN6LTIe2jqzay/2vtYLlBHa3JF42ot3h1dW8Q0PaAG4v8rm0cvpVePtau5C6OKXGGcgO9q2AMNSWxiLqKw==}
-    engines: {node: '>=10'}
-    dependencies:
-      chownr: 2.0.0
-      fs-minipass: 2.1.0
-      minipass: 4.2.8
-      minizlib: 2.1.2
-      mkdirp: 1.0.4
-      yallist: 4.0.0
-    dev: false
-
   /tar@6.1.15:
     resolution: {integrity: sha512-/zKt9UyngnxIT/EAGYuxaMYgOIJiP81ab9ZfkILq4oNLPFX50qyYmu7jRj9qeXoxmJHjGlbH0+cm2uy1WCs10A==}
     engines: {node: '>=10'}
@@ -13513,7 +13477,6 @@ packages:
       minizlib: 2.1.2
       mkdirp: 1.0.4
       yallist: 4.0.0
-    dev: true
 
   /temp-dir@1.0.0:
     resolution: {integrity: sha512-xZFXEGbG7SNC3itwBzI3RYjq/cEhBkx2hJuKGIUOcEULmkQExXiHat2z/qkISYsuR+IKumhEfKKbV5qXmhICFQ==}
