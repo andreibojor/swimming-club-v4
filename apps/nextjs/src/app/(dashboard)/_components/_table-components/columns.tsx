@@ -1,23 +1,30 @@
 "use client";
 
-import { ColumnDef } from "@tanstack/react-table";
+import AttendanceButton from "@/components/attendance-button";
+import type { ColumnDef } from "@tanstack/react-table";
 
-import { Label, Switch } from "@acme/ui";
+import { Avatar, AvatarFallback, AvatarImage } from "@acme/ui";
 
-// import { priorities, statuses } from "../data/data";
 // import { Task } from "../data/schema";
 import { DataTableColumnHeader } from "./data-table-column-header";
 import { DataTableRowActions } from "./data-table-row-actions";
 
 export const columns: ColumnDef<Task>[] = [
   {
-    accessorKey: "id",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Task" />
-    ),
-    cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
-    enableSorting: false,
-    enableHiding: false,
+    accessorKey: "avatar_url",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="" />,
+    cell: ({ row }) => {
+      // const label = labels.find((label) => label.value === row.original.label);
+
+      return (
+        <div className="flex items-center">
+          <Avatar className="h-9 w-9">
+            <AvatarImage src={row.getValue("avatar_url")} alt="Avatar" />
+            <AvatarFallback>IN</AvatarFallback>
+          </Avatar>
+        </div>
+      );
+    },
   },
   {
     accessorKey: "full_name",
@@ -28,11 +35,15 @@ export const columns: ColumnDef<Task>[] = [
       // const label = labels.find((label) => label.value === row.original.label);
 
       return (
-        <div className="flex space-x-2">
-          {/* {label && <Badge variant="outline">{label.label}</Badge>} */}
-          <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("full_name")}
-          </span>
+        <div className="flex items-center">
+          <div className="space-y-1">
+            <p className="text-sm font-medium leading-none">
+              {row.getValue("full_name")}
+            </p>
+            <p className="text-sm text-muted-foreground">
+              isabella.nguyen@email.com
+            </p>
+          </div>
         </div>
       );
     },
@@ -53,8 +64,7 @@ export const columns: ColumnDef<Task>[] = [
 
       return (
         <div className="flex items-center space-x-2">
-          <Switch id="airplane-mode" />
-          <Label htmlFor="airplane-mode">Airplane Mode</Label>
+          <AttendanceButton />
         </div>
       );
     },
