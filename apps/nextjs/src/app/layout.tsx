@@ -11,8 +11,6 @@ import { cn } from "@acme/ui";
 
 import { siteConfig } from "./config";
 
-// import { TRPCReactProvider } from "./providers";
-
 const fontSans = Inter({
   subsets: ["latin"],
   variable: "--font-sans",

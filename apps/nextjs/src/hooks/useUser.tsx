@@ -1,26 +1,26 @@
+"use client";
+
 import { createContext, useContext, useEffect, useState } from "react";
-import { Subscription, UserDetails } from "@/types";
+import type { Subscription, UserDetails } from "@/types";
 import {
-  User,
   useSessionContext,
   useUser as useSupaUser,
+  type User,
 } from "@supabase/auth-helpers-react";
 
-type UserContextType = {
+interface UserContextType {
   accessToken: string | null;
   user: User | null;
   userDetails: UserDetails | null;
   isLoading: boolean;
   subscription: Subscription | null;
-};
+}
 
 export const UserContext = createContext<UserContextType | undefined>(
   undefined,
 );
 
-export interface Props {
-  [propName: string]: any;
-}
+export type Props = Record<string, any>;
 
 export const MyUserContextProvider = (props: Props) => {
   const {
@@ -45,7 +45,7 @@ export const MyUserContextProvider = (props: Props) => {
   useEffect(() => {
     if (user && !isLoadingData && !userDetails && !subscription) {
       setIsloadingData(true);
-      Promise.allSettled([getUserDetails(), getSubscription()]).then(
+      void Promise.allSettled([getUserDetails(), getSubscription()]).then(
         (results) => {
           const userDetailsPromise = results[0];
           const subscriptionPromise = results[1];
