@@ -3,13 +3,43 @@
 import AttendanceButton from "@/components/attendance-button";
 import type { ColumnDef } from "@tanstack/react-table";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@acme/ui";
+import { Avatar, AvatarFallback, AvatarImage, Checkbox } from "@acme/ui";
 
 // import { Task } from "../data/schema";
 import { DataTableColumnHeader } from "./data-table-column-header";
 import { DataTableRowActions } from "./data-table-row-actions";
 
 export const columns: ColumnDef<Task>[] = [
+  // {
+  //   id: "select",
+  //   header: ({ table }) => (
+  //     <Checkbox
+  //       checked={table.getIsAllPageRowsSelected()}
+  //       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+  //       aria-label="Select all"
+  //       className="translate-y-[2px]"
+  //     />
+  //   ),
+  //   cell: ({ row }) => (
+  //     <Checkbox
+  //       checked={row.getIsSelected()}
+  //       onCheckedChange={(value) => row.toggleSelected(!!value)}
+  //       aria-label="Select row"
+  //       className="translate-y-[2px]"
+  //     />
+  //   ),
+  //   enableSorting: false,
+  //   enableHiding: false,
+  // },
+  {
+    accessorKey: "id",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Task" />
+    ),
+    cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
+    enableSorting: false,
+    enableHiding: false,
+  },
   {
     accessorKey: "avatar_url",
     header: ({ column }) => <DataTableColumnHeader column={column} title="" />,
@@ -35,15 +65,11 @@ export const columns: ColumnDef<Task>[] = [
       // const label = labels.find((label) => label.value === row.original.label);
 
       return (
-        <div className="flex items-center">
-          <div className="space-y-1">
-            <p className="text-sm font-medium leading-none">
-              {row.getValue("full_name")}
-            </p>
-            <p className="text-sm text-muted-foreground">
-              isabella.nguyen@email.com
-            </p>
-          </div>
+        <div className="flex space-x-2">
+          {/* {label && <Badge variant="outline">{label.label}</Badge>} */}
+          <span className="max-w-[500px] truncate font-medium">
+            {row.getValue("full_name")}
+          </span>
         </div>
       );
     },
@@ -64,15 +90,15 @@ export const columns: ColumnDef<Task>[] = [
 
       return (
         <div className="flex items-center space-x-2">
-          <AttendanceButton studentId={row.getValue("id")} />
+          <AttendanceButton
+            studentId={row.getValue("id")}
+            checked={row.getValue("attendance")}
+          />
+          <span>{row.getValue("attendance") ? true : false}</span>
         </div>
       );
     },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
-    },
   },
-
   // {
   //   accessorKey: "status",
   //   header: ({ column }) => (

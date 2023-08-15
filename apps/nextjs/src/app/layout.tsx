@@ -9,6 +9,7 @@ import UserProvider from "@/providers/UserProvider";
 
 import { cn } from "@acme/ui";
 
+// TODO: Add in the database foreign key of user_id connected to auth_user id. I removed it to be able to populate the users table with fictive users GoT characters
 import { siteConfig } from "./config";
 
 const fontSans = Inter({

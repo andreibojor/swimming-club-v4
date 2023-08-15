@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-// import useAuthModal from "@/hooks/useAuthModal";
 import { useUser } from "@/hooks/useUser";
 import { useSessionContext } from "@supabase/auth-helpers-react";
 import { toast } from "react-hot-toast";
@@ -11,52 +10,49 @@ import { Switch } from "@acme/ui";
 
 interface LikeButtonProps {
   studentId: string;
+  checked: boolean;
 }
 
-const AttendanceButton: React.FC<LikeButtonProps> = ({ studentId }) => {
+const AttendanceButton: React.FC<LikeButtonProps> = ({
+  studentId,
+  checked,
+}) => {
   const router = useRouter();
   const { supabaseClient } = useSessionContext();
-  // const authModal = useAuthModal();
-  const { user } = useUser();
-
-  const [isPresent, setIsPresent] = useState<boolean>(false);
+  const [isPresent, setIsPresent] = useState<boolean>(checked);
 
   useEffect(() => {
-    if (!user?.id) {
-      return;
-    }
-
     const fetchData = async () => {
       const { data, error } = await supabaseClient
         .from("attendance_record")
         .select("*")
-        .eq("id", user.id)
         .eq("student_id", studentId)
         .single();
 
       if (!error && data) {
         setIsPresent(true);
       }
+      console.log("fetchData():", data);
     };
 
     void fetchData();
-  }, [studentId, supabaseClient, user?.id]);
+    // }, [studentId, supabaseClient, user?.id]);
+  }, [studentId, supabaseClient]);
 
-  // Date Format DD/MM/YYYY
-  const date = new Date().toLocaleDateString("en-GB");
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+  const day = String(currentDate.getDate()).padStart(2, "0");
+  const formattedDate = `${year}-${month}-${day}`;
 
   const handleAttendance = async () => {
     console.log("studentId:", studentId);
-    if (!user) {
-      // return authModal.onOpen();
-      console.log("login please");
-    }
+    console.log("attendance: ", checked);
 
     if (isPresent) {
       const { error } = await supabaseClient
         .from("attendance_record")
         .delete()
-        .eq("id", user.id)
         .eq("student_id", studentId);
 
       if (error) {
@@ -67,9 +63,9 @@ const AttendanceButton: React.FC<LikeButtonProps> = ({ studentId }) => {
       }
     } else {
       const { error } = await supabaseClient.from("attendance_record").insert({
-        // id: user.id,
-        date: date,
-        // student_id: studentId,
+        date: formattedDate,
+        student_id: studentId,
+        attendance: true,
       });
 
       if (error) {
@@ -85,11 +81,7 @@ const AttendanceButton: React.FC<LikeButtonProps> = ({ studentId }) => {
   };
 
   return (
-    <Switch
-      id="airplane-mode"
-      className="h-9 w-12"
-      onClick={handleAttendance}
-    />
+    <Switch className="h-9 w-12" onClick={handleAttendance} checked={checked} />
   );
 };
 
