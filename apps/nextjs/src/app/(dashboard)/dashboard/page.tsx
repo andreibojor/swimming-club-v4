@@ -27,17 +27,17 @@ import { RecentSales } from "../_components/recent-sales";
 // this page will never be cached and the data will always be up to date
 // export const revalidate = 0;
 
-const supabase = cache(() => {
-  const cookieStore = cookies();
-  return createServerComponentClient({ cookies: () => cookieStore });
-});
+// const supabase = cache(() => {
+//   const cookieStore = cookies();
+//   return createServerComponentClient({ cookies: () => cookieStore });
+// });
 
-export default async function DashboardPage() {
+export default function DashboardPage() {
   // const users = await getUsers();
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  // const {
+  //   data: { session },
+  // } = await supabase.auth.getSession();
 
   return (
     <DashboardShell
@@ -45,7 +45,7 @@ export default async function DashboardPage() {
       description="Get an overview of how the project is going"
     >
       <h1 className="text-2xl font-bold">
-        Welcome, {session?.user.user_metadata.full_name}!
+        {/* Welcome, {session?.user.user_metadata.full_name}! */}
       </h1>
       <div className="max-w-[50wv]">
         {/* <DataTable data={users} columns={columns} /> */}
