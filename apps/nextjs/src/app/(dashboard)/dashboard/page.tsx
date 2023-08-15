@@ -1,8 +1,8 @@
 import { Suspense } from "react";
-// import { cookies } from "next/headers";
-
-// import getUsers from "@/actions/getUsers";
-
+import { cookies } from "next/headers";
+import getUsers from "@/actions/getUsers";
+import type { Database } from "@/types_db";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Activity, CreditCard, DollarSign, Users } from "lucide-react";
 
 import {
@@ -18,8 +18,8 @@ import {
   TabsTrigger,
 } from "@acme/ui";
 
-// import { columns } from "../_components/_table-components/columns";
-// import { DataTable } from "../_components/_table-components/data-table";
+import { columns } from "../_components/_table-components/columns";
+import { DataTable } from "../_components/_table-components/data-table";
 import { DashboardShell } from "../_components/dashboard-shell";
 import { LoadingCard } from "../_components/loading-card";
 import { RecentSales } from "../_components/recent-sales";
@@ -27,13 +27,13 @@ import { RecentSales } from "../_components/recent-sales";
 // this page will never be cached and the data will always be up to date
 // export const revalidate = 0;
 
-export default function DashboardPage() {
-  // const users = await getUsers();
+export default async function DashboardPage() {
+  const users = await getUsers();
 
-  // const supabase = createServerComponentClient<Database>({ cookies });
-  // const {
-  //   data: { session },
-  // } = await supabase.auth.getSession();
+  const supabase = createServerComponentClient<Database>({ cookies });
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
 
   return (
     <DashboardShell
@@ -41,10 +41,10 @@ export default function DashboardPage() {
       description="Get an overview of how the project is going"
     >
       <h1 className="text-2xl font-bold">
-        {/* Welcome, {session?.user.user_metadata.full_name}! */}
+        Welcome, {session?.user.user_metadata.full_name}!
       </h1>
       <div className="max-w-[50wv]">
-        {/* <DataTable data={users} columns={columns} /> */}
+        <DataTable data={users} columns={columns} />
       </div>
       <Tabs defaultValue="overview" className="space-y-4">
         <TabsList>
