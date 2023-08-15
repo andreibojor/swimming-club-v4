@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { cookies } from "next/headers";
+// import { cookies } from "next/headers";
 import Link from "next/link";
 import getUsers from "@/actions/getUsers";
 import type { Database } from "@/types_db";
@@ -34,10 +34,10 @@ export const revalidate = 0;
 export default async function DashboardPage() {
   const users = await getUsers();
 
-  const supabase = createServerComponentClient<Database>({ cookies });
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  // const supabase = createServerComponentClient<Database>({ cookies });
+  // const {
+  //   data: { session },
+  // } = await supabase.auth.getSession();
 
   return (
     <DashboardShell
@@ -45,7 +45,7 @@ export default async function DashboardPage() {
       description="Get an overview of how the project is going"
     >
       <h1 className="text-2xl font-bold">
-        Welcome, {session?.user.user_metadata.full_name}!
+        {/* Welcome, {session?.user.user_metadata.full_name}! */}
       </h1>
       <div className="max-w-[50wv]">
         <DataTable data={users} columns={columns} />
