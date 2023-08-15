@@ -1,5 +1,4 @@
 import { Suspense, type ReactNode } from "react";
-import { cookies } from "next/headers";
 import Link from "next/link";
 import { createServerComponentClient } from "@/actions/createServerComponentClient";
 import { siteConfig } from "@/app/config";
