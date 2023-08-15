@@ -1,8 +1,6 @@
-import { Suspense, cache } from "react";
-import { cookies } from "next/headers";
+import { Suspense } from "react";
+import { createServerComponentClient } from "@/actions/createServerComponentClient";
 import getUsers from "@/actions/getUsers";
-import type { Database } from "@/types_db";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Activity, CreditCard, DollarSign, Users } from "lucide-react";
 
 import {
@@ -27,17 +25,12 @@ import { RecentSales } from "../_components/recent-sales";
 // this page will never be cached and the data will always be up to date
 // export const revalidate = 0;
 
-// const supabase = cache(() => {
-//   const cookieStore = cookies();
-//   return createServerComponentClient({ cookies: () => cookieStore });
-// });
-
-export default function DashboardPage() {
+export default async function DashboardPage() {
   // const users = await getUsers();
-
-  // const {
-  //   data: { session },
-  // } = await supabase.auth.getSession();
+  const supabase = createServerComponentClient();
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
 
   return (
     <DashboardShell
@@ -45,7 +38,7 @@ export default function DashboardPage() {
       description="Get an overview of how the project is going"
     >
       <h1 className="text-2xl font-bold">
-        {/* Welcome, {session?.user.user_metadata.full_name}! */}
+        Welcome, {session?.user.user_metadata.full_name}!
       </h1>
       <div className="max-w-[50wv]">
         {/* <DataTable data={users} columns={columns} /> */}
