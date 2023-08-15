@@ -27,13 +27,13 @@ import { RecentSales } from "../_components/recent-sales";
 // this page will never be cached and the data will always be up to date
 // export const revalidate = 0;
 
+const supabase = cache(() => {
+  const cookieStore = cookies();
+  return createServerComponentClient({ cookies: () => cookieStore });
+});
+
 export default async function DashboardPage() {
   // const users = await getUsers();
-
-  const supabase = cache(() => {
-    const cookieStore = cookies();
-    return createServerComponentClient({ cookies: () => cookieStore });
-  });
 
   const {
     data: { session },
