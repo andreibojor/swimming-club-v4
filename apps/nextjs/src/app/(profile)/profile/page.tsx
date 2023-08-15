@@ -1,4 +1,5 @@
 import { marketingFeatures, siteConfig } from "@/app/config";
+import AttendancePieChart from "@/components/attendance-piechart";
 import Balancer from "react-wrap-balancer";
 
 import {
@@ -23,7 +24,7 @@ export default function DashboardPage() {
         <h2 className="pt-4 text-center text-3xl font-bold md:text-4xl">
           Rick & Morty
         </h2>
-        <p className="pb-8 pt-4 text-center text-lg">prezente</p>
+        <AttendancePieChart />
         <p className="pb-8 pt-4 text-center text-lg">
           <Balancer>daca e parinte sa poata sa vada copiii</Balancer>
         </p>

@@ -30,6 +30,7 @@
     "react-hook-form": "^7.45.4",
     "react-image-crop": "^10.1.5",
     "react-wrap-balancer": "^1.0.0",
+    "recharts": "^2.7.3",
     "stripe": "^12.17.0",
     "superjson": "1.12.4",
     "tailwindcss-animate": "^1.0.6",
