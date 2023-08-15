@@ -18,8 +18,8 @@ import {
   TabsTrigger,
 } from "@acme/ui";
 
-import { columns } from "../_components/_table-components/columns";
-import { DataTable } from "../_components/_table-components/data-table";
+// import { columns } from "../_components/_table-components/columns";
+// import { DataTable } from "../_components/_table-components/data-table";
 import { DashboardShell } from "../_components/dashboard-shell";
 import { LoadingCard } from "../_components/loading-card";
 import { RecentSales } from "../_components/recent-sales";
@@ -27,7 +27,7 @@ import { RecentSales } from "../_components/recent-sales";
 // this page will never be cached and the data will always be up to date
 // export const revalidate = 0;
 
-export default async function DashboardPage() {
+export default function DashboardPage() {
   // const users = await getUsers();
 
   // const supabase = createServerComponentClient<Database>({ cookies });

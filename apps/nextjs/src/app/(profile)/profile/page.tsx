@@ -1,4 +1,4 @@
-import { marketingFeatures, siteConfig } from "@/app/config";
+import { marketingFeatures } from "@/app/config";
 import AttendancePieChart from "@/components/attendance-piechart";
 import Balancer from "react-wrap-balancer";
 
@@ -10,7 +10,6 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-  buttonVariants,
   cn,
 } from "@acme/ui";
 

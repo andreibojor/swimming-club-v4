@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useUser } from "@/hooks/useUser";
+// import { useUser } from "@/hooks/useUser";
 import { useSessionContext } from "@supabase/auth-helpers-react";
-import { toast } from "react-hot-toast";
+
+// import { toast } from "react-hot-toast";
 
 import { Switch } from "@acme/ui";
 
