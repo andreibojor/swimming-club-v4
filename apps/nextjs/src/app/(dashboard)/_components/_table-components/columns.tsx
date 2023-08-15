@@ -3,7 +3,7 @@
 import AttendanceButton from "@/components/attendance-button";
 import type { ColumnDef } from "@tanstack/react-table";
 
-import { Avatar, AvatarFallback, AvatarImage, Checkbox } from "@acme/ui";
+import { Avatar, AvatarFallback, AvatarImage } from "@acme/ui";
 
 // import { Task } from "../data/schema";
 import { DataTableColumnHeader } from "./data-table-column-header";
