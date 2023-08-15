@@ -3,21 +3,19 @@
 import { Cell, Pie, PieChart, ResponsiveContainer, Sector } from "recharts";
 
 const data = [
-  { name: "Group A", value: 400 },
-  { name: "Group B", value: 300 },
-  { name: "Group C", value: 300 },
-  { name: "Group D", value: 200 },
+  { name: "Group A", value: 300 },
+  { name: "Group B", value: 700 },
 ];
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+const COLORS = ["#00C49F", "#0088FE"];
 
 export default function AttendancePieChart() {
   return (
-    <ResponsiveContainer width="100%" height={350}>
-      <PieChart width={800} height={350}>
+    <ResponsiveContainer width="100%" height={200}>
+      <PieChart width={800} height={200}>
         <Pie
           data={data}
-          cx={120}
-          cy={200}
+          // cx={120}
+          // cy={200}
           innerRadius={60}
           outerRadius={80}
           fill="#8884d8"
