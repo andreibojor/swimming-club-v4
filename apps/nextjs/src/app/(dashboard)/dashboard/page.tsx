@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Suspense, cache } from "react";
 import { cookies } from "next/headers";
 import getUsers from "@/actions/getUsers";
 import type { Database } from "@/types_db";
@@ -30,10 +30,14 @@ import { RecentSales } from "../_components/recent-sales";
 export default async function DashboardPage() {
   // const users = await getUsers();
 
-  // const supabase = createServerComponentClient<Database>({ cookies });
-  // const {
-  //   data: { session },
-  // } = await supabase.auth.getSession();
+  const supabase = cache(() => {
+    const cookieStore = cookies();
+    return createServerComponentClient({ cookies: () => cookieStore });
+  });
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
 
   return (
     <DashboardShell
@@ -41,7 +45,7 @@ export default async function DashboardPage() {
       description="Get an overview of how the project is going"
     >
       <h1 className="text-2xl font-bold">
-        {/* Welcome, {session?.user.user_metadata.full_name}! */}
+        Welcome, {session?.user.user_metadata.full_name}!
       </h1>
       <div className="max-w-[50wv]">
         {/* <DataTable data={users} columns={columns} /> */}
