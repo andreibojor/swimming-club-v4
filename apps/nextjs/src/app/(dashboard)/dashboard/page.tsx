@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 // import { cookies } from "next/headers";
 import Link from "next/link";
-import getUsers from "@/actions/getUsers";
+// import getUsers from "@/actions/getUsers";
 import type { Database } from "@/types_db";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Activity, CreditCard, DollarSign, Users } from "lucide-react";
@@ -32,7 +32,7 @@ import { RecentSales } from "../_components/recent-sales";
 export const revalidate = 0;
 
 export default async function DashboardPage() {
-  const users = await getUsers();
+  // const users = await getUsers();
 
   // const supabase = createServerComponentClient<Database>({ cookies });
   // const {
@@ -48,7 +48,7 @@ export default async function DashboardPage() {
         {/* Welcome, {session?.user.user_metadata.full_name}! */}
       </h1>
       <div className="max-w-[50wv]">
-        <DataTable data={users} columns={columns} />
+        {/* <DataTable data={users} columns={columns} /> */}
       </div>
       <Tabs defaultValue="overview" className="space-y-4">
         <TabsList>
