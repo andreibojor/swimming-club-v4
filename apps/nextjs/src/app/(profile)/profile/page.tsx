@@ -15,7 +15,7 @@ import {
 
 export default function DashboardPage() {
   return (
-    <main className="flex min-h-screen w-full flex-col items-center justify-center">
+    <>
       <Avatar className="h-[80px] w-[80px]">
         <AvatarImage src="/rick-bro.JPG" alt="rick" />
       </Avatar>
@@ -45,6 +45,6 @@ export default function DashboardPage() {
           ))}
         </div>
       </div>
-    </main>
+    </>
   );
 }
