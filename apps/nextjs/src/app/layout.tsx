@@ -4,9 +4,8 @@ import "@/styles/globals.css";
 import LocalFont from "next/font/local";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { ThemeProvider } from "@/components/theme-provider";
-
-// import SupabaseProvider from "@/providers/SupabaseProvider";
-// import UserProvider from "@/providers/UserProvider";
+import SupabaseProvider from "@/providers/SupabaseProvider";
+import UserProvider from "@/providers/UserProvider";
 
 import { cn } from "@acme/ui";
 
@@ -54,14 +53,14 @@ export default function RootLayout(props: { children: React.ReactNode }) {
           fontCal.variable,
         )}
       >
-        {/* <SupabaseProvider> */}
-        {/* <UserProvider> */}
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {props.children}
-          <TailwindIndicator />
-        </ThemeProvider>
-        {/* </UserProvider> */}
-        {/* </SupabaseProvider> */}
+        <SupabaseProvider>
+          <UserProvider>
+            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+              {props.children}
+              <TailwindIndicator />
+            </ThemeProvider>
+          </UserProvider>
+        </SupabaseProvider>
       </body>
     </html>
   );
