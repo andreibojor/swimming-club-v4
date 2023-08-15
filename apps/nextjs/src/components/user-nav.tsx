@@ -1,5 +1,5 @@
 import Link from "next/link";
-// import { currentUser } from "@clerk/nextjs";
+import { createServerComponentClient } from "@/actions/createServerComponentClient";
 import {
   CreditCard,
   LogIn,
@@ -25,22 +25,25 @@ import {
 } from "@acme/ui";
 
 export async function UserNav() {
-  // const user = await currentUser();
+  const supabase = createServerComponentClient();
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
   // if (!user) redirect("/signin");
 
-  // if (!user) {
-  //   return (
-  //     <Link href="/signin">
-  //       <Button variant="ghost" className="relative h-8 w-8 rounded">
-  //         <Avatar className="h-8 w-8">
-  //           <AvatarFallback className="bg-transparent">
-  //             <LogIn className="h-6 w-6" />
-  //           </AvatarFallback>
-  //         </Avatar>
-  //       </Button>
-  //     </Link>
-  //   );
-  // }
+  if (!session) {
+    return (
+      <Link href="/signin">
+        <Button variant="ghost" className="relative h-8 w-8 rounded">
+          <Avatar className="h-8 w-8">
+            <AvatarFallback className="bg-transparent">
+              <LogIn className="h-6 w-6" />
+            </AvatarFallback>
+          </Avatar>
+        </Button>
+      </Link>
+    );
+  }
 
   // const fullname = `${user.firstName} ${user.lastName}`;
   // const initials = fullname
@@ -56,8 +59,8 @@ export async function UserNav() {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
-            {/* <AvatarImage src={} alt={""} /> */}
-            <AvatarFallback>Trigger</AvatarFallback>
+            <AvatarImage src="/rick-bro.JPG" alt={""} />
+            <AvatarFallback>A F</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
@@ -66,11 +69,9 @@ export async function UserNav() {
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none">
               {/* {user.firstName} {user.lastName} */}
-              Label
             </p>
             <p className="text-xs leading-none text-muted-foreground">
               {/* {email} */}
-              email
             </p>
           </div>
         </DropdownMenuLabel>
@@ -78,17 +79,19 @@ export async function UserNav() {
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
             {/* <Link href={`/${user.id}/settings`}> */}
-            <User className="mr-2 h-4 w-4" />
-            <span>Profile</span>
-            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-            {/* </Link> */}
+            <Link href={`/profile`}>
+              <User className="mr-2 h-4 w-4" />
+              <span>Profile</span>
+              <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
             {/* <Link href={`/${user.id}/billing`}> */}
-            {/* <CreditCard className="mr-2 h-4 w-4" /> */}
-            <span>Billing</span>
-            {/* <DropdownMenuShortcut>⌘B</DropdownMenuShortcut> */}
-            {/* </Link> */}
+            <Link href={`/dashboard`}>
+              <CreditCard className="mr-2 h-4 w-4" />
+              <span>Billing</span>
+              <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuItem disabled>
             <Settings className="mr-2 h-4 w-4" />

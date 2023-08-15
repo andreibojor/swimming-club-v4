@@ -5,6 +5,7 @@ import Balancer from "react-wrap-balancer";
 import {
   Avatar,
   AvatarImage,
+  Calendar,
   Card,
   CardContent,
   CardDescription,
@@ -30,7 +31,7 @@ export default function DashboardPage() {
         <p className="pb-8 pt-4 text-center text-lg">
           sa poata sa adauge copii
         </p>
-
+        <Calendar />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
           {marketingFeatures.map((feature) => (
             <Card key={feature.title} className={cn("p-2")}>
