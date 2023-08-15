@@ -1,17 +1,14 @@
 import { Suspense } from "react";
 // import { cookies } from "next/headers";
-import Link from "next/link";
+
 // import getUsers from "@/actions/getUsers";
-import type { Database } from "@/types_db";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+
 import { Activity, CreditCard, DollarSign, Users } from "lucide-react";
 
 import {
-  Button,
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
   Input,
@@ -19,7 +16,6 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-  cn,
 } from "@acme/ui";
 
 import { columns } from "../_components/_table-components/columns";
@@ -29,7 +25,7 @@ import { LoadingCard } from "../_components/loading-card";
 import { RecentSales } from "../_components/recent-sales";
 
 // this page will never be cached and the data will always be up to date
-export const revalidate = 0;
+// export const revalidate = 0;
 
 export default async function DashboardPage() {
   // const users = await getUsers();
