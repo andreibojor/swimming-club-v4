@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { createServerComponentClient } from "@/actions/createServerComponentClient";
 import {
   CreditCard,
@@ -30,8 +31,9 @@ export async function UserNav() {
     data: { session },
   } = await supabase.auth.getSession();
 
-  const signOut = () => {
-    supabase.auth.signOut();
+  const signOut = async () => {
+    await supabase.auth.signOut();
+    redirect("/");
   };
 
   if (!session) {
@@ -108,11 +110,11 @@ export async function UserNav() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link href="/">
+          <Button onClick={signOut}>
             <LogOut className="mr-2 h-4 w-4" />
             <span>Log out</span>
             <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-          </Link>
+          </Button>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

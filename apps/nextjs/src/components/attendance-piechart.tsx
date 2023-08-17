@@ -1,6 +1,6 @@
 "use client";
 
-import { Cell, Pie, PieChart, ResponsiveContainer } from "recharts";
+import { Cell, Label, Pie, PieChart, ResponsiveContainer } from "recharts";
 
 const data = [
   { name: "Group A", value: 300 },
@@ -10,8 +10,8 @@ const COLORS = ["#00C49F", "#0088FE"];
 
 export default function AttendancePieChart() {
   return (
-    <ResponsiveContainer width="100%" height={200}>
-      <PieChart width={800} height={200}>
+    <ResponsiveContainer width={200} height={200}>
+      <PieChart width={190} height={190}>
         <Pie
           data={data}
           // cx={120}
@@ -22,6 +22,13 @@ export default function AttendancePieChart() {
           paddingAngle={5}
           dataKey="value"
         >
+          <Label
+            value="6"
+            position="centerBottom"
+            className="label-top"
+            fontSize="27px"
+          />
+          <Label value="tasks left" position="centerTop" className="label" />
           {data.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}

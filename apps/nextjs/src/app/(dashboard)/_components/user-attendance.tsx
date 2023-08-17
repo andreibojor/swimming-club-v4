@@ -10,29 +10,26 @@ export function UserAttendance({ data, attendance }) {
   const supabase = createClientComponentClient();
   const router = useRouter();
 
-  // Initialize an array of student IDs that have attended
-  const attendedStudents = attendance.map((record) => record.student_id);
+  //   useEffect(() => {
+  //     const channel = supabase
+  //       .channel("realtime attendance")
+  //       .on(
+  //         "postgres_changes",
+  //         {
+  //           event: "*",
+  //           schema: "public",
+  //           table: "attendance_record",
+  //         },
+  //         () => {
+  //           router.refresh();
+  //         },
+  //       )
+  //       .subscribe();
 
-  useEffect(() => {
-    const channel = supabase
-      .channel("realtime attendance")
-      .on(
-        "postgres_changes",
-        {
-          event: "*",
-          schema: "public",
-          table: "attendance_record",
-        },
-        () => {
-          router.refresh();
-        },
-      )
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(channel);
-    };
-  }, [supabase, router]);
+  //     return () => {
+  //       supabase.removeChannel(channel);
+  //     };
+  //   }, [supabase, router]);
 
   const currentDate = new Date();
   const year = currentDate.getFullYear();
@@ -40,9 +37,12 @@ export function UserAttendance({ data, attendance }) {
   const day = String(currentDate.getDate()).padStart(2, "0");
   const formattedDate = `${year}-${month}-${day}`;
 
+  // Initialize an array of student IDs that have attended
+  const attendedStudents = attendance.map((record) => record.student_id);
+
   const handleAttendance = async (studentId: string, isChecked: boolean) => {
-    if (isChecked) {
-      // Insert a new attendance record
+    // Insert a new attendance record
+    if (!isChecked) {
       await supabase
         .from("attendance_record")
         .insert({
@@ -59,6 +59,7 @@ export function UserAttendance({ data, attendance }) {
         .match({ date: formattedDate, student_id: studentId })
         .then((result) => console.log(result));
     }
+    router.refresh();
   };
 
   return (
@@ -67,8 +68,12 @@ export function UserAttendance({ data, attendance }) {
         <div key={student.id} className="flex">
           <h1>{student.full_name}</h1>
           <Switch
-            onClick={() => handleAttendance(student.id)}
-            // Toggle Switch on if the student has attended, otherwise off
+            onClick={() =>
+              handleAttendance(
+                student.id,
+                attendedStudents.includes(student.id),
+              )
+            }
             checked={attendedStudents.includes(student.id)}
           />
         </div>
