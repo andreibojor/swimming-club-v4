@@ -29,7 +29,10 @@ export async function UserNav() {
   const {
     data: { session },
   } = await supabase.auth.getSession();
-  // if (!user) redirect("/signin");
+
+  const signOut = () => {
+    supabase.auth.signOut();
+  };
 
   if (!session) {
     return (
@@ -105,7 +108,7 @@ export async function UserNav() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link href="/signout">
+          <Link href="/">
             <LogOut className="mr-2 h-4 w-4" />
             <span>Log out</span>
             <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>

@@ -10,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
   Input,
+  Switch,
   Tabs,
   TabsContent,
   TabsList,
@@ -21,28 +22,32 @@ import { DataTable } from "../_components/_table-components/data-table";
 import { DashboardShell } from "../_components/dashboard-shell";
 import { LoadingCard } from "../_components/loading-card";
 import { RecentSales } from "../_components/recent-sales";
+import { UserAttendance } from "../_components/user-attendance";
 
 // this page will never be cached and the data will always be up to date
-// export const revalidate = 0;
+export const revalidate = 0;
 
 export default async function DashboardPage() {
-  const users = await getUsers();
   const supabase = createServerComponentClient();
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  const { data: users } = await supabase
+    .from("users")
+    .select("*")
+    .match({ role: "student" });
+
+  const { data: attendanceRecords } = await supabase
+    .from("attendance_record")
+    .select("*")
+    .match({ attendance: true });
 
   return (
     <DashboardShell
       title="Dashboard"
       description="Get an overview of how the project is going"
     >
-      <h1 className="text-2xl font-bold">
-        Welcome, {session?.user.user_metadata.full_name}!
-      </h1>
-      <div className="max-w-[50wv]">
+      <UserAttendance data={users} attendance={attendanceRecords} />
+      {/* <div className="max-w-[50wv]">
         <DataTable data={users} columns={columns} />
-      </div>
+      </div> */}
       <Tabs defaultValue="overview" className="space-y-4">
         <TabsList>
           <TabsTrigger value="overview">Overview</TabsTrigger>
