@@ -44,10 +44,6 @@ export default async function DashboardPage() {
       title="Dashboard"
       description="Get an overview of how the project is going"
     >
-      <UserAttendance data={users} attendance={attendanceRecords} />
-      {/* <div className="max-w-[50wv]">
-        <DataTable data={users} columns={columns} />
-      </div> */}
       <Tabs defaultValue="overview" className="space-y-4">
         <TabsList>
           <TabsTrigger value="overview">Overview</TabsTrigger>
@@ -117,7 +113,37 @@ export default async function DashboardPage() {
               <CardHeader>
                 <CardTitle>Overview</CardTitle>
               </CardHeader>
-              <CardContent className="pl-2">{/* <Overview /> */}</CardContent>
+              <CardContent className="pl-2">
+                {/* <Overview /> */}
+                <UserAttendance data={users} attendance={attendanceRecords} />
+                <div className="max-w-[50wv]">
+                  <DataTable data={users} columns={columns} />
+                </div>
+              </CardContent>
+            </Card>
+            <Card className="col-span-3">
+              <CardHeader>
+                <CardTitle>All Students</CardTitle>
+                <CardDescription>
+                  <Input
+                    placeholder="Filter tasks..."
+                    // value={
+                    //   (table
+                    //     .getColumn("full_name")
+                    //     ?.getFilterValue() as string) ?? ""
+                    // }
+                    // onChange={(event) =>
+                    //   table
+                    //     .getColumn("full_name")
+                    //     ?.setFilterValue(event.target.value)
+                    // }
+                    className="h-8 w-[150px] lg:w-[250px]"
+                  />
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <RecentSales />
+              </CardContent>
             </Card>
 
             <Suspense

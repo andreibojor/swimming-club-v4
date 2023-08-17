@@ -21,6 +21,9 @@ export default function AttendancePieChart() {
           fill="#8884d8"
           paddingAngle={5}
           dataKey="value"
+          startAngle={360}
+          endAngle={0}
+          stroke="none"
         >
           <Label
             value="6"
