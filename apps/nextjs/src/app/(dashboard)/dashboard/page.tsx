@@ -111,8 +111,8 @@ export default async function DashboardPage() {
               </CardContent>
             </Card>
           </div>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-7">
-            <Card className="col-span-7 md:col-span-2 lg:col-span-4">
+          <div className="flex flex-col justify-normal gap-4 md:flex-row md:justify-between">
+            <Card className="w-full md:w-3/5">
               <CardHeader>
                 <CardTitle>Overview</CardTitle>
               </CardHeader>
@@ -124,7 +124,7 @@ export default async function DashboardPage() {
                 {/* <SimpleTable data={users} attendance={attendanceRecords} /> */}
               </CardContent>
             </Card>
-            <Card className="col-span-3">
+            <Card className="w-full md:w-2/5">
               <CardHeader>
                 <CardTitle>All Students</CardTitle>
                 <CardDescription>

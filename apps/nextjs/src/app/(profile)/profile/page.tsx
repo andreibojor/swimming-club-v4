@@ -82,15 +82,10 @@ export default function DashboardPage() {
         <div className="flex flex-col justify-between gap-5 md:flex-row">
           <Card className="w-full md:w-1/3">
             <CardHeader>
-              <CardTitle>
-                <Avatar className="h-[80px] w-[80px]">
-                  <AvatarImage src="/rick-bro.JPG" alt="rick" />
-                </Avatar>
-                Rick Sanchez
-              </CardTitle>
-              {/* <CardDescription>
-                Anyone with the link can view this document.
-              </CardDescription> */}
+              <Avatar className="h-[80px] w-[80px]">
+                <AvatarImage src="/rick-bro.JPG" alt="rick" />
+              </Avatar>
+              <CardTitle>Rick Sanchez</CardTitle>
             </CardHeader>
             <CardContent>
               <Separator className="my-4" />
@@ -119,22 +114,22 @@ export default function DashboardPage() {
               </div>
             </CardContent>
           </Card>
-          <Card className="w-2/3">
+          <Card className="w-full md:w-2/3">
             <CardHeader>
               <CardTitle>Rick Sanchez</CardTitle>
               <CardDescription>
                 Anyone with the link can view this document.
               </CardDescription>
             </CardHeader>
-            <CardContent className="flex justify-between">
+            <CardContent className="flex flex-col items-center justify-between md:flex-row">
               <AttendancePieChart />
               <Calendar />
             </CardContent>
           </Card>
         </div>
-        <div className="flex justify-between gap-5">
-          <div className="w-1/3"></div>
-          <Card className="w-2/3">
+        <div className="flex justify-between gap-0 md:gap-5">
+          <div className="none md:w-1/3"></div>
+          <Card className="w-full md:w-2/3">
             <CardHeader>
               <CardTitle>Invoice</CardTitle>
               <CardDescription>

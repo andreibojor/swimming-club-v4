@@ -8,15 +8,15 @@ import { Avatar, AvatarFallback, AvatarImage } from "@acme/ui";
 import { DataTableColumnHeader } from "./data-table-column-header";
 
 export const columns: ColumnDef<Task>[] = [
-  {
-    accessorKey: "id",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Task" />
-    ),
-    cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
-    enableSorting: false,
-    enableHiding: false,
-  },
+  // {
+  //   accessorKey: "id",
+  //   header: ({ column }) => (
+  //     <DataTableColumnHeader column={column} title="Task" />
+  //   ),
+  //   cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
+  //   enableSorting: false,
+  //   enableHiding: false,
+  // },
   {
     accessorKey: "avatar_url",
     header: ({ column }) => <DataTableColumnHeader column={column} title="" />,
@@ -47,18 +47,19 @@ export const columns: ColumnDef<Task>[] = [
     },
   },
   {
-    accessorKey: "attendance",
+    accessorKey: "id",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Attendance" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex items-center space-x-2">
-          <AttendanceButton
+          {/* <AttendanceButton
             studentId={row.getValue("id")}
             checked={row.getValue("attendance")}
-          />
-          <span>{row.getValue("attendance") ? true : false}</span>
+          /> */}
+          attendance
+          {/* <span>{row.getValue("attendance") ? true : false}</span> */}
         </div>
       );
     },
