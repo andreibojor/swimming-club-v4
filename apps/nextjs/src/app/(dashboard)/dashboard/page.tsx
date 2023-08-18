@@ -22,6 +22,7 @@ import { DataTable } from "../_components/_table-components/data-table";
 import { DashboardShell } from "../_components/dashboard-shell";
 import { LoadingCard } from "../_components/loading-card";
 import { RecentSales } from "../_components/recent-sales";
+import { SimpleTable } from "../_components/simple-table";
 import { UserAttendance } from "../_components/user-attendance";
 
 // this page will never be cached and the data will always be up to date
@@ -38,6 +39,8 @@ export default async function DashboardPage() {
     .from("attendance_record")
     .select("*")
     .match({ attendance: true });
+
+  const { data: allUsers } = await supabase.from("users").select("*");
 
   return (
     <DashboardShell
@@ -115,10 +118,10 @@ export default async function DashboardPage() {
               </CardHeader>
               <CardContent className="pl-2">
                 {/* <Overview /> */}
-                <UserAttendance data={users} attendance={attendanceRecords} />
-                <div className="max-w-[50wv]">
-                  <DataTable data={users} columns={columns} />
-                </div>
+                {/* <UserAttendance data={users} attendance={attendanceRecords} /> */}
+
+                <DataTable data={users} columns={columns} />
+                {/* <SimpleTable data={users} attendance={attendanceRecords} /> */}
               </CardContent>
             </Card>
             <Card className="col-span-3">
@@ -142,7 +145,7 @@ export default async function DashboardPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <RecentSales />
+                <RecentSales users={allUsers} />
               </CardContent>
             </Card>
 

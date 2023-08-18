@@ -24,26 +24,26 @@ const AttendanceButton: React.FC<LikeButtonProps> = ({ studentId }) => {
   const day = String(currentDate.getDate()).padStart(2, "0");
   const formattedDate = `${year}-${month}-${day}`;
 
-  useEffect(() => {
-    const channel = supabase
-      .channel("realtime attendance")
-      .on(
-        "postgres_changes",
-        {
-          event: "*",
-          schema: "public",
-          table: "attendance_record",
-        },
-        () => {
-          router.refresh();
-        },
-      )
-      .subscribe();
+  // useEffect(() => {
+  //   const channel = supabase
+  //     .channel("realtime attendance")
+  //     .on(
+  //       "postgres_changes",
+  //       {
+  //         event: "*",
+  //         schema: "public",
+  //         table: "attendance_record",
+  //       },
+  //       () => {
+  //         router.refresh();
+  //       },
+  //     )
+  //     .subscribe();
 
-    return () => {
-      supabase.removeChannel(channel);
-    };
-  }, [supabase, router]);
+  //   return () => {
+  //     supabase.removeChannel(channel);
+  //   };
+  // }, [supabase, router]);
 
   const handleAttendance = async () => {
     const { error } = await supabase.from("attendance_record").insert({

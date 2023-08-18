@@ -38,9 +38,9 @@ export default function MarketingLayout(props: { children: ReactNode }) {
 async function DashboardLink() {
   const supabase = createServerComponentClient();
 
-  const { data, error } = await supabase.auth.getSession();
+  const { data } = await supabase.auth.getSession();
 
-  if (!data) {
+  if (!data.session) {
     return (
       <Link href="/signin" className={buttonVariants({ variant: "outline" })}>
         Sign In
@@ -48,6 +48,7 @@ async function DashboardLink() {
       </Link>
     );
   }
+
   return (
     <Link
       href={`/dashboard`}
