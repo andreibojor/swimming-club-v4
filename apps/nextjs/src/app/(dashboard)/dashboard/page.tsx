@@ -144,6 +144,7 @@ export default async function DashboardPage() {
                   />
                 </CardDescription>
               </CardHeader>
+
               <CardContent>
                 <RecentSales users={allUsers} />
               </CardContent>
