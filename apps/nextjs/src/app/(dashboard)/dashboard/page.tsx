@@ -47,6 +47,7 @@ export default async function DashboardPage() {
       title="Dashboard"
       description="Get an overview of how the project is going"
     >
+      <SimpleTable data={users} attendance={attendanceRecords} />
       <Tabs defaultValue="overview" className="space-y-4">
         <TabsList>
           <TabsTrigger value="overview">Overview</TabsTrigger>
@@ -120,8 +121,7 @@ export default async function DashboardPage() {
                 {/* <Overview /> */}
                 {/* <UserAttendance data={users} attendance={attendanceRecords} /> */}
 
-                <DataTable data={users} columns={columns} />
-                {/* <SimpleTable data={users} attendance={attendanceRecords} /> */}
+                {/* <DataTable data={users} columns={columns} /> */}
               </CardContent>
             </Card>
             <Card className="w-full md:w-2/5">
