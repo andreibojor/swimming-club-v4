@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { createServerComponentClient } from "@/actions/createServerComponentClient";
+import getUsers from "@/actions/getUsers";
 import { Activity, CreditCard, DollarSign, Users } from "lucide-react";
 
 import {
@@ -9,16 +10,20 @@ import {
   CardHeader,
   CardTitle,
   Input,
+  Switch,
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from "@acme/ui";
 
+import { columns } from "../_components/_table-components/columns";
+import { DataTable } from "../_components/_table-components/data-table";
 import { DashboardShell } from "../_components/dashboard-shell";
 import { LoadingCard } from "../_components/loading-card";
 import { RecentSales } from "../_components/recent-sales";
 import { SimpleTable } from "../_components/simple-table";
+import { UserAttendance } from "../_components/user-attendance";
 
 // this page will never be cached and the data will always be up to date
 export const revalidate = 0;
@@ -27,7 +32,7 @@ export default async function DashboardPage() {
   const supabase = createServerComponentClient();
   const { data: users } = await supabase
     .from("users")
-    .select()
+    .select("*")
     .match({ role: "student" });
 
   const { data: attendanceRecords } = await supabase
@@ -42,9 +47,6 @@ export default async function DashboardPage() {
       title="Dashboard"
       description="Get an overview of how the project is going"
     >
-      <div className="ml-52 w-[400px]">
-        <SimpleTable data={users ?? []} attendance={attendanceRecords} />
-      </div>
       <Tabs defaultValue="overview" className="space-y-4">
         <TabsList>
           <TabsTrigger value="overview">Overview</TabsTrigger>
@@ -114,7 +116,13 @@ export default async function DashboardPage() {
               <CardHeader>
                 <CardTitle>Overview</CardTitle>
               </CardHeader>
-              <CardContent className="pl-2"></CardContent>
+              <CardContent className="pl-2">
+                {/* <Overview /> */}
+                {/* <UserAttendance data={users} attendance={attendanceRecords} /> */}
+
+                <DataTable data={users} columns={columns} />
+                {/* <SimpleTable data={users} attendance={attendanceRecords} /> */}
+              </CardContent>
             </Card>
             <Card className="w-full md:w-2/5">
               <CardHeader>
