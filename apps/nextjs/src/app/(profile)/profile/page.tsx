@@ -1,3 +1,4 @@
+import { createServerComponentClient } from "@/actions/createServerComponentClient";
 import { marketingFeatures } from "@/app/config";
 import AttendancePieChart from "@/components/attendance-piechart";
 import Balancer from "react-wrap-balancer";
@@ -75,7 +76,12 @@ const invoices = [
   },
 ];
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const supabase = createServerComponentClient();
+
+  const { data } = await supabase.auth.getUser();
+  const avatarUrl = data.user?.user_metadata.avatar_url;
+
   return (
     <>
       <div className="flex w-full max-w-screen-lg animate-fade-up flex-col gap-5 p-5 xl:px-0">
@@ -83,7 +89,7 @@ export default function DashboardPage() {
           <Card className="w-full md:w-1/3">
             <CardHeader>
               <Avatar className="h-[80px] w-[80px]">
-                <AvatarImage src="/rick-bro.JPG" alt="rick" />
+                <AvatarImage src={avatarUrl} alt="rick" />
               </Avatar>
               <CardTitle>Rick Sanchez</CardTitle>
             </CardHeader>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { createServerComponentClient } from "@/actions/createServerComponentClient";
 import {
   CreditCard,
@@ -30,11 +30,14 @@ export async function UserNav() {
   const {
     data: { session },
   } = await supabase.auth.getSession();
-
+  // const router = useRouter();
   const signOut = async () => {
     await supabase.auth.signOut();
-    redirect("/");
+    // router.refresh();
   };
+
+  const { data } = await supabase.auth.getUser();
+  const avatarUrl = data.user?.user_metadata.avatar_url;
 
   if (!session) {
     return (
@@ -64,7 +67,7 @@ export async function UserNav() {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
-            <AvatarImage src="/rick-bro.JPG" alt={""} />
+            <AvatarImage src={avatarUrl} alt="Avatar Image" />
             <AvatarFallback>A F</AvatarFallback>
           </Avatar>
         </Button>
