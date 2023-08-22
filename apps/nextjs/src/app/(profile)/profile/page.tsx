@@ -81,6 +81,11 @@ export default async function DashboardPage() {
 
   const { data } = await supabase.auth.getUser();
   const avatarUrl = data.user?.user_metadata.avatar_url;
+  const username = data.user?.user_metadata.full_name;
+  const email = data.user?.user_metadata.email;
+  const role = data.user?.user_metadata.role;
+
+  // TODO: fetch the user's attendances here and send them through props on the calendar
 
   return (
     <>
@@ -91,7 +96,7 @@ export default async function DashboardPage() {
               <Avatar className="h-[80px] w-[80px]">
                 <AvatarImage src={avatarUrl} alt="rick" />
               </Avatar>
-              <CardTitle>Rick Sanchez</CardTitle>
+              <CardTitle>{username}</CardTitle>
             </CardHeader>
             <CardContent>
               <Separator className="my-4" />
@@ -101,16 +106,13 @@ export default async function DashboardPage() {
                 </h4>
                 <div className="flex flex-col justify-between space-y-4">
                   <p className="text-sm font-medium leading-none">
-                    Email: gslixby0@abc.net.au
+                    Email: {email}
                   </p>
                   <p className="text-sm font-medium leading-none">
                     Status: Active
                   </p>
                   <p className="text-sm font-medium leading-none">
-                    Role: Admin
-                  </p>
-                  <p className="text-sm font-medium leading-none">
-                    Tax ID: Tax-8894
+                    Role: {role}
                   </p>
                   <p className="text-sm font-medium leading-none">
                     Contact: +1 (479) 232-9151
@@ -123,9 +125,9 @@ export default async function DashboardPage() {
           <Card className="w-full md:w-2/3">
             <CardHeader>
               <CardTitle>Rick Sanchez</CardTitle>
-              <CardDescription>
+              {/* <CardDescription>
                 Anyone with the link can view this document.
-              </CardDescription>
+              </CardDescription> */}
             </CardHeader>
             <CardContent className="flex flex-col items-center justify-between md:flex-row">
               <AttendancePieChart />

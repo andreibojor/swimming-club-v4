@@ -30,11 +30,6 @@ export async function UserNav() {
   const {
     data: { session },
   } = await supabase.auth.getSession();
-  // const router = useRouter();
-  const signOut = async () => {
-    await supabase.auth.signOut();
-    // router.refresh();
-  };
 
   const { data } = await supabase.auth.getUser();
   const avatarUrl = data.user?.user_metadata.avatar_url;

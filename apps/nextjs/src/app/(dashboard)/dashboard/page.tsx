@@ -4,6 +4,7 @@ import getUsers from "@/actions/getUsers";
 import { Activity, CreditCard, DollarSign, Users } from "lucide-react";
 
 import {
+  Calendar,
   Card,
   CardContent,
   CardDescription,
@@ -47,7 +48,6 @@ export default async function DashboardPage() {
       title="Dashboard"
       description="Get an overview of how the project is going"
     >
-      <SimpleTable data={users} attendance={attendanceRecords} />
       <Tabs defaultValue="overview" className="space-y-4">
         <TabsList>
           <TabsTrigger value="overview">Overview</TabsTrigger>
@@ -118,6 +118,8 @@ export default async function DashboardPage() {
                 <CardTitle>Overview</CardTitle>
               </CardHeader>
               <CardContent className="pl-2">
+                <Calendar />
+                <SimpleTable data={users} attendance={attendanceRecords} />
                 {/* <Overview /> */}
                 {/* <UserAttendance data={users} attendance={attendanceRecords} /> */}
 

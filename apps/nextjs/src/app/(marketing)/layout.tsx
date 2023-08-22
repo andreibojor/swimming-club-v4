@@ -37,10 +37,11 @@ export default function MarketingLayout(props: { children: ReactNode }) {
 
 async function DashboardLink() {
   const supabase = createServerComponentClient();
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
 
-  const { data } = await supabase.auth.getSession();
-
-  if (!data.session) {
+  if (!session) {
     return (
       <Link href="/signin" className={buttonVariants({ variant: "outline" })}>
         Sign In
