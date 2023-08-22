@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
+import getPresentDate from "@/actions/getPresentDate";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 import {
@@ -22,11 +23,7 @@ export function SimpleTable({ data, attendance }) {
   const supabase = createClientComponentClient();
   const router = useRouter();
 
-  const currentDate = new Date();
-  const year = currentDate.getFullYear();
-  const month = String(currentDate.getMonth() + 1).padStart(2, "0");
-  const day = String(currentDate.getDate()).padStart(2, "0");
-  const formattedDate = `${year}-${month}-${day}`;
+  const date = getPresentDate();
 
   // Initialize an array of student IDs that have attended
   const attendedStudents = attendance.map((record) => record.student_id);
@@ -37,7 +34,7 @@ export function SimpleTable({ data, attendance }) {
       await supabase
         .from("attendance_record")
         .insert({
-          date: formattedDate,
+          date: date,
           student_id: studentId,
           attendance: true,
         })
@@ -47,7 +44,7 @@ export function SimpleTable({ data, attendance }) {
       await supabase
         .from("attendance_record")
         .delete()
-        .match({ date: formattedDate, student_id: studentId })
+        .match({ date: date, student_id: studentId })
         .then((result) => console.log(result));
     }
     router.refresh();
@@ -59,6 +56,7 @@ export function SimpleTable({ data, attendance }) {
       <TableHeader>
         <TableRow>
           <TableHead className="w-[100px]">Invoice</TableHead>
+          <TableHead>Status</TableHead>
           <TableHead>Status</TableHead>
           <TableHead>Status</TableHead>
         </TableRow>
@@ -73,7 +71,7 @@ export function SimpleTable({ data, attendance }) {
                 <AvatarFallback>IN</AvatarFallback>
               </Avatar>
             </TableCell>
-            <TableCell className="text-right">
+            <TableCell>
               <Switch
                 onClick={() =>
                   handleAttendance(
@@ -84,6 +82,7 @@ export function SimpleTable({ data, attendance }) {
                 checked={attendedStudents.includes(student.id)}
               />
             </TableCell>
+            <TableCell>6 / 25</TableCell>
           </TableRow>
         ))}
       </TableBody>

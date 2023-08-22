@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import getPresentDate from "@/actions/getPresentDate";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 import { Switch } from "@acme/ui";
@@ -31,11 +32,7 @@ export function UserAttendance({ data, attendance }) {
   //     };
   //   }, [supabase, router]);
 
-  const currentDate = new Date();
-  const year = currentDate.getFullYear();
-  const month = String(currentDate.getMonth() + 1).padStart(2, "0");
-  const day = String(currentDate.getDate()).padStart(2, "0");
-  const formattedDate = `${year}-${month}-${day}`;
+  const date = getPresentDate();
 
   // Initialize an array of student IDs that have attended
   const attendedStudents = attendance.map((record) => record.student_id);
@@ -46,7 +43,7 @@ export function UserAttendance({ data, attendance }) {
       await supabase
         .from("attendance_record")
         .insert({
-          date: formattedDate,
+          date: date,
           student_id: studentId,
           attendance: true,
         })
@@ -56,7 +53,7 @@ export function UserAttendance({ data, attendance }) {
       await supabase
         .from("attendance_record")
         .delete()
-        .match({ date: formattedDate, student_id: studentId })
+        .match({ date: date, student_id: studentId })
         .then((result) => console.log(result));
     }
     router.refresh();

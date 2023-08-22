@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import getPresentDate from "@/actions/getPresentDate";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 // import { useUser } from "@/hooks/useUser";
 import { useSessionContext } from "@supabase/auth-helpers-react";
@@ -18,11 +19,7 @@ const AttendanceButton: React.FC<LikeButtonProps> = ({ studentId }) => {
   const supabase = createClientComponentClient();
   const router = useRouter();
 
-  const currentDate = new Date();
-  const year = currentDate.getFullYear();
-  const month = String(currentDate.getMonth() + 1).padStart(2, "0");
-  const day = String(currentDate.getDate()).padStart(2, "0");
-  const formattedDate = `${year}-${month}-${day}`;
+  const date = getPresentDate();
 
   // useEffect(() => {
   //   const channel = supabase
@@ -47,7 +44,7 @@ const AttendanceButton: React.FC<LikeButtonProps> = ({ studentId }) => {
 
   const handleAttendance = async () => {
     const { error } = await supabase.from("attendance_record").insert({
-      date: formattedDate,
+      date: date,
       student_id: studentId,
       attendance: true,
     });
