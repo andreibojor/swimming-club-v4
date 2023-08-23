@@ -1,8 +1,9 @@
 import { Suspense } from "react";
 import { createServerComponentClient } from "@/actions/createServerComponentClient";
 import getUsers from "@/actions/getUsers";
-import { CustomCalendar } from "@/components/horizontal-calendar";
-import { useStore } from "@/store/store";
+import { CustomCalendar } from "@/components/day-picker";
+import { useDate } from "@/store/store";
+import { StoreInitializer } from "@/store/store-initializer";
 import { Activity, CreditCard, DollarSign, Users } from "lucide-react";
 
 import {
@@ -27,7 +28,7 @@ import { RecentSales } from "../_components/recent-sales";
 import { SimpleTable } from "../_components/simple-table";
 import { UserAttendance } from "../_components/user-attendance";
 
-// this page will never be cached and the data will always be up to date
+// This page will never be cached and the data will always be up to date
 export const revalidate = 0;
 
 export default async function DashboardPage() {
@@ -41,7 +42,7 @@ export default async function DashboardPage() {
     .from("attendance_record")
     .select("*")
     .match({ attendance: true });
-
+  useDate.setState({ date: new Date() });
   const { data: allUsers } = await supabase.from("users").select("*");
 
   return (
@@ -49,6 +50,7 @@ export default async function DashboardPage() {
       title="Dashboard"
       description="Get an overview of how the project is going"
     >
+      <StoreInitializer date={new Date()} />
       <Tabs defaultValue="cluj-napoca" className="space-y-4">
         <TabsList>
           <TabsTrigger value="cluj-napoca">Cluj-Napoca</TabsTrigger>

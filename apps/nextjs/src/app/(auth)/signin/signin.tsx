@@ -9,7 +9,7 @@ import {
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 
-import { Button, useToast } from "@acme/ui";
+import { useToast } from "@acme/ui";
 
 export function OAuthSignIn() {
   const { toast } = useToast();
