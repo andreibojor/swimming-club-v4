@@ -1,4 +1,3 @@
-import { createServerComponentClient } from "@/actions/createServerComponentClient";
 import { marketingFeatures } from "@/app/config";
 import AttendancePieChart from "@/components/attendance-piechart";
 import Balancer from "react-wrap-balancer";
@@ -77,13 +76,14 @@ const invoices = [
 ];
 
 export default async function DashboardPage() {
-  const supabase = createServerComponentClient();
-
-  const { data } = await supabase.auth.getUser();
-  const avatarUrl = data.user?.user_metadata.avatar_url;
-  const username = data.user?.user_metadata.full_name;
-  const email = data.user?.user_metadata.email;
-  const role = data.user?.user_metadata.role;
+  // const supabase = createServerComponentClient();
+  // const { data } = await supabase.auth.getUser();
+  // const {
+  //   avatar_url: avatarUrl,
+  //   full_name: username,
+  //   email,
+  //   role,
+  // } = data.user?.user_metadata || {};
 
   // TODO: fetch the user's attendances here and send them through props on the calendar
 
@@ -91,7 +91,7 @@ export default async function DashboardPage() {
     <>
       <div className="flex w-full max-w-screen-lg animate-fade-up flex-col gap-5 p-5 xl:px-0">
         <div className="flex flex-col justify-between gap-5 md:flex-row">
-          <Card className="w-full md:w-1/3">
+          {/* <Card className="w-full md:w-1/3">
             <CardHeader>
               <Avatar className="h-[80px] w-[80px]">
                 <AvatarImage src={avatarUrl} alt="rick" />
@@ -121,7 +121,7 @@ export default async function DashboardPage() {
                 </div>
               </div>
             </CardContent>
-          </Card>
+          </Card> */}
           <Card className="w-full md:w-2/3">
             <CardHeader>
               <CardTitle>Rick Sanchez</CardTitle>

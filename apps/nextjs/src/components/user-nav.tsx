@@ -1,6 +1,7 @@
+import { cookies } from "next/headers";
 import Link from "next/link";
 import { redirect, useRouter } from "next/navigation";
-import { createServerComponentClient } from "@/actions/createServerComponentClient";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import {
   CreditCard,
   LogIn,
@@ -26,13 +27,16 @@ import {
 } from "@acme/ui";
 
 export async function UserNav() {
-  const supabase = createServerComponentClient();
+  const supabase = createServerComponentClient({
+    cookies: cookies,
+  });
+
   const {
     data: { session },
   } = await supabase.auth.getSession();
 
   const { data } = await supabase.auth.getUser();
-  const avatarUrl = data.user?.user_metadata.avatar_url;
+  const { avatar_url: avatarUrl } = data.user?.user_metadata ?? {};
 
   if (!session) {
     return (

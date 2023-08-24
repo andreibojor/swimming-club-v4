@@ -19,6 +19,8 @@ import {
   TableRow,
 } from "@acme/ui";
 
+import { LikeButton } from "./like-button";
+
 export function SimpleTable({ data, attendance }) {
   const supabase = createClientComponentClient();
   const router = useRouter();

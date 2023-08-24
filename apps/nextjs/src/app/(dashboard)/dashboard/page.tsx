@@ -1,5 +1,4 @@
 import { Suspense } from "react";
-import { createServerComponentClient } from "@/actions/createServerComponentClient";
 import getUsers from "@/actions/getUsers";
 import { CustomCalendar } from "@/components/day-picker";
 import { useDate } from "@/store/store";
@@ -32,18 +31,18 @@ import { UserAttendance } from "../_components/user-attendance";
 export const revalidate = 0;
 
 export default async function DashboardPage() {
-  const supabase = createServerComponentClient();
-  const { data: users } = await supabase
-    .from("users")
-    .select("*")
-    .match({ role: "student" });
+  // const supabase = createServerComponentClient();
+  // const { data: users } = await supabase
+  //   .from("users")
+  //   .select("*")
+  //   .match({ role: "student" });
 
-  const { data: attendanceRecords } = await supabase
-    .from("attendance_record")
-    .select("*")
-    .match({ attendance: true });
-  useDate.setState({ date: new Date() });
-  const { data: allUsers } = await supabase.from("users").select("*");
+  // const { data: attendanceRecords } = await supabase
+  //   .from("attendance_record")
+  //   .select("*")
+  //   .match({ attendance: true });
+  // useDate.setState({ date: new Date() });
+  // const { data: allUsers } = await supabase.from("users").select("*");
 
   return (
     <DashboardShell
@@ -123,7 +122,7 @@ export default async function DashboardPage() {
               </CardHeader>
               <CardContent className="pl-2">
                 <CustomCalendar />
-                <SimpleTable data={users} attendance={attendanceRecords} />
+                {/* <SimpleTable data={users} attendance={attendanceRecords} /> */}
                 {/* <Overview /> */}
                 {/* <UserAttendance data={users} attendance={attendanceRecords} /> */}
 
