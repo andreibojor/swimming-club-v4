@@ -1,9 +1,7 @@
 import { Suspense } from "react";
 import getUsers from "@/actions/getUsers";
 import { CustomCalendar } from "@/components/day-picker";
-import { useDate } from "@/store/store";
 import { StoreInitializer } from "@/store/store-initializer";
-import { Activity, CreditCard, DollarSign, Users } from "lucide-react";
 
 import {
   Card,
@@ -12,37 +10,23 @@ import {
   CardHeader,
   CardTitle,
   Input,
-  Switch,
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from "@acme/ui";
+import * as Icons from "@acme/ui/src/icons";
 
-import { columns } from "../_components/_table-components/columns";
-import { DataTable } from "../_components/_table-components/data-table";
 import { DashboardShell } from "../_components/dashboard-shell";
 import { LoadingCard } from "../_components/loading-card";
 import { RecentSales } from "../_components/recent-sales";
-import { SimpleTable } from "../_components/simple-table";
-import { UserAttendance } from "../_components/user-attendance";
+import { DemoTeamMembers } from "../_components/team-members";
 
 // This page will never be cached and the data will always be up to date
 export const revalidate = 0;
 
 export default async function DashboardPage() {
-  // const supabase = createServerComponentClient();
-  // const { data: users } = await supabase
-  //   .from("users")
-  //   .select("*")
-  //   .match({ role: "student" });
-
-  // const { data: attendanceRecords } = await supabase
-  //   .from("attendance_record")
-  //   .select("*")
-  //   .match({ attendance: true });
-  // useDate.setState({ date: new Date() });
-  // const { data: allUsers } = await supabase.from("users").select("*");
+  const users = await getUsers();
 
   return (
     <DashboardShell
@@ -59,13 +43,13 @@ export default async function DashboardPage() {
 
         {/* TAB CONTENT - Cluj-Napoca */}
         <TabsContent value="cluj-napoca" className="space-y-4">
-          {/* <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
                   Total Revenue
                 </CardTitle>
-                <DollarSign className="h-4 w-4 text-muted-foreground" />
+                <Icons.DollarSign className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">$45,231.89</div>
@@ -79,7 +63,7 @@ export default async function DashboardPage() {
                 <CardTitle className="text-sm font-medium">
                   Subscriptions
                 </CardTitle>
-                <Users className="h-4 w-4 text-muted-foreground" />
+                <Icons.Users className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">+2350</div>
@@ -91,7 +75,7 @@ export default async function DashboardPage() {
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Sales</CardTitle>
-                <CreditCard className="h-4 w-4 text-muted-foreground" />
+                <Icons.CreditCard className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">+12,234</div>
@@ -105,7 +89,7 @@ export default async function DashboardPage() {
                 <CardTitle className="text-sm font-medium">
                   Active Now
                 </CardTitle>
-                <Activity className="h-4 w-4 text-muted-foreground" />
+                <Icons.Activity className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">+573</div>
@@ -114,19 +98,15 @@ export default async function DashboardPage() {
                 </p>
               </CardContent>
             </Card>
-          </div> */}
+          </div>
           <div className="flex flex-col justify-normal gap-4 md:flex-row md:justify-between">
             <Card className="w-full md:w-3/5">
               <CardHeader>
                 <CardTitle>Overview</CardTitle>
               </CardHeader>
-              <CardContent className="pl-2">
+              <CardContent className="px-2">
                 <CustomCalendar />
-                {/* <SimpleTable data={users} attendance={attendanceRecords} /> */}
-                {/* <Overview /> */}
-                {/* <UserAttendance data={users} attendance={attendanceRecords} /> */}
-
-                {/* <DataTable data={users} columns={columns} /> */}
+                <DemoTeamMembers />
               </CardContent>
             </Card>
             <Card className="w-full md:w-2/5">
@@ -151,7 +131,7 @@ export default async function DashboardPage() {
               </CardHeader>
 
               <CardContent>
-                <RecentSales users={allUsers} />
+                <RecentSales users={users} />
               </CardContent>
             </Card>
 

@@ -3,6 +3,7 @@ import type { Icon as LucideIcon } from "lucide-react";
 
 export type Icon = LucideIcon;
 
+export const Activity = Lucide.Activity;
 export const Add = Lucide.Plus;
 export const ArrowDown = Lucide.ArrowDown;
 export const ArrowUp = Lucide.ArrowUp;
@@ -21,8 +22,10 @@ export const Circle = Lucide.CircleIcon;
 export const Close = Lucide.X;
 export const Copy = Lucide.Copy;
 export const CopyDone = Lucide.ClipboardCheck;
+export const CreditCard = Lucide.CreditCard;
 export const CrossCircled = Lucide.XCircle;
 export const Dashboard = Lucide.Activity;
+export const DollarSign = Lucide.DollarSign;
 export const DotsHorizontal = Lucide.MoreHorizontal;
 export const Ellipsis = Lucide.MoreVertical;
 export const EyeNone = Lucide.EyeOff;
@@ -39,6 +42,7 @@ export const Spinner = Lucide.Loader2;
 export const Sun = Lucide.SunMedium;
 export const Stopwatch = Lucide.Watch;
 export const User = Lucide.User;
+export const Users = Lucide.Users;
 export const Trash = Lucide.Trash;
 export const Twitter = Lucide.Twitter;
 export const Warning = Lucide.AlertTriangle;

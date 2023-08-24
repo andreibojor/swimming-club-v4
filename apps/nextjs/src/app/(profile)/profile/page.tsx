@@ -1,5 +1,7 @@
+import { cookies } from "next/headers";
 import { marketingFeatures } from "@/app/config";
 import AttendancePieChart from "@/components/attendance-piechart";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import Balancer from "react-wrap-balancer";
 
 import {
@@ -76,14 +78,21 @@ const invoices = [
 ];
 
 export default async function DashboardPage() {
-  // const supabase = createServerComponentClient();
-  // const { data } = await supabase.auth.getUser();
-  // const {
-  //   avatar_url: avatarUrl,
-  //   full_name: username,
-  //   email,
-  //   role,
-  // } = data.user?.user_metadata || {};
+  const supabase = createServerComponentClient({
+    cookies: cookies,
+  });
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  const { data } = await supabase.auth.getUser();
+  const {
+    avatar_url: avatarUrl,
+    full_name: fullName,
+    email: email,
+    role: role,
+  } = data.user?.user_metadata ?? {};
 
   // TODO: fetch the user's attendances here and send them through props on the calendar
 
@@ -91,12 +100,12 @@ export default async function DashboardPage() {
     <>
       <div className="flex w-full max-w-screen-lg animate-fade-up flex-col gap-5 p-5 xl:px-0">
         <div className="flex flex-col justify-between gap-5 md:flex-row">
-          {/* <Card className="w-full md:w-1/3">
+          <Card className="w-full md:w-1/3">
             <CardHeader>
               <Avatar className="h-[80px] w-[80px]">
                 <AvatarImage src={avatarUrl} alt="rick" />
               </Avatar>
-              <CardTitle>{username}</CardTitle>
+              <CardTitle>{fullName}</CardTitle>
             </CardHeader>
             <CardContent>
               <Separator className="my-4" />
@@ -121,13 +130,13 @@ export default async function DashboardPage() {
                 </div>
               </div>
             </CardContent>
-          </Card> */}
+          </Card>
           <Card className="w-full md:w-2/3">
             <CardHeader>
               <CardTitle>Rick Sanchez</CardTitle>
-              {/* <CardDescription>
+              <CardDescription>
                 Anyone with the link can view this document.
-              </CardDescription> */}
+              </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col items-center justify-between md:flex-row">
               <AttendancePieChart />
