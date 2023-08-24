@@ -132,12 +132,12 @@ export default async function DashboardPage() {
             </CardContent>
           </Card>
           <Card className="w-full md:w-2/3">
-            <CardHeader>
+            {/* <CardHeader>
               <CardTitle>Rick Sanchez</CardTitle>
               <CardDescription>
                 Anyone with the link can view this document.
               </CardDescription>
-            </CardHeader>
+            </CardHeader> */}
             <CardContent className="flex flex-col items-center justify-between md:flex-row">
               <AttendancePieChart />
               <Calendar />

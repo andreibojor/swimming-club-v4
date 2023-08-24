@@ -1,7 +1,9 @@
 import { cookies } from "next/headers";
 import Link from "next/link";
-import { redirect, useRouter } from "next/navigation";
+// import { redirect, useRouter } from "next/navigation";
+// import { useUser } from "@/hooks/useUser";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+// import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import {
   CreditCard,
   LogIn,
@@ -37,6 +39,19 @@ export async function UserNav() {
 
   const { data } = await supabase.auth.getUser();
   const { avatar_url: avatarUrl } = data.user?.user_metadata ?? {};
+
+  // const supabaseClient = useSupabaseClient();
+  // const { user } = useUser();
+
+  // const handleLogout = async () => {
+  //   const { error } = await supabaseClient.auth.signOut();
+  //   router.refresh();
+
+  //   if (error) {
+  //     console.log(error);
+  //     // toast.error(error.message);
+  //   }
+  // };
 
   if (!session) {
     return (
