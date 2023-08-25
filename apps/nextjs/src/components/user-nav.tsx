@@ -3,19 +3,11 @@ import Link from "next/link";
 // import { useUser } from "@/hooks/useUser";
 
 // import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import {
-  CreditCard,
-  LogIn,
-  LogOut,
-  PlusCircle,
-  Settings,
-  User,
-} from "lucide-react";
+import { CreditCard, LogOut, PlusCircle, Settings, User } from "lucide-react";
 
 import {
   Avatar,
   AvatarFallback,
-  AvatarImage,
   Button,
   DropdownMenu,
   DropdownMenuContent,
@@ -89,10 +81,10 @@ export function UserNav() {
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none">
-              {/* {user.firstName} {user.lastName} */}
+              {/* {user.firstName} {user.lastName} */}a
             </p>
             <p className="text-xs leading-none text-muted-foreground">
-              {/* {email} */}
+              {/* {email} */}a
             </p>
           </div>
         </DropdownMenuLabel>

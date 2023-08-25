@@ -1,6 +1,7 @@
 import { marketingFeatures } from "@/app/config";
 import AttendancePieChart from "@/components/attendance-piechart";
-import Balancer from "react-wrap-balancer";
+
+// import Balancer from "react-wrap-balancer";
 
 import {
   Avatar,
@@ -13,12 +14,6 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-  Input,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
   Separator,
   Table,
   TableBody,
@@ -98,8 +93,9 @@ export default function DashboardPage() {
             <CardHeader>
               <Avatar className="h-[80px] w-[80px]">
                 {/* <AvatarImage src={avatarUrl} alt="rick" /> */}
+                <AvatarFallback>A F </AvatarFallback>
               </Avatar>
-              {/* <CardTitle>{fullName}</CardTitle> */}
+              {/* <CardTitle>{fullName}</CardTitle> */}a
             </CardHeader>
             <CardContent>
               <Separator className="my-4" />
@@ -109,13 +105,13 @@ export default function DashboardPage() {
                 </h4>
                 <div className="flex flex-col justify-between space-y-4">
                   <p className="text-sm font-medium leading-none">
-                    {/* Email: {email} */}
+                    {/* Email: {email} */}a
                   </p>
                   <p className="text-sm font-medium leading-none">
                     Status: Active
                   </p>
                   <p className="text-sm font-medium leading-none">
-                    {/* Role: {role} */}
+                    {/* Role: {role} */}a
                   </p>
                   <p className="text-sm font-medium leading-none">
                     Contact: +1 (479) 232-9151
