@@ -29,16 +29,16 @@ import {
 } from "@acme/ui";
 
 export async function UserNav() {
-  const supabase = createServerComponentClient({
-    cookies: cookies,
-  });
+  // const supabase = createServerComponentClient({
+  //   cookies: cookies,
+  // });
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  // const {
+  //   data: { session },
+  // } = await supabase.auth.getSession();
 
-  const { data } = await supabase.auth.getUser();
-  const { avatar_url: avatarUrl } = data.user?.user_metadata ?? {};
+  // const { data } = await supabase.auth.getUser();
+  // const { avatar_url: avatarUrl } = data.user?.user_metadata ?? {};
 
   // const supabaseClient = useSupabaseClient();
   // const { user } = useUser();
@@ -53,19 +53,19 @@ export async function UserNav() {
   //   }
   // };
 
-  if (!session) {
-    return (
-      <Link href="/signin">
-        <Button variant="ghost" className="relative h-8 w-8 rounded">
-          <Avatar className="h-8 w-8">
-            <AvatarFallback className="bg-transparent">
-              <LogIn className="h-6 w-6" />
-            </AvatarFallback>
-          </Avatar>
-        </Button>
-      </Link>
-    );
-  }
+  // if (!session) {
+  //   return (
+  //     <Link href="/signin">
+  //       <Button variant="ghost" className="relative h-8 w-8 rounded">
+  //         <Avatar className="h-8 w-8">
+  //           <AvatarFallback className="bg-transparent">
+  //             <LogIn className="h-6 w-6" />
+  //           </AvatarFallback>
+  //         </Avatar>
+  //       </Button>
+  //     </Link>
+  //   );
+  // }
 
   // const fullname = `${user.firstName} ${user.lastName}`;
   // const initials = fullname
@@ -81,7 +81,7 @@ export async function UserNav() {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
-            <AvatarImage src={avatarUrl} alt="Avatar Image" />
+            {/* <AvatarImage src={avatarUrl} alt="Avatar Image" /> */}
             <AvatarFallback>A F</AvatarFallback>
           </Avatar>
         </Button>

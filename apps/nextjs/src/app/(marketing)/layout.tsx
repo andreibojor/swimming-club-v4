@@ -37,22 +37,22 @@ export default function MarketingLayout(props: { children: ReactNode }) {
 }
 
 async function DashboardLink() {
-  const supabase = createServerComponentClient({
-    cookies: cookies,
-  });
+  // const supabase = createServerComponentClient({
+  //   cookies: cookies,
+  // });
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  // const {
+  //   data: { session },
+  // } = await supabase.auth.getSession();
 
-  if (!session) {
-    return (
-      <Link href="/signin" className={buttonVariants({ variant: "outline" })}>
-        Sign In
-        <Icons.ChevronRight className="ml-1 h-4 w-4" />
-      </Link>
-    );
-  }
+  // if (!session) {
+  //   return (
+  //     <Link href="/signin" className={buttonVariants({ variant: "outline" })}>
+  //       Sign In
+  //       <Icons.ChevronRight className="ml-1 h-4 w-4" />
+  //     </Link>
+  //   );
+  // }
 
   return (
     <Link

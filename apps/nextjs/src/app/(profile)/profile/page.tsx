@@ -78,21 +78,17 @@ const invoices = [
 ];
 
 export default async function DashboardPage() {
-  const supabase = createServerComponentClient({
-    cookies: cookies,
-  });
+  // const supabase = createServerComponentClient({
+  //   cookies: cookies,
+  // });
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  const { data } = await supabase.auth.getUser();
-  const {
-    avatar_url: avatarUrl,
-    full_name: fullName,
-    email: email,
-    role: role,
-  } = data.user?.user_metadata ?? {};
+  // const { data } = await supabase.auth.getUser();
+  // const {
+  //   avatar_url: avatarUrl,
+  //   full_name: fullName,
+  //   email: email,
+  //   role: role,
+  // } = data.user?.user_metadata ?? {};
 
   // TODO: fetch the user's attendances here and send them through props on the calendar
 
@@ -103,9 +99,9 @@ export default async function DashboardPage() {
           <Card className="w-full md:w-1/3">
             <CardHeader>
               <Avatar className="h-[80px] w-[80px]">
-                <AvatarImage src={avatarUrl} alt="rick" />
+                {/* <AvatarImage src={avatarUrl} alt="rick" /> */}
               </Avatar>
-              <CardTitle>{fullName}</CardTitle>
+              {/* <CardTitle>{fullName}</CardTitle> */}
             </CardHeader>
             <CardContent>
               <Separator className="my-4" />
@@ -115,13 +111,13 @@ export default async function DashboardPage() {
                 </h4>
                 <div className="flex flex-col justify-between space-y-4">
                   <p className="text-sm font-medium leading-none">
-                    Email: {email}
+                    {/* Email: {email} */}
                   </p>
                   <p className="text-sm font-medium leading-none">
                     Status: Active
                   </p>
                   <p className="text-sm font-medium leading-none">
-                    Role: {role}
+                    {/* Role: {role} */}
                   </p>
                   <p className="text-sm font-medium leading-none">
                     Contact: +1 (479) 232-9151
