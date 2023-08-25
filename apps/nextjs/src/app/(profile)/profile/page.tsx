@@ -1,3 +1,4 @@
+import getUserDetails from "@/actions/getUserDetails";
 import { marketingFeatures } from "@/app/config";
 import AttendancePieChart from "@/components/attendance-piechart";
 
@@ -70,20 +71,9 @@ const invoices = [
   },
 ];
 
-export default function DashboardPage() {
-  // const supabase = createServerComponentClient({
-  //   cookies: cookies,
-  // });
-
-  // const { data } = await supabase.auth.getUser();
-  // const {
-  //   avatar_url: avatarUrl,
-  //   full_name: fullName,
-  //   email: email,
-  //   role: role,
-  // } = data.user?.user_metadata ?? {};
-
+export default async function ProfilePage() {
   // TODO: fetch the user's attendances here and send them through props on the calendar
+  const { user_metadata: userDetails } = await getUserDetails();
 
   return (
     <>
@@ -92,10 +82,10 @@ export default function DashboardPage() {
           <Card className="w-full md:w-1/3">
             <CardHeader>
               <Avatar className="h-[80px] w-[80px]">
-                {/* <AvatarImage src={avatarUrl} alt="rick" /> */}
+                <AvatarImage src={userDetails.avatar_url} alt="rick" />
                 <AvatarFallback>A F </AvatarFallback>
               </Avatar>
-              {/* <CardTitle>{fullName}</CardTitle> */}a
+              <CardTitle>{userDetails.full_name}</CardTitle>
             </CardHeader>
             <CardContent>
               <Separator className="my-4" />
@@ -105,18 +95,20 @@ export default function DashboardPage() {
                 </h4>
                 <div className="flex flex-col justify-between space-y-4">
                   <p className="text-sm font-medium leading-none">
-                    {/* Email: {email} */}a
+                    Email: {userDetails.email}
                   </p>
                   <p className="text-sm font-medium leading-none">
-                    Status: Active
+                    Status: Active !!
                   </p>
                   <p className="text-sm font-medium leading-none">
-                    {/* Role: {role} */}a
+                    Role: role no defined !!
                   </p>
                   <p className="text-sm font-medium leading-none">
-                    Contact: +1 (479) 232-9151
+                    Contact: +1 (479) 232-9151 !!
                   </p>
-                  <p className="text-sm font-medium leading-none">Pool: Dej</p>
+                  <p className="text-sm font-medium leading-none">
+                    Pool: Dej !!
+                  </p>
                 </div>
               </div>
             </CardContent>

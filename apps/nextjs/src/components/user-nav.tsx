@@ -19,6 +19,9 @@ import {
   DropdownMenuTrigger,
 } from "@acme/ui";
 
+import DashboardLink from "./dashboard-link";
+import LogOutButton from "./log-out";
+
 export function UserNav() {
   // const supabase = createServerComponentClient({
   //   cookies: cookies,
@@ -123,6 +126,9 @@ export function UserNav() {
             <span>Log out</span>
             <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
           </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <LogOutButton />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

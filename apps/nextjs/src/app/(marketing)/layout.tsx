@@ -1,10 +1,9 @@
 import { Suspense, type ReactNode } from "react";
-import Link from "next/link";
 import { siteConfig } from "@/app/config";
+import DashboardLink from "@/components/dashboard-link";
 import { SiteFooter } from "@/components/footer";
 import { MobileDropdown } from "@/components/mobile-nav";
 
-import { buttonVariants } from "@acme/ui";
 import * as Icons from "@acme/ui/src/icons";
 
 import { MainNav } from "../(dashboard)/_components/main-nav";
@@ -22,43 +21,14 @@ export default function MarketingLayout(props: { children: ReactNode }) {
         <MobileDropdown />
         <MainNav />
         <div className="ml-auto flex items-center space-x-4">
-          {/* <Suspense> */}
-          <DashboardLink />
-          {/* </Suspense> */}
+          <Suspense>
+            <DashboardLink />
+          </Suspense>
         </div>
       </nav>
 
       <main className="flex-1">{props.children}</main>
       <SiteFooter />
     </div>
-  );
-}
-
-function DashboardLink() {
-  // const supabase = createServerComponentClient({
-  //   cookies: cookies,
-  // });
-
-  // const {
-  //   data: { session },
-  // } = await supabase.auth.getSession();
-
-  // if (!session) {
-  //   return (
-  //     <Link href="/signin" className={buttonVariants({ variant: "outline" })}>
-  //       Sign In
-  //       <Icons.ChevronRight className="ml-1 h-4 w-4" />
-  //     </Link>
-  //   );
-  // }
-
-  return (
-    <Link
-      href={`/dashboard`}
-      className={buttonVariants({ variant: "outline" })}
-    >
-      Dashboard
-      <Icons.ChevronRight className="ml-1 h-4 w-4" />
-    </Link>
   );
 }
