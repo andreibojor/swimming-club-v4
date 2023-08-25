@@ -1,8 +1,7 @@
-import { cookies } from "next/headers";
 import Link from "next/link";
 // import { redirect, useRouter } from "next/navigation";
 // import { useUser } from "@/hooks/useUser";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+
 // import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import {
   CreditCard,

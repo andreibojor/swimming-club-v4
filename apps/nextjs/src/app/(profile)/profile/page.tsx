@@ -1,7 +1,5 @@
-import { cookies } from "next/headers";
 import { marketingFeatures } from "@/app/config";
 import AttendancePieChart from "@/components/attendance-piechart";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import Balancer from "react-wrap-balancer";
 
 import {

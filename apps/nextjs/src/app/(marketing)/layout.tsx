@@ -1,10 +1,8 @@
 import { Suspense, type ReactNode } from "react";
-import { cookies } from "next/headers";
 import Link from "next/link";
 import { siteConfig } from "@/app/config";
 import { SiteFooter } from "@/components/footer";
 import { MobileDropdown } from "@/components/mobile-nav";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
 import { buttonVariants } from "@acme/ui";
 import * as Icons from "@acme/ui/src/icons";
