@@ -6,7 +6,6 @@ import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { ThemeProvider } from "@/components/theme-provider";
 import SupabaseProvider from "@/providers/SupabaseProvider";
 import UserProvider from "@/providers/UserProvider";
-import ReactQueryWrapper from "@/utils/react-query";
 
 import { cn } from "@acme/ui";
 
@@ -56,16 +55,10 @@ export default function RootLayout(props: { children: React.ReactNode }) {
       >
         <SupabaseProvider>
           <UserProvider>
-            <ReactQueryWrapper>
-              <ThemeProvider
-                attribute="class"
-                defaultTheme="system"
-                enableSystem
-              >
-                {props.children}
-                <TailwindIndicator />
-              </ThemeProvider>
-            </ReactQueryWrapper>
+            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+              {props.children}
+              <TailwindIndicator />
+            </ThemeProvider>
           </UserProvider>
         </SupabaseProvider>
       </body>
