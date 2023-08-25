@@ -11,17 +11,12 @@
 const config = {
   reactStrictMode: true,
   /** Enables hot reloading for local packages without a build step */
-  // transpilePackages: ["@acme/api", "@acme/db"],
   pageExtensions: ["ts", "tsx", "mdx"],
   experimental: {
     mdxRs: true,
     serverActions: true,
   },
-  // modularizeImports: {
-  //   "lucide-react": {
-  //     transform: "lucide-react/dist/esm/icons/{{ kebabCase member }}",
-  //   },
-  // },
+
   images: {
     domains: ["avatars.githubusercontent.com", "images.unsplash.com"],
   },

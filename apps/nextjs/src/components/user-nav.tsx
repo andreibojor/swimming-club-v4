@@ -27,7 +27,7 @@ import {
   DropdownMenuTrigger,
 } from "@acme/ui";
 
-export async function UserNav() {
+export function UserNav() {
   // const supabase = createServerComponentClient({
   //   cookies: cookies,
   // });

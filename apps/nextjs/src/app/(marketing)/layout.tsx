@@ -34,7 +34,7 @@ export default function MarketingLayout(props: { children: ReactNode }) {
   );
 }
 
-async function DashboardLink() {
+function DashboardLink() {
   // const supabase = createServerComponentClient({
   //   cookies: cookies,
   // });

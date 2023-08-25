@@ -75,7 +75,7 @@ const invoices = [
   },
 ];
 
-export default async function DashboardPage() {
+export default function DashboardPage() {
   // const supabase = createServerComponentClient({
   //   cookies: cookies,
   // });
