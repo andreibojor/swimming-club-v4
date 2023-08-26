@@ -82,7 +82,7 @@ export default async function ProfilePage() {
           <Card className="w-full md:w-1/3">
             <CardHeader>
               <Avatar className="h-[80px] w-[80px]">
-                {/* <AvatarImage src={userDetails.avatar_url} alt="rick" /> */}
+                <AvatarImage src={userDetails?.avatar_url} alt="rick" />
                 <AvatarFallback>A F </AvatarFallback>
               </Avatar>
               {/* <CardTitle>{userDetails.full_name}</CardTitle> */}
