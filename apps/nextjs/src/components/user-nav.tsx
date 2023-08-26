@@ -1,5 +1,5 @@
 import Link from "next/link";
-import getUserDetails from "@/actions/getUserDetails";
+// import getUserDetails from "@/actions/getUserDetails";
 // import { redirect, useRouter } from "next/navigation";
 // import { useUser } from "@/hooks/useUser";
 
@@ -23,8 +23,8 @@ import {
 
 import LogOutButton from "./log-out";
 
-export async function UserNav() {
-  const { user_metadata: userDetails } = await getUserDetails();
+export function UserNav() {
+  // const { user_metadata: userDetails } = await getUserDetails();
 
   // const fullname = `${user.firstName} ${user.lastName}`;
   // const initials = fullname
@@ -40,7 +40,7 @@ export async function UserNav() {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
-            <AvatarImage src={userDetails.avatar_url} alt="Avatar Image" />
+            {/* <AvatarImage src={userDetails.avatar_url} alt="Avatar Image" /> */}
             <AvatarFallback>A F</AvatarFallback>
           </Avatar>
         </Button>
@@ -49,10 +49,10 @@ export async function UserNav() {
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none">
-              {userDetails.full_name}
+              {/* {userDetails.full_name} */}a
             </p>
             <p className="text-xs leading-none text-muted-foreground">
-              {userDetails.email}
+              {/* {userDetails.email} */}a
             </p>
           </div>
         </DropdownMenuLabel>

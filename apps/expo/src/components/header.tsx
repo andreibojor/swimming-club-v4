@@ -8,7 +8,7 @@ import { useUser } from "@supabase/auth-helpers-react";
 export function AuthAvatar() {
   const user = useUser();
   const router = useRouter();
-  const profileImage = user?.user_metadata.avatar_url as string | undefined;
+  // const profileImage = user?.user_metadata.avatar_url as string | undefined;
 
   return (
     <TouchableOpacity onPress={() => router.push("/profile")}>
