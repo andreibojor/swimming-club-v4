@@ -1,12 +1,11 @@
 import { create } from "zustand";
 
-interface DateInterface {
-  // TODO: define the correct interface for setNewDate
-  setNewDate: unknown;
+export interface DateInterface {
+  setDateState: (state: Date | undefined) => void;
   date: Date | undefined;
 }
 
 export const useDate = create<DateInterface>((set) => ({
   date: undefined,
-  setNewDate: (state: string) => set({ date: state }),
+  setDateState: (state: Date | undefined) => set({ date: state }),
 }));

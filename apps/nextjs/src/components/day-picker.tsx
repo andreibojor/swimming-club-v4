@@ -1,35 +1,35 @@
 "use client";
 
-import * as React from "react";
-import { useState } from "react";
-import { useDate } from "@/store/store";
+import React, { useCallback } from "react";
+import { useDate, type DateInterface } from "@/store/store";
 import { format } from "date-fns";
 
 import { Calendar } from "@acme/ui";
 
 export function CustomCalendar() {
-  const today = new Date();
-  const newDate = useDate();
-  const [selectedDay, setSelectedDay] = useState<Date | undefined>(today);
+  const { date, setDateState }: DateInterface = useDate();
 
-  React.useEffect(() => {
-    newDate.setNewDate(selectedDay);
-  }, [selectedDay]);
+  const handleSelectedDayChange = useCallback(
+    (day: Date | undefined) => {
+      setDateState(day);
+    },
+    [setDateState],
+  );
 
   return (
     <>
       <Calendar
         mode="single"
-        selected={selectedDay}
-        onSelect={setSelectedDay}
+        selected={date ?? new Date()}
+        onSelect={handleSelectedDayChange}
         className="rounded-md border"
       />
       <div>
         <h1>
-          {newDate.date ? (
-            <p>You selected {format(newDate.date, "PPP")}.</p>
+          {date ? (
+            <p>You selected {format(date, "PPP")}.</p>
           ) : (
-            <p>select a day</p>
+            <p>Select a day</p>
           )}
         </h1>
       </div>
