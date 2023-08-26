@@ -23,8 +23,6 @@ import {
 
 import LogOutButton from "./log-out";
 
-export const revalidate = 0;
-
 export async function UserNav() {
   const { user_metadata: userDetails } = await getUserDetails();
 

@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import getUsers from "@/actions/getUsers";
+// import getUsers from "@/actions/getUsers";
 import { CustomCalendar } from "@/components/day-picker";
 
 import {
@@ -24,8 +24,8 @@ import { DemoTeamMembers } from "../_components/team-members";
 // This page will never be cached and the data will always be up to date
 export const revalidate = 0;
 
-export default async function DashboardPage() {
-  const users = await getUsers();
+export default function DashboardPage() {
+  // const users = await getUsers();
 
   return (
     <DashboardShell
@@ -128,9 +128,7 @@ export default async function DashboardPage() {
                 </CardDescription>
               </CardHeader>
 
-              <CardContent>
-                <RecentSales users={users} />
-              </CardContent>
+              <CardContent>{/* <RecentSales users={users} /> */}</CardContent>
             </Card>
 
             <Suspense

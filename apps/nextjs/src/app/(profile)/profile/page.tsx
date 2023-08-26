@@ -1,4 +1,4 @@
-import getUserDetails from "@/actions/getUserDetails";
+// import getUserDetails from "@/actions/getUserDetails";
 import { marketingFeatures } from "@/app/config";
 import AttendancePieChart from "@/components/attendance-piechart";
 
@@ -70,11 +70,10 @@ const invoices = [
     paymentMethod: "Credit Card",
   },
 ];
-export const revalidate = 0;
 
-export default async function ProfilePage() {
+export default function ProfilePage() {
   // TODO: fetch the user's attendances here and send them through props on the calendar
-  const { user_metadata: userDetails } = await getUserDetails();
+  // const { user_metadata: userDetails } = await getUserDetails();
 
   return (
     <>
@@ -83,10 +82,10 @@ export default async function ProfilePage() {
           <Card className="w-full md:w-1/3">
             <CardHeader>
               <Avatar className="h-[80px] w-[80px]">
-                <AvatarImage src={userDetails.avatar_url} alt="rick" />
+                {/* <AvatarImage src={userDetails.avatar_url} alt="rick" /> */}
                 <AvatarFallback>A F </AvatarFallback>
               </Avatar>
-              <CardTitle>{userDetails.full_name}</CardTitle>
+              {/* <CardTitle>{userDetails.full_name}</CardTitle> */}
             </CardHeader>
             <CardContent>
               <Separator className="my-4" />
@@ -96,7 +95,7 @@ export default async function ProfilePage() {
                 </h4>
                 <div className="flex flex-col justify-between space-y-4">
                   <p className="text-sm font-medium leading-none">
-                    Email: {userDetails.email}
+                    {/* Email: {userDetails.email} */}
                   </p>
                   <p className="text-sm font-medium leading-none">
                     Status: Active !!
