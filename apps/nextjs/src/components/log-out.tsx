@@ -24,7 +24,7 @@ const LogOutButton: React.FC = () => {
     <Button
       onClick={handleLogout}
       variant={"ghost"}
-      className="w-full px-2 py-1.5"
+      className="w-full px-2 py-1.5 text-sm font-light"
     >
       <LogOut className="mr-2 h-4 w-4" />
       <span>Log out</span>

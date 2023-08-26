@@ -1,4 +1,5 @@
 import Link from "next/link";
+import getUserDetails from "@/actions/getUserDetails";
 // import { redirect, useRouter } from "next/navigation";
 // import { useUser } from "@/hooks/useUser";
 
@@ -8,6 +9,7 @@ import { CreditCard, LogOut, PlusCircle, Settings, User } from "lucide-react";
 import {
   Avatar,
   AvatarFallback,
+  AvatarImage,
   Button,
   DropdownMenu,
   DropdownMenuContent,
@@ -19,47 +21,10 @@ import {
   DropdownMenuTrigger,
 } from "@acme/ui";
 
-import DashboardLink from "./dashboard-link";
 import LogOutButton from "./log-out";
 
-export function UserNav() {
-  // const supabase = createServerComponentClient({
-  //   cookies: cookies,
-  // });
-
-  // const {
-  //   data: { session },
-  // } = await supabase.auth.getSession();
-
-  // const { data } = await supabase.auth.getUser();
-  // const { avatar_url: avatarUrl } = data.user?.user_metadata ?? {};
-
-  // const supabaseClient = useSupabaseClient();
-  // const { user } = useUser();
-
-  // const handleLogout = async () => {
-  //   const { error } = await supabaseClient.auth.signOut();
-  //   router.refresh();
-
-  //   if (error) {
-  //     console.log(error);
-  //     // toast.error(error.message);
-  //   }
-  // };
-
-  // if (!session) {
-  //   return (
-  //     <Link href="/signin">
-  //       <Button variant="ghost" className="relative h-8 w-8 rounded">
-  //         <Avatar className="h-8 w-8">
-  //           <AvatarFallback className="bg-transparent">
-  //             <LogIn className="h-6 w-6" />
-  //           </AvatarFallback>
-  //         </Avatar>
-  //       </Button>
-  //     </Link>
-  //   );
-  // }
+export async function UserNav() {
+  const { user_metadata: userDetails } = await getUserDetails();
 
   // const fullname = `${user.firstName} ${user.lastName}`;
   // const initials = fullname
@@ -75,7 +40,7 @@ export function UserNav() {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
-            {/* <AvatarImage src={avatarUrl} alt="Avatar Image" /> */}
+            <AvatarImage src={userDetails.avatar_url} alt="Avatar Image" />
             <AvatarFallback>A F</AvatarFallback>
           </Avatar>
         </Button>
@@ -84,10 +49,10 @@ export function UserNav() {
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none">
-              {/* {user.firstName} {user.lastName} */}a
+              {userDetails.full_name}
             </p>
             <p className="text-xs leading-none text-muted-foreground">
-              {/* {email} */}a
+              {userDetails.email}
             </p>
           </div>
         </DropdownMenuLabel>

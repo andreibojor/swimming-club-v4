@@ -36,10 +36,7 @@ export async function DemoTeamMembers() {
       </CardHeader>
       <CardContent className="grid gap-6">
         {users?.map((user) => (
-          <div
-            key={user.id}
-            className="flex items-center justify-between space-x-4"
-          >
+          <div key={user.id} className="grid gap-4 md:grid-cols-5">
             <div className="flex items-center space-x-4">
               <Avatar>
                 <AvatarImage src="/avatars/01.png" />
@@ -52,11 +49,12 @@ export async function DemoTeamMembers() {
                 {/* <p className="text-sm text-muted-foreground">m@example.com</p> */}
               </div>
             </div>
+            <Progress value={33} className="max-w-[200px]" />
             <Button variant="outline" className="ml-auto">
               Absent{" "}
               <Icons.Close className="ml-2 h-4 w-4 text-muted-foreground" />
             </Button>
-            <Progress value={33} className="max-w-[200px]" />
+
             <Popover>
               <PopoverTrigger asChild>
                 <Button variant="outline" className="ml-auto">
