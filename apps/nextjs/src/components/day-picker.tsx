@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useCallback } from "react";
-import { useDate, type DateInterface } from "@/store/store";
+import { useDate, type DateInterface } from "@/hooks/useDate";
 import { format } from "date-fns";
 
 import { Calendar } from "@acme/ui";
@@ -20,7 +20,7 @@ export function CustomCalendar() {
     <>
       <Calendar
         mode="single"
-        selected={date ?? new Date()}
+        selected={date}
         onSelect={handleSelectedDayChange}
         className="rounded-md border"
       />

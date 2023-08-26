@@ -6,6 +6,6 @@ export interface DateInterface {
 }
 
 export const useDate = create<DateInterface>((set) => ({
-  date: undefined,
+  date: new Date(), // Initialize with today's date
   setDateState: (state: Date | undefined) => set({ date: state }),
 }));

@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import getUsers from "@/actions/getUsers";
 import { CustomCalendar } from "@/components/day-picker";
-import { StoreInitializer } from "@/store/store-initializer";
 
 import {
   Card,
@@ -33,7 +32,6 @@ export default async function DashboardPage() {
       title="Dashboard"
       description="Get an overview of how the project is going"
     >
-      <StoreInitializer date={new Date()} />
       <Tabs defaultValue="cluj-napoca" className="space-y-4">
         <TabsList>
           <TabsTrigger value="cluj-napoca">Cluj-Napoca</TabsTrigger>
