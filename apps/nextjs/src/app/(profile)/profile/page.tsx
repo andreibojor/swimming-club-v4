@@ -70,6 +70,7 @@ const invoices = [
     paymentMethod: "Credit Card",
   },
 ];
+export const revalidate = 0;
 
 export default async function ProfilePage() {
   // TODO: fetch the user's attendances here and send them through props on the calendar

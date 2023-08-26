@@ -1,7 +1,7 @@
 "use client";
 
 // import { BounceLoader } from "react-spinners";
-
+// TODO Loading states too all loadings
 const Loading = () => {
   return (
     <div className="flex h-full items-center justify-center">

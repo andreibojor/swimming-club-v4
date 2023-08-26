@@ -29,6 +29,8 @@ import {
 } from "@acme/ui";
 import * as Icons from "@acme/ui/src/icons";
 
+export const revalidate = 0;
+
 export async function DemoTeamMembers() {
   const users = await getUsers();
 
