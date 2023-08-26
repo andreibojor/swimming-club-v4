@@ -1,4 +1,4 @@
-import { cookies } from "next/headers";
+// import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
 interface UserInterface {
@@ -9,20 +9,17 @@ interface UserInterface {
 }
 
 const getUsers = async (): Promise<UserInterface[]> => {
-  const supabase = createServerComponentClient({
-    cookies: cookies,
-  });
-
-  const { data, error } = await supabase
-    .from("users")
-    .select("*")
-    .eq("role", "student");
-
-  if (error) {
-    console.log(error);
-  }
-
-  return (data as any) || [];
+  // const supabase = createServerComponentClient({
+  //   cookies: cookies,
+  // });
+  // const { data, error } = await supabase
+  //   .from("users")
+  //   .select("*")
+  //   .eq("role", "student");
+  // if (error) {
+  //   console.log(error);
+  // }
+  // return (data as any) || [];
 };
 
 export default getUsers;
