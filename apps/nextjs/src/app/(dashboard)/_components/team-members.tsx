@@ -10,24 +10,17 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
   Progress,
 } from "@acme/ui";
 import * as Icons from "@acme/ui/src/icons";
+
+import { AttendanceButton } from "./attendance-button";
 
 export async function DemoTeamMembers() {
   const users = await getUsers();
@@ -56,15 +49,7 @@ export async function DemoTeamMembers() {
                   {/* <p className="text-sm text-muted-foreground">m@example.com</p> */}
                 </div>
               </div>
-
-              <Button
-                variant="outline"
-                className="ml-auto px-2 py-1 md:px-4 md:py-2"
-              >
-                Absent{" "}
-                <Icons.Close className="ml-2 h-4 w-4 text-muted-foreground" />
-              </Button>
-
+              <AttendanceButton studentId={user.id} />
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="h-8 w-8 p-0">
@@ -84,51 +69,7 @@ export async function DemoTeamMembers() {
                   <DropdownMenuItem>View payment details</DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-
-              {/* <Popover>
-              <PopoverTrigger asChild>
-                <Button variant="outline" className="ml-auto">
-                  Owner{" "}
-                  <Icons.ChevronDown className="ml-2 h-4 w-4 text-muted-foreground" />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="p-0" align="end">
-                <Command>
-                  <CommandInput placeholder="Select new role..." />
-                  <CommandList>
-                    <CommandEmpty>No roles found.</CommandEmpty>
-                    <CommandGroup>
-                      <CommandItem className="teamaspace-y-1 flex flex-col items-start px-4 py-2">
-                        <p>Viewer</p>
-                        <p className="text-sm text-muted-foreground">
-                          Can view and comment.
-                        </p>
-                      </CommandItem>
-                      <CommandItem className="teamaspace-y-1 flex flex-col items-start px-4 py-2">
-                        <p>Developer</p>
-                        <p className="text-sm text-muted-foreground">
-                          Can view, comment and edit.
-                        </p>
-                      </CommandItem>
-                      <CommandItem className="teamaspace-y-1 flex flex-col items-start px-4 py-2">
-                        <p>Billing</p>
-                        <p className="text-sm text-muted-foreground">
-                          Can view, comment and manage billing.
-                        </p>
-                      </CommandItem>
-                      <CommandItem className="teamaspace-y-1 flex flex-col items-start px-4 py-2">
-                        <p>Owner</p>
-                        <p className="text-sm text-muted-foreground">
-                          Admin-level access to all resources.
-                        </p>
-                      </CommandItem>
-                    </CommandGroup>
-                  </CommandList>
-                </Command>
-              </PopoverContent>
-            </Popover> */}
             </div>
-
             <Progress value={23} className="h-1 w-full" />
           </div>
         ))}

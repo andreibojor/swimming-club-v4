@@ -1,4 +1,5 @@
 import Link from "next/link";
+import getUserDetails from "@/actions/getUserDetails";
 // import getUserDetails from "@/actions/getUserDetails";
 // import { redirect, useRouter } from "next/navigation";
 // import { useUser } from "@/hooks/useUser";
@@ -23,8 +24,8 @@ import {
 
 import LogOutButton from "./log-out";
 
-export function UserNav() {
-  // const { user_metadata: userDetails } = await getUserDetails();
+export async function UserNav() {
+  const { user_metadata: userDetails } = await getUserDetails();
 
   // const fullname = `${user.firstName} ${user.lastName}`;
   // const initials = fullname
@@ -40,7 +41,7 @@ export function UserNav() {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
-            {/* <AvatarImage src={userDetails.avatar_url} alt="Avatar Image" /> */}
+            <AvatarImage src={userDetails?.avatar_url} alt="Avatar Image" />
             <AvatarFallback>A F</AvatarFallback>
           </Avatar>
         </Button>
