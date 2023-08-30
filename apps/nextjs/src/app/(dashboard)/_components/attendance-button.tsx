@@ -66,9 +66,53 @@ export const AttendanceButton: React.FC<AttendanceButtonProps> = ({
     <Icons.Close className="ml-2 h-4 w-4 text-muted-foreground" />
   );
 
-  const handleClick = () => {
-    console.log(studentId);
-    console.log(date);
+  const handleClick = async () => {
+    try {
+      if (!user?.id) {
+        return;
+      }
+
+      const { data, error } = await supabaseClient
+        .from("attendance_record")
+        .select("*")
+        .eq("student_id", studentId)
+        .eq("date", formattedDatabaseDate);
+
+      if (error) {
+        console.error("Error fetching attendance data:", error);
+        return;
+      }
+
+      if (data && data.length > 0) {
+        // User is already present, so delete the entry
+        const deleteResult = await supabaseClient
+          .from("attendance_record")
+          .delete()
+          .eq("id", data[0].id);
+
+        if (deleteResult.error) {
+          console.error("Error deleting attendance entry:", deleteResult.error);
+        } else {
+          setIsPresent(false);
+        }
+      } else {
+        // User is not present, so insert a new entry
+        const insertResult = await supabaseClient
+          .from("attendance_record")
+          .insert([{ student_id: studentId, date: formattedDatabaseDate }]);
+
+        if (insertResult.error) {
+          console.error(
+            "Error inserting attendance entry:",
+            insertResult.error,
+          );
+        } else {
+          setIsPresent(true);
+        }
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
   };
 
   return (

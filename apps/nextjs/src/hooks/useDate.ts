@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 export interface DateInterface {
   setDateState: (state: Date | undefined) => void;
-  date: Date | undefined;
+  date: Date;
 }
 
 export const useDate = create<DateInterface>((set) => ({
