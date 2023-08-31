@@ -1,3 +1,5 @@
+import { createServerSupabaseClient } from "@/actions/createServerSupabaseClient";
+import getStudentAttendances from "@/actions/getStudentAttendances";
 import getUserDetails from "@/actions/getUserDetails";
 import { marketingFeatures } from "@/app/config";
 import AttendancePieChart from "@/components/attendance-piechart";
@@ -74,6 +76,8 @@ const invoices = [
 export default async function ProfilePage() {
   // TODO: fetch the user's attendances here and send them through props on the calendar
   const { user_metadata: userDetails } = await getUserDetails();
+  const attendances = await getStudentAttendances();
+  const selectedDates = await attendances.map((attendance) => attendance.date);
 
   return (
     <>
@@ -85,7 +89,7 @@ export default async function ProfilePage() {
                 <AvatarImage src={userDetails?.avatar_url} alt="rick" />
                 <AvatarFallback>A F </AvatarFallback>
               </Avatar>
-              {/* <CardTitle>{userDetails.full_name}</CardTitle> */}
+              <CardTitle>{userDetails?.full_name}</CardTitle>
             </CardHeader>
             <CardContent>
               <Separator className="my-4" />
@@ -95,7 +99,7 @@ export default async function ProfilePage() {
                 </h4>
                 <div className="flex flex-col justify-between space-y-4">
                   <p className="text-sm font-medium leading-none">
-                    {/* Email: {userDetails.email} */}
+                    Email: {userDetails?.email}
                   </p>
                   <p className="text-sm font-medium leading-none">
                     Status: Active !!
@@ -122,7 +126,7 @@ export default async function ProfilePage() {
             </CardHeader> */}
             <CardContent className="flex flex-col items-center justify-between md:flex-row">
               <AttendancePieChart />
-              <Calendar />
+              <Calendar mode="multiple" selected={selectedDates} />
             </CardContent>
           </Card>
         </div>

@@ -60,12 +60,6 @@ export const AttendanceButton: React.FC<AttendanceButtonProps> = ({
     void fetchData();
   }, [formattedDatabaseDate, studentId, supabaseClient, user?.id]);
 
-  const btnIcon = isPresent ? (
-    <Icons.Check className="ml-2 h-4 w-4 text-muted-foreground" />
-  ) : (
-    <Icons.Close className="ml-2 h-4 w-4 text-muted-foreground" />
-  );
-
   const handleClick = async () => {
     try {
       if (!user?.id) {
@@ -114,6 +108,12 @@ export const AttendanceButton: React.FC<AttendanceButtonProps> = ({
       console.error("An error occurred:", error);
     }
   };
+
+  const btnIcon = isPresent ? (
+    <Icons.Check className="ml-2 h-4 w-4 text-muted-foreground" />
+  ) : (
+    <Icons.Close className="ml-2 h-4 w-4 text-muted-foreground" />
+  );
 
   return (
     <Button

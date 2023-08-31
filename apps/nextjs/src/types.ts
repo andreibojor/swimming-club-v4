@@ -70,3 +70,9 @@ export interface Subscription {
   trial_end?: string;
   prices?: Price;
 }
+
+export interface Attendance {
+  id: string;
+  date: Date;
+  student_id: string;
+}
