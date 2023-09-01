@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { useDate } from "@/hooks/useDate";
 import { useUser } from "@/hooks/useUser";
 import { useSessionContext } from "@supabase/auth-helpers-react";
@@ -16,7 +15,6 @@ interface AttendanceButtonProps {
 export const AttendanceButton: React.FC<AttendanceButtonProps> = ({
   studentId,
 }) => {
-  const router = useRouter();
   const { supabaseClient } = useSessionContext();
 
   const { user } = useUser();
@@ -30,6 +28,7 @@ export const AttendanceButton: React.FC<AttendanceButtonProps> = ({
 
   const [isPresent, setIsPresent] = useState(false);
 
+  // TODO: try realtime to elimininate the useeffect
   useEffect(() => {
     if (!user?.id) {
       return;
