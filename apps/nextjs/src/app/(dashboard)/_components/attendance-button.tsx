@@ -110,9 +110,9 @@ export const AttendanceButton: React.FC<AttendanceButtonProps> = ({
   };
 
   const btnIcon = isPresent ? (
-    <Icons.Check className="ml-2 h-4 w-4 text-muted-foreground" />
+    <Icons.Check className="h-5 w-5 text-muted-foreground" />
   ) : (
-    <Icons.Close className="ml-2 h-4 w-4 text-muted-foreground" />
+    <Icons.Close className="h-5 w-5 text-muted-foreground" />
   );
 
   return (

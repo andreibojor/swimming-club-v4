@@ -112,7 +112,7 @@ export default async function DashboardPage() {
                 <CardTitle>All Students</CardTitle>
                 <CardDescription>
                   <Input
-                    placeholder="Filter tasks..."
+                    placeholder="Filter students..."
                     // value={
                     //   (table
                     //     .getColumn("full_name")
@@ -262,7 +262,7 @@ export default async function DashboardPage() {
                 <CardTitle>All Students</CardTitle>
                 <CardDescription>
                   <Input
-                    placeholder="Filter tasks..."
+                    placeholder="Filter students..."
                     // value={
                     //   (table
                     //     .getColumn("full_name")
@@ -401,7 +401,7 @@ export default async function DashboardPage() {
                 <CardTitle>All Students</CardTitle>
                 <CardDescription>
                   <Input
-                    placeholder="Filter tasks..."
+                    placeholder="Filter students..."
                     // value={
                     //   (table
                     //     .getColumn("full_name")
