@@ -82,7 +82,8 @@ export const AttendanceButton: React.FC<AttendanceButtonProps> = ({
         const deleteResult = await supabaseClient
           .from("attendance_record")
           .delete()
-          .eq("id", data[0].id);
+          .eq("student_id", studentId)
+          .eq("date", formattedDatabaseDate);
 
         if (deleteResult.error) {
           console.error("Error deleting attendance entry:", deleteResult.error);
