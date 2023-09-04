@@ -77,8 +77,13 @@ export default async function ProfilePage() {
   // TODO: fetch the user's attendances here and send them through props on the calendar
   const { user_metadata: userDetails } = await getUserDetails();
   const attendances = await getStudentAttendances();
-  const selectedDates = await attendances.map((attendance) => attendance.date);
-
+  const selectedDates = attendances.map((attendance) => attendance.date);
+  const supabase = createServerSupabaseClient();
+  console.log(userDetails);
+  // const { data: studentData, error: studentError } = await supabaseClient
+  // .from("students")
+  // .select("lessons_left")
+  // .eq("id", studentId);
   return (
     <>
       <div className="flex w-full max-w-screen-lg animate-fade-up flex-col gap-5 p-5 xl:px-0">
@@ -125,7 +130,7 @@ export default async function ProfilePage() {
               </CardDescription>
             </CardHeader> */}
             <CardContent className="flex flex-col items-center justify-between md:flex-row">
-              <AttendancePieChart />
+              <AttendancePieChart attendancesLeft={3} />
               <Calendar mode="multiple" selected={selectedDates} />
             </CardContent>
           </Card>

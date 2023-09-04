@@ -46,3 +46,9 @@ yarn-error.log*
 
 # turbo
 .turbo
+
+# supabase localhost
+supabase
+supabase/*
+.supabase/*
+.supabase

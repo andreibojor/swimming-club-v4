@@ -16,25 +16,19 @@ export const AttendanceButton: React.FC<AttendanceButtonProps> = ({
   studentId,
 }) => {
   const { supabaseClient } = useSessionContext();
-
   const { user } = useUser();
   const { date } = useDate();
-  const formattedDatabaseDate = (() => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    return `${year} ${month} ${day}`;
-  })();
+
+  const formattedDatabaseDate = `${date.getFullYear()} ${String(
+    date.getMonth() + 1,
+  ).padStart(2, "0")} ${String(date.getDate()).padStart(2, "0")}`;
 
   const [isPresent, setIsPresent] = useState(false);
 
-  // TODO: try realtime to elimininate the useeffect
   useEffect(() => {
-    if (!user?.id) {
-      return;
-    }
-
     const fetchData = async () => {
+      if (!user?.id) return;
+
       try {
         const { data, error } = await supabaseClient
           .from("attendance_record")
@@ -43,11 +37,7 @@ export const AttendanceButton: React.FC<AttendanceButtonProps> = ({
           .eq("date", formattedDatabaseDate);
 
         if (!error) {
-          if (data && data.length > 0) {
-            setIsPresent(true); // User exists in attendance_record for the specified date
-          } else {
-            setIsPresent(false); // User doesn't exist in attendance_record for the specified date
-          }
+          setIsPresent(data && data.length > 0);
         } else {
           console.error("Error fetching attendance data:", error);
         }
@@ -59,50 +49,55 @@ export const AttendanceButton: React.FC<AttendanceButtonProps> = ({
     void fetchData();
   }, [formattedDatabaseDate, studentId, supabaseClient, user?.id]);
 
-  const handleClick = async () => {
-    try {
-      if (!user?.id) {
-        return;
-      }
+  const handleAttendance = async () => {
+    if (!user?.id) return;
 
+    try {
       const { data, error } = await supabaseClient
         .from("attendance_record")
         .select("*")
         .eq("student_id", studentId)
         .eq("date", formattedDatabaseDate);
 
+      const { data: studentData, error: studentError } = await supabaseClient
+        .from("students")
+        .select("lessons_left")
+        .eq("id", studentId);
+
       if (error) {
         console.error("Error fetching attendance data:", error);
         return;
       }
 
-      if (data && data.length > 0) {
-        // User is already present, so delete the entry
-        const deleteResult = await supabaseClient
-          .from("attendance_record")
-          .delete()
-          .eq("student_id", studentId)
-          .eq("date", formattedDatabaseDate);
+      const currentLessonsLeft = studentData[0]?.lessons_left || 0;
+      const newLessonsLeft = isPresent
+        ? currentLessonsLeft + 1
+        : currentLessonsLeft - 1;
 
-        if (deleteResult.error) {
-          console.error("Error deleting attendance entry:", deleteResult.error);
-        } else {
-          setIsPresent(false);
-        }
+      const attendanceAction = isPresent
+        ? supabaseClient
+            .from("attendance_record")
+            .delete()
+            .eq("student_id", studentId)
+            .eq("date", formattedDatabaseDate)
+        : supabaseClient
+            .from("attendance_record")
+            .insert([{ student_id: studentId, date: formattedDatabaseDate }]);
+
+      const updateStudentResult = await supabaseClient
+        .from("students")
+        .update({ lessons_left: newLessonsLeft })
+        .eq("id", studentId);
+
+      const attendanceResult = await attendanceAction;
+
+      if (attendanceResult.error) {
+        console.error(
+          `Error ${isPresent ? "deleting" : "inserting"} attendance entry:`,
+          attendanceResult.error,
+        );
       } else {
-        // User is not present, so insert a new entry
-        const insertResult = await supabaseClient
-          .from("attendance_record")
-          .insert([{ student_id: studentId, date: formattedDatabaseDate }]);
-
-        if (insertResult.error) {
-          console.error(
-            "Error inserting attendance entry:",
-            insertResult.error,
-          );
-        } else {
-          setIsPresent(true);
-        }
+        setIsPresent(!isPresent);
       }
     } catch (error) {
       console.error("An error occurred:", error);
@@ -117,7 +112,7 @@ export const AttendanceButton: React.FC<AttendanceButtonProps> = ({
 
   return (
     <Button
-      onClick={handleClick}
+      onClick={handleAttendance}
       variant="outline"
       className="ml-auto px-2 py-1 md:px-4 md:py-2"
     >

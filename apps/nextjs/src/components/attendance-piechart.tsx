@@ -2,13 +2,14 @@
 
 import { Cell, Label, Pie, PieChart, ResponsiveContainer } from "recharts";
 
-const data = [
-  { name: "Group A", value: 300 },
-  { name: "Group B", value: 700 },
-];
 const COLORS = ["#00C49F", "#0088FE"];
 
-export default function AttendancePieChart() {
+export default function AttendancePieChart({ attendancesLeft }) {
+  const data = [
+    { name: "Group A", value: attendancesLeft },
+    { name: "Group B", value: 25 },
+  ];
+
   return (
     <ResponsiveContainer width={200} height={200}>
       <PieChart width={190} height={190}>
@@ -26,7 +27,7 @@ export default function AttendancePieChart() {
           stroke="none"
         >
           <Label
-            value="6"
+            value={`${attendancesLeft}`}
             position="centerBottom"
             className="label-top"
             fontSize="27px"
