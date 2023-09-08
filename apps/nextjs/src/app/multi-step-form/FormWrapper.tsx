@@ -1,11 +1,11 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { motion } from "framer-motion";
 
-type FormWrapperProps = {
+interface FormWrapperProps {
   title: string;
   description: string;
   children: ReactNode;
-};
+}
 
 const formVariants = {
   hidden: {

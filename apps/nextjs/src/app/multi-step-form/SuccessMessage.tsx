@@ -1,8 +1,9 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { RefreshCcw } from "lucide-react";
-import { Button } from "../components/ui/button";
-import successIcon from "../public/assets/success.png";
+
+import { Button } from "@acme/ui";
+import * as Icons from "@acme/ui/src/icons";
 
 const successVariants = {
   hidden: {
@@ -23,31 +24,25 @@ const SuccessMessage = () => {
   const refresh = () => window.location.reload();
   return (
     <motion.section
-      className="w-full h-full flex flex-col items-center justify-center gap-4 md:gap-2 text-center"
+      className="flex h-full w-full flex-col items-center justify-center gap-4 text-center md:gap-2"
       variants={successVariants}
       initial="hidden"
       animate="visible"
     >
-      <Image
-        src={successIcon}
-        width="150"
-        height="150"
-        alt="Success Icon"
-        className="md:mb-4"
-      />
+      <Icons.CheckCircle className="h-10 w-10" />
       <h4 className="text-2xl font-semibold text-white md:text-3xl">
         Thank you!
       </h4>
-      <p className="text-sm max-w-md text-neutral-300 md:text-base">
+      <p className="max-w-md text-sm text-neutral-300 md:text-base">
         Thanks for confirming your subscription! We hope you have fun using our
         plataform. If you ever need support, please feel free to email us at
         support@loremgaming.com
       </p>
-      <div className="flex items-center mt-6">
-        <div className="relative after:pointer-events-none after:absolute after:inset-px after:rounded-[11px] after:shadow-highlight after:shadow-white/10 focus-within:after:shadow-[#77f6aa] after:transition">
+      <div className="mt-6 flex items-center">
+        <div className="after:shadow-highlight relative after:pointer-events-none after:absolute after:inset-px after:rounded-[11px] after:shadow-white/10 after:transition focus-within:after:shadow-[#77f6aa]">
           <Button
             onClick={refresh}
-            className="relative text-neutral-200 bg-neutral-900 border border-black/20 shadow-input shadow-black/10 rounded-xl hover:text-white"
+            className="relative rounded-xl border border-black/20 bg-neutral-900 text-neutral-200 shadow-black/10 shadow-input hover:text-white"
           >
             <RefreshCcw className="mr-2 h-4 w-4" /> Restart
           </Button>

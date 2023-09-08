@@ -1,7 +1,7 @@
+import { Input, Label } from "@acme/ui";
+
 import FormWrapper from "./FormWrapper";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { FormItems } from "../app/page";
+import type { FormItems } from "./page";
 
 type StepProps = FormItems & {
   updateForm: (fieldToUpdate: Partial<FormItems>) => void;
@@ -20,7 +20,7 @@ const UserInfoForm = ({
       title="Personal info"
       description="Please provide your name, email address, and phone number."
     >
-      <div className="w-full flex flex-col gap-5">
+      <div className="flex w-full flex-col gap-5">
         <div className="flex flex-col gap-2">
           <Label htmlFor="name">Name</Label>
           <Input
@@ -34,7 +34,7 @@ const UserInfoForm = ({
             className="w-full"
             required
           />
-          {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+          {errors.name && <p className="text-sm text-red-500">{errors.name}</p>}
         </div>
         <div className="flex flex-col gap-2">
           <Label htmlFor="email">Email Address</Label>
@@ -49,7 +49,7 @@ const UserInfoForm = ({
             required
           />
           {errors.email && (
-            <p className="text-red-500 text-sm">{errors.email}</p>
+            <p className="text-sm text-red-500">{errors.email}</p>
           )}
         </div>
         <div className="flex flex-col gap-2">
@@ -65,7 +65,7 @@ const UserInfoForm = ({
             required
           />
           {errors.phone && (
-            <p className="text-red-500 text-sm">{errors.phone}</p>
+            <p className="text-sm text-red-500">{errors.phone}</p>
           )}
         </div>
       </div>

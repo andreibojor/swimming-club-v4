@@ -32,7 +32,7 @@ export default function AttendancePieChart({ attendancesLeft }) {
             className="label-top"
             fontSize="27px"
           />
-          <Label value="tasks left" position="centerTop" className="label" />
+          <Label value="sessions left" position="centerTop" className="label" />
           {data.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
