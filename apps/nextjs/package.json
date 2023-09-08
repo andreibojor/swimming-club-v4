@@ -22,6 +22,7 @@
     "@supabase/auth-ui-shared": "^0.1.6",
     "@supabase/supabase-js": "^2.33.1",
     "@vercel/analytics": "^1.0.2",
+    "framer-motion": "^10.16.4",
     "next": "^13.4.19",
     "next-themes": "^0.2.1",
     "react": "18.2.0",
