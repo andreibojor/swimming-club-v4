@@ -1,4 +1,4 @@
-// import { RoughNotation } from "react-rough-notation";
+import { RoughNotation } from "react-rough-notation";
 
 interface NavProps {
   currentStepIndex: number;
@@ -8,7 +8,7 @@ interface NavProps {
 const SideBar = ({ currentStepIndex, goTo }: NavProps) => {
   return (
     <div className="absolute -top-20 left-0 w-full md:relative md:left-0 md:top-0 md:w-[25%]">
-      <nav className="h-full rounded-md border border-neutral-700 bg-neutral-900 py-5 text-slate-200 md:p-5">
+      <nav className="h-full rounded-md border py-5 md:p-5">
         <ul className="flex justify-center gap-2 md:flex-col">
           <li className="flex flex-col items-start font-medium">
             <span className="hidden text-sm uppercase text-neutral-500 md:flex">
@@ -18,16 +18,16 @@ const SideBar = ({ currentStepIndex, goTo }: NavProps) => {
               tabIndex={0}
               onClick={() => goTo(0)}
               className={`text-sm ${
-                currentStepIndex === 0 ? "text-[#ffe666]" : "text-white"
+                currentStepIndex === 0 ? "text-[#66adff]" : "text-white"
               } md:text-base`}
             >
-              {/* <RoughNotation
+              <RoughNotation
                 type="underline"
                 show={currentStepIndex === 0}
                 color="#ffe666"
               >
                 Your info
-              </RoughNotation> */}
+              </RoughNotation>
             </button>
           </li>
           <li className="flex flex-col items-start font-medium">
@@ -41,13 +41,13 @@ const SideBar = ({ currentStepIndex, goTo }: NavProps) => {
                 currentStepIndex === 1 ? "text-[#bd284d]" : "text-white"
               } md:text-base`}
             >
-              {/* <RoughNotation
+              <RoughNotation
                 type="underline"
                 show={currentStepIndex === 1}
                 color="#bd284d"
               >
                 Select plan
-              </RoughNotation> */}
+              </RoughNotation>
             </button>
           </li>
           <li className="flex flex-col items-start font-medium">
@@ -61,13 +61,13 @@ const SideBar = ({ currentStepIndex, goTo }: NavProps) => {
                 currentStepIndex === 2 ? "text-[#E7B8FF]" : "text-white"
               } md:text-base`}
             >
-              {/* <RoughNotation
+              <RoughNotation
                 type="underline"
                 show={currentStepIndex === 2}
                 color="#E7B8FF"
               >
                 Add-ons
-              </RoughNotation> */}
+              </RoughNotation>
             </button>
           </li>
           <li className="flex flex-col items-start font-medium">
@@ -81,13 +81,13 @@ const SideBar = ({ currentStepIndex, goTo }: NavProps) => {
                 currentStepIndex === 3 ? "text-[#6fe79f]" : "text-white"
               } md:text-base`}
             >
-              {/* <RoughNotation
+              <RoughNotation
                 type="underline"
                 show={currentStepIndex === 3}
                 color="#6fe79f"
               >
                 Summary
-              </RoughNotation> */}
+              </RoughNotation>
             </button>
           </li>
         </ul>

@@ -5,13 +5,13 @@ import { AnimatePresence } from "framer-motion";
 
 import { Button } from "@acme/ui";
 
-import AddonsForm from "./AddonsForm";
-import FinalStep from "./FinalStep";
-import PlanForm from "./PlanForm";
-import SideBar from "./SideBar";
-import SuccessMessage from "./SuccessMessage";
-import UserInfoForm from "./UserInfoForm";
-import { useMultiplestepForm } from "./useMultiplestepForm";
+import AddonsForm from "./components/AddonsForm";
+import FinalStep from "./components/FinalStep";
+import PlanForm from "./components/PlanForm";
+import SideBar from "./components/SideBar";
+import SuccessMessage from "./components/SuccessMessage";
+import UserInfoForm from "./components/UserInfoForm";
+import { useMultiplestepForm } from "./components/useMultiplestepForm";
 
 interface AddOn {
   id: number;
@@ -61,7 +61,7 @@ const initialValues: FormItems = {
   ],
 };
 
-export default function Home() {
+export default function MultiStepForm() {
   const [formData, setFormData] = useState(initialValues);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const {
@@ -134,7 +134,7 @@ export default function Home() {
     <div
       className={`flex justify-between ${
         currentStepIndex === 1 ? "h-[600px] md:h-[500px]" : "h-[500px]"
-      } relative m-1 w-11/12 max-w-4xl rounded-lg border border-neutral-700 bg-[#262626] p-4`}
+      } relative m-1 w-11/12 max-w-4xl rounded-lg border p-4`}
     >
       {!showSuccessMsg ? (
         <SideBar currentStepIndex={currentStepIndex} goTo={goTo} />
@@ -177,22 +177,14 @@ export default function Home() {
                 <Button
                   onClick={previousStep}
                   type="button"
-                  variant="ghost"
-                  className={`${
-                    isFirstStep
-                      ? "invisible"
-                      : "visible p-0 text-neutral-200 hover:text-white"
-                  }`}
+                  className={`${isFirstStep ? "invisible" : "visible"}`}
                 >
                   Go Back
                 </Button>
               </div>
               <div className="flex items-center">
                 <div className="after:shadow-highlight relative after:pointer-events-none after:absolute after:inset-px after:rounded-[11px] after:shadow-white/10 after:transition focus-within:after:shadow-[#77f6aa]">
-                  <Button
-                    type="submit"
-                    className="relative rounded-xl border border-black/20 bg-neutral-900 text-neutral-200 shadow-black/10 shadow-input hover:text-white"
-                  >
+                  <Button type="submit">
                     {isLastStep ? "Confirm" : "Next Step"}
                   </Button>
                 </div>

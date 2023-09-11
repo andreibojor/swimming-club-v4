@@ -2,15 +2,27 @@ import { marketingFeatures, siteConfig } from "@/app/config";
 import { Balancer } from "react-wrap-balancer";
 
 import {
+  Button,
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  Input,
+  Label,
   buttonVariants,
   cn,
 } from "@acme/ui";
 import * as Icons from "@acme/ui/src/icons";
+
+import MultiStepForm from "../multi-step-form/MultiStepForm";
 
 // export const runtime = "edge";
 
@@ -40,17 +52,58 @@ export default function Home() {
           className="mx-auto mt-6 flex animate-fade-up items-center justify-center space-x-5 opacity-0"
           style={{ animationDelay: "0.40s", animationFillMode: "forwards" }}
         >
-          <a
-            className={cn(buttonVariants({ variant: "default" }))}
-            href={siteConfig.github}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Icons.GitHub className="mr-1 h-4 w-4" />
-            <span>Star on GitHub</span>
-          </a>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button
+                variant="default"
+                style={{
+                  animationDelay: "0.40s",
+                  animationFillMode: "forwards",
+                }}
+              >
+                Multi Step Form
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle>Edit profile</DialogTitle>
+                <DialogDescription>
+                  Make changes to your profile here. Click save when you're
+                  done.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="grid gap-4 py-4">
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="name" className="text-right">
+                    Name
+                  </Label>
+                  <Input
+                    id="name"
+                    value="Pedro Duarte"
+                    className="col-span-3"
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="username" className="text-right">
+                    Username
+                  </Label>
+                  <Input
+                    id="username"
+                    value="@peduarte"
+                    className="col-span-3"
+                  />
+                </div>
+              </div>
+              <MultiStepForm />
+              <DialogFooter>
+                <Button type="submit">Save changes</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
+
+      {/* HOME CONTENT */}
       <div className="my-16 w-full max-w-screen-lg animate-fade-up gap-5 border-t p-5 xl:px-0">
         <h2 className="pt-4 text-center text-3xl font-bold md:text-4xl">
           What&apos;s included?

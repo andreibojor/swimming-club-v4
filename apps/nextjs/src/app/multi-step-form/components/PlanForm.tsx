@@ -3,14 +3,14 @@
 import { useState } from "react";
 import Image from "next/image";
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
-import arcadeImg from "public/arcade.png";
-import advancedImg from "public/game-console.png";
-import proImg from "public/online-gaming.png";
 
 import { Label, Switch } from "@acme/ui";
 
+import type { FormItems } from "../page";
 import FormWrapper from "./FormWrapper";
-import type { FormItems } from "./page";
+import arcadeImg from "/public/arcade.png";
+import advancedImg from "/public/game-console.png";
+import proImg from "/public/online-gaming.png";
 
 type stepProps = FormItems & {
   updateForm: (fieldToUpdate: Partial<FormItems>) => void;

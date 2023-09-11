@@ -1,7 +1,7 @@
 import { Checkbox } from "@acme/ui";
 
+import type { FormItems } from "../MultiStepForm";
 import FormWrapper from "./FormWrapper";
-import type { FormItems } from "./page";
 
 type stepProps = FormItems & {
   updateForm: (fieldToUpdate: Partial<FormItems>) => void;

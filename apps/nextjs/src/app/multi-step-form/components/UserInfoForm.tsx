@@ -1,7 +1,7 @@
 import { Input, Label } from "@acme/ui";
 
+import type { FormItems } from "../page";
 import FormWrapper from "./FormWrapper";
-import type { FormItems } from "./page";
 
 type StepProps = FormItems & {
   updateForm: (fieldToUpdate: Partial<FormItems>) => void;

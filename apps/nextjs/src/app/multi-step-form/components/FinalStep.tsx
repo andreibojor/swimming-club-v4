@@ -2,8 +2,8 @@
 
 import { Separator } from "@acme/ui";
 
+import type { FormItems } from "../page";
 import FormWrapper from "./FormWrapper";
-import type { FormItems } from "./page";
 
 type StepProps = FormItems & {
   goTo: (index: number) => void;
