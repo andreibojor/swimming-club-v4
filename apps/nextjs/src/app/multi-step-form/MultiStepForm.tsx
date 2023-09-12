@@ -184,7 +184,7 @@ export default function MultiStepForm() {
               </div> */}
         </DialogContent>
       </Dialog>
-      <div
+      {/* <div
         className={`flex justify-between ${
           currentStepIndex === 1 ? "h-[600px] md:h-[500px]" : "h-[500px]"
         } relative m-1 w-11/12 max-w-4xl rounded-lg border p-4`}
@@ -255,7 +255,7 @@ export default function MultiStepForm() {
             </form>
           )}
         </div>
-      </div>
+      </div> */}
     </>
   );
 }
