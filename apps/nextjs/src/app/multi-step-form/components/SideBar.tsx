@@ -18,7 +18,7 @@ const SideBar = ({ currentStepIndex, goTo }: NavProps) => {
               tabIndex={0}
               onClick={() => goTo(0)}
               className={`text-sm ${
-                currentStepIndex === 0 ? "text-[#66adff]" : "text-white"
+                currentStepIndex === 0 ? "text-[#66adff]" : "text-black"
               } md:text-base`}
             >
               <RoughNotation
@@ -38,7 +38,7 @@ const SideBar = ({ currentStepIndex, goTo }: NavProps) => {
               tabIndex={0}
               onClick={() => goTo(1)}
               className={`text-sm ${
-                currentStepIndex === 1 ? "text-[#bd284d]" : "text-white"
+                currentStepIndex === 1 ? "text-[#bd284d]" : "text-black"
               } md:text-base`}
             >
               <RoughNotation

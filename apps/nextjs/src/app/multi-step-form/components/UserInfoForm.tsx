@@ -1,6 +1,6 @@
 import { Input, Label } from "@acme/ui";
 
-import type { FormItems } from "../page";
+import type { FormItems } from "../MultiStepForm";
 import FormWrapper from "./FormWrapper";
 
 type StepProps = FormItems & {
@@ -24,7 +24,6 @@ const UserInfoForm = ({
         <div className="flex flex-col gap-2">
           <Label htmlFor="name">Name</Label>
           <Input
-            autoFocus
             type="text"
             name="name"
             id="name"

@@ -3,7 +3,16 @@
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 
-import { Button } from "@acme/ui";
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@acme/ui";
 
 import AddonsForm from "./components/AddonsForm";
 import FinalStep from "./components/FinalStep";
@@ -131,68 +140,122 @@ export default function MultiStepForm() {
   };
 
   return (
-    <div
-      className={`flex justify-between ${
-        currentStepIndex === 1 ? "h-[600px] md:h-[500px]" : "h-[500px]"
-      } relative m-1 w-11/12 max-w-4xl rounded-lg border p-4`}
-    >
-      {!showSuccessMsg ? (
-        <SideBar currentStepIndex={currentStepIndex} goTo={goTo} />
-      ) : (
-        ""
-      )}
-      <main
-        className={`${showSuccessMsg ? "w-full" : "w-full md:mt-5 md:w-[65%]"}`}
-      >
-        {showSuccessMsg ? (
-          <AnimatePresence mode="wait">
-            <SuccessMessage />
-          </AnimatePresence>
-        ) : (
-          <form
-            onSubmit={handleOnSubmit}
-            className="flex h-full w-full flex-col justify-between"
+    <>
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button
+            variant="default"
+            style={{
+              animationDelay: "0.40s",
+              animationFillMode: "forwards",
+            }}
           >
+            Multi Step Form
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[650px]">
+          <DialogHeader>
+            <DialogTitle>Edit profile</DialogTitle>
+            <DialogDescription>
+              Make changes to your profile here. Click save when you're done.
+            </DialogDescription>
+          </DialogHeader>
+          {/* <div className="grid gap-4 py-4">
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="name" className="text-right">
+                    Name
+                  </Label>
+                  <Input
+                    id="name"
+                    value="Pedro Duarte"
+                    className="col-span-3"
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="username" className="text-right">
+                    Username
+                  </Label>
+                  <Input
+                    id="username"
+                    value="@peduarte"
+                    className="col-span-3"
+                  />
+                </div>
+              </div> */}
+        </DialogContent>
+      </Dialog>
+      <div
+        className={`flex justify-between ${
+          currentStepIndex === 1 ? "h-[600px] md:h-[500px]" : "h-[500px]"
+        } relative m-1 w-11/12 max-w-4xl rounded-lg border p-4`}
+      >
+        {!showSuccessMsg ? (
+          <SideBar currentStepIndex={currentStepIndex} goTo={goTo} />
+        ) : (
+          ""
+        )}
+        <div
+          className={`${
+            showSuccessMsg ? "w-full" : "w-full md:mt-5 md:w-[65%]"
+          }`}
+        >
+          {showSuccessMsg ? (
             <AnimatePresence mode="wait">
-              {currentStepIndex === 0 && (
-                <UserInfoForm
-                  key="step1"
-                  {...formData}
-                  updateForm={updateForm}
-                  errors={errors}
-                />
-              )}
-              {currentStepIndex === 1 && (
-                <PlanForm key="step2" {...formData} updateForm={updateForm} />
-              )}
-              {currentStepIndex === 2 && (
-                <AddonsForm key="step3" {...formData} updateForm={updateForm} />
-              )}
-              {currentStepIndex === 3 && (
-                <FinalStep key="step4" {...formData} goTo={goTo} />
-              )}
+              <SuccessMessage />
             </AnimatePresence>
-            <div className="flex w-full items-center justify-between">
-              <div className="">
-                <Button
-                  onClick={previousStep}
-                  type="button"
-                  className={`${isFirstStep ? "invisible" : "visible"}`}
-                >
-                  Go Back
-                </Button>
-              </div>
-              <div className="flex items-center">
-                <div className="after:shadow-highlight relative after:pointer-events-none after:absolute after:inset-px after:rounded-[11px] after:shadow-white/10 after:transition focus-within:after:shadow-[#77f6aa]">
-                  <Button type="submit">
-                    {isLastStep ? "Confirm" : "Next Step"}
+          ) : (
+            <form
+              onSubmit={handleOnSubmit}
+              className="flex h-full w-full flex-col justify-between"
+            >
+              <AnimatePresence mode="wait">
+                {currentStepIndex === 0 && (
+                  <UserInfoForm
+                    key="step1"
+                    {...formData}
+                    updateForm={updateForm}
+                    errors={errors}
+                  />
+                )}
+                {currentStepIndex === 1 && (
+                  <PlanForm key="step2" {...formData} updateForm={updateForm} />
+                )}
+                {currentStepIndex === 2 && (
+                  <AddonsForm
+                    key="step3"
+                    {...formData}
+                    updateForm={updateForm}
+                  />
+                )}
+                {currentStepIndex === 3 && (
+                  <FinalStep key="step4" {...formData} goTo={goTo} />
+                )}
+              </AnimatePresence>
+              <div className="flex w-full items-center justify-between">
+                <div className="">
+                  <Button
+                    onClick={previousStep}
+                    type="button"
+                    className={`${isFirstStep ? "invisible" : "visible"}`}
+                  >
+                    Go Back
                   </Button>
                 </div>
+                <div className="flex items-center">
+                  <div className="after:shadow-highlight relative after:pointer-events-none after:absolute after:inset-px after:rounded-[11px] after:shadow-white/10 after:transition focus-within:after:shadow-[#77f6aa]">
+                    <DialogFooter>
+                      <Button type="submit">Save changes</Button>
+                    </DialogFooter>
+                    <Button type="submit">
+                      {isLastStep ? "Confirm" : "Next Step"}
+                    </Button>
+                  </div>
+                </div>
               </div>
-            </div>
-          </form>
-        )}
-      </main>
-    </div>
+            </form>
+          )}
+        </div>
+      </div>
+    </>
   );
 }

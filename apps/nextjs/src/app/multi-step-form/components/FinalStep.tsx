@@ -2,7 +2,7 @@
 
 import { Separator } from "@acme/ui";
 
-import type { FormItems } from "../page";
+import type { FormItems } from "../MultiStepForm";
 import FormWrapper from "./FormWrapper";
 
 type StepProps = FormItems & {
