@@ -36,7 +36,7 @@ export default function Home() {
           className="animate-fade-up bg-gradient-to-br from-foreground to-muted-foreground bg-clip-text text-center text-4xl font-bold tracking-[-0.02em] text-transparent opacity-0 drop-shadow-sm md:text-7xl/[5rem]"
           style={{ animationDelay: "0.20s", animationFillMode: "forwards" }}
         >
-          <Balancer>Your all-in-one, enterprise ready starting point</Balancer>
+          <Balancer>Crișan Swimming Club</Balancer>
         </h1>
         <p
           className="mt-6 animate-fade-up text-center text-muted-foreground/80 opacity-0 md:text-xl"

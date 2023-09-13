@@ -33,7 +33,7 @@ export function SiteFooter(props: { className?: string }) {
           <p className="text-lg font-medium md:hidden">{siteConfig.name}</p>
         </Link>
         <p className="col-span-full row-start-2 text-center text-sm leading-loose text-muted-foreground md:flex-1 md:text-left">
-          Built by{" "}
+          {/* Built by{" "}
           <a
             href={siteConfig.twitter}
             target="_blank"
@@ -70,6 +70,8 @@ export function SiteFooter(props: { className?: string }) {
             GitHub
           </a>
           .
+        </p> */}
+          Add content here
         </p>
         <div className="col-start-2 row-start-1 flex h-12 justify-end">
           <ThemeToggle />
