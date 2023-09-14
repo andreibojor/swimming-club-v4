@@ -14,7 +14,7 @@ import {
   Input,
 } from "@acme/ui";
 
-export function AllStudentsPanel({ students }) {
+export function AllStudentsCard({ students }) {
   const [filteredStudents, setFilteredStudents] = useState("");
 
   const displayedStudents = students.filter((student) =>
