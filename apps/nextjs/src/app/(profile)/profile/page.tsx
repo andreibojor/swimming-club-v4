@@ -111,9 +111,6 @@ export default async function ProfilePage() {
                     Status: Active !!
                   </p>
                   <p className="text-sm font-medium leading-none">
-                    Role: role no defined !!
-                  </p>
-                  <p className="text-sm font-medium leading-none">
                     Contact: +1 (479) 232-9151 !!
                   </p>
                   <p className="text-sm font-medium leading-none">

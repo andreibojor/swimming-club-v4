@@ -12,6 +12,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  Input,
+  Label,
 } from "@acme/ui";
 
 import AddonsForm from "./components/AddonsForm";
@@ -156,32 +158,28 @@ export default function MultiStepForm() {
         <DialogContent className="sm:max-w-[650px]">
           <DialogHeader>
             <DialogTitle>Edit profile</DialogTitle>
-            <DialogDescription>
-              Make changes to your profile here. Click save when you're done.
-            </DialogDescription>
+            <DialogDescription>Complete your registration</DialogDescription>
           </DialogHeader>
-          {/* <div className="grid gap-4 py-4">
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="name" className="text-right">
-                    Name
-                  </Label>
-                  <Input
-                    id="name"
-                    value="Pedro Duarte"
-                    className="col-span-3"
-                  />
-                </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="username" className="text-right">
-                    Username
-                  </Label>
-                  <Input
-                    id="username"
-                    value="@peduarte"
-                    className="col-span-3"
-                  />
-                </div>
-              </div> */}
+          <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="name" className="text-right">
+                Name
+              </Label>
+              <Input id="name" value="Pedro Duarte" className="col-span-3" />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="phone" className="text-right">
+                Phone
+              </Label>
+              <Input id="phone" value="0751 123 456" className="col-span-3" />
+            </div>
+            <div className="grid w-full grid-cols-4 items-center gap-4">
+              <Label htmlFor="file" className="text-right">
+                Adeverinta medicala
+              </Label>
+              <Input id="picture" type="file" className="col-span-3" />
+            </div>
+          </div>
         </DialogContent>
       </Dialog>
       {/* <div

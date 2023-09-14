@@ -1,5 +1,3 @@
-import getUsers from "@/actions/getUsers";
-
 import {
   Avatar,
   AvatarFallback,
@@ -22,9 +20,7 @@ import * as Icons from "@acme/ui/src/icons";
 
 import { AttendanceButton } from "./attendance-button";
 
-export async function DemoTeamMembers() {
-  const users = await getUsers();
-
+export function AttendancePanel({ students }) {
   return (
     <Card>
       <CardHeader className="px-2 pb-2 md:px-6 md:pb-6">
@@ -34,8 +30,8 @@ export async function DemoTeamMembers() {
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-2 p-2 md:p-6">
-        {users?.map((user) => (
-          <div key={user.id} className="flex flex-col gap-1">
+        {students?.map((student) => (
+          <div key={student.id} className="flex flex-col gap-1">
             <div className="mt-2 flex items-center justify-between gap-2">
               <div className="flex items-center space-x-2">
                 <Avatar>
@@ -44,12 +40,12 @@ export async function DemoTeamMembers() {
                 </Avatar>
                 <div>
                   <p className="text-sm font-medium leading-none">
-                    {user.full_name}
+                    {student.full_name}
                   </p>
                   {/* <p className="text-sm text-muted-foreground">m@example.com</p> */}
                 </div>
               </div>
-              <AttendanceButton studentId={user.id} />
+              <AttendanceButton studentId={student.id} />
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="h-8 w-8 p-0">
