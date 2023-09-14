@@ -44,6 +44,12 @@ export function AttendancePanel({ students }) {
                   </p>
                   {/* <p className="text-sm text-muted-foreground">m@example.com</p> */}
                 </div>
+                <div>
+                  <p className="text-sm font-medium leading-none">
+                    Attendances Left: {student.lessons_left}
+                  </p>
+                  {/* <p className="text-sm text-muted-foreground">m@example.com</p> */}
+                </div>
               </div>
               <AttendanceButton studentId={student.id} />
               <DropdownMenu>

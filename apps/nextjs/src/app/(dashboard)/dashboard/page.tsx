@@ -3,6 +3,7 @@ import getStudents from "@/actions/getStudents";
 import getStudentsByPool from "@/actions/getStudentsByPool";
 import getUsers from "@/actions/getUsers";
 import { CustomCalendar } from "@/components/day-picker";
+import { useFilterStudents } from "@/hooks/useFilterStudents";
 
 import {
   Card,
@@ -55,31 +56,8 @@ export default async function DashboardPage({ pool = "cluj-napoca" }) {
                 <AttendancePanel students={studentsByPool} />
               </CardContent>
             </Card>
-            <Card className="w-full md:w-2/5">
-              <CardHeader>
-                <CardTitle>All Students</CardTitle>
-                <CardDescription>
-                  <Input
-                    placeholder="Filter students..."
-                    // value={
-                    //   (table
-                    //     .getColumn("full_name")
-                    //     ?.getFilterValue() as string) ?? ""
-                    // }
-                    // onChange={(event) =>
-                    //   table
-                    //     .getColumn("full_name")
-                    //     ?.setFilterValue(event.target.value)
-                    // }
-                    className="h-8 w-[150px] lg:w-[250px]"
-                  />
-                </CardDescription>
-              </CardHeader>
 
-              <CardContent>
-                <AllStudentsPanel students={students} />
-              </CardContent>
-            </Card>
+            <AllStudentsPanel students={students} />
 
             <Suspense
               fallback={
