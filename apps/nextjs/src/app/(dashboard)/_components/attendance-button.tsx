@@ -2,23 +2,16 @@
 
 import { useEffect, useState } from "react";
 import { useDate } from "@/hooks/useDate";
-import { useUser } from "@/hooks/useUser";
-import { useSessionContext } from "@supabase/auth-helpers-react";
+import type { Database } from "@/types_db";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 import { Button } from "@acme/ui";
 import * as Icons from "@acme/ui/src/icons";
 
-interface AttendanceButtonProps {
-  studentId: string;
-}
-
-export const AttendanceButton: React.FC<AttendanceButtonProps> = ({
-  studentId,
-}) => {
-  const { supabaseClient } = useSessionContext();
-  const { user } = useUser();
+export const AttendanceButton: React.FC = ({ studentAttendance }) => {
+  const supabase = createClientComponentClient<Database>();
   const { date } = useDate();
-
+  console.log(studentAttendance);
   const formattedDatabaseDate = `${date.getFullYear()} ${String(
     date.getMonth() + 1,
   ).padStart(2, "0")} ${String(date.getDate()).padStart(2, "0")}`;
@@ -27,80 +20,66 @@ export const AttendanceButton: React.FC<AttendanceButtonProps> = ({
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!user?.id) return;
+      const { data, error } = await supabase
+        .from("attendance_record")
+        .select("*")
+        .eq("student_id", studentAttendance.id)
+        .eq("date", formattedDatabaseDate);
 
-      try {
-        const { data, error } = await supabaseClient
-          .from("attendance_record")
-          .select("*")
-          .eq("student_id", studentId)
-          .eq("date", formattedDatabaseDate);
-
-        if (!error) {
-          setIsPresent(data && data.length > 0);
-        } else {
-          console.error("Error fetching attendance data:", error);
-        }
-      } catch (error) {
-        console.error("An error occurred:", error);
+      if (!error) {
+        setIsPresent(data && data.length > 0);
+      } else {
+        console.error("Error fetching attendance data:", error);
       }
     };
 
     void fetchData();
-  }, [formattedDatabaseDate, studentId, supabaseClient, user?.id]);
+  }, [formattedDatabaseDate, studentAttendance.id, supabase]);
 
   const handleAttendance = async () => {
-    if (!user?.id) return;
+    const { data, error } = await supabase
+      .from("attendance_record")
+      .select("*")
+      .eq("student_id", studentAttendance.id)
+      .eq("date", formattedDatabaseDate);
 
-    try {
-      const { data, error } = await supabaseClient
-        .from("attendance_record")
-        .select("*")
-        .eq("student_id", studentId)
-        .eq("date", formattedDatabaseDate);
+    const { data: studentData } = await supabase
+      .from("students")
+      .select("lessons_left")
+      .eq("id", studentAttendance.id);
 
-      const { data: studentData, error: studentError } = await supabaseClient
-        .from("students")
-        .select("lessons_left")
-        .eq("id", studentId);
+    const currentLessonsLeft = studentData[0]?.lessons_left ?? 0;
+    const newLessonsLeft = isPresent
+      ? currentLessonsLeft + 1
+      : currentLessonsLeft - 1;
 
-      if (error) {
-        console.error("Error fetching attendance data:", error);
-        return;
-      }
+    const attendanceAction = isPresent
+      ? await supabase
+          .from("attendance_record")
+          .delete()
+          .eq("student_id", studentAttendance.id)
+          .eq("date", formattedDatabaseDate)
+      : await supabase
+          .from("attendance_record")
+          .insert([
+            { student_id: studentAttendance.id, date: formattedDatabaseDate },
+          ]);
 
-      const currentLessonsLeft = studentData[0]?.lessons_left || 0;
-      const newLessonsLeft = isPresent
-        ? currentLessonsLeft + 1
-        : currentLessonsLeft - 1;
+    const updateStudentAction = await supabase
+      .from("students")
+      .update({ lessons_left: newLessonsLeft })
+      .eq("id", studentAttendance.id);
 
-      const attendanceAction = isPresent
-        ? supabaseClient
-            .from("attendance_record")
-            .delete()
-            .eq("student_id", studentId)
-            .eq("date", formattedDatabaseDate)
-        : supabaseClient
-            .from("attendance_record")
-            .insert([{ student_id: studentId, date: formattedDatabaseDate }]);
+    const attendanceResult = attendanceAction;
+    const updateStudentResult = updateStudentAction;
 
-      const updateStudentResult = await supabaseClient
-        .from("students")
-        .update({ lessons_left: newLessonsLeft })
-        .eq("id", studentId);
-
-      const attendanceResult = await attendanceAction;
-
-      if (attendanceResult.error) {
-        console.error(
-          `Error ${isPresent ? "deleting" : "inserting"} attendance entry:`,
-          attendanceResult.error,
-        );
-      } else {
-        setIsPresent(!isPresent);
-      }
-    } catch (error) {
-      console.error("An error occurred:", error);
+    if (attendanceResult.error) {
+      console.error(
+        `Error ${isPresent ? "deleting" : "inserting"} attendance entry:`,
+        attendanceResult.error,
+      );
+    } else {
+      setIsPresent(!isPresent);
     }
   };
 

@@ -45,14 +45,14 @@ const getStudentsByPool = async (
       lessons_left: student.lessons_left,
       professional_student: student.professional_student,
       active: student.active,
-    })) || [];
+    })) ?? [];
 
   // Order the mapped data by full_name
   const orderedData = mappedData.sort((a, b) =>
     a.full_name.localeCompare(b.full_name),
   );
 
-  return orderedData;
+  return mappedData;
 };
 
 export default getStudentsByPool;

@@ -17,6 +17,14 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  Input,
+  Label,
   Separator,
   Table,
   TableBody,
@@ -27,6 +35,7 @@ import {
   TableRow,
   cn,
 } from "@acme/ui";
+import * as Icons from "@acme/ui/src/icons";
 
 const invoices = [
   {
@@ -83,7 +92,6 @@ export default async function ProfilePage() {
   //   .from("students")
   //   .select("lessons_left")
   //   .eq("id", studentId);
-  console.log(userDetails);
 
   return (
     <>
@@ -95,7 +103,6 @@ export default async function ProfilePage() {
                 <AvatarImage src={userDetails?.avatar_url} alt="rick" />
                 <AvatarFallback>A F </AvatarFallback>
               </Avatar>
-              <CardTitle>{userDetails?.full_name}</CardTitle>
             </CardHeader>
             <CardContent>
               <Separator className="my-4" />
@@ -116,6 +123,60 @@ export default async function ProfilePage() {
                   <p className="text-sm font-medium leading-none">
                     Pool: Dej !!
                   </p>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button
+                        variant="default"
+                        style={{
+                          animationDelay: "0.40s",
+                          animationFillMode: "forwards",
+                        }}
+                      >
+                        Add Student{" "}
+                        <Icons.PlusCircle className="ml-2 h-5 w-5" />
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[650px]">
+                      <DialogHeader>
+                        <DialogTitle>Edit profile</DialogTitle>
+                        <DialogDescription>
+                          Complete your registration
+                        </DialogDescription>
+                      </DialogHeader>
+                      <div className="grid gap-4 py-4">
+                        <div className="grid grid-cols-4 items-center gap-4">
+                          <Label htmlFor="name" className="text-right">
+                            Name
+                          </Label>
+                          <Input
+                            id="name"
+                            value="Pedro Duarte"
+                            className="col-span-3"
+                          />
+                        </div>
+                        <div className="grid grid-cols-4 items-center gap-4">
+                          <Label htmlFor="phone" className="text-right">
+                            Phone
+                          </Label>
+                          <Input
+                            id="phone"
+                            value="0751 123 456"
+                            className="col-span-3"
+                          />
+                        </div>
+                        <div className="grid w-full grid-cols-4 items-center gap-4">
+                          <Label htmlFor="file" className="text-right">
+                            Adeverinta medicala
+                          </Label>
+                          <Input
+                            id="picture"
+                            type="file"
+                            className="col-span-3"
+                          />
+                        </div>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
                 </div>
               </div>
             </CardContent>
@@ -128,6 +189,7 @@ export default async function ProfilePage() {
               </CardDescription>
             </CardHeader> */}
             <CardContent className="flex flex-col items-center justify-between md:flex-row">
+              <CardTitle>{userDetails?.full_name}</CardTitle>
               <AttendancePieChart attendancesLeft={3} />
               <Calendar mode="multiple" selected={selectedDates} />
             </CardContent>
