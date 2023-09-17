@@ -38,7 +38,7 @@ const getStudents = async (): Promise<StudentInterface[]> => {
       lessons_left: student.lessons_left,
       professional_student: student.professional_student,
       active: student.active,
-    })) || [];
+    })) ?? [];
 
   // Order the mapped data by full_name
   const orderedData = mappedData.sort((a, b) =>

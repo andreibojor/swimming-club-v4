@@ -8,10 +8,9 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Button } from "@acme/ui";
 import * as Icons from "@acme/ui/src/icons";
 
-export const AttendanceButton: React.FC = ({ studentAttendance }) => {
+export const AttendanceButton: React.FC = ({ student }) => {
   const supabase = createClientComponentClient<Database>();
   const { date } = useDate();
-  console.log(studentAttendance);
   const formattedDatabaseDate = `${date.getFullYear()} ${String(
     date.getMonth() + 1,
   ).padStart(2, "0")} ${String(date.getDate()).padStart(2, "0")}`;
@@ -23,7 +22,7 @@ export const AttendanceButton: React.FC = ({ studentAttendance }) => {
       const { data, error } = await supabase
         .from("attendance_record")
         .select("*")
-        .eq("student_id", studentAttendance.id)
+        .eq("student_id", student.id)
         .eq("date", formattedDatabaseDate);
 
       if (!error) {
@@ -34,19 +33,13 @@ export const AttendanceButton: React.FC = ({ studentAttendance }) => {
     };
 
     void fetchData();
-  }, [formattedDatabaseDate, studentAttendance.id, supabase]);
+  }, [formattedDatabaseDate, student.id, supabase]);
 
   const handleAttendance = async () => {
-    const { data, error } = await supabase
-      .from("attendance_record")
-      .select("*")
-      .eq("student_id", studentAttendance.id)
-      .eq("date", formattedDatabaseDate);
-
     const { data: studentData } = await supabase
       .from("students")
       .select("lessons_left")
-      .eq("id", studentAttendance.id);
+      .eq("id", student.id);
 
     const currentLessonsLeft = studentData[0]?.lessons_left ?? 0;
     const newLessonsLeft = isPresent
@@ -57,18 +50,16 @@ export const AttendanceButton: React.FC = ({ studentAttendance }) => {
       ? await supabase
           .from("attendance_record")
           .delete()
-          .eq("student_id", studentAttendance.id)
+          .eq("student_id", student.id)
           .eq("date", formattedDatabaseDate)
       : await supabase
           .from("attendance_record")
-          .insert([
-            { student_id: studentAttendance.id, date: formattedDatabaseDate },
-          ]);
+          .insert([{ student_id: student.id, date: formattedDatabaseDate }]);
 
     const updateStudentAction = await supabase
       .from("students")
       .update({ lessons_left: newLessonsLeft })
-      .eq("id", studentAttendance.id);
+      .eq("id", student.id);
 
     const attendanceResult = attendanceAction;
     const updateStudentResult = updateStudentAction;

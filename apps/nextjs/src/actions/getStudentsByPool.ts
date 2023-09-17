@@ -1,4 +1,7 @@
-import { createServerSupabaseClient } from "./createServerSupabaseClient";
+// import { createServerSupabaseClient } from "./createServerSupabaseClient";
+
+import { cookies } from "next/headers";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
 interface StudentInterface {
   id: string;
@@ -14,7 +17,7 @@ interface StudentInterface {
 const getStudentsByPool = async (
   pool = "cluj-napoca",
 ): Promise<StudentInterface[]> => {
-  const supabase = createServerSupabaseClient();
+  const supabase = createServerComponentClient({ cookies });
 
   const { data, error } = await supabase
     .from("students")

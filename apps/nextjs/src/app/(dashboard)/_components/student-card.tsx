@@ -27,9 +27,6 @@ import * as Icons from "@acme/ui/src/icons";
 import { AttendanceButton } from "./attendance-button";
 
 export function StudentCard({ student }) {
-  const supabase = createClientComponentClient<Database>();
-  const [studentInfo, setStudentInfo] = useState(student);
-
   return (
     <div className="flex flex-col gap-1">
       <div className="mt-2 flex items-center justify-between gap-2">
@@ -51,7 +48,7 @@ export function StudentCard({ student }) {
             {/* <p className="text-sm text-muted-foreground">m@example.com</p> */}
           </div>
         </div>
-        <AttendanceButton studentAttendance={student} />
+        <AttendanceButton student={student} />
         {/* <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
