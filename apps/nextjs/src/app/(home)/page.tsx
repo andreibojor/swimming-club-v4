@@ -43,9 +43,8 @@ export default function Home() {
           style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
         >
           <Balancer>
-            Acme Corp is a Next.js starter kit that includes everything you need
-            to build a modern web application. Mobile application preconfigured,
-            ready to go.
+            Suntem pasionați de apă, de înot și vrem o viață sănătoasă. Oferim
+            cursuri de înot pentru toate vârstele în diferite locații.
           </Balancer>
         </p>
         <div

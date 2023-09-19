@@ -1,7 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { useUser } from "@/hooks/useUser";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence } from "framer-motion";
+import { useFieldArray, useForm } from "react-hook-form";
+import * as z from "zod";
 
 import {
   Button,
@@ -12,8 +17,21 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
   Input,
   Label,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  Textarea,
 } from "@acme/ui";
 
 import AddonsForm from "./components/AddonsForm";
@@ -23,123 +41,89 @@ import SideBar from "./components/SideBar";
 import SuccessMessage from "./components/SuccessMessage";
 import UserInfoForm from "./components/UserInfoForm";
 import { useMultiplestepForm } from "./components/useMultiplestepForm";
+import { ProfileForm } from "./profile-form";
 
-interface AddOn {
-  id: number;
-  checked: boolean;
-  title: string;
-  subtitle: string;
-  price: number;
-}
+const MAX_FILE_SIZE = 500000;
+const ACCEPTED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "image/webp",
+];
 
-export interface FormItems {
-  name: string;
-  email: string;
-  phone: string;
-  plan: "arcade" | "advanced" | "pro";
-  yearly: boolean;
-  addOns: AddOn[];
-}
+// TODO: https://github.com/colinhacks/zod/issues/387
+// TODO: Form validation for the refine() file
 
-const initialValues: FormItems = {
-  name: "",
-  email: "",
-  phone: "",
-  plan: "arcade",
-  yearly: false,
-  addOns: [
-    {
-      id: 1,
-      checked: true,
-      title: "Online Service",
-      subtitle: "Access to multiple games",
-      price: 1,
-    },
-    {
-      id: 2,
-      checked: false,
-      title: "Large storage",
-      subtitle: "Extra 1TB of cloud save",
-      price: 2,
-    },
-    {
-      id: 3,
-      checked: false,
-      title: "Customizable Profile",
-      subtitle: "Custom theme on your profile",
-      price: 2,
-    },
+const profileFormSchema = z.object({
+  name: z
+    .string()
+    .min(2, {
+      message: "Name must be at least 2 characters.",
+    })
+    .max(30, {
+      message: "Name must not be longer than 30 characters.",
+    }),
+  medicalCertificate: z
+    .any()
+    .refine((files) => files?.length == 1, "Image is required.")
+    .refine(
+      (files) => files?.[0]?.size <= MAX_FILE_SIZE,
+      `Max file size is 5MB.`,
+    )
+    .refine(
+      (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
+      ".jpg, .jpeg, .png and .webp files are accepted.",
+    ),
+  email: z.string({
+    required_error: "Please select an email to display.",
+  }),
+  bio: z.string().max(160).min(4),
+  urls: z
+    .array(
+      z.object({
+        value: z.string().url({ message: "Please enter a valid URL." }),
+      }),
+    )
+    .optional(),
+  contactNumber: z
+    .string()
+    .min(10, { message: "Must be a valid mobile number" })
+    .max(10, { message: "Must be a valid mobile number" }),
+});
+
+type ProfileFormValues = z.infer<typeof profileFormSchema>;
+
+// This can come from your database or API.
+const defaultValues: Partial<ProfileFormValues> = {
+  bio: "I own a computer.",
+  urls: [
+    { value: "https://shadcn.com" },
+    { value: "http://twitter.com/shadcn" },
   ],
 };
-
 export default function MultiStepForm() {
-  const [formData, setFormData] = useState(initialValues);
-  const [errors, setErrors] = useState<Record<string, string>>({});
-  const {
-    previousStep,
-    nextStep,
-    currentStepIndex,
-    isFirstStep,
-    isLastStep,
-    steps,
-    goTo,
-    showSuccessMsg,
-  } = useMultiplestepForm(4);
+  const form = useForm<ProfileFormValues>({
+    resolver: zodResolver(profileFormSchema),
+    defaultValues,
+    mode: "onChange",
+  });
 
-  function updateForm(fieldToUpdate: Partial<FormItems>) {
-    const { name, email, phone } = fieldToUpdate;
+  const { fields, append } = useFieldArray({
+    name: "urls",
+    control: form.control,
+  });
 
-    if (name && name.trim().length < 3) {
-      setErrors((prevState) => ({
-        ...prevState,
-        name: "Name should be at least 3 characters long",
-      }));
-    } else if (name && name.trim().length > 15) {
-      setErrors((prevState) => ({
-        ...prevState,
-        name: "Name should be no longer than 15 characters",
-      }));
-    } else {
-      setErrors((prevState) => ({
-        ...prevState,
-        name: "",
-      }));
-    }
-
-    if (email && !/\S+@\S+\.\S+/.test(email)) {
-      setErrors((prevState) => ({
-        ...prevState,
-        email: "Please enter a valid email address",
-      }));
-    } else {
-      setErrors((prevState) => ({
-        ...prevState,
-        email: "",
-      }));
-    }
-
-    if (phone && !/^[0-9]{10}$/.test(phone)) {
-      setErrors((prevState) => ({
-        ...prevState,
-        phone: "Please enter a valid 10-digit phone number",
-      }));
-    } else {
-      setErrors((prevState) => ({
-        ...prevState,
-        phone: "",
-      }));
-    }
-
-    setFormData({ ...formData, ...fieldToUpdate });
+  function onSubmit(data: ProfileFormValues) {
+    // toast({
+    //   title: "You submitted the following values:",
+    //   description: (
+    //     <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+    //       <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+    //     </pre>
+    //   ),
+    // });
+    console.log("sent");
   }
-
-  const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (Object.values(errors).some((error) => error)) {
-      return;
-    }
-    nextStep();
-  };
 
   return (
     <>
@@ -160,100 +144,121 @@ export default function MultiStepForm() {
             <DialogTitle>Edit profile</DialogTitle>
             <DialogDescription>Complete your registration</DialogDescription>
           </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name" className="text-right">
-                Name
-              </Label>
-              <Input id="name" value="Pedro Duarte" className="col-span-3" />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="phone" className="text-right">
-                Phone
-              </Label>
-              <Input id="phone" value="0751 123 456" className="col-span-3" />
-            </div>
-            <div className="grid w-full grid-cols-4 items-center gap-4">
-              <Label htmlFor="file" className="text-right">
-                Adeverinta medicala
-              </Label>
-              <Input id="picture" type="file" className="col-span-3" />
-            </div>
-          </div>
+
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>I want to</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="sign myself up as a" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="student">student</SelectItem>
+                        <SelectItem value="parent">parent</SelectItem>
+                        <SelectItem value="student-parent">
+                          both me and my child
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormDescription>
+                      You can manage verified email addresses in your{" "}
+                      <Link href="/examples/forms">email settings</Link>.
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="shadcn" {...field} />
+                    </FormControl>
+                    <FormDescription>First name and last name</FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="contactNumber"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Phone</FormLabel>
+                    <FormControl>
+                      <Input placeholder="0751 234 567" {...field} />
+                    </FormControl>
+                    <FormDescription>
+                      This is your public display name. It can be your real name
+                      or a pseudonym. You can only change this once every 30
+                      days.
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="medicalCertificate"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Medical Certificate</FormLabel>
+                    <FormControl>
+                      <Input id="picture" type="file" {...field} />
+                    </FormControl>
+                    <FormDescription>
+                      Upload a file with your medical certificate.
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="bio"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Bio</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Tell us a little bit about yourself"
+                        className="resize-none"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      You can <span>@mention</span> other users and
+                      organizations to link to them.
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <DialogFooter>
+                <Button type="submit">Confirm</Button>
+              </DialogFooter>
+            </form>
+          </Form>
         </DialogContent>
       </Dialog>
-      {/* <div
-        className={`flex justify-between ${
-          currentStepIndex === 1 ? "h-[600px] md:h-[500px]" : "h-[500px]"
-        } relative m-1 w-11/12 max-w-4xl rounded-lg border p-4`}
-      >
-        {!showSuccessMsg ? (
-          <SideBar currentStepIndex={currentStepIndex} goTo={goTo} />
-        ) : (
-          ""
-        )}
-        <div
-          className={`${
-            showSuccessMsg ? "w-full" : "w-full md:mt-5 md:w-[65%]"
-          }`}
-        >
-          {showSuccessMsg ? (
-            <AnimatePresence mode="wait">
-              <SuccessMessage />
-            </AnimatePresence>
-          ) : (
-            <form
-              onSubmit={handleOnSubmit}
-              className="flex h-full w-full flex-col justify-between"
-            >
-              <AnimatePresence mode="wait">
-                {currentStepIndex === 0 && (
-                  <UserInfoForm
-                    key="step1"
-                    {...formData}
-                    updateForm={updateForm}
-                    errors={errors}
-                  />
-                )}
-                {currentStepIndex === 1 && (
-                  <PlanForm key="step2" {...formData} updateForm={updateForm} />
-                )}
-                {currentStepIndex === 2 && (
-                  <AddonsForm
-                    key="step3"
-                    {...formData}
-                    updateForm={updateForm}
-                  />
-                )}
-                {currentStepIndex === 3 && (
-                  <FinalStep key="step4" {...formData} goTo={goTo} />
-                )}
-              </AnimatePresence>
-              <div className="flex w-full items-center justify-between">
-                <div className="">
-                  <Button
-                    onClick={previousStep}
-                    type="button"
-                    className={`${isFirstStep ? "invisible" : "visible"}`}
-                  >
-                    Go Back
-                  </Button>
-                </div>
-                <div className="flex items-center">
-                  <div className="after:shadow-highlight relative after:pointer-events-none after:absolute after:inset-px after:rounded-[11px] after:shadow-white/10 after:transition focus-within:after:shadow-[#77f6aa]">
-                    <DialogFooter>
-                      <Button type="submit">Save changes</Button>
-                    </DialogFooter>
-                    <Button type="submit">
-                      {isLastStep ? "Confirm" : "Next Step"}
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </form>
-          )}
-        </div>
-      </div> */}
     </>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useUser } from "@/hooks/useUser";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 import {
@@ -27,6 +28,10 @@ import * as Icons from "@acme/ui/src/icons";
 import { AttendanceButton } from "./attendance-button";
 
 export function StudentCard({ student }) {
+  const userRr = useUser();
+  {
+    console.log(userRr);
+  }
   return (
     <div className="flex flex-col gap-1">
       <div className="mt-2 flex items-center justify-between gap-2">
@@ -41,6 +46,7 @@ export function StudentCard({ student }) {
             </p>
             {/* <p className="text-sm text-muted-foreground">m@example.com</p> */}
           </div>
+
           <div>
             <p className="text-sm font-medium leading-none">
               Attendances Left: {student.lessons_left}
@@ -49,7 +55,7 @@ export function StudentCard({ student }) {
           </div>
         </div>
         <AttendanceButton student={student} />
-        {/* <DropdownMenu>
+        <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
               variant="ghost"
@@ -68,12 +74,17 @@ export function StudentCard({ student }) {
             <DropdownMenuSub>
               <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
               <DropdownMenuSubContent>
-                <DropdownMenuRadioGroup value={pools.name}>
+                {/* <DropdownMenuRadioGroup value={pools.name}>
                   {pools.map((pool) => (
                     <DropdownMenuRadioItem key={pool.id} value={pool.value}>
                       {pool.name}
                     </DropdownMenuRadioItem>
                   ))}
+                </DropdownMenuRadioGroup> */}
+                <DropdownMenuRadioGroup value="plm">
+                  <DropdownMenuRadioItem value="dej">Dej</DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem value="dej">cj</DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem value="dej">bm</DropdownMenuRadioItem>
                 </DropdownMenuRadioGroup>
               </DropdownMenuSubContent>
             </DropdownMenuSub>
@@ -83,7 +94,7 @@ export function StudentCard({ student }) {
               <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
             </DropdownMenuItem>
           </DropdownMenuContent>
-        </DropdownMenu> */}
+        </DropdownMenu>
       </div>
       <Progress value={23} className="h-1 w-full" />
     </div>

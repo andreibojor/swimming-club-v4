@@ -93,6 +93,18 @@ export {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "./src/dropdown-menu";
+
+export {
+  useFormField,
+  Form,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormDescription,
+  FormMessage,
+  FormField,
+} from "./src/form";
+
 export {
   HoverCard,
   HoverCardContent,
