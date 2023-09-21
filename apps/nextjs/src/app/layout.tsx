@@ -7,7 +7,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import SupabaseProvider from "@/providers/SupabaseProvider";
 import UserProvider from "@/providers/UserProvider";
 
-import { cn } from "@acme/ui";
+import { Toaster, cn } from "@acme/ui";
 
 // TODO: Add in the database foreign key of user_id connected to auth_user id. I removed it to be able to populate the users table with fictive users GoT characters
 import { siteConfig } from "./config";
@@ -61,6 +61,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
             </ThemeProvider>
           </UserProvider>
         </SupabaseProvider>
+        <Toaster />
       </body>
     </html>
   );

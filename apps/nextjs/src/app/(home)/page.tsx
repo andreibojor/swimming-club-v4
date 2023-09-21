@@ -22,7 +22,7 @@ import {
 } from "@acme/ui";
 import * as Icons from "@acme/ui/src/icons";
 
-import MultiStepForm from "../multi-step-form/MultiStepForm";
+import { MultiStepForm } from "../multi-step-form/MultiStepForm";
 
 // export const runtime = "edge";
 

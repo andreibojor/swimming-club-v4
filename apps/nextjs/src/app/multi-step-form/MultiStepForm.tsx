@@ -1,10 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import { useUser } from "@/hooks/useUser";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useFieldArray, useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -25,58 +24,37 @@ import {
   FormLabel,
   FormMessage,
   Input,
-  Label,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
   Textarea,
+  cn,
+  toast,
 } from "@acme/ui";
 
-import AddonsForm from "./components/AddonsForm";
-import FinalStep from "./components/FinalStep";
-import PlanForm from "./components/PlanForm";
-import SideBar from "./components/SideBar";
-import SuccessMessage from "./components/SuccessMessage";
-import UserInfoForm from "./components/UserInfoForm";
-import { useMultiplestepForm } from "./components/useMultiplestepForm";
-import { ProfileForm } from "./profile-form";
-
-const MAX_FILE_SIZE = 500000;
-const ACCEPTED_IMAGE_TYPES = [
-  "image/jpeg",
-  "image/jpg",
-  "image/png",
-  "image/webp",
-];
-
-// TODO: https://github.com/colinhacks/zod/issues/387
-// TODO: Form validation for the refine() file
-
 const profileFormSchema = z.object({
-  name: z
+  username: z
     .string()
     .min(2, {
-      message: "Name must be at least 2 characters.",
+      message: "Username must be at least 2 characters.",
     })
     .max(30, {
-      message: "Name must not be longer than 30 characters.",
+      message: "Username must not be longer than 30 characters.",
     }),
-  medicalCertificate: z
-    .any()
-    .refine((files) => files?.length == 1, "Image is required.")
-    .refine(
-      (files) => files?.[0]?.size <= MAX_FILE_SIZE,
-      `Max file size is 5MB.`,
-    )
-    .refine(
-      (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
-      ".jpg, .jpeg, .png and .webp files are accepted.",
-    ),
-  email: z.string({
-    required_error: "Please select an email to display.",
-  }),
+  phoneNumber: z
+    .string()
+    .min(10)
+    .max(10)
+    .refine((val) => !isNaN(val as unknown as number), {
+      message: "Your phone number contains other characters than digits.",
+    }),
+  email: z
+    .string({
+      required_error: "Please select an email to display.",
+    })
+    .email(),
   bio: z.string().max(160).min(4),
   urls: z
     .array(
@@ -85,23 +63,22 @@ const profileFormSchema = z.object({
       }),
     )
     .optional(),
-  contactNumber: z
-    .string()
-    .min(10, { message: "Must be a valid mobile number" })
-    .max(10, { message: "Must be a valid mobile number" }),
 });
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
 // This can come from your database or API.
 const defaultValues: Partial<ProfileFormValues> = {
+  username: "",
   bio: "I own a computer.",
   urls: [
     { value: "https://shadcn.com" },
     { value: "http://twitter.com/shadcn" },
   ],
 };
-export default function MultiStepForm() {
+
+export function MultiStepForm() {
+  const [formStep, setFormStep] = useState(0);
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues,
@@ -114,15 +91,14 @@ export default function MultiStepForm() {
   });
 
   function onSubmit(data: ProfileFormValues) {
-    // toast({
-    //   title: "You submitted the following values:",
-    //   description: (
-    //     <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-    //       <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-    //     </pre>
-    //   ),
-    // });
-    console.log("sent");
+    toast({
+      title: "You submitted the following values:",
+      description: (
+        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+        </pre>
+      ),
+    });
   }
 
   return (
@@ -147,114 +123,190 @@ export default function MultiStepForm() {
 
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>I want to</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
+              {/* STEP 1 */}
+              <motion.div
+                className={cn("space-y-3", { hidden: formStep === 1 })}
+                animate={{
+                  translateX: `-${formStep * 100}%`,
+                }}
+              >
+                <FormField
+                  control={form.control}
+                  name="username"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Username</FormLabel>
                       <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="sign myself up as a" />
-                        </SelectTrigger>
+                        <Input placeholder="shadcn" {...field} />
                       </FormControl>
-                      <SelectContent>
-                        <SelectItem value="student">student</SelectItem>
-                        <SelectItem value="parent">parent</SelectItem>
-                        <SelectItem value="student-parent">
-                          both me and my child
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormDescription>
-                      You can manage verified email addresses in your{" "}
-                      <Link href="/examples/forms">email settings</Link>.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                      <FormDescription>
+                        This is your public display name. It can be your real
+                        name or a pseudonym. You can only change this once every
+                        30 days.
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="phoneNumber"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Username</FormLabel>
+                      <FormControl>
+                        <Input placeholder="0751 123 456" {...field} />
+                      </FormControl>
+                      <FormDescription>
+                        This is your public display name. It can be your real
+                        name or a pseudonym. You can only change this once every
+                        30 days.
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select a verified email to display" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="m@example.com">
+                            m@example.com
+                          </SelectItem>
+                          <SelectItem value="m@google.com">
+                            m@google.com
+                          </SelectItem>
+                          <SelectItem value="m@support.com">
+                            m@support.com
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormDescription>
+                        You can manage verified email addresses in your{" "}
+                        <Link href="/examples/forms">email settings</Link>.
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </motion.div>
 
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="shadcn" {...field} />
-                    </FormControl>
-                    <FormDescription>First name and last name</FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              {/* STEP 2 */}
+              <motion.div
+                className={cn("space-y-3", { hidden: formStep === 0 })}
+                animate={{
+                  translateX: `${100 - formStep * 100}%`,
+                }}
+              >
+                <FormField
+                  control={form.control}
+                  name="bio"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Bio</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Tell us a little bit about yourself"
+                          className="resize-none"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        You can <span>@mention</span> other users and
+                        organizations to link to them.
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <div>
+                  {fields.map((field, index) => (
+                    <FormField
+                      control={form.control}
+                      key={field.id}
+                      name={`urls.${index}.value`}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className={cn(index !== 0 && "sr-only")}>
+                            URLs
+                          </FormLabel>
+                          <FormDescription
+                            className={cn(index !== 0 && "sr-only")}
+                          >
+                            Add links to your website, blog, or social media
+                            profiles.
+                          </FormDescription>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  ))}
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    className="mt-2"
+                    onClick={() => append({ value: "" })}
+                  >
+                    Add URL
+                  </Button>
+                </div>
+              </motion.div>
+              <div className="flex w-full justify-between">
+                {/* <Button className={cn("hidden", { block: formStep === 1 })}>
+                  Go Back
+                </Button>
+                <Button type="submit">
+                  {formStep === 1 ? "Confirm" : "Next Step"}
+                </Button> */}
+                <Button
+                  type="button"
+                  className={cn({ hidden: formStep == 0 })}
+                  onClick={() => setFormStep(0)}
+                >
+                  Go Back
+                </Button>
 
-              <FormField
-                control={form.control}
-                name="contactNumber"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Phone</FormLabel>
-                    <FormControl>
-                      <Input placeholder="0751 234 567" {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      This is your public display name. It can be your real name
-                      or a pseudonym. You can only change this once every 30
-                      days.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                <Button
+                  type="button"
+                  className={cn("ml-auto", {
+                    hidden: formStep == 1,
+                  })}
+                  onClick={() => {
+                    void form.trigger(["username", "phoneNumber", "email"]);
+                    const usernameState = form.getFieldState("username");
+                    const phoneNumberState = form.getFieldState("phoneNumber");
+                    const emailState = form.getFieldState("email");
+                    if (!usernameState.isDirty || usernameState.invalid) return;
+                    if (!phoneNumberState.isDirty || phoneNumberState.invalid)
+                      return;
+                    if (!emailState.isDirty || emailState.invalid) return;
 
-              <FormField
-                control={form.control}
-                name="medicalCertificate"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Medical Certificate</FormLabel>
-                    <FormControl>
-                      <Input id="picture" type="file" {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      Upload a file with your medical certificate.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                    setFormStep(1);
+                  }}
+                >
+                  Next Step
+                </Button>
 
-              <FormField
-                control={form.control}
-                name="bio"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Bio</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Tell us a little bit about yourself"
-                        className="resize-none"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      You can <span>@mention</span> other users and
-                      organizations to link to them.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <DialogFooter>
-                <Button type="submit">Confirm</Button>
-              </DialogFooter>
+                <Button type="submit" className={cn({ hidden: formStep == 0 })}>
+                  Submit
+                </Button>
+              </div>
             </form>
           </Form>
         </DialogContent>
