@@ -21,7 +21,7 @@ export function CustomCalendar() {
         mode="single"
         selected={date}
         onSelect={handleSelectedDayChange}
-        className="rounded-md border"
+        // className="rounded-md border"
       />
     </>
   );

@@ -55,8 +55,9 @@ export default async function DashboardPage({ pool = "cluj-napoca" }) {
                 <CardHeader>
                   <CardTitle>Overview</CardTitle>
                 </CardHeader>
-                <CardContent className="px-2">
+                <CardContent>
                   <CustomCalendar />
+
                   <AttendancePanel students={studentsByPool} />
                 </CardContent>
               </Card>

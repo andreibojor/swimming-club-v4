@@ -16,18 +16,10 @@ import { StudentCard } from "./student-card";
 
 export function AttendancePanel({ students }) {
   return (
-    <Card>
-      <CardHeader className="px-2 pb-2 md:px-6 md:pb-6">
-        <CardTitle>Team Members</CardTitle>
-        <CardDescription>
-          Invite your team members to collaborate.
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="flex flex-col gap-2 p-2 md:p-6">
-        {students?.map((student) => (
-          <StudentCard key={student.id} student={student} />
-        ))}
-      </CardContent>
-    </Card>
+    <>
+      {students?.map((student) => (
+        <StudentCard key={student.id} student={student} />
+      ))}
+    </>
   );
 }

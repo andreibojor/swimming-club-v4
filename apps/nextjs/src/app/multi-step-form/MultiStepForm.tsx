@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useUser } from "@/hooks/useUser";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
 import { useFieldArray, useForm } from "react-hook-form";
@@ -34,6 +35,14 @@ import {
   toast,
 } from "@acme/ui";
 
+const MAX_FILE_SIZE = 500000;
+const ACCEPTED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "image/webp",
+];
+
 const profileFormSchema = z.object({
   username: z
     .string()
@@ -50,6 +59,7 @@ const profileFormSchema = z.object({
     .refine((val) => !isNaN(val as unknown as number), {
       message: "Your phone number contains other characters than digits.",
     }),
+
   email: z
     .string({
       required_error: "Please select an email to display.",
@@ -101,20 +111,19 @@ export function MultiStepForm() {
     });
   }
 
+  const [isOpenDialog, setIsOpenDialog] = useState(false);
+
+  const { userDetails } = useUser();
+
+  useEffect(() => {
+    userDetails?.completed_registration
+      ? setIsOpenDialog(false)
+      : setIsOpenDialog(true);
+  }, [userDetails?.completed_registration]);
+
   return (
     <>
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button
-            variant="default"
-            style={{
-              animationDelay: "0.40s",
-              animationFillMode: "forwards",
-            }}
-          >
-            Multi Step Form
-          </Button>
-        </DialogTrigger>
+      <Dialog open={isOpenDialog}>
         <DialogContent className="sm:max-w-[650px]">
           <DialogHeader>
             <DialogTitle>Edit profile</DialogTitle>
@@ -166,6 +175,7 @@ export function MultiStepForm() {
                     </FormItem>
                   )}
                 />
+
                 <FormField
                   control={form.control}
                   name="email"
@@ -268,12 +278,6 @@ export function MultiStepForm() {
                 </div>
               </motion.div>
               <div className="flex w-full justify-between">
-                {/* <Button className={cn("hidden", { block: formStep === 1 })}>
-                  Go Back
-                </Button>
-                <Button type="submit">
-                  {formStep === 1 ? "Confirm" : "Next Step"}
-                </Button> */}
                 <Button
                   type="button"
                   className={cn({ hidden: formStep == 0 })}
@@ -288,7 +292,7 @@ export function MultiStepForm() {
                     hidden: formStep == 1,
                   })}
                   onClick={() => {
-                    void form.trigger(["username", "phoneNumber", "email"]);
+                    form.trigger(["username", "phoneNumber", "email"]);
                     const usernameState = form.getFieldState("username");
                     const phoneNumberState = form.getFieldState("phoneNumber");
                     const emailState = form.getFieldState("email");
