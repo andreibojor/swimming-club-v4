@@ -14,15 +14,11 @@ interface StudentInterface {
   active: boolean;
 }
 
-const getStudentsByPool = async (
-  pool = "cluj-napoca",
-): Promise<StudentInterface[]> => {
+const getStudentsByPool = async (): Promise<StudentInterface[]> => {
   const supabase = createServerComponentClient({ cookies });
 
-  const { data, error } = await supabase
-    .from("students")
-    .select(
-      `
+  const { data, error } = await supabase.from("students").select(
+    `
       id,
       pool,
       lessons_left,
@@ -30,8 +26,7 @@ const getStudentsByPool = async (
       active,
       user:users ( full_name, avatar_url, role )  // Fetching related user data
     `,
-    )
-    .eq("pool", pool);
+  );
 
   if (error) {
     console.log(error);

@@ -1,6 +1,8 @@
+import { Suspense } from "react";
 import { createServerSupabaseClient } from "@/actions/createServerSupabaseClient";
 import getStudentAttendances from "@/actions/getStudentAttendances";
 import getUserDetails from "@/actions/getUserDetails";
+import { LoadingCard } from "@/app/(dashboard)/_components/loading-card";
 import { marketingFeatures } from "@/app/config";
 import AttendancePieChart from "@/components/attendance-piechart";
 
@@ -33,6 +35,10 @@ import {
   TableHead,
   TableHeader,
   TableRow,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
   cn,
 } from "@acme/ui";
 import * as Icons from "@acme/ui/src/icons";
@@ -103,6 +109,7 @@ export default async function ProfilePage() {
                 <AvatarImage src={userDetails?.avatar_url} alt="rick" />
                 <AvatarFallback>A F </AvatarFallback>
               </Avatar>
+              <CardTitle>{userDetails?.full_name}</CardTitle>
             </CardHeader>
             <CardContent>
               <Separator className="my-4" />
@@ -115,13 +122,13 @@ export default async function ProfilePage() {
                     Email: {userDetails?.email}
                   </p>
                   <p className="text-sm font-medium leading-none">
-                    Status: Active !!
-                  </p>
-                  <p className="text-sm font-medium leading-none">
-                    Contact: +1 (479) 232-9151 !!
+                    Phone: {userDetails?.phone}
                   </p>
                   <p className="text-sm font-medium leading-none">
                     Pool: Dej !!
+                  </p>
+                  <p className="text-sm font-medium leading-none">
+                    Status: Active !!
                   </p>
                   <Dialog>
                     <DialogTrigger asChild>
@@ -140,7 +147,7 @@ export default async function ProfilePage() {
                       <DialogHeader>
                         <DialogTitle>Edit profile</DialogTitle>
                         <DialogDescription>
-                          Complete your registration
+                          Add another student for swimming lessons
                         </DialogDescription>
                       </DialogHeader>
                       <div className="grid gap-4 py-4">
@@ -182,16 +189,54 @@ export default async function ProfilePage() {
             </CardContent>
           </Card>
           <Card className="w-full md:w-2/3">
-            {/* <CardHeader>
-              <CardTitle>Rick Sanchez</CardTitle>
+            <CardHeader>
+              <CardTitle>{/* Rick Sanchez */}</CardTitle>
               <CardDescription>
-                Anyone with the link can view this document.
+                {/* Anyone with the link can view this document. */}
               </CardDescription>
-            </CardHeader> */}
-            <CardContent className="flex flex-col items-center justify-between md:flex-row">
-              <CardTitle>{userDetails?.full_name}</CardTitle>
-              <AttendancePieChart attendancesLeft={3} />
-              <Calendar mode="multiple" selected={selectedDates} />
+            </CardHeader>
+            {/* className="flex flex-col items-center justify-between md:flex-row" */}
+            <CardContent>
+              <Tabs defaultValue="andrei-bojor" className="space-y-4">
+                <TabsList>
+                  <TabsTrigger value="andrei-bojor">Andrei Bojor</TabsTrigger>
+                  <TabsTrigger value="sergiu-bojor">Sergiu Bojor</TabsTrigger>
+                </TabsList>
+
+                {/* TAB CONTENT */}
+                <TabsContent value="andrei-bojor" className="space-y-4">
+                  <div className="flex flex-col justify-normal gap-4 md:flex-row md:justify-between">
+                    <AttendancePieChart attendancesLeft={3} />
+                    <Calendar mode="multiple" selected={selectedDates} />
+
+                    {/* <Suspense
+                      fallback={
+                        <LoadingCard
+                          title="Recent Ingestions"
+                          description="Loading recent ingestions..."
+                          className="col-span-7 md:col-span-2 lg:col-span-3"
+                        />
+                      }
+                    ></Suspense> */}
+                  </div>
+                </TabsContent>
+                <TabsContent value="sergiu-bojor" className="space-y-4">
+                  <div className="flex flex-col justify-normal gap-4 md:flex-row md:justify-between">
+                    <AttendancePieChart attendancesLeft={3} />
+                    <Calendar mode="multiple" selected={selectedDates} />
+
+                    {/* <Suspense
+                      fallback={
+                        <LoadingCard
+                          title="Recent Ingestions"
+                          description="Loading recent ingestions..."
+                          className="col-span-7 md:col-span-2 lg:col-span-3"
+                        />
+                      }
+                    ></Suspense> */}
+                  </div>
+                </TabsContent>
+              </Tabs>
             </CardContent>
           </Card>
         </div>

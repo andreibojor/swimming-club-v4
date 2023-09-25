@@ -25,33 +25,45 @@ import {
   FormLabel,
   FormMessage,
   Input,
+  Label,
+  RadioGroup,
+  RadioGroupItem,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-  Textarea,
   cn,
   toast,
 } from "@acme/ui";
+import * as Icons from "@acme/ui/src/icons";
 
-const MAX_FILE_SIZE = 500000;
-const ACCEPTED_IMAGE_TYPES = [
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB in bytes
+const ALLOWED_FILE_TYPES = [
   "image/jpeg",
   "image/jpg",
   "image/png",
   "image/webp",
+  "application/pdf",
 ];
 
 const profileFormSchema = z.object({
-  username: z
-    .string()
-    .min(2, {
-      message: "Username must be at least 2 characters.",
-    })
-    .max(30, {
-      message: "Username must not be longer than 30 characters.",
-    }),
+  // TODO: https://github.com/shadcn-ui/ui/issues/884
+  medicalCertificate: z
+    .custom<FileList>((val) => val instanceof FileList, "Required")
+    .refine((files) => files.length > 0, `Required`)
+    .refine((files) => files.length <= 5, `Maximum of 5 files are allowed.`)
+    .refine(
+      (files) => Array.from(files).every((file) => file.size <= MAX_FILE_SIZE),
+      `Each file size should be less than 5 MB.`,
+    )
+    .refine(
+      (files) =>
+        Array.from(files).every((file) =>
+          ALLOWED_FILE_TYPES.includes(file.type),
+        ),
+      "Only .pdf files are allowed",
+    ),
   phoneNumber: z
     .string()
     .min(10)
@@ -60,11 +72,9 @@ const profileFormSchema = z.object({
       message: "Your phone number contains other characters than digits.",
     }),
 
-  email: z
-    .string({
-      required_error: "Please select an email to display.",
-    })
-    .email(),
+  swimmerLevel: z.string({
+    required_error: "Please select the performance level.",
+  }),
   bio: z.string().max(160).min(4),
   urls: z
     .array(
@@ -79,7 +89,6 @@ type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
 // This can come from your database or API.
 const defaultValues: Partial<ProfileFormValues> = {
-  username: "",
   bio: "I own a computer.",
   urls: [
     { value: "https://shadcn.com" },
@@ -113,6 +122,9 @@ export function MultiStepForm() {
 
   const [isOpenDialog, setIsOpenDialog] = useState(false);
 
+  // Add this state at the beginning of your component
+  const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
+
   const { userDetails } = useUser();
 
   useEffect(() => {
@@ -123,11 +135,16 @@ export function MultiStepForm() {
 
   return (
     <>
-      <Dialog open={isOpenDialog}>
-        <DialogContent className="sm:max-w-[650px]">
+      <Dialog
+        open={isOpenDialog}
+        onOpenChange={() => setIsOpenDialog(!isOpenDialog)}
+      >
+        <DialogContent className="sm:max-w-[450px]">
           <DialogHeader>
-            <DialogTitle>Edit profile</DialogTitle>
-            <DialogDescription>Complete your registration</DialogDescription>
+            <DialogTitle>Finish registration process</DialogTitle>
+            <DialogDescription>
+              Add the necessary details for sign up
+            </DialogDescription>
           </DialogHeader>
 
           <Form {...form}>
@@ -141,35 +158,47 @@ export function MultiStepForm() {
               >
                 <FormField
                   control={form.control}
-                  name="username"
+                  name="phoneNumber"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Username</FormLabel>
+                      <FormLabel>Phone</FormLabel>
                       <FormControl>
-                        <Input placeholder="shadcn" {...field} />
+                        <Input placeholder="0751 123 456" {...field} />
                       </FormControl>
-                      <FormDescription>
+                      {/* <FormDescription>
                         This is your public display name. It can be your real
                         name or a pseudonym. You can only change this once every
                         30 days.
-                      </FormDescription>
+                      </FormDescription> */}
                       <FormMessage />
                     </FormItem>
                   )}
                 />
                 <FormField
                   control={form.control}
-                  name="phoneNumber"
+                  name="swimmerLevel"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Username</FormLabel>
-                      <FormControl>
-                        <Input placeholder="0751 123 456" {...field} />
-                      </FormControl>
+                      <FormLabel>Performance Level</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select the level of your performance" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="m@example.com">
+                            Beginner
+                          </SelectItem>
+                          <SelectItem value="m@google.com">Advanced</SelectItem>
+                        </SelectContent>
+                      </Select>
                       <FormDescription>
-                        This is your public display name. It can be your real
-                        name or a pseudonym. You can only change this once every
-                        30 days.
+                        You can request your swimming teacher to promote you{" "}
+                        <Link href="/examples/forms">email settings</Link>.
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -178,38 +207,52 @@ export function MultiStepForm() {
 
                 <FormField
                   control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
+                  name="medicalCertificate"
+                  render={({ field }) => {
+                    // Destructure the field object to separate the value property
+                    const { value, ...restOfField } = field;
+
+                    return (
+                      <FormItem>
+                        <FormLabel>Medical Certificate</FormLabel>
                         <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select a verified email to display" />
-                          </SelectTrigger>
+                          <Input
+                            type="file"
+                            accept=".pdf"
+                            placeholder="MedicalCertificate.pdf"
+                            // Spread only the rest of the properties excluding value
+                            {...restOfField}
+                            onChange={(event) => {
+                              setSelectedFiles(event.target.files);
+
+                              // Triggered when user uploaded a new file
+                              // FileList is immutable, so we need to create a new one
+                              const dataTransfer = new DataTransfer();
+
+                              if (selectedFiles) {
+                                Array.from(selectedFiles).forEach((file) =>
+                                  dataTransfer.items.add(file),
+                                );
+                              }
+
+                              // Add newly uploaded medicalCertificate
+                              Array.from(event.target.files!).forEach((file) =>
+                                dataTransfer.items.add(file),
+                              );
+
+                              // Validate and update uploaded file
+                              const newFiles = dataTransfer.files;
+                              field.onChange(newFiles);
+                            }}
+                          />
                         </FormControl>
-                        <SelectContent>
-                          <SelectItem value="m@example.com">
-                            m@example.com
-                          </SelectItem>
-                          <SelectItem value="m@google.com">
-                            m@google.com
-                          </SelectItem>
-                          <SelectItem value="m@support.com">
-                            m@support.com
-                          </SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormDescription>
-                        You can manage verified email addresses in your{" "}
-                        <Link href="/examples/forms">email settings</Link>.
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                        <FormDescription>
+                          Please upload your medical certificate in .pdf format.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    );
+                  }}
                 />
               </motion.div>
 
@@ -220,62 +263,42 @@ export function MultiStepForm() {
                   translateX: `${100 - formStep * 100}%`,
                 }}
               >
-                <FormField
-                  control={form.control}
-                  name="bio"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Bio</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder="Tell us a little bit about yourself"
-                          className="resize-none"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormDescription>
-                        You can <span>@mention</span> other users and
-                        organizations to link to them.
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <div>
-                  {fields.map((field, index) => (
-                    <FormField
-                      control={form.control}
-                      key={field.id}
-                      name={`urls.${index}.value`}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className={cn(index !== 0 && "sr-only")}>
-                            URLs
-                          </FormLabel>
-                          <FormDescription
-                            className={cn(index !== 0 && "sr-only")}
-                          >
-                            Add links to your website, blog, or social media
-                            profiles.
-                          </FormDescription>
-                          <FormControl>
-                            <Input {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
+                <RadioGroup
+                  defaultValue="cash"
+                  className="grid grid-cols-2 gap-4"
+                >
+                  <div>
+                    <RadioGroupItem
+                      value="cash"
+                      id="cash"
+                      className="peer sr-only"
                     />
-                  ))}
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    className="mt-2"
-                    onClick={() => append({ value: "" })}
-                  >
-                    Add URL
-                  </Button>
-                </div>
+                    <Label
+                      htmlFor="cash"
+                      className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 text-lg hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                    >
+                      <Icons.Wallet className="mb-3 h-10 w-10" />
+                      Cash
+                    </Label>
+                  </div>
+                  <div>
+                    <RadioGroupItem
+                      value="card"
+                      id="card"
+                      className="peer sr-only"
+                    />
+                    <Label
+                      htmlFor="card"
+                      className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 text-lg hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                    >
+                      <Icons.CreditCard className="mb-3 h-10 w-10" />
+                      Card
+                    </Label>
+                  </div>
+                </RadioGroup>
+                <FormDescription>
+                  Select the desired payment method.
+                </FormDescription>
               </motion.div>
               <div className="flex w-full justify-between">
                 <Button
@@ -292,14 +315,26 @@ export function MultiStepForm() {
                     hidden: formStep == 1,
                   })}
                   onClick={() => {
-                    form.trigger(["username", "phoneNumber", "email"]);
-                    const usernameState = form.getFieldState("username");
+                    form.trigger([
+                      "phoneNumber",
+                      "swimmerLevel",
+                      "medicalCertificate",
+                    ]);
+
                     const phoneNumberState = form.getFieldState("phoneNumber");
-                    const emailState = form.getFieldState("email");
-                    if (!usernameState.isDirty || usernameState.invalid) return;
+                    const swimmerLevelState =
+                      form.getFieldState("swimmerLevel");
+                    const medicalCertificateState =
+                      form.getFieldState("medicalCertificate");
                     if (!phoneNumberState.isDirty || phoneNumberState.invalid)
                       return;
-                    if (!emailState.isDirty || emailState.invalid) return;
+                    if (!swimmerLevelState.isDirty || swimmerLevelState.invalid)
+                      return;
+                    if (
+                      !medicalCertificateState.isDirty ||
+                      medicalCertificateState.invalid
+                    )
+                      return;
 
                     setFormStep(1);
                   }}

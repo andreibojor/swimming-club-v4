@@ -39,7 +39,7 @@ export function AllStudentsCard({ students }) {
           {displayedStudents?.map((student) => (
             <div key={student.id} className="flex items-center">
               <Avatar className="flex h-9 w-9 items-center justify-center space-y-0 border">
-                {/* <AvatarImage src="/avatars/02.png" alt="Avatar" /> */}
+                <AvatarImage src={`${student.avatar_url}`} alt="Avatar" />
                 <AvatarFallback>JL</AvatarFallback>
               </Avatar>
               <div className="ml-4 space-y-1">

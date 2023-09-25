@@ -1,9 +1,5 @@
 "use client";
 
-import { useState } from "react";
-import { useUser } from "@/hooks/useUser";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-
 import {
   Avatar,
   AvatarFallback,
@@ -28,16 +24,12 @@ import * as Icons from "@acme/ui/src/icons";
 import { AttendanceButton } from "./attendance-button";
 
 export function StudentCard({ student }) {
-  const userRr = useUser();
-  {
-    console.log(userRr);
-  }
   return (
     <div className="flex flex-col gap-1">
       <div className="mt-2 flex items-center justify-between gap-2">
         <div className="flex items-center space-x-2">
           <Avatar>
-            <AvatarImage src="/avatars/01.png" />
+            <AvatarImage src={`${student.avatar_url}`} />
             <AvatarFallback>OM</AvatarFallback>
           </Avatar>
           <div>
