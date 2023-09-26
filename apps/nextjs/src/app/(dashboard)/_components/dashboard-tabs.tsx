@@ -8,6 +8,7 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
+  Separator,
   Tabs,
   TabsContent,
   TabsList,
@@ -61,7 +62,19 @@ export default function DashboardTabs({
                 <CardTitle>Overview</CardTitle>
               </CardHeader>
               <CardContent>
-                <CustomCalendar />
+                <div className="flex justify-between">
+                  <CustomCalendar />
+                  <div className="flex flex-col items-center">
+                    <p className="text-5xl">42</p>
+                    <h1 className="text-xl">Total Students</h1>
+                    <Separator className="border-b" />
+                    <p className="text-5xl">42</p>
+                    <h1 className="text-xl">Total Students</h1>
+                    <Separator className="border-b" />
+                    <p className="text-5xl">42</p>
+                    <h1 className="text-xl">Total Students</h1>
+                  </div>
+                </div>
 
                 <AttendancePanel students={filteredStudents} />
               </CardContent>

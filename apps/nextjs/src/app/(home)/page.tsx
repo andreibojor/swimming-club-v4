@@ -1,4 +1,7 @@
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import { marketingFeatures, siteConfig } from "@/app/config";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Balancer } from "react-wrap-balancer";
 
 import {
@@ -28,7 +31,17 @@ import { MultiStepForm } from "../multi-step-form/MultiStepForm";
 
 // export const revalidate = 0;
 
-export default function Home() {
+export default async function Home() {
+  const supabase = createServerComponentClient({ cookies });
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (session) {
+    redirect("/profile");
+  }
+
   return (
     <main className="flex min-h-screen w-full flex-col items-center justify-center pt-48">
       <div className="z-10 min-h-[50vh] w-full max-w-4xl px-5 xl:px-0">
