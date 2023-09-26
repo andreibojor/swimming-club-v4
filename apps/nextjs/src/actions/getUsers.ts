@@ -1,4 +1,5 @@
-import { createServerSupabaseClient } from "./createServerSupabaseClient";
+import { cookies } from "next/headers";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
 interface UserInterface {
   id: string;
@@ -8,7 +9,7 @@ interface UserInterface {
 }
 
 const getUsers = async (): Promise<UserInterface[]> => {
-  const supabase = createServerSupabaseClient();
+  const supabase = createServerComponentClient({ cookies });
 
   const { data, error } = await supabase
     .from("users")

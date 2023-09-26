@@ -1,29 +1,14 @@
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
-import { marketingFeatures, siteConfig } from "@/app/config";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { marketingFeatures } from "@/app/config";
 import { Balancer } from "react-wrap-balancer";
 
 import {
-  Button,
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  Input,
-  Label,
-  buttonVariants,
   cn,
 } from "@acme/ui";
-import * as Icons from "@acme/ui/src/icons";
 
 import { MultiStepForm } from "../multi-step-form/MultiStepForm";
 
@@ -31,17 +16,7 @@ import { MultiStepForm } from "../multi-step-form/MultiStepForm";
 
 // export const revalidate = 0;
 
-export default async function Home() {
-  const supabase = createServerComponentClient({ cookies });
-
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  if (session) {
-    redirect("/profile");
-  }
-
+export default function Home() {
   return (
     <main className="flex min-h-screen w-full flex-col items-center justify-center pt-48">
       <div className="z-10 min-h-[50vh] w-full max-w-4xl px-5 xl:px-0">
