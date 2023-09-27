@@ -1,10 +1,10 @@
-import { cookies } from "next/headers";
 import type { Attendance } from "@/types";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+
+import { createServerSupabaseClient } from "./createServerSupabaseClient";
 
 // TODO: Is this how am I gonna get attendances for a user?
 const getStudentAttendances = async (): Promise<Attendance[]> => {
-  const supabase = createServerComponentClient({ cookies });
+  const supabase = createServerSupabaseClient();
 
   const {
     data: { session },

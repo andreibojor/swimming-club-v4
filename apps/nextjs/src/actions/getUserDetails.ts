@@ -1,9 +1,9 @@
-import { cookies } from "next/headers";
 import type { UserDetails } from "@/types";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+
+import { createServerSupabaseClient } from "./createServerSupabaseClient";
 
 const getUserDetails = async (): Promise<UserDetails[]> => {
-  const supabase = createServerComponentClient({ cookies });
+  const supabase = createServerSupabaseClient();
 
   const {
     data: { user },

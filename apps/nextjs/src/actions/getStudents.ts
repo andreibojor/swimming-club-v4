@@ -1,5 +1,4 @@
-import { cookies } from "next/headers";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createServerSupabaseClient } from "./createServerSupabaseClient";
 
 interface StudentInterface {
   id: string;
@@ -13,7 +12,7 @@ interface StudentInterface {
 }
 
 const getStudents = async (): Promise<StudentInterface[]> => {
-  const supabase = createServerComponentClient({ cookies });
+  const supabase = createServerSupabaseClient();
 
   const { data, error } = await supabase.from("students").select(`
     id,

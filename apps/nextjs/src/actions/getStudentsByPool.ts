@@ -1,5 +1,3 @@
-import { cookies } from "next/headers";
-
 import { createServerSupabaseClient } from "./createServerSupabaseClient";
 
 // import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
