@@ -6,13 +6,27 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
+  Button,
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
   Input,
 } from "@acme/ui";
+import * as Icons from "@acme/ui/src/icons";
 
 export function AllStudentsCard({ students }) {
   const [filteredStudents, setFilteredStudents] = useState("");
@@ -50,7 +64,52 @@ export function AllStudentsCard({ students }) {
                   jackson.lee@email.com
                 </p>
               </div>
-              <div className="ml-auto font-medium">+$39.00</div>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    className="flex h-8 w-8 p-0 data-[state=open]:bg-muted"
+                  >
+                    <Icons.DotsHorizontal className="h-4 w-4" />
+                    <span className="sr-only">Open menu</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-[160px]">
+                  <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                  <DropdownMenuItem>Edit</DropdownMenuItem>
+                  <DropdownMenuItem>Make a copy</DropdownMenuItem>
+                  <DropdownMenuItem>Favorite</DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuSub>
+                    <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
+                    <DropdownMenuSubContent>
+                      {/* <DropdownMenuRadioGroup value={pools.name}>
+                  {pools.map((pool) => (
+                    <DropdownMenuRadioItem key={pool.id} value={pool.value}>
+                      {pool.name}
+                    </DropdownMenuRadioItem>
+                  ))}
+                </DropdownMenuRadioGroup> */}
+                      <DropdownMenuRadioGroup value="plm">
+                        <DropdownMenuRadioItem value="dej">
+                          Dej
+                        </DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="dej">
+                          cj
+                        </DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="dej">
+                          bm
+                        </DropdownMenuRadioItem>
+                      </DropdownMenuRadioGroup>
+                    </DropdownMenuSubContent>
+                  </DropdownMenuSub>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    Delete
+                    <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           ))}
         </div>

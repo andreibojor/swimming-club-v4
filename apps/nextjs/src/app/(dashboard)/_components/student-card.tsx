@@ -1,5 +1,10 @@
 "use client";
 
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import type { Database } from "@/types_db";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+
 import {
   Avatar,
   AvatarFallback,
@@ -24,6 +29,30 @@ import * as Icons from "@acme/ui/src/icons";
 import { AttendanceButton } from "./attendance-button";
 
 export function StudentCard({ student }) {
+  const supabase = createClientComponentClient<Database>();
+  const router = useRouter();
+
+  useEffect(() => {
+    const channel = supabase
+      .channel("realtime students")
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "students",
+        },
+        () => {
+          router.refresh();
+        },
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [supabase, router]);
+
   return (
     <div className="flex flex-col gap-1">
       <div className="mt-2 flex items-center justify-between gap-2">
@@ -43,7 +72,6 @@ export function StudentCard({ student }) {
             <p className="text-sm font-medium leading-none">
               Attendances Left: {student.lessons_left}
             </p>
-            {/* <p className="text-sm text-muted-foreground">m@example.com</p> */}
           </div>
         </div>
         <AttendanceButton student={student} />

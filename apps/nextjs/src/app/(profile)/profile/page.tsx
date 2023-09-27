@@ -4,6 +4,7 @@ import getStudentAttendances from "@/actions/getStudentAttendances";
 import getUserDetails from "@/actions/getUserDetails";
 import { LoadingCard } from "@/app/(dashboard)/_components/loading-card";
 import { marketingFeatures } from "@/app/config";
+import { MultiStepForm } from "@/app/multi-step-form/MultiStepForm";
 import AttendancePieChart from "@/components/attendance-piechart";
 
 // import Balancer from "react-wrap-balancer";
@@ -90,7 +91,8 @@ const invoices = [
 
 export default async function ProfilePage() {
   // TODO: fetch the user's attendances here and send them through props on the calendar
-  const { user_metadata: userDetails } = await getUserDetails();
+  const userDetails = await getUserDetails();
+
   const attendances = await getStudentAttendances();
   const selectedDates = attendances.map((attendance) => attendance.date);
   const supabase = createServerSupabaseClient();
@@ -106,10 +108,10 @@ export default async function ProfilePage() {
           <Card className="w-full md:w-1/3">
             <CardHeader>
               <Avatar className="h-[80px] w-[80px]">
-                <AvatarImage src={userDetails?.avatar_url} alt="rick" />
+                <AvatarImage src={userDetails?.user.avatar_url} alt="rick" />
                 <AvatarFallback>A F </AvatarFallback>
               </Avatar>
-              <CardTitle>{userDetails?.full_name}</CardTitle>
+              <CardTitle>{userDetails?.user.full_name}</CardTitle>
             </CardHeader>
             <CardContent>
               <Separator className="my-4" />
@@ -119,13 +121,13 @@ export default async function ProfilePage() {
                 </h4>
                 <div className="flex flex-col justify-between space-y-4">
                   <p className="text-sm font-medium leading-none">
-                    Email: {userDetails?.email}
-                  </p>
-                  <p className="text-sm font-medium leading-none">
                     Phone: {userDetails?.phone}
                   </p>
                   <p className="text-sm font-medium leading-none">
-                    Pool: Dej !!
+                    Pool: {userDetails?.pool}
+                  </p>
+                  <p className="text-sm font-medium leading-none">
+                    Role: {userDetails?.user.role}
                   </p>
                   <p className="text-sm font-medium leading-none">
                     Status: Active !!
@@ -292,6 +294,7 @@ export default async function ProfilePage() {
           ))}
         </div>
       </div>
+      <MultiStepForm />
     </>
   );
 }

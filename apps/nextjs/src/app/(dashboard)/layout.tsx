@@ -33,7 +33,7 @@ export default function DashboardLayout(props: { children: React.ReactNode }) {
           </div>
         </div>
       </nav>
-      <main className="min-h-[calc(100vh-14rem)] flex-1 space-y-4 p-2 pt-6 md:p-8">
+      <main className="flex min-h-screen w-full flex-col items-center justify-center">
         {props.children}
       </main>
       <SiteFooter />

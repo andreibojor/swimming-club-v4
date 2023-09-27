@@ -38,9 +38,7 @@ export default function Home() {
         <div
           className="mx-auto mt-6 flex animate-fade-up items-center justify-center space-x-5 opacity-0"
           style={{ animationDelay: "0.40s", animationFillMode: "forwards" }}
-        >
-          <MultiStepForm />
-        </div>
+        ></div>
       </div>
 
       {/* HOME CONTENT */}

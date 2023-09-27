@@ -20,7 +20,7 @@ import { AttendancePanel } from "../_components/attendance-panel";
 import { LoadingCard } from "../_components/loading-card";
 
 // This page will never be cached and the data will always be up to date
-export const revalidate = 0;
+// export const revalidate = 0;
 
 export default function DashboardTabs({
   pools,
@@ -28,7 +28,7 @@ export default function DashboardTabs({
   allStudentsByPool,
 }) {
   const [studentsByPool, setStudentsByPool] = useState(allStudentsByPool);
-  const [selectedPool, setSelectedPool] = useState("cluj-napoca");
+  const [selectedPool, setSelectedPool] = useState("Cluj-Napoca");
 
   const handleTabChange = (poolValue) => {
     setSelectedPool(poolValue);
@@ -40,7 +40,7 @@ export default function DashboardTabs({
   );
 
   return (
-    <Tabs defaultValue="cluj-napoca" className="space-y-4">
+    <Tabs defaultValue="Cluj-Napoca" className="space-y-4">
       <TabsList>
         {pools.map((pool) => (
           <TabsTrigger
@@ -75,7 +75,6 @@ export default function DashboardTabs({
                     <h1 className="text-xl">Total Students</h1>
                   </div>
                 </div>
-
                 <AttendancePanel students={filteredStudents} />
               </CardContent>
             </Card>

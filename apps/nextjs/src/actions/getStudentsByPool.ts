@@ -1,7 +1,8 @@
-// import { createServerSupabaseClient } from "./createServerSupabaseClient";
-
 import { cookies } from "next/headers";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+
+import { createServerSupabaseClient } from "./createServerSupabaseClient";
+
+// import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
 interface StudentInterface {
   id: string;
@@ -15,7 +16,7 @@ interface StudentInterface {
 }
 
 const getStudentsByPool = async (): Promise<StudentInterface[]> => {
-  const supabase = createServerComponentClient({ cookies });
+  const supabase = createServerSupabaseClient();
 
   const { data, error } = await supabase.from("students").select(
     `

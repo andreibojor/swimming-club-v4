@@ -4,7 +4,7 @@ import { UserNav } from "@/components/user-nav";
 
 import * as Icons from "@acme/ui/src/icons";
 
-export default function DashboardLayout(props: { children: React.ReactNode }) {
+export default function ProfileLayout(props: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen overflow-hidden rounded-[0.5rem] bg-background">
       <nav className="border-b">

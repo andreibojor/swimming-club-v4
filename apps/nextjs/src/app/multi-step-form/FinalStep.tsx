@@ -32,7 +32,7 @@ const FinalStep = ({ yearly, plan, addOns, goTo }: StepProps) => {
     (acc, obj) => acc + obj.price,
     0,
   );
-  console.log(totalAddOnsPrice);
+  // console.log(totalAddOnsPrice);
 
   return (
     <FormWrapper
