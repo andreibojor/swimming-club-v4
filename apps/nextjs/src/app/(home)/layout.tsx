@@ -1,6 +1,6 @@
 import { Suspense, type ReactNode } from "react";
 import { siteConfig } from "@/app/config";
-import DashboardLink from "@/components/dashboard-link";
+import DashboardLink from "@/components/dashboard-button-server";
 import { SiteFooter } from "@/components/footer";
 import { MobileDropdown } from "@/components/mobile-nav";
 

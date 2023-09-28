@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useUser } from "@/hooks/useUser";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { motion } from "framer-motion";
 import { useFieldArray, useForm } from "react-hook-form";
 import * as z from "zod";
@@ -103,29 +104,45 @@ export function MultiStepForm() {
     defaultValues,
     mode: "onChange",
   });
-
+  const { userDetails } = useUser();
   const { fields, append } = useFieldArray({
     name: "urls",
     control: form.control,
   });
 
-  function onSubmit(data: ProfileFormValues) {
+  const supabase = createClientComponentClient();
+
+  const onSubmit = async (data: ProfileFormValues) => {
+    const { phoneNumber } = data;
+
+    const updateUserPhoneAction = await supabase
+      .from("users")
+      .update({ phone: phoneNumber })
+      .eq("id", userDetails?.id);
+
     toast({
       title: "You submitted the following values:",
       description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
+        <>
+          <h1>user details</h1>
+          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+            <code className="text-white">
+              {JSON.stringify(userDetails, null, 2)}
+            </code>
+          </pre>
+          <h1>data</h1>
+          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+            <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+          </pre>
+        </>
       ),
     });
-  }
+  };
 
   const [isOpenDialog, setIsOpenDialog] = useState(false);
 
   // Add this state at the beginning of your component
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
-
-  const { userDetails } = useUser();
 
   useEffect(() => {
     userDetails?.completed_registration

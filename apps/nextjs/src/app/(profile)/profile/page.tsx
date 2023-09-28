@@ -1,13 +1,8 @@
-import { Suspense } from "react";
-import { createServerSupabaseClient } from "@/actions/createServerSupabaseClient";
 import getStudentAttendances from "@/actions/getStudentAttendances";
 import getUserDetails from "@/actions/getUserDetails";
-import { LoadingCard } from "@/app/(dashboard)/_components/loading-card";
 import { marketingFeatures } from "@/app/config";
 import { MultiStepForm } from "@/app/multi-step-form/MultiStepForm";
 import AttendancePieChart from "@/components/attendance-piechart";
-
-// import Balancer from "react-wrap-balancer";
 
 import {
   Avatar,
@@ -90,16 +85,10 @@ const invoices = [
 ];
 
 export default async function ProfilePage() {
-  // TODO: fetch the user's attendances here and send them through props on the calendar
   const userDetails = await getUserDetails();
 
   const attendances = await getStudentAttendances();
   const selectedDates = attendances.map((attendance) => attendance.date);
-  const supabase = createServerSupabaseClient();
-  // const { data: studentData, error: studentError } = await supabase
-  //   .from("students")
-  //   .select("lessons_left")
-  //   .eq("id", studentId);
 
   return (
     <>
@@ -121,7 +110,7 @@ export default async function ProfilePage() {
                 </h4>
                 <div className="flex flex-col justify-between space-y-4">
                   <p className="text-sm font-medium leading-none">
-                    Phone: {userDetails?.phone}
+                    Phone: {userDetails?.user.phone}
                   </p>
                   <p className="text-sm font-medium leading-none">
                     Pool: {userDetails?.pool}
@@ -130,8 +119,27 @@ export default async function ProfilePage() {
                     Role: {userDetails?.user.role}
                   </p>
                   <p className="text-sm font-medium leading-none">
-                    Status: Active !!
+                    Status: {userDetails?.active ? `Active` : `Inactive`}
                   </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+          <Card className="w-full md:w-2/3">
+            <CardHeader>
+              <CardTitle>{/* Rick Sanchez */}</CardTitle>
+              <CardDescription>
+                {/* Anyone with the link can view this document. */}
+              </CardDescription>
+            </CardHeader>
+            {/* className="flex flex-col items-center justify-between md:flex-row" */}
+            <CardContent>
+              <Tabs defaultValue="andrei-bojor" className="space-y-4">
+                <TabsList>
+                  <TabsTrigger value="andrei-bojor">Andrei Bojor</TabsTrigger>
+                  <TabsTrigger value="sergiu-bojor">Sergiu Bojor</TabsTrigger>
+                </TabsList>
+                {userDetails?.user.role === "parent" ? (
                   <Dialog>
                     <DialogTrigger asChild>
                       <Button
@@ -186,24 +194,9 @@ export default async function ProfilePage() {
                       </div>
                     </DialogContent>
                   </Dialog>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          <Card className="w-full md:w-2/3">
-            <CardHeader>
-              <CardTitle>{/* Rick Sanchez */}</CardTitle>
-              <CardDescription>
-                {/* Anyone with the link can view this document. */}
-              </CardDescription>
-            </CardHeader>
-            {/* className="flex flex-col items-center justify-between md:flex-row" */}
-            <CardContent>
-              <Tabs defaultValue="andrei-bojor" className="space-y-4">
-                <TabsList>
-                  <TabsTrigger value="andrei-bojor">Andrei Bojor</TabsTrigger>
-                  <TabsTrigger value="sergiu-bojor">Sergiu Bojor</TabsTrigger>
-                </TabsList>
+                ) : (
+                  ""
+                )}
 
                 {/* TAB CONTENT */}
                 <TabsContent value="andrei-bojor" className="space-y-4">

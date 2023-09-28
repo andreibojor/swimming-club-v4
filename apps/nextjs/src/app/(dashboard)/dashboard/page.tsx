@@ -27,32 +27,32 @@ export default async function DashboardPage() {
   const allStudentsByPool = await getStudentsByPool();
 
   return (
-    // <DashboardShell
-    //   title="Dashboard"
-    //   description="Get an overview of how the project is going"
-    // >
-    <div className="flex w-full max-w-screen-lg animate-fade-up flex-col gap-5 p-5 xl:px-0">
-      <div className="flex flex-col justify-between gap-5">
-        <DashboardTabs
-          pools={pools}
-          allStudents={students}
-          allStudentsByPool={allStudentsByPool}
-        />
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-          {marketingFeatures.map((feature) => (
-            <Card key={feature.title} className={cn("p-2")}>
-              <CardHeader>{feature.icon}</CardHeader>
-              <CardContent className="space-y-2">
-                <CardTitle>{feature.title}</CardTitle>
-                <CardDescription className="mt-2">
-                  {feature.body}
-                </CardDescription>
-              </CardContent>
-            </Card>
-          ))}
+    <DashboardShell
+      title="Dashboard"
+      description="Get an overview of how the project is going"
+    >
+      <div className="flex w-full max-w-screen-lg animate-fade-up flex-col gap-5 p-5 xl:px-0">
+        <div className="flex flex-col justify-between gap-5">
+          <DashboardTabs
+            pools={pools}
+            allStudents={students}
+            allStudentsByPool={allStudentsByPool}
+          />
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+            {marketingFeatures.map((feature) => (
+              <Card key={feature.title} className={cn("p-2")}>
+                <CardHeader>{feature.icon}</CardHeader>
+                <CardContent className="space-y-2">
+                  <CardTitle>{feature.title}</CardTitle>
+                  <CardDescription className="mt-2">
+                    {feature.body}
+                  </CardDescription>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
-        {/* </DashboardShell> */}
       </div>
-    </div>
+    </DashboardShell>
   );
 }

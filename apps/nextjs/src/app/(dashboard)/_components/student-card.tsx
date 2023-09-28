@@ -92,7 +92,7 @@ export function StudentCard({ student }) {
             <DropdownMenuItem>Favorite</DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuSub>
-              <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
+              <DropdownMenuSubTrigger>Move to</DropdownMenuSubTrigger>
               <DropdownMenuSubContent>
                 {/* <DropdownMenuRadioGroup value={pools.name}>
                   {pools.map((pool) => (
@@ -102,9 +102,13 @@ export function StudentCard({ student }) {
                   ))}
                 </DropdownMenuRadioGroup> */}
                 <DropdownMenuRadioGroup value="plm">
-                  <DropdownMenuRadioItem value="dej">Dej</DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value="dej">cj</DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value="dej">bm</DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem value="Cluj-Napoca">
+                    Cluj-Napoca
+                  </DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem value="Dej">Dej</DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem value="Sancraiu">
+                    Sancraiu
+                  </DropdownMenuRadioItem>
                 </DropdownMenuRadioGroup>
               </DropdownMenuSubContent>
             </DropdownMenuSub>
