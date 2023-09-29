@@ -1,10 +1,5 @@
 import Link from "next/link";
 import getUserDetails from "@/actions/getUserDetails";
-// import getUserDetails from "@/actions/getUserDetails";
-// import { redirect, useRouter } from "next/navigation";
-// import { useUser } from "@/hooks/useUser";
-
-// import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { CreditCard, LogOut, PlusCircle, Settings, User } from "lucide-react";
 
 import {

@@ -101,7 +101,7 @@ export function StudentCard({ student }) {
                     </DropdownMenuRadioItem>
                   ))}
                 </DropdownMenuRadioGroup> */}
-                <DropdownMenuRadioGroup value="plm">
+                <DropdownMenuRadioGroup value={`${student.pool}`}>
                   <DropdownMenuRadioItem value="Cluj-Napoca">
                     Cluj-Napoca
                   </DropdownMenuRadioItem>
@@ -120,7 +120,7 @@ export function StudentCard({ student }) {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <Progress value={23} className="h-1 w-full" />
+      <Progress value={student.lessons_left} max={25} className="h-1 w-full" />
     </div>
   );
 }
