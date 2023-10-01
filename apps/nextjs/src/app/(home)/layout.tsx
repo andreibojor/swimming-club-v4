@@ -1,15 +1,29 @@
 import { Suspense, type ReactNode } from "react";
 import Link from "next/link";
+import { createServerSupabaseClient } from "@/actions/createServerSupabaseClient";
+import getUserDetails from "@/actions/getUserDetails";
+import getUserRole from "@/actions/getUserRole";
 import { siteConfig } from "@/app/config";
 import DashboardLinkServer from "@/components/dashboard-button-server";
 import { SiteFooter } from "@/components/footer";
 import { MobileDropdown } from "@/components/mobile-nav";
+import { UserNav } from "@/components/user-nav";
+import { useUser } from "@/hooks/useUser";
 
+import { buttonVariants } from "@acme/ui";
 import * as Icons from "@acme/ui/src/icons";
 
 import { MainNav } from "../(dashboard)/_components/main-nav";
 
-export default function MarketingLayout(props: { children: ReactNode }) {
+export default async function HomeLayout(props: { children: ReactNode }) {
+  const supabase = createServerSupabaseClient();
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  const userDetails = await getUserDetails(session?.user.id);
+  const userRole = userDetails.user.role;
+
   return (
     <div className="flex min-h-screen flex-col">
       <nav className="container z-50 flex h-16 items-center border-b bg-background">
@@ -25,12 +39,28 @@ export default function MarketingLayout(props: { children: ReactNode }) {
         <MainNav />
         <div className="ml-auto flex items-center space-x-4">
           <Suspense>
-            <DashboardLinkServer />
+            {session ? (
+              userRole === "admin" ? (
+                <DashboardLinkServer />
+              ) : (
+                <UserNav />
+              )
+            ) : (
+              <Link
+                href="/signin"
+                className={buttonVariants({ variant: "outline" })}
+              >
+                Sign In
+                <Icons.ChevronRight className="ml-1 h-4 w-4" />
+              </Link>
+            )}
           </Suspense>
         </div>
       </nav>
 
-      <main className="flex-1">{props.children}</main>
+      <main className="flex min-h-screen w-full flex-1 flex-col items-center justify-center pt-48">
+        {props.children}
+      </main>
       <SiteFooter />
     </div>
   );

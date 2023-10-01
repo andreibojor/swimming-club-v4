@@ -89,6 +89,7 @@ export default async function ProfilePage() {
 
   const attendances = await getStudentAttendances();
   const selectedDates = attendances.map((attendance) => attendance.date);
+  console.log(userDetails);
 
   return (
     <>

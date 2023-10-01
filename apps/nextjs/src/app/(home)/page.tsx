@@ -2,11 +2,15 @@ import { marketingFeatures } from "@/app/config";
 import { Balancer } from "react-wrap-balancer";
 
 import {
+  Button,
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
+  Label,
+  Switch,
   cn,
 } from "@acme/ui";
 
@@ -18,7 +22,7 @@ import { MultiStepForm } from "../multi-step-form/MultiStepForm";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen w-full flex-col items-center justify-center pt-48">
+    <>
       <div className="z-10 min-h-[50vh] w-full max-w-4xl px-5 xl:px-0">
         <h1
           className="animate-fade-up bg-gradient-to-br from-foreground to-muted-foreground bg-clip-text text-center text-4xl font-bold tracking-[-0.02em] text-transparent opacity-0 drop-shadow-sm md:text-7xl/[5rem]"
@@ -46,7 +50,6 @@ export default function Home() {
         <h2 className="pt-4 text-center text-3xl font-bold md:text-4xl">
           What&apos;s included?
         </h2>
-
         <p className="pb-8 pt-4 text-center text-lg">
           <Balancer>
             This repo comes fully stacked with everything you need for your
@@ -54,7 +57,210 @@ export default function Home() {
             start building your product today!
           </Balancer>
         </p>
-
+        <div className="flex flex-col justify-between md:flex-row">
+          <Card>
+            <CardHeader>
+              <CardTitle>Cookie Settings</CardTitle>
+              <CardDescription>
+                Manage your cookie settings here.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="grid gap-6">
+              <div className="flex items-center justify-between space-x-2">
+                <Label htmlFor="necessary" className="flex flex-col space-y-1">
+                  <span>Strictly Necessary</span>
+                  <span className="font-normal leading-snug text-muted-foreground">
+                    These cookies are essential in order to use the website and
+                    use its features.
+                  </span>
+                </Label>
+                <Switch id="necessary" defaultChecked />
+              </div>
+              <div className="flex items-center justify-between space-x-2">
+                <Label htmlFor="functional" className="flex flex-col space-y-1">
+                  <span>Functional Cookies</span>
+                  <span className="font-normal leading-snug text-muted-foreground">
+                    These cookies allow the website to provide personalized
+                    functionality.
+                  </span>
+                </Label>
+                <Switch id="functional" />
+              </div>
+              <div className="flex items-center justify-between space-x-2">
+                <Label
+                  htmlFor="performance"
+                  className="flex flex-col space-y-1"
+                >
+                  <span>Performance Cookies</span>
+                  <span className="font-normal leading-snug text-muted-foreground">
+                    These cookies help to improve the performance of the
+                    website.
+                  </span>
+                </Label>
+                <Switch id="performance" />
+              </div>
+            </CardContent>
+            <CardFooter>
+              <Button variant="outline" className="w-full">
+                Save preferences
+              </Button>
+            </CardFooter>
+          </Card>
+          <Card
+            style={{
+              backgroundImage: `url('/swimming-pool-homepage.webp')`,
+            }}
+          >
+            <CardHeader>
+              <CardTitle>Cookie Settings</CardTitle>
+              <CardDescription>
+                Manage your cookie settings here.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="grid gap-6">
+              <div className="flex items-center justify-between space-x-2">
+                <Label htmlFor="necessary" className="flex flex-col space-y-1">
+                  <span>Strictly Necessary</span>
+                  <span className="font-normal leading-snug text-muted-foreground">
+                    These cookies are essential in order to use the website and
+                    use its features.
+                  </span>
+                </Label>
+                <Switch id="necessary" defaultChecked />
+              </div>
+              <div className="flex items-center justify-between space-x-2">
+                <Label htmlFor="functional" className="flex flex-col space-y-1">
+                  <span>Functional Cookies</span>
+                  <span className="font-normal leading-snug text-muted-foreground">
+                    These cookies allow the website to provide personalized
+                    functionality.
+                  </span>
+                </Label>
+                <Switch id="functional" />
+              </div>
+              <div className="flex items-center justify-between space-x-2">
+                <Label
+                  htmlFor="performance"
+                  className="flex flex-col space-y-1"
+                >
+                  <span>Performance Cookies</span>
+                  <span className="font-normal leading-snug text-muted-foreground">
+                    These cookies help to improve the performance of the
+                    website.
+                  </span>
+                </Label>
+                <Switch id="performance" />
+              </div>
+            </CardContent>
+            <CardFooter>
+              <Button variant="outline" className="w-full">
+                Save preferences
+              </Button>
+            </CardFooter>
+          </Card>
+        </div>
+        <div className="flex flex-col justify-between md:flex-row">
+          <Card
+            style={{
+              backgroundImage: `url('/swimming-pool-homepage.webp')`,
+            }}
+          >
+            <CardHeader>
+              <CardTitle>Cookie Settings</CardTitle>
+              <CardDescription>
+                Manage your cookie settings here.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="grid gap-6">
+              <div className="flex items-center justify-between space-x-2">
+                <Label htmlFor="necessary" className="flex flex-col space-y-1">
+                  <span>Strictly Necessary</span>
+                  <span className="font-normal leading-snug text-muted-foreground">
+                    These cookies are essential in order to use the website and
+                    use its features.
+                  </span>
+                </Label>
+                <Switch id="necessary" defaultChecked />
+              </div>
+              <div className="flex items-center justify-between space-x-2">
+                <Label htmlFor="functional" className="flex flex-col space-y-1">
+                  <span>Functional Cookies</span>
+                  <span className="font-normal leading-snug text-muted-foreground">
+                    These cookies allow the website to provide personalized
+                    functionality.
+                  </span>
+                </Label>
+                <Switch id="functional" />
+              </div>
+              <div className="flex items-center justify-between space-x-2">
+                <Label
+                  htmlFor="performance"
+                  className="flex flex-col space-y-1"
+                >
+                  <span>Performance Cookies</span>
+                  <span className="font-normal leading-snug text-muted-foreground">
+                    These cookies help to improve the performance of the
+                    website.
+                  </span>
+                </Label>
+                <Switch id="performance" />
+              </div>
+            </CardContent>
+            <CardFooter>
+              <Button variant="outline" className="w-full">
+                Save preferences
+              </Button>
+            </CardFooter>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Cookie Settings</CardTitle>
+              <CardDescription>
+                Manage your cookie settings here.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="grid gap-6">
+              <div className="flex items-center justify-between space-x-2">
+                <Label htmlFor="necessary" className="flex flex-col space-y-1">
+                  <span>Strictly Necessary</span>
+                  <span className="font-normal leading-snug text-muted-foreground">
+                    These cookies are essential in order to use the website and
+                    use its features.
+                  </span>
+                </Label>
+                <Switch id="necessary" defaultChecked />
+              </div>
+              <div className="flex items-center justify-between space-x-2">
+                <Label htmlFor="functional" className="flex flex-col space-y-1">
+                  <span>Functional Cookies</span>
+                  <span className="font-normal leading-snug text-muted-foreground">
+                    These cookies allow the website to provide personalized
+                    functionality.
+                  </span>
+                </Label>
+                <Switch id="functional" />
+              </div>
+              <div className="flex items-center justify-between space-x-2">
+                <Label
+                  htmlFor="performance"
+                  className="flex flex-col space-y-1"
+                >
+                  <span>Performance Cookies</span>
+                  <span className="font-normal leading-snug text-muted-foreground">
+                    These cookies help to improve the performance of the
+                    website.
+                  </span>
+                </Label>
+                <Switch id="performance" />
+              </div>
+            </CardContent>
+            <CardFooter>
+              <Button variant="outline" className="w-full">
+                Save preferences
+              </Button>
+            </CardFooter>
+          </Card>
+        </div>
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
           {marketingFeatures.map((feature) => (
             <Card key={feature.title} className={cn("p-2")}>
@@ -69,6 +275,6 @@ export default function Home() {
           ))}
         </div>
       </div>
-    </main>
+    </>
   );
 }

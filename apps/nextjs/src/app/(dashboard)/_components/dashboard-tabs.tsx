@@ -62,17 +62,23 @@ export default function DashboardTabs({
                 <CardTitle>Overview</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="flex justify-between">
+                <div className="flex flex-col justify-between md:flex-row">
                   <CustomCalendar />
-                  <div className="flex flex-col items-center">
-                    <p className="text-5xl">{studentsByPool.length}</p>
-                    <h1 className="text-xl">Total Students</h1>
-                    <Separator className="border-b" />
-                    <p className="text-5xl">42</p>
-                    <h1 className="text-xl">Total Students</h1>
-                    <Separator className="border-b" />
-                    <p className="text-5xl">42</p>
-                    <h1 className="text-xl">Total Students</h1>
+                  <div className="flex w-full flex-row items-center justify-between md:flex-col">
+                    <div className="flex flex-col items-center">
+                      <p className="text-5xl">{studentsByPool.length}</p>
+                      <h1 className="text-xl">Total Students</h1>
+                      <Separator className="border-b" />
+                    </div>
+                    <div className="flex flex-col items-center">
+                      <p className="text-5xl">42</p>
+                      <h1 className="text-xl">Total Students</h1>
+                      <Separator className="border-b" />
+                    </div>
+                    <div className="flex flex-col items-center">
+                      <p className="text-5xl">42</p>
+                      <h1 className="text-xl">Total Students</h1>
+                    </div>
                   </div>
                 </div>
                 <AttendancePanel students={filteredStudents} />

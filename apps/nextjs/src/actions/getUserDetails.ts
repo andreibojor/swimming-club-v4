@@ -25,7 +25,7 @@ const getUserDetails = async (): Promise<UserDetails[]> => {
     )
     .match({ id: userId });
 
-  return data[0];
+  return data[0] || [];
 };
 
 export default getUserDetails;
