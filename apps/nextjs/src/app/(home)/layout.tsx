@@ -44,7 +44,7 @@ export default async function HomeLayout(props: { children: ReactNode }) {
         <div className="ml-auto flex items-center space-x-4">
           <Suspense>
             {session ? (
-              userRole === "admin" ? (
+              userRole && userRole === "admin" ? (
                 <DashboardLinkServer />
               ) : (
                 <UserNav />
