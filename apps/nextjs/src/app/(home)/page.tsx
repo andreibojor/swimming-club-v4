@@ -14,8 +14,6 @@ import {
   cn,
 } from "@acme/ui";
 
-import { MultiStepForm } from "../multi-step-form/MultiStepForm";
-
 // export const runtime = "edge";
 
 // export const revalidate = 0;
@@ -57,7 +55,7 @@ export default function Home() {
             start building your product today!
           </Balancer>
         </p>
-        <div className="flex flex-col justify-between md:flex-row">
+        <div className="flex flex-col justify-between gap-4 md:flex-row">
           <Card>
             <CardHeader>
               <CardTitle>Cookie Settings</CardTitle>
@@ -108,7 +106,7 @@ export default function Home() {
           </Card>
           <Card
             style={{
-              backgroundImage: `url('/swimming-pool-homepage.webp')`,
+              backgroundImage: `url('/beginner-lessons-swimming.webp')`,
             }}
           >
             <CardHeader>
@@ -159,10 +157,10 @@ export default function Home() {
             </CardFooter>
           </Card>
         </div>
-        <div className="flex flex-col justify-between md:flex-row">
+        <div className="flex flex-col justify-between gap-4 md:flex-row">
           <Card
             style={{
-              backgroundImage: `url('/swimming-pool-homepage.webp')`,
+              backgroundImage: `url('/advanced-lessons-swimming.webp')`,
             }}
           >
             <CardHeader>

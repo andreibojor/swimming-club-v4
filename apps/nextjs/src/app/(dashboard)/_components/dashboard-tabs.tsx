@@ -2,6 +2,7 @@
 
 import { Suspense, useEffect, useState } from "react";
 import { CustomCalendar } from "@/components/day-picker";
+import { useDate } from "@/hooks/useDate";
 
 import {
   Card,
@@ -38,7 +39,9 @@ export default function DashboardTabs({
   const filteredStudents = studentsByPool.filter(
     (student) => student.pool === selectedPool,
   );
-
+  const { date } = useDate();
+  console.log(filteredStudents);
+  console.log(date);
   return (
     <Tabs defaultValue="Cluj-Napoca" className="space-y-4">
       <TabsList>
@@ -66,18 +69,18 @@ export default function DashboardTabs({
                   <CustomCalendar />
                   <div className="flex w-full flex-row items-center justify-between md:flex-col">
                     <div className="flex flex-col items-center">
-                      <p className="text-5xl">{studentsByPool.length}</p>
+                      <p className="text-5xl">{filteredStudents.length}</p>
                       <h1 className="text-xl">Total Students</h1>
-                      <Separator className="border-b" />
+                      <Separator className="border-2 border-b" />
                     </div>
                     <div className="flex flex-col items-center">
                       <p className="text-5xl">42</p>
-                      <h1 className="text-xl">Total Students</h1>
-                      <Separator className="border-b" />
+                      <h1 className="text-xl">Present Students</h1>
+                      <Separator className="border-2 border-b" />
                     </div>
                     <div className="flex flex-col items-center">
                       <p className="text-5xl">42</p>
-                      <h1 className="text-xl">Total Students</h1>
+                      <h1 className="text-xl">Absent Students</h1>
                     </div>
                   </div>
                 </div>

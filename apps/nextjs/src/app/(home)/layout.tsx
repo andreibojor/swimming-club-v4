@@ -2,13 +2,11 @@ import { Suspense, type ReactNode } from "react";
 import Link from "next/link";
 import { createServerSupabaseClient } from "@/actions/createServerSupabaseClient";
 import getUserDetails from "@/actions/getUserDetails";
-import getUserRole from "@/actions/getUserRole";
 import { siteConfig } from "@/app/config";
 import DashboardLinkServer from "@/components/dashboard-button-server";
 import { SiteFooter } from "@/components/footer";
 import { MobileDropdown } from "@/components/mobile-nav";
 import { UserNav } from "@/components/user-nav";
-import { useUser } from "@/hooks/useUser";
 
 import { buttonVariants } from "@acme/ui";
 import * as Icons from "@acme/ui/src/icons";
@@ -21,8 +19,14 @@ export default async function HomeLayout(props: { children: ReactNode }) {
   const {
     data: { session },
   } = await supabase.auth.getSession();
-  const userDetails = await getUserDetails(session?.user.id);
-  const userRole = userDetails.user.role;
+
+  let userDetails, userRole;
+
+  // Only call getUserDetails if session exists
+  if (session) {
+    userDetails = await getUserDetails(session.user.id);
+    userRole = userDetails?.user.role;
+  }
 
   return (
     <div className="flex min-h-screen flex-col">
