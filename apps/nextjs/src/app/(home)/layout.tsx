@@ -25,7 +25,13 @@ export default async function HomeLayout(props: { children: ReactNode }) {
   // Only call getUserDetails if session exists
   if (session) {
     userDetails = await getUserDetails(session.user.id);
-    userRole = userDetails?.user.role;
+    // Check if userDetails and userDetails.user are defined before trying to access role
+    if (userDetails?.user) {
+      userRole = userDetails.user.role;
+    } else {
+      // Handle the error appropriately
+      console.error("userDetails or userDetails.user is undefined");
+    }
   }
 
   return (
