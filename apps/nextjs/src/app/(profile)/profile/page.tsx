@@ -89,7 +89,6 @@ export default async function ProfilePage() {
 
   const attendances = await getStudentAttendances();
   const selectedDates = attendances.map((attendance) => attendance.date);
-  console.log(userDetails);
 
   return (
     <>
@@ -273,19 +272,6 @@ export default async function ProfilePage() {
               </Table>
             </CardContent>
           </Card>
-        </div>
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-          {marketingFeatures.map((feature) => (
-            <Card key={feature.title} className={cn("p-2")}>
-              <CardHeader>{feature.icon}</CardHeader>
-              <CardContent className="space-y-2">
-                <CardTitle>{feature.title}</CardTitle>
-                <CardDescription className="mt-2">
-                  {feature.body}
-                </CardDescription>
-              </CardContent>
-            </Card>
-          ))}
         </div>
       </div>
       <MultiStepForm />

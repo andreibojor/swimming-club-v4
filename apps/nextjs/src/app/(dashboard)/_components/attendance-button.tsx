@@ -11,9 +11,9 @@ import * as Icons from "@acme/ui/src/icons";
 export const AttendanceButton: React.FC = ({ student }) => {
   const supabase = createClientComponentClient<Database>();
   const { date } = useDate();
-  const formattedDatabaseDate = `${date.getFullYear()} ${String(
+  const formattedDatabaseDate = `${date.getFullYear()}-${String(
     date.getMonth() + 1,
-  ).padStart(2, "0")} ${String(date.getDate()).padStart(2, "0")}`;
+  ).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
 
   const [isPresent, setIsPresent] = useState(false);
 

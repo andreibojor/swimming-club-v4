@@ -1,3 +1,5 @@
+import getAllAttendancesByPoolAndDate from "@/actions/getAllAttendancesByPoolAndDate";
+import getStudentAttendances from "@/actions/getStudentAttendances";
 import getStudents from "@/actions/getStudents";
 import getStudentsByPool from "@/actions/getStudentsByPool";
 import { marketingFeatures } from "@/app/config";
@@ -25,7 +27,11 @@ const pools = [
 export default async function DashboardPage() {
   const students = await getStudents();
   const allStudentsByPool = await getStudentsByPool();
-
+  const allAttendances = await getAllAttendancesByPoolAndDate(
+    "Cluj-Napoca",
+    "2023-10-02",
+  );
+  console.log(allAttendances);
   return (
     <DashboardShell
       title="Dashboard"
@@ -37,6 +43,7 @@ export default async function DashboardPage() {
             pools={pools}
             allStudents={students}
             allStudentsByPool={allStudentsByPool}
+            allAttendances={allAttendances}
           />
           <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
             {marketingFeatures.map((feature) => (

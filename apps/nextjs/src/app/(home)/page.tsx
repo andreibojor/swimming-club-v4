@@ -44,7 +44,7 @@ export default function Home() {
       </div>
 
       {/* HOME CONTENT */}
-      <div className="my-16 w-full max-w-screen-lg animate-fade-up gap-5 border-t p-5 xl:px-0">
+      <div className="my-16 flex w-full max-w-screen-lg animate-fade-up flex-col items-center gap-5 border-t p-5 xl:px-0">
         <h2 className="pt-4 text-center text-3xl font-bold md:text-4xl">
           What&apos;s included?
         </h2>
@@ -55,7 +55,7 @@ export default function Home() {
             start building your product today!
           </Balancer>
         </p>
-        <div className="flex flex-col justify-between gap-4 md:flex-row">
+        <div className="z-10 flex min-h-[50vh] w-full max-w-4xl flex-col justify-between gap-4 px-5 md:flex-row xl:px-0">
           <Card>
             <CardHeader>
               <CardTitle>Cookie Settings</CardTitle>
@@ -157,7 +157,8 @@ export default function Home() {
             </CardFooter>
           </Card>
         </div>
-        <div className="flex flex-col justify-between gap-4 md:flex-row">
+
+        <div className="z-10 flex min-h-[50vh] w-full max-w-4xl flex-col justify-between gap-4 px-5 md:flex-row xl:px-0">
           <Card
             style={{
               backgroundImage: `url('/advanced-lessons-swimming.webp')`,

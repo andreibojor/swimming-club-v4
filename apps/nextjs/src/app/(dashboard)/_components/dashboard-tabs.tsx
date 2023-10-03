@@ -27,6 +27,7 @@ export default function DashboardTabs({
   pools,
   allStudents,
   allStudentsByPool,
+  allAttendances,
 }) {
   const [studentsByPool, setStudentsByPool] = useState(allStudentsByPool);
   const [selectedPool, setSelectedPool] = useState("Cluj-Napoca");
@@ -39,9 +40,7 @@ export default function DashboardTabs({
   const filteredStudents = studentsByPool.filter(
     (student) => student.pool === selectedPool,
   );
-  const { date } = useDate();
-  console.log(filteredStudents);
-  console.log(date);
+
   return (
     <Tabs defaultValue="Cluj-Napoca" className="space-y-4">
       <TabsList>
@@ -74,7 +73,7 @@ export default function DashboardTabs({
                       <Separator className="border-2 border-b" />
                     </div>
                     <div className="flex flex-col items-center">
-                      <p className="text-5xl">42</p>
+                      <p className="text-5xl">25</p>
                       <h1 className="text-xl">Present Students</h1>
                       <Separator className="border-2 border-b" />
                     </div>
