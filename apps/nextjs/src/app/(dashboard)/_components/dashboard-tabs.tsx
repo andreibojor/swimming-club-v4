@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useState } from "react";
 import { CustomCalendar } from "@/components/day-picker";
 import { useDate } from "@/hooks/useDate";
 
@@ -42,28 +42,32 @@ export default function DashboardTabs({
   );
 
   return (
-    <Tabs defaultValue="Cluj-Napoca" className="space-y-4">
-      <TabsList>
-        {pools.map((pool) => (
-          <TabsTrigger
-            key={pool.id}
-            value={pool.value}
-            onClick={() => handleTabChange(pool.value)}
-          >
-            {pool.name}
-          </TabsTrigger>
-        ))}
-      </TabsList>
-
-      {/* TAB CONTENT */}
-      {pools.map((pool) => (
-        <TabsContent key={pool.id} value={pool.value} className="space-y-4">
-          <div className="flex flex-col justify-normal gap-4 md:flex-row md:justify-between">
-            <Card className="w-full md:w-3/5">
-              <CardHeader>
-                <CardTitle>Overview</CardTitle>
-              </CardHeader>
-              <CardContent>
+    <div className="flex flex-col justify-normal gap-4 md:flex-row md:justify-between">
+      <Card className="w-full md:w-3/5">
+        <Tabs defaultValue="Cluj-Napoca" className="space-y-4">
+          <CardHeader>
+            <CardTitle>
+              Overview
+              <TabsList>
+                {pools.map((pool) => (
+                  <TabsTrigger
+                    key={pool.id}
+                    value={pool.value}
+                    onClick={() => handleTabChange(pool.value)}
+                  >
+                    {pool.name}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {pools.map((pool) => (
+              <TabsContent
+                key={pool.id}
+                value={pool.value}
+                className="space-y-4"
+              >
                 <div className="flex flex-col justify-between md:flex-row">
                   <CustomCalendar />
                   <div className="flex w-full flex-row items-center justify-between md:flex-col">
@@ -84,23 +88,22 @@ export default function DashboardTabs({
                   </div>
                 </div>
                 <AttendancePanel students={filteredStudents} />
-              </CardContent>
-            </Card>
+              </TabsContent>
+            ))}
+          </CardContent>
+        </Tabs>
+      </Card>
 
-            <AllStudentsCard students={allStudents} />
-
-            <Suspense
-              fallback={
-                <LoadingCard
-                  title="Recent Ingestions"
-                  description="Loading recent ingestions..."
-                  className="col-span-7 md:col-span-2 lg:col-span-3"
-                />
-              }
-            ></Suspense>
-          </div>
-        </TabsContent>
-      ))}
-    </Tabs>
+      <AllStudentsCard students={allStudents} />
+      <Suspense
+        fallback={
+          <LoadingCard
+            title="Recent Ingestions"
+            description="Loading recent ingestions..."
+            className="col-span-7 md:col-span-2 lg:col-span-3"
+          />
+        }
+      ></Suspense>
+    </div>
   );
 }

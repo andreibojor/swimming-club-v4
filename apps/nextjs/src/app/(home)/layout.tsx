@@ -3,7 +3,7 @@ import Link from "next/link";
 import { createServerSupabaseClient } from "@/actions/createServerSupabaseClient";
 import getUserDetails from "@/actions/getUserDetails";
 import { siteConfig } from "@/app/config";
-import DashboardLinkServer from "@/components/dashboard-button-server";
+import DashboardLink from "@/components/dashboard-link";
 import { SiteFooter } from "@/components/footer";
 import { MobileDropdown } from "@/components/mobile-nav";
 import { UserNav } from "@/components/user-nav";
@@ -51,7 +51,7 @@ export default async function HomeLayout(props: { children: ReactNode }) {
           <Suspense>
             {session ? (
               userRole && userRole === "admin" ? (
-                <DashboardLinkServer />
+                <DashboardLink />
               ) : (
                 <UserNav />
               )
