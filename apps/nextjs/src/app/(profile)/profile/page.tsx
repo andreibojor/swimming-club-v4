@@ -1,6 +1,5 @@
 import getStudentAttendances from "@/actions/getStudentAttendances";
 import getUserDetails from "@/actions/getUserDetails";
-import { marketingFeatures } from "@/app/config";
 import { MultiStepForm } from "@/app/multi-step-form/MultiStepForm";
 import AttendancePieChart from "@/components/attendance-piechart";
 
@@ -155,7 +154,7 @@ export default async function ProfilePage() {
                     </DialogTrigger>
                     <DialogContent className="sm:max-w-[650px]">
                       <DialogHeader>
-                        <DialogTitle>Edit profile</DialogTitle>
+                        <DialogTitle>Add a student</DialogTitle>
                         <DialogDescription>
                           Add another student for swimming lessons
                         </DialogDescription>
@@ -274,7 +273,7 @@ export default async function ProfilePage() {
           </Card>
         </div>
       </div>
-      <MultiStepForm />
+      <MultiStepForm userDetails={userDetails} />
     </>
   );
 }

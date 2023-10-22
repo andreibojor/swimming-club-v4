@@ -5,8 +5,9 @@ import Link from "next/link";
 import { useUser } from "@/hooks/useUser";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { motion } from "framer-motion";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 import {
@@ -14,10 +15,8 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
   Form,
   FormControl,
   FormDescription,
@@ -51,18 +50,13 @@ const ALLOWED_FILE_TYPES = [
 const profileFormSchema = z.object({
   // TODO: https://github.com/shadcn-ui/ui/issues/884
   medicalCertificate: z
-    .custom<FileList>((val) => val instanceof FileList, "Required")
-    .refine((files) => files.length > 0, `Required`)
-    .refine((files) => files.length <= 5, `Maximum of 5 files are allowed.`)
+    .instanceof(Blob, { message: "Medical Certificate is required" })
     .refine(
-      (files) => Array.from(files).every((file) => file.size <= MAX_FILE_SIZE),
-      `Each file size should be less than 5 MB.`,
+      (file) => file.size <= MAX_FILE_SIZE,
+      "File size should be less than 5 MB.",
     )
     .refine(
-      (files) =>
-        Array.from(files).every((file) =>
-          ALLOWED_FILE_TYPES.includes(file.type),
-        ),
+      (file) => ALLOWED_FILE_TYPES.includes(file.type),
       "Only .pdf files are allowed",
     ),
   phoneNumber: z
@@ -76,48 +70,45 @@ const profileFormSchema = z.object({
   swimmerLevel: z.string({
     required_error: "Please select the performance level.",
   }),
-  bio: z.string().max(160).min(4),
-  urls: z
-    .array(
-      z.object({
-        value: z.string().url({ message: "Please enter a valid URL." }),
-      }),
-    )
-    .optional(),
 });
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
 // This can come from your database or API.
 const defaultValues: Partial<ProfileFormValues> = {
-  bio: "I own a computer.",
-  urls: [
-    { value: "https://shadcn.com" },
-    { value: "http://twitter.com/shadcn" },
-  ],
+  phoneNumber: "0751234567",
+  medicalCertificate: null,
 };
 
 export function MultiStepForm() {
+  const { userDetails } = useUser();
+  const supabase = createClientComponentClient();
   const [formStep, setFormStep] = useState(0);
+
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues,
     mode: "onChange",
   });
-  const { userDetails } = useUser();
-  const { fields, append } = useFieldArray({
-    name: "urls",
-    control: form.control,
-  });
-
-  const supabase = createClientComponentClient();
 
   const onSubmit = async (data: ProfileFormValues) => {
-    const { phoneNumber } = data;
+    const { phoneNumber, medicalCertificate } = data;
 
     const updateUserPhoneAction = await supabase
       .from("users")
       .update({ phone: phoneNumber })
+      .eq("id", userDetails?.id);
+
+    const { data: medicalCertificateData } = await supabaseClient.storage
+      .from("medical-certificates")
+      .upload(`mc-${userDetails?.id}`, medicalCertificate, {
+        cacheControl: "3600",
+        upsert: false,
+      });
+
+    const updateMedicalCertificatePathAction = await supabase
+      .from("students")
+      .update({ medical_certificate_path: medicalCertificateData?.path })
       .eq("id", userDetails?.id);
 
     toast({
@@ -142,8 +133,8 @@ export function MultiStepForm() {
   const [isOpenDialog, setIsOpenDialog] = useState(false);
 
   // Add this state at the beginning of your component
-  const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
-
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const supabaseClient = useSupabaseClient();
   useEffect(() => {
     userDetails?.completed_registration
       ? setIsOpenDialog(false)
@@ -191,6 +182,7 @@ export function MultiStepForm() {
                     </FormItem>
                   )}
                 />
+
                 <FormField
                   control={form.control}
                   name="swimmerLevel"
@@ -207,10 +199,8 @@ export function MultiStepForm() {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="m@example.com">
-                            Beginner
-                          </SelectItem>
-                          <SelectItem value="m@google.com">Advanced</SelectItem>
+                          <SelectItem value="FALSE">Beginner</SelectItem>
+                          <SelectItem value="TRUE">Advanced</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormDescription>
@@ -225,51 +215,29 @@ export function MultiStepForm() {
                 <FormField
                   control={form.control}
                   name="medicalCertificate"
-                  render={({ field }) => {
-                    // Destructure the field object to separate the value property
-                    const { value, ...restOfField } = field;
-
-                    return (
-                      <FormItem>
-                        <FormLabel>Medical Certificate</FormLabel>
-                        <FormControl>
-                          <Input
-                            type="file"
-                            accept=".pdf"
-                            placeholder="MedicalCertificate.pdf"
-                            // Spread only the rest of the properties excluding value
-                            {...restOfField}
-                            onChange={(event) => {
-                              setSelectedFiles(event.target.files);
-
-                              // Triggered when user uploaded a new file
-                              // FileList is immutable, so we need to create a new one
-                              const dataTransfer = new DataTransfer();
-
-                              if (selectedFiles) {
-                                Array.from(selectedFiles).forEach((file) =>
-                                  dataTransfer.items.add(file),
-                                );
-                              }
-
-                              // Add newly uploaded medicalCertificate
-                              Array.from(event.target.files!).forEach((file) =>
-                                dataTransfer.items.add(file),
-                              );
-
-                              // Validate and update uploaded file
-                              const newFiles = dataTransfer.files;
-                              field.onChange(newFiles);
-                            }}
-                          />
-                        </FormControl>
-                        <FormDescription>
-                          Please upload your medical certificate in .pdf format.
-                        </FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    );
-                  }}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Medical Certificate</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="file"
+                          accept=".pdf"
+                          placeholder="MedicalCertificate.pdf"
+                          // Use event.target.files to access the uploaded file
+                          onChange={(event) => {
+                            const uploadedFile = event.target.files[0];
+                            setSelectedFile(uploadedFile);
+                            // No need to manipulate the file list here
+                            field.onChange(uploadedFile);
+                          }}
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        Please upload your medical certificate in .pdf format.
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
               </motion.div>
 
@@ -338,20 +306,20 @@ export function MultiStepForm() {
                       "medicalCertificate",
                     ]);
 
-                    const phoneNumberState = form.getFieldState("phoneNumber");
-                    const swimmerLevelState =
-                      form.getFieldState("swimmerLevel");
-                    const medicalCertificateState =
-                      form.getFieldState("medicalCertificate");
-                    if (!phoneNumberState.isDirty || phoneNumberState.invalid)
-                      return;
-                    if (!swimmerLevelState.isDirty || swimmerLevelState.invalid)
-                      return;
-                    if (
-                      !medicalCertificateState.isDirty ||
-                      medicalCertificateState.invalid
-                    )
-                      return;
+                    // const phoneNumberState = form.getFieldState("phoneNumber");
+                    // const swimmerLevelState =
+                    //   form.getFieldState("swimmerLevel");
+                    // const medicalCertificateState =
+                    //   form.getFieldState("medicalCertificate");
+                    // if (!phoneNumberState.isDirty || phoneNumberState.invalid)
+                    //   return;
+                    // if (!swimmerLevelState.isDirty || swimmerLevelState.invalid)
+                    //   return;
+                    // if (
+                    //   !medicalCertificateState.isDirty ||
+                    //   medicalCertificateState.invalid
+                    // )
+                    //   return;
 
                     setFormStep(1);
                   }}

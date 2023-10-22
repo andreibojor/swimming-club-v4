@@ -68,7 +68,7 @@ export default async function HomeLayout(props: { children: ReactNode }) {
         </div>
       </nav>
 
-      <main className="flex min-h-screen w-full flex-1 flex-col items-center justify-center pt-48">
+      <main className="flex min-h-screen w-full flex-1 flex-col items-center justify-center">
         {props.children}
       </main>
       <SiteFooter />

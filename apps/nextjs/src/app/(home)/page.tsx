@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { marketingFeatures } from "@/app/config";
 import { Balancer } from "react-wrap-balancer";
 
@@ -14,6 +15,8 @@ import {
   cn,
 } from "@acme/ui";
 
+import beginnerSwimming from "/apps/nextjs/public/beginnerSwimming.webp";
+
 // export const runtime = "edge";
 
 // export const revalidate = 0;
@@ -21,7 +24,7 @@ import {
 export default function Home() {
   return (
     <>
-      <div className="z-10 min-h-[50vh] w-full max-w-4xl px-5 xl:px-0">
+      <div className="z-10 min-h-[50vh] w-full bg-[url('/swimming-pool-homepage.webp')] bg-scroll px-5 xl:px-0 ">
         <h1
           className="animate-fade-up bg-gradient-to-br from-foreground to-muted-foreground bg-clip-text text-center text-4xl font-bold tracking-[-0.02em] text-transparent opacity-0 drop-shadow-sm md:text-7xl/[5rem]"
           style={{ animationDelay: "0.20s", animationFillMode: "forwards" }}
@@ -104,7 +107,13 @@ export default function Home() {
               </Button>
             </CardFooter>
           </Card>
-          <Card
+
+          {/* <Image
+            alt="Child swimming"
+            src={beginnerSwimming}
+            style={{ maxWidth: "100%", height: "auto" }}
+          /> */}
+          {/* <Card
             style={{
               backgroundImage: `url('/beginner-lessons-swimming.webp')`,
             }}
@@ -155,7 +164,7 @@ export default function Home() {
                 Save preferences
               </Button>
             </CardFooter>
-          </Card>
+          </Card> */}
         </div>
 
         <div className="z-10 flex min-h-[50vh] w-full max-w-4xl flex-col justify-between gap-4 px-5 md:flex-row xl:px-0">
