@@ -108,11 +108,11 @@ export default function Home() {
             </CardFooter>
           </Card>
 
-          {/* <Image
+          <Image
             alt="Child swimming"
             src={beginnerSwimming}
-            style={{ maxWidth: "100%", height: "auto" }}
-          /> */}
+            style={{ maxWidth: "100%", height: "auto", objectFit: "cover" }}
+          />
           {/* <Card
             style={{
               backgroundImage: `url('/beginner-lessons-swimming.webp')`,
