@@ -15,7 +15,8 @@ import {
   cn,
 } from "@acme/ui";
 
-import beginnerSwimming from "/apps/nextjs/public/beginnerSwimming.webp";
+import advancedSwimming from "/public/advancedSwimming.webp";
+import beginnerSwimming from "/public/beginnerSwimming.webp";
 
 // export const runtime = "edge";
 
@@ -59,7 +60,7 @@ export default function Home() {
           </Balancer>
         </p>
         <div className="z-10 flex min-h-[50vh] w-full max-w-4xl flex-col justify-between gap-4 px-5 md:flex-row xl:px-0">
-          <Card>
+          <Card className="w-full md:w-1/2">
             <CardHeader>
               <CardTitle>Cookie Settings</CardTitle>
               <CardDescription>
@@ -107,120 +108,31 @@ export default function Home() {
               </Button>
             </CardFooter>
           </Card>
-
-          <Image
-            alt="Child swimming"
-            src={beginnerSwimming}
-            style={{ maxWidth: "100%", height: "auto", objectFit: "cover" }}
-          />
-          {/* <Card
-            style={{
-              backgroundImage: `url('/beginner-lessons-swimming.webp')`,
-            }}
-          >
-            <CardHeader>
-              <CardTitle>Cookie Settings</CardTitle>
-              <CardDescription>
-                Manage your cookie settings here.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="grid gap-6">
-              <div className="flex items-center justify-between space-x-2">
-                <Label htmlFor="necessary" className="flex flex-col space-y-1">
-                  <span>Strictly Necessary</span>
-                  <span className="font-normal leading-snug text-muted-foreground">
-                    These cookies are essential in order to use the website and
-                    use its features.
-                  </span>
-                </Label>
-                <Switch id="necessary" defaultChecked />
-              </div>
-              <div className="flex items-center justify-between space-x-2">
-                <Label htmlFor="functional" className="flex flex-col space-y-1">
-                  <span>Functional Cookies</span>
-                  <span className="font-normal leading-snug text-muted-foreground">
-                    These cookies allow the website to provide personalized
-                    functionality.
-                  </span>
-                </Label>
-                <Switch id="functional" />
-              </div>
-              <div className="flex items-center justify-between space-x-2">
-                <Label
-                  htmlFor="performance"
-                  className="flex flex-col space-y-1"
-                >
-                  <span>Performance Cookies</span>
-                  <span className="font-normal leading-snug text-muted-foreground">
-                    These cookies help to improve the performance of the
-                    website.
-                  </span>
-                </Label>
-                <Switch id="performance" />
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button variant="outline" className="w-full">
-                Save preferences
-              </Button>
-            </CardFooter>
-          </Card> */}
+          <div className="w-full md:w-1/2">
+            <Image
+              alt="Child swimming"
+              src={beginnerSwimming}
+              style={{ maxWidth: "100%", height: "500px", objectFit: "cover" }}
+              className="rounded-lg"
+            />
+          </div>
         </div>
 
         <div className="z-10 flex min-h-[50vh] w-full max-w-4xl flex-col justify-between gap-4 px-5 md:flex-row xl:px-0">
-          <Card
-            style={{
-              backgroundImage: `url('/advanced-lessons-swimming.webp')`,
-            }}
-          >
-            <CardHeader>
-              <CardTitle>Cookie Settings</CardTitle>
-              <CardDescription>
-                Manage your cookie settings here.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="grid gap-6">
-              <div className="flex items-center justify-between space-x-2">
-                <Label htmlFor="necessary" className="flex flex-col space-y-1">
-                  <span>Strictly Necessary</span>
-                  <span className="font-normal leading-snug text-muted-foreground">
-                    These cookies are essential in order to use the website and
-                    use its features.
-                  </span>
-                </Label>
-                <Switch id="necessary" defaultChecked />
-              </div>
-              <div className="flex items-center justify-between space-x-2">
-                <Label htmlFor="functional" className="flex flex-col space-y-1">
-                  <span>Functional Cookies</span>
-                  <span className="font-normal leading-snug text-muted-foreground">
-                    These cookies allow the website to provide personalized
-                    functionality.
-                  </span>
-                </Label>
-                <Switch id="functional" />
-              </div>
-              <div className="flex items-center justify-between space-x-2">
-                <Label
-                  htmlFor="performance"
-                  className="flex flex-col space-y-1"
-                >
-                  <span>Performance Cookies</span>
-                  <span className="font-normal leading-snug text-muted-foreground">
-                    These cookies help to improve the performance of the
-                    website.
-                  </span>
-                </Label>
-                <Switch id="performance" />
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button variant="outline" className="w-full">
-                Save preferences
-              </Button>
-            </CardFooter>
-          </Card>
-          <Card>
+          <div className="w-full md:w-1/2">
+            <Image
+              alt="Child swimming"
+              src={advancedSwimming}
+              style={{
+                maxWidth: "100%",
+                height: "500px",
+                objectFit: "cover",
+                objectPosition: "top",
+              }}
+              className="rounded-lg"
+            />
+          </div>
+          <Card className="w-full md:w-1/2">
             <CardHeader>
               <CardTitle>Cookie Settings</CardTitle>
               <CardDescription>
