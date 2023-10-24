@@ -38,6 +38,8 @@ import {
 } from "@acme/ui";
 import * as Icons from "@acme/ui/src/icons";
 
+import AddStudentForm from "../_components/add-student-form";
+
 const invoices = [
   {
     invoice: "INV001",
@@ -138,64 +140,8 @@ export default async function ProfilePage() {
                   <TabsTrigger value="andrei-bojor">Andrei Bojor</TabsTrigger>
                   <TabsTrigger value="sergiu-bojor">Sergiu Bojor</TabsTrigger>
                 </TabsList>
-                {userDetails?.user.role === "parent" ? (
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button
-                        variant="default"
-                        style={{
-                          animationDelay: "0.40s",
-                          animationFillMode: "forwards",
-                        }}
-                      >
-                        Add Student{" "}
-                        <Icons.PlusCircle className="ml-2 h-5 w-5" />
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-[650px]">
-                      <DialogHeader>
-                        <DialogTitle>Add a student</DialogTitle>
-                        <DialogDescription>
-                          Add another student for swimming lessons
-                        </DialogDescription>
-                      </DialogHeader>
-                      <div className="grid gap-4 py-4">
-                        <div className="grid grid-cols-4 items-center gap-4">
-                          <Label htmlFor="name" className="text-right">
-                            Name
-                          </Label>
-                          <Input
-                            id="name"
-                            value="Pedro Duarte"
-                            className="col-span-3"
-                          />
-                        </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
-                          <Label htmlFor="phone" className="text-right">
-                            Phone
-                          </Label>
-                          <Input
-                            id="phone"
-                            value="0751 123 456"
-                            className="col-span-3"
-                          />
-                        </div>
-                        <div className="grid w-full grid-cols-4 items-center gap-4">
-                          <Label htmlFor="file" className="text-right">
-                            Adeverinta medicala
-                          </Label>
-                          <Input
-                            id="picture"
-                            type="file"
-                            className="col-span-3"
-                          />
-                        </div>
-                      </div>
-                    </DialogContent>
-                  </Dialog>
-                ) : (
-                  ""
-                )}
+
+                {userDetails?.user.role === "parent" ? <AddStudentForm /> : ""}
 
                 {/* TAB CONTENT */}
                 <TabsContent value="andrei-bojor" className="space-y-4">

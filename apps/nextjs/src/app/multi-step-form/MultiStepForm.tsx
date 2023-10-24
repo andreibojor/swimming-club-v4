@@ -76,7 +76,6 @@ type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
 // This can come from your database or API.
 const defaultValues: Partial<ProfileFormValues> = {
-  phoneNumber: "0751234567",
   medicalCertificate: null,
 };
 

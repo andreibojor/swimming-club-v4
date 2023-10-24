@@ -11,9 +11,9 @@ import {
   CardHeader,
   CardTitle,
   Label,
-  Switch,
   cn,
 } from "@acme/ui";
+import * as Icons from "@acme/ui/src/icons";
 
 import advancedSwimming from "/public/advancedSwimming.webp";
 import beginnerSwimming from "/public/beginnerSwimming.webp";
@@ -62,7 +62,7 @@ export default function Home() {
         <div className="z-10 flex min-h-[50vh] w-full max-w-4xl flex-col justify-between gap-4 px-5 md:flex-row xl:px-0">
           <Card className="w-full md:w-1/2">
             <CardHeader>
-              <CardTitle>Cookie Settings</CardTitle>
+              <CardTitle>Beginner Swimming Lessons</CardTitle>
               <CardDescription>
                 Manage your cookie settings here.
               </CardDescription>
@@ -70,41 +70,45 @@ export default function Home() {
             <CardContent className="grid gap-6">
               <div className="flex items-center justify-between space-x-2">
                 <Label htmlFor="necessary" className="flex flex-col space-y-1">
-                  <span>Strictly Necessary</span>
+                  <span>
+                    <Icons.Waves className="h-9 w-10" />
+                    Strictly Necessary
+                  </span>
                   <span className="font-normal leading-snug text-muted-foreground">
                     These cookies are essential in order to use the website and
                     use its features.
                   </span>
                 </Label>
-                <Switch id="necessary" defaultChecked />
               </div>
               <div className="flex items-center justify-between space-x-2">
                 <Label htmlFor="functional" className="flex flex-col space-y-1">
+                  <Icons.Waves className="h-10 w-10" />
                   <span>Functional Cookies</span>
                   <span className="font-normal leading-snug text-muted-foreground">
                     These cookies allow the website to provide personalized
                     functionality.
                   </span>
                 </Label>
-                <Switch id="functional" />
               </div>
               <div className="flex items-center justify-between space-x-2">
                 <Label
                   htmlFor="performance"
                   className="flex flex-col space-y-1"
                 >
-                  <span>Performance Cookies</span>
+                  <span>
+                    <Icons.Waves className="h-10 w-10" />
+                    Performance Cookies
+                  </span>
                   <span className="font-normal leading-snug text-muted-foreground">
                     These cookies help to improve the performance of the
                     website.
                   </span>
                 </Label>
-                <Switch id="performance" />
               </div>
             </CardContent>
             <CardFooter>
-              <Button variant="outline" className="w-full">
-                Save preferences
+              <Button variant="default" className="w-full">
+                Log in
               </Button>
             </CardFooter>
           </Card>
@@ -134,7 +138,7 @@ export default function Home() {
           </div>
           <Card className="w-full md:w-1/2">
             <CardHeader>
-              <CardTitle>Cookie Settings</CardTitle>
+              <CardTitle>Advanced Swimming Lessons</CardTitle>
               <CardDescription>
                 Manage your cookie settings here.
               </CardDescription>
@@ -148,7 +152,6 @@ export default function Home() {
                     use its features.
                   </span>
                 </Label>
-                <Switch id="necessary" defaultChecked />
               </div>
               <div className="flex items-center justify-between space-x-2">
                 <Label htmlFor="functional" className="flex flex-col space-y-1">
@@ -158,7 +161,6 @@ export default function Home() {
                     functionality.
                   </span>
                 </Label>
-                <Switch id="functional" />
               </div>
               <div className="flex items-center justify-between space-x-2">
                 <Label
@@ -171,28 +173,39 @@ export default function Home() {
                     website.
                   </span>
                 </Label>
-                <Switch id="performance" />
               </div>
             </CardContent>
             <CardFooter>
               <Button variant="outline" className="w-full">
-                Save preferences
+                Log in
               </Button>
             </CardFooter>
           </Card>
         </div>
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-          {marketingFeatures.map((feature) => (
-            <Card key={feature.title} className={cn("p-2")}>
-              <CardHeader>{feature.icon}</CardHeader>
-              <CardContent className="space-y-2">
-                <CardTitle>{feature.title}</CardTitle>
-                <CardDescription className="mt-2">
-                  {feature.body}
-                </CardDescription>
-              </CardContent>
-            </Card>
-          ))}
+        <div className="my-16 flex w-full max-w-screen-lg animate-fade-up flex-col items-center gap-5 border-t p-5 xl:px-0">
+          <h2 className="pt-4 text-center text-3xl font-bold md:text-4xl">
+            Our Trainers
+          </h2>
+          <p className="pb-8 pt-4 text-center text-lg">
+            <Balancer>
+              This repo comes fully stacked with everything you need for your
+              enterprise startup. Stop worrying about boilerplate integrations
+              and start building your product today!
+            </Balancer>
+          </p>
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+            {marketingFeatures.map((feature) => (
+              <Card key={feature.title} className={cn("p-2")}>
+                <CardHeader>{feature.icon}</CardHeader>
+                <CardContent className="space-y-2">
+                  <CardTitle>{feature.title}</CardTitle>
+                  <CardDescription className="mt-2">
+                    {feature.body}
+                  </CardDescription>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </div>
     </>

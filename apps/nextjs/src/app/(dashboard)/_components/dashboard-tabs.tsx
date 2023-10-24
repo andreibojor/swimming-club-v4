@@ -27,7 +27,7 @@ export default function DashboardTabs({
   pools,
   allStudents,
   allStudentsByPool,
-  allAttendances,
+  studentsAttendances,
 }) {
   const [studentsByPool, setStudentsByPool] = useState(allStudentsByPool);
   const [selectedPool, setSelectedPool] = useState("Cluj-Napoca");
@@ -36,11 +36,16 @@ export default function DashboardTabs({
     setSelectedPool(poolValue);
   };
 
+  const { date } = useDate();
+  const formattedDatabaseDate = `${date.getFullYear()}-${String(
+    date.getMonth() + 1,
+  ).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+
   // Filter students based on the selected pool
   const filteredStudents = studentsByPool.filter(
     (student) => student.pool === selectedPool,
   );
-
+  // console.log(allStudentsByPool);
   return (
     <div className="flex flex-col justify-normal gap-4 md:flex-row md:justify-between">
       <Card className="w-full md:w-3/5">

@@ -46,6 +46,7 @@ export const Users = Lucide.Users;
 export const Trash = Lucide.Trash;
 export const Twitter = Lucide.Twitter;
 export const Wallet = Lucide.Wallet;
+export const Waves = Lucide.Waves;
 export const Warning = Lucide.AlertTriangle;
 
 export const Apple: Icon = (props) => (
