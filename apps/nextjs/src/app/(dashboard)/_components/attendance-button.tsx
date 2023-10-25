@@ -32,7 +32,7 @@ export const AttendanceButton: React.FC = ({ student }) => {
       }
     };
 
-    void fetchData();
+    fetchData();
   }, [formattedDatabaseDate, student.id, supabase]);
 
   const handleAttendance = async () => {

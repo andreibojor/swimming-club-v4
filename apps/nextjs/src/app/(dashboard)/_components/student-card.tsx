@@ -32,26 +32,26 @@ export function StudentCard({ student }) {
   const supabase = createClientComponentClient<Database>();
   const router = useRouter();
 
-  useEffect(() => {
-    const channel = supabase
-      .channel("realtime students")
-      .on(
-        "postgres_changes",
-        {
-          event: "*",
-          schema: "public",
-          table: "students",
-        },
-        () => {
-          router.refresh();
-        },
-      )
-      .subscribe();
+  // useEffect(() => {
+  //   const channel = supabase
+  //     .channel("realtime students")
+  //     .on(
+  //       "postgres_changes",
+  //       {
+  //         event: "*",
+  //         schema: "public",
+  //         table: "students",
+  //       },
+  //       () => {
+  //         router.refresh();
+  //       },
+  //     )
+  //     .subscribe();
 
-    return () => {
-      supabase.removeChannel(channel);
-    };
-  }, [supabase, router]);
+  //   return () => {
+  //     supabase.removeChannel(channel);
+  //   };
+  // }, [supabase, router]);
 
   return (
     <div className="flex flex-col gap-1">
@@ -65,14 +65,13 @@ export function StudentCard({ student }) {
             <p className="text-sm font-medium leading-none">
               {student.full_name}
             </p>
-            {/* <p className="text-sm text-muted-foreground">m@example.com</p> */}
           </div>
 
-          <div>
+          {/* <div>
             <p className="text-sm font-medium leading-none">
               Attendances Left: {student.lessons_left}
             </p>
-          </div>
+          </div> */}
         </div>
         <AttendanceButton student={student} />
         <DropdownMenu>
@@ -113,14 +112,14 @@ export function StudentCard({ student }) {
               </DropdownMenuSubContent>
             </DropdownMenuSub>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            {/* <DropdownMenuItem>
               Delete
               <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
-            </DropdownMenuItem>
+            </DropdownMenuItem> */}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <Progress value={student.lessons_left} max={25} className="h-1 w-full" />
+      {/* <Progress value={student.lessons_left} max={25} className="h-1 w-full" /> */}
     </div>
   );
 }
