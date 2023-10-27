@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useForm } from "react-hook-form";
@@ -36,13 +37,7 @@ const ALLOWED_FILE_TYPES = [
 
 const profileFormSchema = z.object({
   // TODO: https://github.com/shadcn-ui/ui/issues/884
-  name: z
-    .string()
-    .min(10)
-    .max(10)
-    .refine((val) => !isNaN(val as unknown as number), {
-      message: "Your phone number contains other characters than digits.",
-    }),
+  name: z.string().min(3),
   phoneNumber: z
     .string()
     .min(10)
@@ -70,8 +65,8 @@ const defaultValues: Partial<ProfileFormValues> = {
 };
 
 export default function AddStudentForm() {
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const supabase = createClientComponentClient();
-
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues,
@@ -85,17 +80,17 @@ export default function AddStudentForm() {
       .from("users")
       .update({ phone: phoneNumber });
 
-    // const { data: medicalCertificateData } = await supabaseClient.storage
-    //   .from("medical-certificates")
-    //   .upload(`mc-${userDetails?.id}`, medicalCertificate, {
-    //     cacheControl: "3600",
-    //     upsert: false,
-    //   });
+    const { data: medicalCertificateData } = await supabaseClient.storage
+      .from("medical-certificates")
+      .upload(`mc-${userDetails?.id}`, medicalCertificate, {
+        cacheControl: "3600",
+        upsert: false,
+      });
 
-    // const updateMedicalCertificatePathAction = await supabase
-    //   .from("students")
-    //   .update({ medical_certificate_path: medicalCertificateData?.path })
-    //   .eq("id", userDetails?.id);
+    const updateMedicalCertificatePathAction = await supabase
+      .from("students")
+      .update({ medical_certificate_path: medicalCertificateData?.path })
+      .eq("id", userDetails?.id);
 
     toast({
       title: "You submitted the following values:",

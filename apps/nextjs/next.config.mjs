@@ -6,7 +6,6 @@ const config = {
   pageExtensions: ["ts", "tsx", "mdx"],
   experimental: {
     mdxRs: true,
-    serverActions: true,
   },
   images: {
     formats: ["image/avif", "image/webp"],
