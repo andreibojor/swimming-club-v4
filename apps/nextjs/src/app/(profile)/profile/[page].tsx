@@ -99,7 +99,7 @@ export default async function ProfilePage() {
             <CardHeader>
               <Avatar className="h-[80px] w-[80px]">
                 <AvatarImage src={userDetails?.user.avatar_url} alt="rick" />
-                <AvatarFallback>A F </AvatarFallback>
+                <AvatarFallback>A F</AvatarFallback>
               </Avatar>
               <CardTitle>{userDetails?.user.full_name}</CardTitle>
             </CardHeader>
