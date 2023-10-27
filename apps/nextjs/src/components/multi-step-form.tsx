@@ -92,7 +92,7 @@ export function MultiStepForm() {
 
   const onSubmit = async (data: ProfileFormValues) => {
     const { phoneNumber, medicalCertificate } = data;
-
+    console.log(userDetails);
     const updateUserPhoneAction = await supabase
       .from("users")
       .update({ phone: phoneNumber })

@@ -1,27 +1,18 @@
 import getStudentAttendances from "@/actions/getStudentAttendances";
 import getUserDetails from "@/actions/getUserDetails";
-import { MultiStepForm } from "@/app/multi-step-form/MultiStepForm";
 import AttendancePieChart from "@/components/attendance-piechart";
+import { MultiStepForm } from "@/components/multi-step-form";
 
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-  Button,
   Calendar,
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  Input,
-  Label,
   Separator,
   Table,
   TableBody,
@@ -36,7 +27,6 @@ import {
   TabsTrigger,
   cn,
 } from "@acme/ui";
-import * as Icons from "@acme/ui/src/icons";
 
 import AddStudentForm from "../_components/add-student-form";
 
