@@ -7272,7 +7272,7 @@ packages:
     resolution: {integrity: sha512-yCEafptTtb4bk7GLEQoM8KVJpxAfdBJYaXyzQEgQQQgYrZiDp8SJmGKlYza6CYjEDNstAdNdKA3UuoULlEbS6w==}
     engines: {node: '>=12.13'}
     dependencies:
-      is-what: 4.1.15
+      is-what: 4.1.16
     dev: false
 
   /copy-descriptor@0.1.1:
@@ -9677,8 +9677,8 @@ packages:
       get-intrinsic: 1.2.2
     dev: false
 
-  /is-what@4.1.15:
-    resolution: {integrity: sha512-uKua1wfy3Yt+YqsD6mTUEa2zSi3G1oPlqTflgaPJ7z63vUGN5pxFpnQfeSLMFnJDEsdvOtkp1rUWkYjB4YfhgA==}
+  /is-what@4.1.16:
+    resolution: {integrity: sha512-ZhMwEosbFJkA0YhFnNDgTM4ZxDRsS6HqTo7qsZM08fehyRYIYa0yHu5R6mgo1n/8MgaPBXiPimPD77baVFYg+A==}
     engines: {node: '>=12.13'}
     dev: false
 

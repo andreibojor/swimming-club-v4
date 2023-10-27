@@ -33,7 +33,7 @@ export default function Home() {
           <Balancer>Crișan Swimming Club</Balancer>
         </h1>
         <p
-          className="mt-6 animate-fade-up text-center text-muted-foreground/80 opacity-0 md:text-xl"
+          className="mt-6 animate-fade-up text-center opacity-0 md:text-xl"
           style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
         >
           <Balancer>
@@ -60,18 +60,20 @@ export default function Home() {
           </Balancer>
         </p>
         <div className="z-10 flex min-h-[50vh] w-full max-w-4xl flex-col justify-between gap-4 px-5 md:flex-row xl:px-0">
-          <Card className="w-full md:w-1/2">
-            <CardHeader>
-              <CardTitle>Beginner Swimming Lessons</CardTitle>
-              <CardDescription>
+          <Card className="w-full border-none shadow-none md:w-1/2">
+            <CardHeader className="p-0 text-center">
+              <CardTitle className="text-2xl">
+                Beginner Swimming Lessons
+              </CardTitle>
+              {/* <CardDescription>
                 Manage your cookie settings here.
-              </CardDescription>
+              </CardDescription> */}
             </CardHeader>
             <CardContent className="grid gap-6">
               <div className="flex items-center justify-between space-x-2">
                 <Label htmlFor="necessary" className="flex flex-col space-y-1">
-                  <span>
-                    <Icons.Waves className="h-9 w-10" />
+                  <span className="flex items-center text-lg">
+                    <Icons.Waves className="mr-2 h-5 w-5" />
                     Strictly Necessary
                   </span>
                   <span className="font-normal leading-snug text-muted-foreground">
@@ -81,27 +83,26 @@ export default function Home() {
                 </Label>
               </div>
               <div className="flex items-center justify-between space-x-2">
-                <Label htmlFor="functional" className="flex flex-col space-y-1">
-                  <Icons.Waves className="h-10 w-10" />
-                  <span>Functional Cookies</span>
+                <Label htmlFor="necessary" className="flex flex-col space-y-1">
+                  <span className="flex items-center text-lg">
+                    <Icons.Waves className="h-6 w-6" />
+                    Strictly Necessary
+                  </span>
                   <span className="font-normal leading-snug text-muted-foreground">
-                    These cookies allow the website to provide personalized
-                    functionality.
+                    These cookies are essential in order to use the website and
+                    use its features.
                   </span>
                 </Label>
               </div>
               <div className="flex items-center justify-between space-x-2">
-                <Label
-                  htmlFor="performance"
-                  className="flex flex-col space-y-1"
-                >
-                  <span>
-                    <Icons.Waves className="h-10 w-10" />
-                    Performance Cookies
+                <Label htmlFor="necessary" className="flex flex-col space-y-1">
+                  <span className="flex items-center text-lg">
+                    <Icons.Waves className="h-6 w-6" />
+                    Strictly Necessary
                   </span>
                   <span className="font-normal leading-snug text-muted-foreground">
-                    These cookies help to improve the performance of the
-                    website.
+                    These cookies are essential in order to use the website and
+                    use its features.
                   </span>
                 </Label>
               </div>

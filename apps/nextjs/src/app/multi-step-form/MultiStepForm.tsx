@@ -110,6 +110,11 @@ export function MultiStepForm() {
       .update({ medical_certificate_path: medicalCertificateData?.path })
       .eq("id", userDetails?.id);
 
+    const updateCompletedRegistrationAction = await supabase
+      .from("users")
+      .update({ completed_registration: true })
+      .eq("id", userDetails?.id);
+
     toast({
       title: "You submitted the following values:",
       description: (
