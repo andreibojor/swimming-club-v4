@@ -64,7 +64,7 @@ export default function Home() {
           <Card className="flex w-full flex-col justify-center border-none shadow-none md:w-1/2">
             <CardHeader className="text-center ">
               <CardTitle className="text-3xl">
-                Beginner Swimming Lessons
+                Cursuri de înot pentru începători
               </CardTitle>
               {/* <CardDescription>
                 Manage your cookie settings here.
@@ -74,7 +74,7 @@ export default function Home() {
               <div className="flex items-center justify-between space-x-2">
                 <Label htmlFor="necessary" className="flex flex-col space-y-1">
                   <span className="flex items-center text-lg">
-                    <Icons.Waves className="mr-2 h-5 w-5" />
+                    <Icons.Waves className="mr-2 h-5 w-5 text-primary" />
                     Strictly Necessary
                   </span>
                   <span className="font-normal leading-snug text-muted-foreground">
@@ -86,7 +86,7 @@ export default function Home() {
               <div className="flex items-center justify-between space-x-2">
                 <Label htmlFor="necessary" className="flex flex-col space-y-1">
                   <span className="flex items-center text-lg">
-                    <Icons.Waves className="mr-2 h-5 w-5" />
+                    <Icons.Waves className="mr-2 h-5 w-5 text-primary" />
                     Strictly Necessary
                   </span>
                   <span className="font-normal leading-snug text-muted-foreground">
@@ -98,7 +98,7 @@ export default function Home() {
               <div className="flex items-center justify-between space-x-2">
                 <Label htmlFor="necessary" className="flex flex-col space-y-1">
                   <span className="flex items-center text-lg">
-                    <Icons.Waves className="mr-2 h-5 w-5" />
+                    <Icons.Waves className="mr-2 h-5 w-5 text-primary" />
                     Strictly Necessary
                   </span>
                   <span className="font-normal leading-snug text-muted-foreground">
@@ -141,7 +141,7 @@ export default function Home() {
           <Card className="flex w-full flex-col justify-center border-none shadow-none md:w-1/2">
             <CardHeader className="text-center ">
               <CardTitle className="text-3xl">
-                Beginner Swimming Lessons
+                Cursuri de înot pentru avansați
               </CardTitle>
               {/* <CardDescription>
                 Manage your cookie settings here.
