@@ -27,7 +27,7 @@ import * as Icons from "@acme/ui/src/icons";
 
 import { AttendanceButton } from "./attendance-button";
 
-export function StudentCard({ student }) {
+export function AttendanceCard({ student }) {
   const supabase = createClientComponentClient<Database>();
   const router = useRouter();
 

@@ -2,8 +2,10 @@ import { Inter } from "next/font/google";
 
 import "@/styles/globals.css";
 import LocalFont from "next/font/local";
+import getActiveProductsWithPrices from "@/actions/getActiveProductsWithPrices";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { ThemeProvider } from "@/components/theme-provider";
+import ModalProvider from "@/providers/ModalProvider";
 import SupabaseProvider from "@/providers/SupabaseProvider";
 import UserProvider from "@/providers/UserProvider";
 
@@ -43,7 +45,9 @@ export const metadata = {
   metadataBase: new URL("https://acme-corp.jumr.dev"),
 };
 
-export default function RootLayout(props: { children: React.ReactNode }) {
+export default async function RootLayout(props: { children: React.ReactNode }) {
+  const products = await getActiveProductsWithPrices();
+
   return (
     <html lang="en" suppressHydrationWarning className="bg-background">
       <body
@@ -56,6 +60,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
         <SupabaseProvider>
           <UserProvider>
             <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+              <ModalProvider products={products} />
               {props.children}
               <TailwindIndicator />
             </ThemeProvider>

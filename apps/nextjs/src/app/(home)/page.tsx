@@ -11,6 +11,7 @@ import {
   CardHeader,
   CardTitle,
   Label,
+  Separator,
   cn,
 } from "@acme/ui";
 import * as Icons from "@acme/ui/src/icons";
@@ -25,7 +26,7 @@ import beginnerSwimming from "/public/beginnerSwimming.webp";
 export default function Home() {
   return (
     <>
-      <div className="z-10 min-h-[60vh] w-full bg-[url('/swimming-pool-homepage.webp')] bg-scroll px-5 xl:px-0 ">
+      <div className="z-10 min-h-[70vh] w-full bg-[url('/swimming-pool-homepage.webp')] bg-scroll px-5 xl:px-0 ">
         <h1
           className="animate-fade-up bg-gradient-to-br from-foreground to-muted-foreground bg-clip-text text-center text-4xl font-bold tracking-[-0.02em] text-transparent opacity-0 drop-shadow-sm md:text-7xl/[5rem]"
           style={{ animationDelay: "0.20s", animationFillMode: "forwards" }}
@@ -59,10 +60,10 @@ export default function Home() {
             start building your product today!
           </Balancer>
         </p>
-        <div className="z-10 flex min-h-[50vh] w-full max-w-4xl flex-col justify-between gap-4 px-5 md:flex-row xl:px-0">
-          <Card className="w-full border-none shadow-none md:w-1/2">
-            <CardHeader className="p-0 text-center">
-              <CardTitle className="text-2xl">
+        <div className="z-10 mb-10 flex min-h-[50vh] w-full max-w-5xl flex-col justify-between gap-4 px-5 md:flex-row xl:px-0">
+          <Card className="flex w-full flex-col justify-center border-none shadow-none md:w-1/2">
+            <CardHeader className="text-center ">
+              <CardTitle className="text-3xl">
                 Beginner Swimming Lessons
               </CardTitle>
               {/* <CardDescription>
@@ -85,7 +86,7 @@ export default function Home() {
               <div className="flex items-center justify-between space-x-2">
                 <Label htmlFor="necessary" className="flex flex-col space-y-1">
                   <span className="flex items-center text-lg">
-                    <Icons.Waves className="h-6 w-6" />
+                    <Icons.Waves className="mr-2 h-5 w-5" />
                     Strictly Necessary
                   </span>
                   <span className="font-normal leading-snug text-muted-foreground">
@@ -97,7 +98,7 @@ export default function Home() {
               <div className="flex items-center justify-between space-x-2">
                 <Label htmlFor="necessary" className="flex flex-col space-y-1">
                   <span className="flex items-center text-lg">
-                    <Icons.Waves className="h-6 w-6" />
+                    <Icons.Waves className="mr-2 h-5 w-5" />
                     Strictly Necessary
                   </span>
                   <span className="font-normal leading-snug text-muted-foreground">
@@ -117,37 +118,42 @@ export default function Home() {
             <Image
               alt="Child swimming"
               src={beginnerSwimming}
-              style={{ maxWidth: "100%", height: "500px", objectFit: "cover" }}
+              style={{ maxWidth: "100%", height: "600px", objectFit: "cover" }}
               className="rounded-lg"
             />
           </div>
         </div>
 
-        <div className="z-10 flex min-h-[50vh] w-full max-w-4xl flex-col justify-between gap-4 px-5 md:flex-row xl:px-0">
+        <div className="z-10 mt-10 flex min-h-[50vh] w-full max-w-5xl flex-col justify-between gap-4 px-5 md:flex-row xl:px-0">
           <div className="w-full md:w-1/2">
             <Image
               alt="Child swimming"
               src={advancedSwimming}
               style={{
                 maxWidth: "100%",
-                height: "500px",
+                height: "600px",
                 objectFit: "cover",
                 objectPosition: "top",
               }}
               className="rounded-lg"
             />
           </div>
-          <Card className="w-full md:w-1/2">
-            <CardHeader>
-              <CardTitle>Advanced Swimming Lessons</CardTitle>
-              <CardDescription>
+          <Card className="flex w-full flex-col justify-center border-none shadow-none md:w-1/2">
+            <CardHeader className="text-center ">
+              <CardTitle className="text-3xl">
+                Beginner Swimming Lessons
+              </CardTitle>
+              {/* <CardDescription>
                 Manage your cookie settings here.
-              </CardDescription>
+              </CardDescription> */}
             </CardHeader>
             <CardContent className="grid gap-6">
               <div className="flex items-center justify-between space-x-2">
                 <Label htmlFor="necessary" className="flex flex-col space-y-1">
-                  <span>Strictly Necessary</span>
+                  <span className="flex items-center text-lg">
+                    <Icons.Waves className="mr-2 h-5 w-5" />
+                    Strictly Necessary
+                  </span>
                   <span className="font-normal leading-snug text-muted-foreground">
                     These cookies are essential in order to use the website and
                     use its features.
@@ -155,29 +161,32 @@ export default function Home() {
                 </Label>
               </div>
               <div className="flex items-center justify-between space-x-2">
-                <Label htmlFor="functional" className="flex flex-col space-y-1">
-                  <span>Functional Cookies</span>
+                <Label htmlFor="necessary" className="flex flex-col space-y-1">
+                  <span className="flex items-center text-lg">
+                    <Icons.Waves className="mr-2 h-5 w-5" />
+                    Strictly Necessary
+                  </span>
                   <span className="font-normal leading-snug text-muted-foreground">
-                    These cookies allow the website to provide personalized
-                    functionality.
+                    These cookies are essential in order to use the website and
+                    use its features.
                   </span>
                 </Label>
               </div>
               <div className="flex items-center justify-between space-x-2">
-                <Label
-                  htmlFor="performance"
-                  className="flex flex-col space-y-1"
-                >
-                  <span>Performance Cookies</span>
+                <Label htmlFor="necessary" className="flex flex-col space-y-1">
+                  <span className="flex items-center text-lg">
+                    <Icons.Waves className="mr-2 h-5 w-5" />
+                    Strictly Necessary
+                  </span>
                   <span className="font-normal leading-snug text-muted-foreground">
-                    These cookies help to improve the performance of the
-                    website.
+                    These cookies are essential in order to use the website and
+                    use its features.
                   </span>
                 </Label>
               </div>
             </CardContent>
             <CardFooter>
-              <Button variant="outline" className="w-full">
+              <Button variant="default" className="w-full">
                 Log in
               </Button>
             </CardFooter>

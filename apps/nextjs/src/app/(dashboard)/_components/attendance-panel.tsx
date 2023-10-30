@@ -1,12 +1,12 @@
 "use client";
 
-import { StudentCard } from "./student-card";
+import { AttendanceCard } from "./attendance-card";
 
 export function AttendancePanel({ students }) {
   return (
     <>
       {students?.map((student) => (
-        <StudentCard key={student.id} student={student} />
+        <AttendanceCard key={student.id} student={student} />
       ))}
     </>
   );

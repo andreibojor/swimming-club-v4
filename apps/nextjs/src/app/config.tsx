@@ -16,10 +16,10 @@ export const navItems = [
     title: "Dashboard",
     href: "/dashboard",
   },
-  {
-    title: "Profile",
-    href: "/profile",
-  },
+  // {
+  //   title: "Profile",
+  //   href: "/profile",
+  // },
 ] satisfies { href: Route; title: string }[];
 
 export const marketingFeatures = [
