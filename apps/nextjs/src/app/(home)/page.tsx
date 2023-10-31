@@ -26,15 +26,17 @@ import beginnerSwimming from "/public/beginnerSwimming.webp";
 export default function Home() {
   return (
     <>
-      <div className="z-10 min-h-[70vh] w-full bg-[url('/swimming-pool-homepage.webp')] bg-scroll px-5 xl:px-0 ">
+      <div className="z-10 flex min-h-[70vh] w-full flex-col justify-center bg-[url('/swimming-pool-homepage.webp')] bg-scroll px-5 pb-40 xl:px-0">
         <h1
-          className="animate-fade-up bg-gradient-to-br from-foreground to-muted-foreground bg-clip-text text-center text-4xl font-bold tracking-[-0.02em] text-transparent opacity-0 drop-shadow-sm md:text-7xl/[5rem]"
+          // className="animate-fade-up bg-gradient-to-br from-foreground to-muted-foreground bg-clip-text text-center text-4xl font-bold tracking-[-0.02em] text-transparent opacity-0 drop-shadow-sm md:text-7xl/[5rem]"
+          className="animate-fade-up bg-gradient-to-br text-center text-5xl font-bold tracking-[-0.02em] text-slate-100 opacity-0 drop-shadow-sm md:text-7xl/[5rem]"
           style={{ animationDelay: "0.20s", animationFillMode: "forwards" }}
         >
-          <Balancer>Crișan Swimming Club</Balancer>
+          <Balancer>Swimming Club</Balancer>
         </h1>
         <p
-          className="mt-6 animate-fade-up text-center opacity-0 md:text-xl"
+          // className="mt-6 animate-fade-up text-center opacity-0 md:text-2xl"
+          className="mt-6 animate-fade-up text-center opacity-0 md:text-2xl"
           style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
         >
           <Balancer>
@@ -63,7 +65,7 @@ export default function Home() {
         <div className="z-10 mb-10 flex min-h-[50vh] w-full max-w-5xl flex-col justify-between gap-4 px-5 md:flex-row xl:px-0">
           <Card className="flex w-full flex-col justify-center border-none shadow-none md:w-1/2">
             <CardHeader className="text-center ">
-              <CardTitle className="text-3xl">
+              <CardTitle className="text-3xl font-light">
                 Cursuri de înot pentru începători
               </CardTitle>
               {/* <CardDescription>

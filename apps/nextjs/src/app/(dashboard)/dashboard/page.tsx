@@ -29,7 +29,13 @@ const pools = [
 export default async function DashboardPage() {
   const students = await getStudents();
   const allStudentsByPool = await getStudentsByPool();
-  const { studentsAttendances } = getAllAttendances();
+  // TODO: use .reduce to get the right number of students?
+  const studentsAttendances = await getAllAttendances();
+  console.log("  console.log(`allStudentsByPool ${allStudentsByPool}`);");
+  console.log(allStudentsByPool);
+
+  console.log("  const { studentsAttendances } = await getAllAttendances();");
+  console.log(studentsAttendances);
   return (
     <DashboardShell
       title="Dashboard"

@@ -1,7 +1,9 @@
+import getActiveProductsWithPrices from "@/actions/getActiveProductsWithPrices";
 import getStudentAttendances from "@/actions/getStudentAttendances";
 import getUserDetails from "@/actions/getUserDetails";
 import AttendancePieChart from "@/components/attendance-piechart";
 import { MultiStepForm } from "@/components/multi-step-form";
+import SubscribeModal from "@/components/subscribe-modal";
 
 import {
   Avatar,
@@ -77,13 +79,14 @@ const invoices = [
 
 export default async function ProfilePage() {
   const userDetails = await getUserDetails();
-
+  const products = await getActiveProductsWithPrices();
   const attendances = await getStudentAttendances();
   const selectedDates = attendances.map((attendance) => attendance.date);
 
   return (
     <>
       <div className="flex w-full max-w-screen-lg animate-fade-up flex-col gap-5 p-5 xl:px-0">
+        <SubscribeModal products={products} />
         <div className="flex flex-col justify-between gap-5 md:flex-row">
           <Card className="w-full md:w-1/3">
             <CardHeader>

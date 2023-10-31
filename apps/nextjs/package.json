@@ -24,7 +24,7 @@
     "@supabase/supabase-js": "^2.38.4",
     "@vercel/analytics": "^1.1.1",
     "framer-motion": "^10.16.4",
-    "next": "^14.0.0",
+    "next": "^14.0.1",
     "next-themes": "^0.2.1",
     "react": "18.2.0",
     "react-day-picker": "^8.9.1",
@@ -33,17 +33,17 @@
     "react-image-crop": "^10.1.8",
     "react-rough-notation": "^1.0.5",
     "react-wrap-balancer": "^1.1.0",
-    "recharts": "^2.9.0",
+    "recharts": "^2.9.1",
     "stripe": "^12.18.0",
     "superjson": "1.12.4",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.22.4",
-    "zustand": "^4.4.4"
+    "zustand": "^4.4.5"
   },
   "devDependencies": {
     "@acme/eslint-config": "^0.2.0",
     "@acme/tailwind-config": "^0.1.0",
-    "@types/node": "^18.18.7",
+    "@types/node": "^18.18.8",
     "@types/react": "^18.2.33",
     "@types/react-dom": "^18.2.14",
     "autoprefixer": "^10.4.16",
@@ -51,7 +51,7 @@
     "encoding": "^0.1.13",
     "eslint": "^8.52.0",
     "postcss": "^8.4.31",
-    "supabase": "^1.106.1",
+    "supabase": "^1.110.1",
     "tailwindcss": "^3.3.5",
     "typescript": "^5.2.2"
   }
