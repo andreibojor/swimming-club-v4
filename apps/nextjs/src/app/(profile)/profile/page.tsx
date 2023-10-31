@@ -3,6 +3,7 @@ import getStudentAttendances from "@/actions/getStudentAttendances";
 import getUserDetails from "@/actions/getUserDetails";
 import AttendancePieChart from "@/components/attendance-piechart";
 import { MultiStepForm } from "@/components/multi-step-form";
+import SubscribeButton from "@/components/subscribe-button";
 import SubscribeModal from "@/components/subscribe-modal";
 
 import {
@@ -86,7 +87,7 @@ export default async function ProfilePage() {
   return (
     <>
       <div className="flex w-full max-w-screen-lg animate-fade-up flex-col gap-5 p-5 xl:px-0">
-        <SubscribeModal products={products} />
+        <SubscribeButton products={products} />
         <div className="flex flex-col justify-between gap-5 md:flex-row">
           <Card className="w-full md:w-1/3">
             <CardHeader>
