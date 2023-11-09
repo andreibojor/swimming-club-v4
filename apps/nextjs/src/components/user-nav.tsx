@@ -19,7 +19,7 @@ import {
 
 import LogOutButton from "./log-out";
 
-export function UserNav() {
+export async function UserNav() {
   // const fullname = `${user.firstName} ${user.lastName}`;
   // const initials = fullname
   //   .split(" ")
@@ -29,14 +29,16 @@ export function UserNav() {
   //   (e) => e.id === user.primaryEmailAddressId,
   // )?.emailAddress;
 
+  const { user } = await getUserDetails();
+  console.log(user);
   return (
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="relative h-8 w-8 rounded-full">
             <Avatar className="h-8 w-8">
-              {/* <AvatarImage src={userDetails?.avatar_url} alt="Avatar Image" /> */}
-              <AvatarFallback>A F</AvatarFallback>
+              <AvatarImage src={`${user.avatar_url}`} alt="Avatar Image" />
+              <AvatarFallback>CSC</AvatarFallback>
             </Avatar>
           </Button>
         </DropdownMenuTrigger>
@@ -44,10 +46,10 @@ export function UserNav() {
           <DropdownMenuLabel className="font-normal">
             <div className="flex flex-col space-y-1">
               <p className="text-sm font-medium leading-none">
-                {/* {userDetails?.full_name} */}
+                {user.full_name}
               </p>
               <p className="text-xs leading-none text-muted-foreground">
-                {/* {userDetails?.email} */}
+                {user.email}
               </p>
             </div>
           </DropdownMenuLabel>
