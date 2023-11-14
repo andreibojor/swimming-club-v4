@@ -140,7 +140,7 @@ export default async function ProfilePage() {
                 {/* TAB CONTENT */}
                 <TabsContent value="andrei-bojor" className="space-y-4">
                   <div className="flex flex-col justify-normal gap-4 md:flex-row md:justify-between">
-                    <AttendancePieChart attendancesLeft={3} />
+                    {/* <AttendancePieChart attendancesLeft={3} /> */}
                     <Calendar mode="multiple" selected={selectedDates} />
 
                     {/* <Suspense
