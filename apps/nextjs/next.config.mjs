@@ -7,10 +7,10 @@ const config = {
   experimental: {
     mdxRs: true,
   },
-  images: {
-    formats: ["image/avif", "image/webp"],
-    // domains: ["avatars.githubusercontent.com", "images.unsplash.com"],
-  },
+  // images: {
+  // formats: ["image/avif", "image/webp"],
+  // domains: ["avatars.githubusercontent.com", "images.unsplash.com"],
+  // },
   /** We already do linting and typechecking as separate tasks in CI */
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },

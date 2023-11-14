@@ -194,7 +194,7 @@ export default function Home() {
             </CardFooter>
           </Card>
         </div>
-        <div className="my-16 flex w-full max-w-screen-lg animate-fade-up flex-col items-center gap-5 border-t p-5 xl:px-0">
+        {/* <div className="my-16 flex w-full max-w-screen-lg animate-fade-up flex-col items-center gap-5 border-t p-5 xl:px-0">
           <h2 className="pt-4 text-center text-3xl font-bold md:text-4xl">
             Our Trainers
           </h2>
@@ -218,7 +218,7 @@ export default function Home() {
               </Card>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );

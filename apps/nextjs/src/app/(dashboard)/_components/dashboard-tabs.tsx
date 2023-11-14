@@ -20,7 +20,7 @@ import { AllStudentsCard } from "../_components/all-students-card";
 import { AttendancePanel } from "../_components/attendance-panel";
 import { LoadingCard } from "../_components/loading-card";
 
-// This page will never be cached and the data will always be up to date
+// This code line below means the page will never be cached and the data will always be up to date
 // export const revalidate = 0;
 
 export default function DashboardTabs({
@@ -45,6 +45,10 @@ export default function DashboardTabs({
   const filteredStudents = studentsByPool.filter(
     (student) => student.pool === selectedPool,
   );
+
+  const totalStudents = filteredStudents.length;
+  const presentStudents = "";
+  const absentStudents = "";
 
   return (
     <div className="flex flex-col justify-normal gap-4 md:flex-row md:justify-between">
@@ -77,7 +81,7 @@ export default function DashboardTabs({
                   <CustomCalendar />
                   <div className="flex w-full flex-row items-center justify-between md:flex-col">
                     <div className="flex flex-col items-center">
-                      <p className="text-5xl">{filteredStudents.length}</p>
+                      <p className="text-5xl">{totalStudents}</p>
                       <h1 className="text-xl">Total Students</h1>
                       <Separator className="border-2 border-b" />
                     </div>
