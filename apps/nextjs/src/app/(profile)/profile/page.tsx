@@ -92,10 +92,10 @@ export default async function ProfilePage() {
           <Card className="w-full md:w-1/3">
             <CardHeader>
               <Avatar className="h-[80px] w-[80px]">
-                <AvatarImage src={userDetails?.user.avatar_url} alt="rick" />
+                {/* <AvatarImage src={userDetails?.user.avatar_url} alt="rick" /> */}
                 <AvatarFallback>A F</AvatarFallback>
               </Avatar>
-              <CardTitle>{userDetails?.user.full_name}</CardTitle>
+              {/* <CardTitle>{userDetails?.user.full_name}</CardTitle> */}
             </CardHeader>
             <CardContent>
               <Separator className="my-4" />
@@ -105,16 +105,16 @@ export default async function ProfilePage() {
                 </h4>
                 <div className="flex flex-col justify-between space-y-4">
                   <p className="text-sm font-medium leading-none">
-                    Phone: {userDetails?.user.phone}
+                    {/* Phone: {userDetails?.user.phone} */}
                   </p>
                   <p className="text-sm font-medium leading-none">
-                    Pool: {userDetails?.pool}
+                    {/* Pool: {userDetails?.pool} */}
                   </p>
                   <p className="text-sm font-medium leading-none">
-                    Role: {userDetails?.user.role}
+                    {/* Role: {userDetails?.user.role} */}
                   </p>
                   <p className="text-sm font-medium leading-none">
-                    Status: {userDetails?.active ? `Active` : `Inactive`}
+                    {/* Status: {userDetails?.active ? `Active` : `Inactive`} */}
                   </p>
                 </div>
               </div>
@@ -135,7 +135,7 @@ export default async function ProfilePage() {
                   <TabsTrigger value="sergiu-bojor">Sergiu Bojor</TabsTrigger>
                 </TabsList>
 
-                {userDetails?.user.role === "parent" ? <AddStudentForm /> : ""}
+                {/* {userDetails?.user.role === "parent" ? <AddStudentForm /> : ""} */}
 
                 {/* TAB CONTENT */}
                 <TabsContent value="andrei-bojor" className="space-y-4">
@@ -156,7 +156,7 @@ export default async function ProfilePage() {
                 </TabsContent>
                 <TabsContent value="sergiu-bojor" className="space-y-4">
                   <div className="flex flex-col justify-normal gap-4 md:flex-row md:justify-between">
-                    <AttendancePieChart attendancesLeft={3} />
+                    {/* <AttendancePieChart attendancesLeft={3} /> */}
                     <Calendar mode="multiple" selected={selectedDates} />
 
                     {/* <Suspense

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -64,9 +65,11 @@ const defaultValues: Partial<ProfileFormValues> = {
   medicalCertificate: null,
 };
 
-export default function AddStudentForm() {
+export default function AddStudentForm({ userDetails }) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const supabase = createClientComponentClient();
+  const supabaseClient = useSupabaseClient();
+
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues,
@@ -74,7 +77,7 @@ export default function AddStudentForm() {
   });
 
   const onSubmit = async (data: ProfileFormValues) => {
-    // const { phoneNumber, medicalCertificate } = data;
+    const { phoneNumber, medicalCertificate, name } = data;
 
     const updateUserPhoneAction = await supabase
       .from("users")

@@ -90,8 +90,19 @@ export function MultiStepForm() {
     mode: "onChange",
   });
 
+  const [isOpenDialog, setIsOpenDialog] = useState(false);
+
+  // Add this state at the beginning of your component
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const supabaseClient = useSupabaseClient();
+  useEffect(() => {
+    userDetails?.completed_registration
+      ? setIsOpenDialog(false)
+      : setIsOpenDialog(true);
+  }, [userDetails?.completed_registration]);
+
   const onSubmit = async (data: ProfileFormValues) => {
-    const { phoneNumber, medicalCertificate } = data;
+    const { phoneNumber, medicalCertificate, name } = data;
     console.log(userDetails);
     const updateUserPhoneAction = await supabase
       .from("users")
@@ -115,6 +126,8 @@ export function MultiStepForm() {
       .update({ completed_registration: true })
       .eq("id", userDetails?.id);
 
+    setIsOpenDialog(false);
+
     toast({
       title: "You submitted the following values:",
       description: (
@@ -133,17 +146,6 @@ export function MultiStepForm() {
       ),
     });
   };
-
-  const [isOpenDialog, setIsOpenDialog] = useState(false);
-
-  // Add this state at the beginning of your component
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const supabaseClient = useSupabaseClient();
-  useEffect(() => {
-    userDetails?.completed_registration
-      ? setIsOpenDialog(false)
-      : setIsOpenDialog(true);
-  }, [userDetails?.completed_registration]);
 
   return (
     <>

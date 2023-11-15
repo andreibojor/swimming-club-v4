@@ -48,7 +48,7 @@ const SubscribeButton: React.FC<SubscribeModalProps> = ({ products }) => {
       setPriceIdLoading(undefined);
     }
   };
-  console.log(products);
+  // console.log(products);
   return (
     <>
       <div>

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import getUserDetails from "@/actions/getUserDetails";
-import { CreditCard, LogOut, PlusCircle, Settings, User } from "lucide-react";
+import { CreditCard, PlusCircle, Settings, User } from "lucide-react";
 
 import {
   Avatar,
@@ -29,15 +29,18 @@ export async function UserNav() {
   //   (e) => e.id === user.primaryEmailAddressId,
   // )?.emailAddress;
 
-  const { user } = await getUserDetails();
-  console.log(user);
+  const { user_metadata: userDetails } = await getUserDetails();
+
   return (
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="relative h-8 w-8 rounded-full">
             <Avatar className="h-8 w-8">
-              <AvatarImage src={`${user.avatar_url}`} alt="Avatar Image" />
+              <AvatarImage
+                src={`${userDetails.avatar_url}`}
+                alt="Avatar Image"
+              />
               <AvatarFallback>CSC</AvatarFallback>
             </Avatar>
           </Button>
@@ -46,10 +49,10 @@ export async function UserNav() {
           <DropdownMenuLabel className="font-normal">
             <div className="flex flex-col space-y-1">
               <p className="text-sm font-medium leading-none">
-                {user.full_name}
+                {userDetails.full_name}
               </p>
               <p className="text-xs leading-none text-muted-foreground">
-                {user.email}
+                {userDetails.email}
               </p>
             </div>
           </DropdownMenuLabel>
@@ -82,13 +85,6 @@ export async function UserNav() {
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
-          <DropdownMenuItem asChild>
-            <Link href="/">
-              <LogOut className="mr-2 h-4 w-4" />
-              <span>Log out</span>
-              <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-            </Link>
-          </DropdownMenuItem>
           <DropdownMenuItem asChild>
             <LogOutButton />
           </DropdownMenuItem>
