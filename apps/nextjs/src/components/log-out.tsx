@@ -12,7 +12,7 @@ const LogOutButton: React.FC = () => {
 
   const handleLogout = async () => {
     const { error } = await supabaseClient.auth.signOut();
-    router.refresh();
+    router.push("/");
 
     if (error) {
       //   toast.error(error.message);

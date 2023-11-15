@@ -170,6 +170,51 @@ export function MultiStepForm() {
                   translateX: `-${formStep * 100}%`,
                 }}
               >
+                <RadioGroup
+                  defaultValue="student"
+                  className="grid grid-cols-2 gap-4"
+                >
+                  <div>
+                    <RadioGroupItem
+                      value="student"
+                      id="student"
+                      className="peer sr-only"
+                    />
+                    <Label
+                      htmlFor="student"
+                      className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 text-lg hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                    >
+                      <Icons.User className="mb-3 h-10 w-10" />
+                      Student
+                    </Label>
+                  </div>
+                  <div>
+                    <RadioGroupItem
+                      value="parinte"
+                      id="parinte"
+                      className="peer sr-only"
+                    />
+                    <Label
+                      htmlFor="parinte"
+                      className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 text-lg hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                    >
+                      <Icons.Users className="mb-3 h-10 w-10" />
+                      Parinte
+                    </Label>
+                  </div>
+                </RadioGroup>
+                <FormDescription>
+                  Select the desired payment method.
+                </FormDescription>
+              </motion.div>
+
+              {/* STEP 2 */}
+              <motion.div
+                className={cn("space-y-3", { hidden: formStep === 0 })}
+                animate={{
+                  translateX: `${100 - formStep * 100}%`,
+                }}
+              >
                 <FormField
                   control={form.control}
                   name="phoneNumber"
@@ -246,51 +291,6 @@ export function MultiStepForm() {
                   )}
                 />
               </motion.div>
-
-              {/* STEP 2 */}
-              <motion.div
-                className={cn("space-y-3", { hidden: formStep === 0 })}
-                animate={{
-                  translateX: `${100 - formStep * 100}%`,
-                }}
-              >
-                <RadioGroup
-                  defaultValue="cash"
-                  className="grid grid-cols-2 gap-4"
-                >
-                  <div>
-                    <RadioGroupItem
-                      value="cash"
-                      id="cash"
-                      className="peer sr-only"
-                    />
-                    <Label
-                      htmlFor="cash"
-                      className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 text-lg hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                    >
-                      <Icons.Wallet className="mb-3 h-10 w-10" />
-                      Cash
-                    </Label>
-                  </div>
-                  <div>
-                    <RadioGroupItem
-                      value="card"
-                      id="card"
-                      className="peer sr-only"
-                    />
-                    <Label
-                      htmlFor="card"
-                      className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 text-lg hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                    >
-                      <Icons.CreditCard className="mb-3 h-10 w-10" />
-                      Card
-                    </Label>
-                  </div>
-                </RadioGroup>
-                <FormDescription>
-                  Select the desired payment method.
-                </FormDescription>
-              </motion.div>
               <div className="flex w-full justify-between">
                 <Button
                   type="button"
@@ -306,11 +306,11 @@ export function MultiStepForm() {
                     hidden: formStep == 1,
                   })}
                   onClick={() => {
-                    form.trigger([
-                      "phoneNumber",
-                      "swimmerLevel",
-                      "medicalCertificate",
-                    ]);
+                    // form.trigger([
+                    //   "phoneNumber",
+                    //   "swimmerLevel",
+                    //   "medicalCertificate",
+                    // ]);
 
                     // const phoneNumberState = form.getFieldState("phoneNumber");
                     // const swimmerLevelState =

@@ -38,7 +38,7 @@ export async function UserNav() {
           <Button variant="ghost" className="relative h-8 w-8 rounded-full">
             <Avatar className="h-8 w-8">
               <AvatarImage
-                src={`${userDetails.avatar_url}`}
+                src={`${userDetails?.avatar_url}`}
                 alt="Avatar Image"
               />
               <AvatarFallback>CSC</AvatarFallback>
@@ -49,10 +49,10 @@ export async function UserNav() {
           <DropdownMenuLabel className="font-normal">
             <div className="flex flex-col space-y-1">
               <p className="text-sm font-medium leading-none">
-                {userDetails.full_name}
+                {userDetails?.full_name}
               </p>
               <p className="text-xs leading-none text-muted-foreground">
-                {userDetails.email}
+                {userDetails?.email}
               </p>
             </div>
           </DropdownMenuLabel>

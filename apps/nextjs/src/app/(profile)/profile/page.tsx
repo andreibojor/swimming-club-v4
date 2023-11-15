@@ -79,7 +79,7 @@ const invoices = [
 ];
 
 export default async function ProfilePage() {
-  const userDetails = await getUserDetails();
+  const { user_metadata: userDetails } = await getUserDetails();
   const products = await getActiveProductsWithPrices();
   const attendances = await getStudentAttendances();
   const selectedDates = attendances.map((attendance) => attendance.date);
@@ -92,10 +92,13 @@ export default async function ProfilePage() {
           <Card className="w-full md:w-1/3">
             <CardHeader>
               <Avatar className="h-[80px] w-[80px]">
-                {/* <AvatarImage src={userDetails?.user.avatar_url} alt="rick" /> */}
-                <AvatarFallback>A F</AvatarFallback>
+                <AvatarImage
+                  src={`${userDetails?.avatar_url}`}
+                  alt="Avatar Image"
+                />
+                <AvatarFallback>CSC</AvatarFallback>
               </Avatar>
-              {/* <CardTitle>{userDetails?.user.full_name}</CardTitle> */}
+              <CardTitle>{userDetails?.full_name}</CardTitle>
             </CardHeader>
             <CardContent>
               <Separator className="my-4" />
