@@ -1,12 +1,14 @@
 import type Stripe from "stripe";
 
-export interface Song {
+export interface AttendanceRecord {
   id: string;
-  user_id: string;
-  author: string;
-  title: string;
-  song_path: string;
-  image_path: string;
+  date: Date;
+  student_id: string;
+}
+
+export interface Customer {
+  id: string;
+  stripe_customer_id?: string;
 }
 
 export interface Product {
@@ -33,23 +35,17 @@ export interface Price {
   products?: Product;
 }
 
-export interface Customer {
-  id: string;
-  stripe_customer_id?: string;
-}
-
-export interface UserDetails {
-  id: string;
-  first_name?: string;
-  last_name?: string;
-  full_name?: string;
-  avatar_url?: string;
-  billing_address?: Stripe.Address;
-  payment_method?: Stripe.PaymentMethod[Stripe.PaymentMethod.Type];
-}
-
 export interface ProductWithPrice extends Product {
   prices?: Price[];
+}
+
+export interface Student {
+  id: string;
+  pool?: string;
+  lessons_left?: number;
+  professional_student?: boolean;
+  active?: boolean;
+  medical_certificate_path?: string;
 }
 
 export interface Subscription {
@@ -71,8 +67,16 @@ export interface Subscription {
   prices?: Price;
 }
 
-export interface Attendance {
+export interface UserDetails {
   id: string;
-  date: Date;
-  student_id: string;
+  first_name?: string;
+  last_name?: string;
+  full_name?: string;
+  avatar_url?: string;
+  phone?: string;
+  parent_id?: string;
+  role?: string;
+  payment_method?: Stripe.PaymentMethod[Stripe.PaymentMethod.Type];
+  billing_address?: Stripe.Address;
+  completed_registration?: boolean;
 }

@@ -30,6 +30,7 @@ export async function UserNav() {
   // )?.emailAddress;
 
   const { user_metadata: userDetails } = await getUserDetails();
+  const user = await getUserDetails();
 
   return (
     <>

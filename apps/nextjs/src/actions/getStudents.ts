@@ -1,17 +1,8 @@
+import type { Student } from "@/types";
+
 import { createServerSupabaseClient } from "./createServerSupabaseClient";
 
-interface StudentInterface {
-  id: string;
-  full_name: string; // This will come from the users table
-  avatar_url: string;
-  role: string;
-  pool: string;
-  lessons_left: number;
-  professional_student: boolean;
-  active: boolean;
-}
-
-const getStudents = async (): Promise<StudentInterface[]> => {
+const getStudents = async (): Promise<Student[]> => {
   const supabase = createServerSupabaseClient();
 
   const { data, error } = await supabase.from("students").select(`

@@ -1,11 +1,11 @@
-import type { Attendance } from "@/types";
+import type { AttendanceRecord } from "@/types";
 
 import { createServerSupabaseClient } from "./createServerSupabaseClient";
 
 const getAllAttendancesByPoolAndDate = async (
   pool: string,
   date: string,
-): Promise<Attendance[]> => {
+): Promise<AttendanceRecord[]> => {
   const supabase = createServerSupabaseClient();
 
   // Fetching all attendance records for the specified date

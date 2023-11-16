@@ -79,7 +79,9 @@ const invoices = [
 ];
 
 export default async function ProfilePage() {
-  const { user_metadata: userDetails } = await getUserDetails();
+  const userDetails = await getUserDetails();
+  console.log(userDetails);
+  const { user_metadata: userMetadata } = userDetails;
   const products = await getActiveProductsWithPrices();
   const attendances = await getStudentAttendances();
   const selectedDates = attendances.map((attendance) => attendance.date);
@@ -93,12 +95,12 @@ export default async function ProfilePage() {
             <CardHeader>
               <Avatar className="h-[80px] w-[80px]">
                 <AvatarImage
-                  src={`${userDetails?.avatar_url}`}
+                  src={`${userMetadata?.avatar_url}`}
                   alt="Avatar Image"
                 />
                 <AvatarFallback>CSC</AvatarFallback>
               </Avatar>
-              <CardTitle>{userDetails?.full_name}</CardTitle>
+              <CardTitle>{userMetadata?.full_name}</CardTitle>
             </CardHeader>
             <CardContent>
               <Separator className="my-4" />
@@ -108,16 +110,16 @@ export default async function ProfilePage() {
                 </h4>
                 <div className="flex flex-col justify-between space-y-4">
                   <p className="text-sm font-medium leading-none">
-                    {/* Phone: {userDetails?.user.phone} */}
+                    Phone: {`${userMetadata?.phone}`}
                   </p>
                   <p className="text-sm font-medium leading-none">
-                    {/* Pool: {userDetails?.pool} */}
+                    Pool: {userMetadata?.pool}
                   </p>
                   <p className="text-sm font-medium leading-none">
-                    {/* Role: {userDetails?.user.role} */}
+                    Role: {userMetadata?.role}
                   </p>
                   <p className="text-sm font-medium leading-none">
-                    {/* Status: {userDetails?.active ? `Active` : `Inactive`} */}
+                    {/* Status: {userMetadata?.active ? `Active` : `Inactive`} */}
                   </p>
                 </div>
               </div>

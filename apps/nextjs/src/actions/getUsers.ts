@@ -1,13 +1,8 @@
+import { UserDetails } from "@/types";
+
 import { createServerSupabaseClient } from "./createServerSupabaseClient";
 
-interface UserInterface {
-  id: string;
-  full_name: string;
-  avatar_url: string;
-  role: string;
-}
-
-const getUsers = async (): Promise<UserInterface[]> => {
+const getUsers = async (): Promise<UserDetails[]> => {
   const supabase = createServerSupabaseClient();
 
   const { data, error } = await supabase

@@ -1,9 +1,9 @@
-import type { Attendance } from "@/types";
+import type { AttendanceRecord } from "@/types";
 
 import { createServerSupabaseClient } from "./createServerSupabaseClient";
 
 // TODO: Is this how am I gonna get attendances for a user?
-const getStudentAttendances = async (): Promise<Attendance[]> => {
+const getStudentAttendances = async (): Promise<AttendanceRecord[]> => {
   const supabase = createServerSupabaseClient();
 
   const {

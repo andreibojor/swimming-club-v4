@@ -1,19 +1,8 @@
+import { type Student } from "@/types";
+
 import { createServerSupabaseClient } from "./createServerSupabaseClient";
 
-// import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-
-interface StudentInterface {
-  id: string;
-  full_name: string; // This will come from the users table
-  avatar_url: string;
-  role: string;
-  pool: string;
-  lessons_left: number;
-  professional_student: boolean;
-  active: boolean;
-}
-
-const getStudentsByPool = async (): Promise<StudentInterface[]> => {
+const getStudentsByPool = async (): Promise<Student[]> => {
   const supabase = createServerSupabaseClient();
 
   const { data, error } = await supabase.from("students").select(

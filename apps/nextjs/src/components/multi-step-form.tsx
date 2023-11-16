@@ -49,6 +49,22 @@ const ALLOWED_FILE_TYPES = [
 
 const profileFormSchema = z.object({
   // TODO: https://github.com/shadcn-ui/ui/issues/884
+  userRole: z.string({
+    required_error: "Please select your role.",
+  }),
+  phoneNumber: z
+    .string()
+    .min(10)
+    .max(10)
+    .refine((val) => !isNaN(val as unknown as number), {
+      message: "Your phone number contains other characters than digits.",
+    }),
+  swimmerLevel: z.string({
+    required_error: "Please select the performance level.",
+  }),
+  pool: z.string({
+    required_error: "Please select the pool location.",
+  }),
   medicalCertificate: z
     .instanceof(Blob, { message: "Medical Certificate is required" })
     .refine(
@@ -59,17 +75,6 @@ const profileFormSchema = z.object({
       (file) => ALLOWED_FILE_TYPES.includes(file.type),
       "Only .pdf files are allowed",
     ),
-  phoneNumber: z
-    .string()
-    .min(10)
-    .max(10)
-    .refine((val) => !isNaN(val as unknown as number), {
-      message: "Your phone number contains other characters than digits.",
-    }),
-
-  swimmerLevel: z.string({
-    required_error: "Please select the performance level.",
-  }),
 });
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
@@ -77,10 +82,10 @@ type ProfileFormValues = z.infer<typeof profileFormSchema>;
 // This can come from your database or API.
 const defaultValues: Partial<ProfileFormValues> = {
   medicalCertificate: null,
+  userRole: "student",
 };
 
-export function MultiStepForm() {
-  const { userDetails } = useUser();
+export function MultiStepForm({ userDetails }) {
   const supabase = createClientComponentClient();
   const [formStep, setFormStep] = useState(0);
 
@@ -94,6 +99,7 @@ export function MultiStepForm() {
 
   // Add this state at the beginning of your component
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
   const supabaseClient = useSupabaseClient();
   useEffect(() => {
     userDetails?.completed_registration
@@ -102,11 +108,29 @@ export function MultiStepForm() {
   }, [userDetails?.completed_registration]);
 
   const onSubmit = async (data: ProfileFormValues) => {
-    const { phoneNumber, medicalCertificate, name } = data;
-    console.log(userDetails);
+    const {
+      phoneNumber,
+      medicalCertificate,
+      name,
+      pool,
+      userRole,
+      swimmerLevel,
+    } = data;
+
+    // in users table
     const updateUserPhoneAction = await supabase
       .from("users")
       .update({ phone: phoneNumber })
+      .eq("id", userDetails?.id);
+
+    const updateUserRoleAction = await supabase
+      .from("users")
+      .update({ role: userRole })
+      .eq("id", userDetails?.id);
+
+    const updateCompletedRegistrationAction = await supabase
+      .from("users")
+      .update({ completed_registration: true })
       .eq("id", userDetails?.id);
 
     const { data: medicalCertificateData } = await supabaseClient.storage
@@ -116,15 +140,21 @@ export function MultiStepForm() {
         upsert: false,
       });
 
-    const updateMedicalCertificatePathAction = await supabase
+    // in students table
+    const updateStudentPoolAction = await supabase
       .from("students")
-      .update({ medical_certificate_path: medicalCertificateData?.path })
+      .update({ pool: pool })
       .eq("id", userDetails?.id);
 
-    const updateCompletedRegistrationAction = await supabase
-      .from("users")
-      .update({ completed_registration: true })
-      .eq("id", userDetails?.id);
+    // const updateProfessionalStudentAction = await supabase
+    //   .from("students")
+    //   .update({ professional_student: swimmerLevel })
+    //   .eq("id", userDetails?.id);
+
+    // const updateMedicalCertificatePathAction = await supabase
+    //   .from("students")
+    //   .update({ medical_certificate_path: medicalCertificateData?.path })
+    //   .eq("id", userDetails?.id);
 
     setIsOpenDialog(false);
 
@@ -134,9 +164,9 @@ export function MultiStepForm() {
         <>
           <h1>user details</h1>
           <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <code className="text-white">
+            {/* <code className="text-white">
               {JSON.stringify(userDetails, null, 2)}
-            </code>
+            </code> */}
           </pre>
           <h1>data</h1>
           <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
@@ -171,14 +201,16 @@ export function MultiStepForm() {
                 }}
               >
                 <RadioGroup
-                  defaultValue="student"
+                  defaultValue={defaultValues.userRole}
                   className="grid grid-cols-2 gap-4"
+                  {...form.register("userRole")}
                 >
                   <div>
                     <RadioGroupItem
                       value="student"
                       id="student"
                       className="peer sr-only"
+                      {...form.register("userRole")}
                     />
                     <Label
                       htmlFor="student"
@@ -190,12 +222,13 @@ export function MultiStepForm() {
                   </div>
                   <div>
                     <RadioGroupItem
-                      value="parinte"
-                      id="parinte"
+                      value="parent"
+                      id="parent"
                       className="peer sr-only"
+                      {...form.register("userRole")}
                     />
                     <Label
-                      htmlFor="parinte"
+                      htmlFor="parent"
                       className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 text-lg hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                     >
                       <Icons.Users className="mb-3 h-10 w-10" />
@@ -255,7 +288,39 @@ export function MultiStepForm() {
                         </SelectContent>
                       </Select>
                       <FormDescription>
-                        You can request your swimming teacher to promote you{" "}
+                        You can request your swimming teacher to promote you
+                        <Link href="/examples/forms">email settings</Link>.
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="pool"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Pool Location</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select the level of your performance" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="Cluj-Napoca">
+                            Cluj-Napoca
+                          </SelectItem>
+                          <SelectItem value="Dej">Dej</SelectItem>
+                          <SelectItem value="Sancraiu">Sâncraiu</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormDescription>
+                        You can request your swimming teacher to promote you
                         <Link href="/examples/forms">email settings</Link>.
                       </FormDescription>
                       <FormMessage />
@@ -306,11 +371,8 @@ export function MultiStepForm() {
                     hidden: formStep == 1,
                   })}
                   onClick={() => {
-                    // form.trigger([
-                    //   "phoneNumber",
-                    //   "swimmerLevel",
-                    //   "medicalCertificate",
-                    // ]);
+                    form.trigger("userRole");
+                    console.log(form.trigger(["userRole"]));
 
                     // const phoneNumberState = form.getFieldState("phoneNumber");
                     // const swimmerLevelState =
