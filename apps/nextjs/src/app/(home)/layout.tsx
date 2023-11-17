@@ -14,25 +14,25 @@ import * as Icons from "@acme/ui/src/icons";
 import { MainNav } from "../(dashboard)/_components/main-nav";
 
 export default async function HomeLayout(props: { children: ReactNode }) {
-  // const supabase = createServerSupabaseClient();
+  const supabase = createServerSupabaseClient();
 
-  // const {
-  //   data: { session },
-  // } = await supabase.auth.getSession();
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
 
-  // let userDetails, userRole;
+  let userDetails, userRole;
 
   // // Only call getUserDetails if session exists
-  // if (session) {
-  //   userDetails = await getUserDetails(session.user.id);
-  //   // Check if userDetails and userDetails.user are defined before trying to access role
-  //   if (userDetails?.user) {
-  //     userRole = userDetails.user.role;
-  //   } else {
-  //     // Handle the error appropriately
-  //     console.error("userDetails or userDetails.user is undefined");
-  //   }
-  // }
+  if (session) {
+    userDetails = await getUserDetails(session.user.id);
+    // Check if userDetails and userDetails.user are defined before trying to access role
+    if (userDetails?.user) {
+      userRole = userDetails.user.role;
+    } else {
+      // Handle the error appropriately
+      console.error("userDetails or userDetails.user is undefined");
+    }
+  }
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -49,7 +49,7 @@ export default async function HomeLayout(props: { children: ReactNode }) {
         <MainNav />
         <div className="ml-auto flex items-center space-x-4">
           <Suspense>
-            {/* {session ? (
+            {session ? (
               userRole && userRole === "admin" ? (
                 <DashboardLink />
               ) : (
@@ -63,7 +63,7 @@ export default async function HomeLayout(props: { children: ReactNode }) {
                 Sign In
                 <Icons.ChevronRight className="ml-1 h-4 w-4" />
               </Link>
-            )} */}
+            )}
           </Suspense>
         </div>
       </nav>

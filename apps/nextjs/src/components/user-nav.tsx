@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { createServerSupabaseClient } from "@/actions/createServerSupabaseClient";
 import getUserDetails from "@/actions/getUserDetails";
 import { CreditCard, PlusCircle, Settings, User } from "lucide-react";
 
@@ -29,8 +30,12 @@ export async function UserNav() {
   //   (e) => e.id === user.primaryEmailAddressId,
   // )?.emailAddress;
 
-  const { user_metadata: userDetails } = await getUserDetails();
-  const user = await getUserDetails();
+  const supabase = createServerSupabaseClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const userDetails = await getUserDetails(user.id);
 
   return (
     <>

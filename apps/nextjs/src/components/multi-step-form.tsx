@@ -146,15 +146,15 @@ export function MultiStepForm({ userDetails }) {
       .update({ pool: pool })
       .eq("id", userDetails?.id);
 
-    // const updateProfessionalStudentAction = await supabase
-    //   .from("students")
-    //   .update({ professional_student: swimmerLevel })
-    //   .eq("id", userDetails?.id);
+    const updateProfessionalStudentAction = await supabase
+      .from("students")
+      .update({ professional_student: swimmerLevel })
+      .eq("id", userDetails?.id);
 
-    // const updateMedicalCertificatePathAction = await supabase
-    //   .from("students")
-    //   .update({ medical_certificate_path: medicalCertificateData?.path })
-    //   .eq("id", userDetails?.id);
+    const updateMedicalCertificatePathAction = await supabase
+      .from("students")
+      .update({ medical_certificate_path: medicalCertificateData?.path })
+      .eq("id", userDetails?.id);
 
     setIsOpenDialog(false);
 

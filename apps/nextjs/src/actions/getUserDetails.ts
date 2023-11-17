@@ -12,7 +12,7 @@ const getUserDetails = async (userId: string): Promise<UserDetails[]> => {
 
   error && console.log(error);
 
-  return data[0] || [];
+  return data ? data[0] || [] : [];
 };
 
 export default getUserDetails;

@@ -25,7 +25,7 @@ export default function ProfileLayout(props: { children: React.ReactNode }) {
         <div className="ml-auto flex items-center space-x-4">
           <Suspense>
             {/* <DashboardLink /> */}
-            {/* <UserNav /> */}
+            <UserNav />
           </Suspense>
         </div>
       </nav>

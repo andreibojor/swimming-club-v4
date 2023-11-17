@@ -86,7 +86,7 @@ export default async function ProfilePage() {
   } = await supabase.auth.getUser();
 
   const userDetails = await getUserDetails(user.id);
-  console.log(userDetails);
+
   const products = await getActiveProductsWithPrices();
   const attendances = await getStudentAttendances();
   const selectedDates = attendances.map((attendance) => attendance.date);
