@@ -72,6 +72,7 @@ export interface UserDetails {
   first_name?: string;
   last_name?: string;
   full_name?: string;
+  email?: string;
   avatar_url?: string;
   phone?: string;
   parent_id?: string;

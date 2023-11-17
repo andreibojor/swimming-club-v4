@@ -340,11 +340,9 @@ export function MultiStepForm({ userDetails }) {
                           accept=".pdf"
                           placeholder="MedicalCertificate.pdf"
                           // Use event.target.files to access the uploaded file
-                          onChange={(event) => {
-                            const uploadedFile = event.target.files[0];
-                            setSelectedFile(uploadedFile);
-                            // No need to manipulate the file list here
-                            field.onChange(uploadedFile);
+                          onChange={(e) => {
+                            // Update the form state with the selected file
+                            field.onChange(e.target.files?.[0]);
                           }}
                         />
                       </FormControl>

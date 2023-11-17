@@ -26,7 +26,7 @@ import beginnerSwimming from "/public/beginnerSwimming.webp";
 export default function Home() {
   return (
     <>
-      <div className="z-10 flex min-h-[70vh] w-full flex-col justify-center bg-[url('/swimming-pool-homepage.webp')] bg-scroll px-5 pb-40 xl:px-0">
+      <div className="z-10 flex min-h-[70vh] w-full flex-col justify-center bg-[url('/swimming-pool-homepage.webp')] bg-scroll px-5 pb-0 md:pb-40 xl:px-0">
         <h1
           // className="animate-fade-up bg-gradient-to-br from-foreground to-muted-foreground bg-clip-text text-center text-4xl font-bold tracking-[-0.02em] text-transparent opacity-0 drop-shadow-sm md:text-7xl/[5rem]"
           className="animate-fade-up bg-gradient-to-br text-center text-5xl font-bold tracking-[-0.02em] text-slate-100 opacity-0 drop-shadow-sm md:text-7xl/[5rem]"
@@ -36,7 +36,7 @@ export default function Home() {
         </h1>
         <p
           // className="mt-6 animate-fade-up text-center opacity-0 md:text-2xl"
-          className="mt-6 animate-fade-up text-center opacity-0 md:text-2xl"
+          className="mt-6 animate-fade-up text-center text-slate-100 opacity-0 md:text-2xl"
           style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
         >
           <Balancer>
@@ -127,7 +127,7 @@ export default function Home() {
         </div>
 
         <div className="z-10 mt-10 flex min-h-[50vh] w-full max-w-5xl flex-col justify-between gap-4 px-5 md:flex-row xl:px-0">
-          <div className="w-full md:w-1/2">
+          <div className="order-2 w-full md:order-1 md:w-1/2">
             <Image
               alt="Child swimming"
               src={advancedSwimming}
@@ -140,7 +140,7 @@ export default function Home() {
               className="rounded-lg"
             />
           </div>
-          <Card className="flex w-full flex-col justify-center border-none shadow-none md:w-1/2">
+          <Card className="order-1 flex w-full flex-col justify-center border-none shadow-none md:order-2 md:w-1/2">
             <CardHeader className="text-center ">
               <CardTitle className="text-3xl">
                 Cursuri de înot pentru avansați
