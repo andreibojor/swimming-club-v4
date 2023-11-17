@@ -3,6 +3,7 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import { SiteFooter } from "@/components/footer";
+import { MobileDropdown } from "@/components/mobile-nav";
 import { UserNav } from "@/components/user-nav";
 
 import * as Icons from "@acme/ui/src/icons";
@@ -26,7 +27,7 @@ export default function DashboardLayout(props: { children: React.ReactNode }) {
             </span>
           </Link>
         </div>
-        {/* <MobileDropdown /> */}
+        <MobileDropdown />
         {/* <MainNav /> */}
         <div className="ml-auto flex items-center space-x-4">
           <Suspense>

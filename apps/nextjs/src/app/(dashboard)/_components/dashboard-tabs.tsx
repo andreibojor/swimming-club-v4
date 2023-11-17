@@ -55,20 +55,18 @@ export default function DashboardTabs({
       <Card className="w-full md:w-3/5">
         <Tabs defaultValue="Cluj-Napoca" className="space-y-4">
           <CardHeader>
-            <CardTitle>
-              Overview
-              <TabsList>
-                {pools.map((pool) => (
-                  <TabsTrigger
-                    key={pool.id}
-                    value={pool.value}
-                    onClick={() => handleTabChange(pool.value)}
-                  >
-                    {pool.name}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-            </CardTitle>
+            <CardTitle>Overview</CardTitle>
+            <TabsList>
+              {pools.map((pool) => (
+                <TabsTrigger
+                  key={pool.id}
+                  value={pool.value}
+                  onClick={() => handleTabChange(pool.value)}
+                >
+                  {pool.name}
+                </TabsTrigger>
+              ))}
+            </TabsList>
           </CardHeader>
           <CardContent>
             {pools.map((pool) => (
