@@ -105,7 +105,7 @@ export function MultiStepForm({ userDetails }) {
     userDetails?.completed_registration
       ? setIsOpenDialog(false)
       : setIsOpenDialog(true);
-  }, [userDetails?.completed_registration]);
+  }, []);
 
   const onSubmit = async (data: ProfileFormValues) => {
     const {

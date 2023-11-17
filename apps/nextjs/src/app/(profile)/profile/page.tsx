@@ -1,3 +1,4 @@
+import { createServerSupabaseClient } from "@/actions/createServerSupabaseClient";
 import getActiveProductsWithPrices from "@/actions/getActiveProductsWithPrices";
 import getStudentAttendances from "@/actions/getStudentAttendances";
 import getUserDetails from "@/actions/getUserDetails";
@@ -79,9 +80,13 @@ const invoices = [
 ];
 
 export default async function ProfilePage() {
-  const userDetails = await getUserDetails();
+  const supabase = createServerSupabaseClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const userDetails = await getUserDetails(user.id);
   console.log(userDetails);
-  const { user_metadata: userMetadata } = userDetails;
   const products = await getActiveProductsWithPrices();
   const attendances = await getStudentAttendances();
   const selectedDates = attendances.map((attendance) => attendance.date);
@@ -95,12 +100,12 @@ export default async function ProfilePage() {
             <CardHeader>
               <Avatar className="h-[80px] w-[80px]">
                 <AvatarImage
-                  src={`${userMetadata?.avatar_url}`}
+                  src={`${userDetails?.avatar_url}`}
                   alt="Avatar Image"
                 />
                 <AvatarFallback>CSC</AvatarFallback>
               </Avatar>
-              <CardTitle>{userMetadata?.full_name}</CardTitle>
+              <CardTitle>{userDetails?.full_name}</CardTitle>
             </CardHeader>
             <CardContent>
               <Separator className="my-4" />
@@ -110,16 +115,16 @@ export default async function ProfilePage() {
                 </h4>
                 <div className="flex flex-col justify-between space-y-4">
                   <p className="text-sm font-medium leading-none">
-                    Phone: {`${userMetadata?.phone}`}
+                    Phone: {`${userDetails?.phone}`}
                   </p>
                   <p className="text-sm font-medium leading-none">
-                    Pool: {userMetadata?.pool}
+                    {/* Pool: {userDetails?.pool} */}
                   </p>
                   <p className="text-sm font-medium leading-none">
-                    Role: {userMetadata?.role}
+                    Role: {userDetails?.role}
                   </p>
                   <p className="text-sm font-medium leading-none">
-                    {/* Status: {userMetadata?.active ? `Active` : `Inactive`} */}
+                    {/* Status: {userDetails?.active ? `Active` : `Inactive`} */}
                   </p>
                 </div>
               </div>
