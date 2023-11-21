@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import type { Database } from "@/types_db";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
@@ -31,26 +32,26 @@ export function AttendanceCard({ student }) {
   const supabase = createClientComponentClient<Database>();
   const router = useRouter();
 
-  // useEffect(() => {
-  //   const channel = supabase
-  //     .channel("realtime students")
-  //     .on(
-  //       "postgres_changes",
-  //       {
-  //         event: "*",
-  //         schema: "public",
-  //         table: "students",
-  //       },
-  //       () => {
-  //         router.refresh();
-  //       },
-  //     )
-  //     .subscribe();
+  useEffect(() => {
+    const channel = supabase
+      .channel("realtime students")
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "attendance_record",
+        },
+        () => {
+          router.refresh();
+        },
+      )
+      .subscribe();
 
-  //   return () => {
-  //     supabase.removeChannel(channel);
-  //   };
-  // }, [supabase, router]);
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [supabase, router]);
 
   return (
     <div className="flex flex-col gap-1">
