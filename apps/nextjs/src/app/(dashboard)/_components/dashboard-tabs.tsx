@@ -21,7 +21,7 @@ import { AttendancePanel } from "../_components/attendance-panel";
 import { LoadingCard } from "../_components/loading-card";
 
 // This code line below means the page will never be cached and the data will always be up to date
-// export const revalidate = 0;
+export const revalidate = 0;
 
 export default function DashboardTabs({
   pools,
@@ -37,6 +37,7 @@ export default function DashboardTabs({
   };
 
   const { date } = useDate();
+
   const formattedDatabaseDate = `${date.getFullYear()}-${String(
     date.getMonth() + 1,
   ).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;

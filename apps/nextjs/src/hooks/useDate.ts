@@ -7,5 +7,11 @@ export interface DateInterface {
 
 export const useDate = create<DateInterface>((set) => ({
   date: new Date(), // Initialize with today's date
-  setDateState: (state: Date) => set({ date: state }),
+  setDateState: (state: Date) => {
+    if (state instanceof Date && !isNaN(state.getTime())) {
+      set({ date: state });
+    } else {
+      console.error("Invalid date:", state);
+    }
+  },
 }));
