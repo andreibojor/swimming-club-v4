@@ -18,23 +18,23 @@ export const AttendanceButton: React.FC = ({ student }) => {
 
   const [isPresent, setIsPresent] = useState(false);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const { data, error } = await supabase
-  //       .from("attendance_record")
-  //       .select("*")
-  //       .eq("student_id", student.id)
-  //       .eq("date", formattedDatabaseDate);
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data, error } = await supabase
+        .from("attendance_record")
+        .select("*")
+        .eq("student_id", student.id)
+        .eq("date", formattedDatabaseDate);
 
-  //     if (!error) {
-  //       setIsPresent(data && data.length > 0);
-  //     } else {
-  //       console.error("Error fetching attendance data:", error);
-  //     }
-  //   };
+      if (!error) {
+        setIsPresent(data && data.length > 0);
+      } else {
+        console.error("Error fetching attendance data:", error);
+      }
+    };
 
-  //   fetchData();
-  // }, [formattedDatabaseDate, student.id, supabase]);
+    fetchData();
+  }, [formattedDatabaseDate, student.id, supabase]);
 
   const handleAttendance = async () => {
     const { data: studentData } = await supabase

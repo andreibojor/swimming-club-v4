@@ -1,8 +1,10 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { CustomCalendar } from "@/components/day-picker";
 import { useDate } from "@/hooks/useDate";
+import type { Database } from "@/types_db";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 import {
   Card,
@@ -35,6 +37,23 @@ export default function DashboardTabs({
   const handleTabChange = (poolValue) => {
     setSelectedPool(poolValue);
   };
+
+  const supabase = createClientComponentClient<Database>();
+  // useEffect(() => {
+  //   const subscription = supabase
+  //     .from("attendance_record")
+  //     .on("*", (payload) => {
+  //       // Update the state with the new data
+  //       setStudentsByPool(payload.new);
+  //     })
+
+  //     .subscribe();
+
+  //   return () => {
+  //     // Remove the subscription when the component unmounts
+  //     subscription.unsubscribe();
+  //   };
+  // }, []);
 
   const { date } = useDate();
 
