@@ -27,18 +27,18 @@ export const revalidate = 0;
 
 export default function DashboardTabs({
   pools,
-  allStudents,
-  allStudentsByPool,
-  studentsAttendances,
+  students,
+  // allStudentsByPool,
+  // studentsAttendances,
 }) {
-  const [studentsByPool, setStudentsByPool] = useState(allStudentsByPool);
+  // const [studentsByPool, setStudentsByPool] = useState(allStudentsByPool);
   const [selectedPool, setSelectedPool] = useState("Cluj-Napoca");
 
   const handleTabChange = (poolValue) => {
     setSelectedPool(poolValue);
   };
 
-  const supabase = createClientComponentClient<Database>();
+  // const supabase = createClientComponentClient<Database>();
   // useEffect(() => {
   //   const subscription = supabase
   //     .from("attendance_record")
@@ -62,11 +62,11 @@ export default function DashboardTabs({
   ).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
 
   // Filter students based on the selected pool
-  const filteredStudents = studentsByPool.filter(
+  const filteredStudents = students.filter(
     (student) => student.pool === selectedPool,
   );
 
-  const totalStudents = filteredStudents.length;
+  // const totalStudents = filteredStudents.length;
   const presentStudents = "";
   const absentStudents = "";
 
@@ -121,7 +121,7 @@ export default function DashboardTabs({
         </Tabs>
       </Card>
 
-      <AllStudentsCard students={allStudents} />
+      <AllStudentsCard students={students} />
       <Suspense
         fallback={
           <LoadingCard

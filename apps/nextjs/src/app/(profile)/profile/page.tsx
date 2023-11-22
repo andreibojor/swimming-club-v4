@@ -133,12 +133,12 @@ export default async function ProfilePage() {
             </CardContent>
           </Card>
           <Card className="w-full md:w-2/3">
-            <CardHeader>
-              <CardTitle>{/* Rick Sanchez */}</CardTitle>
+            {/* <CardHeader>
+              <CardTitle>{ Rick Sanchez }</CardTitle>
               <CardDescription>
-                {/* Anyone with the link can view this document. */}
+                 Anyone with the link can view this document.
               </CardDescription>
-            </CardHeader>
+            </CardHeader> */}
             {/* className="flex flex-col items-center justify-between md:flex-row" */}
             <CardContent>
               {userDetails?.role === "parent" ? (

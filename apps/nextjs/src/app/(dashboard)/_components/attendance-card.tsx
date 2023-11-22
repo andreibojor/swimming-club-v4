@@ -59,7 +59,7 @@ export function AttendanceCard({ student }) {
         <div className="flex items-center space-x-2">
           <Avatar>
             <AvatarImage src={`${student.avatar_url}`} />
-            <AvatarFallback>OM</AvatarFallback>
+            <AvatarFallback>CSC</AvatarFallback>
           </Avatar>
           <div>
             <p className="text-sm font-medium leading-none">

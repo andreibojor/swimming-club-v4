@@ -28,10 +28,10 @@ const pools = [
 
 export default async function DashboardPage() {
   const students = await getStudents();
-  const allStudentsByPool = await getStudentsByPool();
+  // const allStudentsByPool = await getStudentsByPool();
   // TODO: use .reduce to get the right number of students?
-  const studentsAttendances = await getAllAttendances();
-
+  // const studentsAttendances = await getAllAttendances();
+  // console.log(allStudentsByPool);
   return (
     <DashboardShell
       title="Dashboard"
@@ -41,9 +41,9 @@ export default async function DashboardPage() {
         <div className="flex flex-col justify-between gap-5">
           <DashboardTabs
             pools={pools}
-            allStudents={students}
-            allStudentsByPool={allStudentsByPool}
-            studentsAttendances={studentsAttendances}
+            students={students}
+            // allStudentsByPool={allStudentsByPool}
+            // studentsAttendances={studentsAttendances}
           />
           <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
             {marketingFeatures.map((feature) => (
