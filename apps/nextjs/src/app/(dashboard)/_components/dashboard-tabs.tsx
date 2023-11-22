@@ -25,13 +25,7 @@ import { LoadingCard } from "../_components/loading-card";
 // This code line below means the page will never be cached and the data will always be up to date
 export const revalidate = 0;
 
-export default function DashboardTabs({
-  pools,
-  students,
-  // allStudentsByPool,
-  // studentsAttendances,
-}) {
-  // const [studentsByPool, setStudentsByPool] = useState(allStudentsByPool);
+export default function DashboardTabs({ pools, students }) {
   const [selectedPool, setSelectedPool] = useState("Cluj-Napoca");
 
   const handleTabChange = (poolValue) => {

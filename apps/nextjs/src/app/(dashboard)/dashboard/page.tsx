@@ -1,10 +1,5 @@
-import getAllAttendances from "@/actions/getAllAttendances";
-import getAllAttendancesByPoolAndDate from "@/actions/getAllAttendancesByPoolAndDate";
-import getStudentAttendances from "@/actions/getStudentAttendances";
 import getStudents from "@/actions/getStudents";
-import getStudentsByPool from "@/actions/getStudentsByPool";
 import { marketingFeatures } from "@/app/config";
-import { useDate } from "@/hooks/useDate";
 
 import {
   Card,
@@ -28,10 +23,9 @@ const pools = [
 
 export default async function DashboardPage() {
   const students = await getStudents();
-  // const allStudentsByPool = await getStudentsByPool();
+
   // TODO: use .reduce to get the right number of students?
-  // const studentsAttendances = await getAllAttendances();
-  // console.log(allStudentsByPool);
+
   return (
     <DashboardShell
       title="Dashboard"
@@ -39,12 +33,7 @@ export default async function DashboardPage() {
     >
       <div className="flex w-full max-w-screen-lg animate-fade-up flex-col gap-5 p-5 xl:px-0">
         <div className="flex flex-col justify-between gap-5">
-          <DashboardTabs
-            pools={pools}
-            students={students}
-            // allStudentsByPool={allStudentsByPool}
-            // studentsAttendances={studentsAttendances}
-          />
+          <DashboardTabs pools={pools} students={students} />
           <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
             {marketingFeatures.map((feature) => (
               <Card key={feature.title} className={cn("p-2")}>
