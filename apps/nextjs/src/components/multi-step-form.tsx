@@ -97,9 +97,6 @@ export function MultiStepForm({ userDetails }) {
 
   const [isOpenDialog, setIsOpenDialog] = useState(false);
 
-  // Add this state at the beginning of your component
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
   const supabaseClient = useSupabaseClient();
   useEffect(() => {
     userDetails?.completed_registration

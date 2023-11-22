@@ -46,13 +46,16 @@ const ALLOWED_FILE_TYPES = [
 const profileFormSchema = z.object({
   // TODO: https://github.com/shadcn-ui/ui/issues/884
   name: z.string().min(3),
-  phoneNumber: z
-    .string()
-    .min(10)
-    .max(10)
-    .refine((val) => !isNaN(val as unknown as number), {
-      message: "Your phone number contains other characters than digits.",
-    }),
+  // phoneNumber: z
+  //   .string()
+  //   .min(10)
+  //   .max(10)
+  //   .refine((val) => !isNaN(val as unknown as number), {
+  //     message: "Your phone number contains other characters than digits.",
+  //   }),
+  pool: z.string({
+    required_error: "Please select the performance level.",
+  }),
   swimmerLevel: z.string({
     required_error: "Please select the performance level.",
   }),
@@ -78,7 +81,7 @@ const defaultValues: Partial<ProfileFormValues> = {
 export default function AddStudentForm({ userDetails }) {
   const supabase = createClientComponentClient();
   const supabaseClient = useSupabaseClient();
-  console.log(userDetails);
+
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues,
@@ -86,23 +89,24 @@ export default function AddStudentForm({ userDetails }) {
   });
 
   const onSubmit = async (data: ProfileFormValues) => {
-    const { name, phoneNumber, pool, swimmerLevel, medicalCertificate } = data;
+    const { name, pool, swimmerLevel, medicalCertificate } = data;
+    const newStudentId = uuidv4();
 
     const { data: medicalCertificateData } = await supabaseClient.storage
       .from("medical-certificates")
-      .upload(`mc-${userDetails?.id}`, medicalCertificate, {
+      .upload(`mc-${newStudentId}`, medicalCertificate, {
         cacheControl: "3600",
         upsert: false,
       });
 
     const updateStudentPoolAction = await supabase.from("students").insert({
-      id: uuidv4(),
-      parent_id: uuidv4(),
-      name: name,
+      id: newStudentId,
+      full_name: name,
+      parent_id: userDetails.id,
       // phone_number: phoneNumber,
       pool: pool,
-      swimmer_level: swimmerLevel,
-      medical_certificate: medicalCertificate,
+      professional_student: swimmerLevel,
+      medical_certificate_path: medicalCertificateData?.path,
     });
 
     toast({
@@ -180,7 +184,6 @@ export default function AddStudentForm({ userDetails }) {
                   </Select>
                   <FormDescription>
                     You can request your swimming teacher to promote you
-                    <Link href="/examples/forms">email settings</Link>.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -188,6 +191,36 @@ export default function AddStudentForm({ userDetails }) {
             />
 
             <FormField
+              control={form.control}
+              name="pool"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Pool Location</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select the level of your performance" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="Cluj-Napoca">Cluj-Napoca</SelectItem>
+                      <SelectItem value="Dej">Dej</SelectItem>
+                      <SelectItem value="Sancraiu">Sâncraiu</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormDescription>
+                    You can request your swimming teacher to promote you
+                    <Link href="/examples/forms">email settings</Link>.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* <FormField
               control={form.control}
               name="phoneNumber"
               render={({ field }) => (
@@ -200,7 +233,7 @@ export default function AddStudentForm({ userDetails }) {
                   <FormMessage />
                 </FormItem>
               )}
-            />
+            /> */}
 
             <FormField
               control={form.control}

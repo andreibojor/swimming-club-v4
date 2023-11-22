@@ -1,6 +1,7 @@
 import { createServerSupabaseClient } from "@/actions/createServerSupabaseClient";
 import getActiveProductsWithPrices from "@/actions/getActiveProductsWithPrices";
 import getStudentAttendances from "@/actions/getStudentAttendances";
+import getStudentsByParent from "@/actions/getStudentsByParent";
 import getUserDetails from "@/actions/getUserDetails";
 import AttendancePieChart from "@/components/attendance-piechart";
 import { MultiStepForm } from "@/components/multi-step-form";
@@ -86,7 +87,8 @@ export default async function ProfilePage() {
   } = await supabase.auth.getUser();
 
   const userDetails = await getUserDetails(user.id);
-  console.log(userDetails);
+  const studentsByParent = await getStudentsByParent(user.id);
+  console.log(getStudentsByParent);
   const products = await getActiveProductsWithPrices();
   const attendances = await getStudentAttendances();
   const selectedDates = attendances.map((attendance) => attendance.date);
@@ -139,52 +141,40 @@ export default async function ProfilePage() {
             </CardHeader>
             {/* className="flex flex-col items-center justify-between md:flex-row" */}
             <CardContent>
-              <Tabs defaultValue="andrei-bojor" className="space-y-4">
-                <TabsList>
-                  <TabsTrigger value="andrei-bojor">Andrei Bojor</TabsTrigger>
-                  <TabsTrigger value="sergiu-bojor">Sergiu Bojor</TabsTrigger>
-                </TabsList>
-
-                {userDetails?.role === "parent" ? (
+              {userDetails?.role === "parent" ? (
+                <Tabs
+                  defaultValue={studentsByParent[0]?.id}
+                  className="space-y-4 overflow-auto"
+                >
+                  <TabsList>
+                    {studentsByParent?.map((student) => (
+                      <TabsTrigger key={student.id} value={student.id}>
+                        {student.full_name}
+                      </TabsTrigger>
+                    ))}
+                  </TabsList>
                   <AddStudentForm userDetails={userDetails} />
-                ) : (
-                  ""
-                )}
 
-                {/* TAB CONTENT */}
-                <TabsContent value="andrei-bojor" className="space-y-4">
-                  <div className="flex flex-col justify-normal gap-4 md:flex-row md:justify-between">
-                    {/* <AttendancePieChart attendancesLeft={3} /> */}
-                    <Calendar mode="multiple" selected={selectedDates} />
-
-                    {/* <Suspense
-                      fallback={
-                        <LoadingCard
-                          title="Recent Ingestions"
-                          description="Loading recent ingestions..."
-                          className="col-span-7 md:col-span-2 lg:col-span-3"
-                        />
-                      }
-                    ></Suspense> */}
-                  </div>
-                </TabsContent>
-                <TabsContent value="sergiu-bojor" className="space-y-4">
-                  <div className="flex flex-col justify-normal gap-4 md:flex-row md:justify-between">
-                    {/* <AttendancePieChart attendancesLeft={3} /> */}
-                    <Calendar mode="multiple" selected={selectedDates} />
-
-                    {/* <Suspense
-                      fallback={
-                        <LoadingCard
-                          title="Recent Ingestions"
-                          description="Loading recent ingestions..."
-                          className="col-span-7 md:col-span-2 lg:col-span-3"
-                        />
-                      }
-                    ></Suspense> */}
-                  </div>
-                </TabsContent>
-              </Tabs>
+                  {/* TAB CONTENT */}
+                  {studentsByParent?.map((student) => (
+                    <TabsContent
+                      key={student.id}
+                      value={student.id}
+                      className="space-y-4"
+                    >
+                      <div className="flex flex-col justify-normal gap-4 md:flex-row md:justify-between">
+                        {/* <AttendancePieChart attendancesLeft={3} /> */}
+                        <Calendar mode="multiple" selected={selectedDates} />
+                      </div>
+                    </TabsContent>
+                  ))}
+                </Tabs>
+              ) : (
+                <div className="flex flex-col justify-normal gap-4 md:flex-row md:justify-between">
+                  {/* <AttendancePieChart attendancesLeft={3} /> */}
+                  <Calendar mode="multiple" selected={selectedDates} />
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>
