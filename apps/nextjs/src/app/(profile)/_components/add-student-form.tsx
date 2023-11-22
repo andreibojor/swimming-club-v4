@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useForm } from "react-hook-form";
+import { v4 as uuidv4 } from "uuid";
 import * as z from "zod";
 
 import {
@@ -23,6 +25,11 @@ import {
   FormLabel,
   FormMessage,
   Input,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
   toast,
 } from "@acme/ui";
 import * as Icons from "@acme/ui/src/icons";
@@ -46,6 +53,9 @@ const profileFormSchema = z.object({
     .refine((val) => !isNaN(val as unknown as number), {
       message: "Your phone number contains other characters than digits.",
     }),
+  swimmerLevel: z.string({
+    required_error: "Please select the performance level.",
+  }),
   medicalCertificate: z
     .instanceof(Blob, { message: "Medical Certificate is required" })
     .refine(
@@ -66,10 +76,9 @@ const defaultValues: Partial<ProfileFormValues> = {
 };
 
 export default function AddStudentForm({ userDetails }) {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const supabase = createClientComponentClient();
   const supabaseClient = useSupabaseClient();
-
+  console.log(userDetails);
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues,
@@ -77,11 +86,7 @@ export default function AddStudentForm({ userDetails }) {
   });
 
   const onSubmit = async (data: ProfileFormValues) => {
-    const { phoneNumber, medicalCertificate, name } = data;
-
-    const updateUserPhoneAction = await supabase
-      .from("users")
-      .update({ phone: phoneNumber });
+    const { name, phoneNumber, pool, swimmerLevel, medicalCertificate } = data;
 
     const { data: medicalCertificateData } = await supabaseClient.storage
       .from("medical-certificates")
@@ -90,10 +95,15 @@ export default function AddStudentForm({ userDetails }) {
         upsert: false,
       });
 
-    const updateMedicalCertificatePathAction = await supabase
-      .from("students")
-      .update({ medical_certificate_path: medicalCertificateData?.path })
-      .eq("id", userDetails?.id);
+    const updateStudentPoolAction = await supabase.from("students").insert({
+      id: uuidv4(),
+      parent_id: uuidv4(),
+      name: name,
+      // phone_number: phoneNumber,
+      pool: pool,
+      swimmer_level: swimmerLevel,
+      medical_certificate: medicalCertificate,
+    });
 
     toast({
       title: "You submitted the following values:",
@@ -101,9 +111,7 @@ export default function AddStudentForm({ userDetails }) {
         <>
           <h1>user details</h1>
           <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <code className="text-white">
-              {/* {JSON.stringify(userDetails, null, 2)} */}
-            </code>
+            <code className="text-white">{JSON.stringify(data, null, 2)}</code>
           </pre>
           <h1>data</h1>
           <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
@@ -150,6 +158,34 @@ export default function AddStudentForm({ userDetails }) {
                 </FormItem>
               )}
             />
+            <FormField
+              control={form.control}
+              name="swimmerLevel"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Performance Level</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select the level of your performance" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="FALSE">Beginner</SelectItem>
+                      <SelectItem value="TRUE">Advanced</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormDescription>
+                    You can request your swimming teacher to promote you
+                    <Link href="/examples/forms">email settings</Link>.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
             <FormField
               control={form.control}
@@ -178,11 +214,9 @@ export default function AddStudentForm({ userDetails }) {
                       accept=".pdf"
                       placeholder="MedicalCertificate.pdf"
                       // Use event.target.files to access the uploaded file
-                      onChange={(event) => {
-                        const uploadedFile = event.target.files[0];
-                        setSelectedFile(uploadedFile);
-                        // No need to manipulate the file list here
-                        field.onChange(uploadedFile);
+                      onChange={(e) => {
+                        // Update the form state with the selected file
+                        field.onChange(e.target.files?.[0]);
                       }}
                     />
                   </FormControl>

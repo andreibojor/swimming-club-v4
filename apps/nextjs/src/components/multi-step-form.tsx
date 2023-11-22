@@ -255,7 +255,7 @@ export function MultiStepForm({ userDetails }) {
                     <FormItem>
                       <FormLabel>Phone</FormLabel>
                       <FormControl>
-                        <Input placeholder="0751 123 456" {...field} />
+                        <Input placeholder="0751123456" {...field} />
                       </FormControl>
                       {/* <FormDescription>
                         This is your public display name. It can be your real

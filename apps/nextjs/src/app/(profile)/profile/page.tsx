@@ -86,7 +86,7 @@ export default async function ProfilePage() {
   } = await supabase.auth.getUser();
 
   const userDetails = await getUserDetails(user.id);
-
+  console.log(userDetails);
   const products = await getActiveProductsWithPrices();
   const attendances = await getStudentAttendances();
   const selectedDates = attendances.map((attendance) => attendance.date);
@@ -145,7 +145,11 @@ export default async function ProfilePage() {
                   <TabsTrigger value="sergiu-bojor">Sergiu Bojor</TabsTrigger>
                 </TabsList>
 
-                {/* {userDetails?.user.role === "parent" ? <AddStudentForm /> : ""} */}
+                {userDetails?.role === "parent" ? (
+                  <AddStudentForm userDetails={userDetails} />
+                ) : (
+                  ""
+                )}
 
                 {/* TAB CONTENT */}
                 <TabsContent value="andrei-bojor" className="space-y-4">

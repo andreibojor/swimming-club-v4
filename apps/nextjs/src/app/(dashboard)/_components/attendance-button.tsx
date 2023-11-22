@@ -9,7 +9,6 @@ import { Button } from "@acme/ui";
 import * as Icons from "@acme/ui/src/icons";
 
 export const AttendanceButton: React.FC = ({ student }) => {
-  console.log(student);
   const supabase = createClientComponentClient<Database>();
   const { date } = useDate();
   const formattedDatabaseDate = `${date.getFullYear()}-${String(
