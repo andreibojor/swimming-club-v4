@@ -3,17 +3,20 @@ import type { AttendanceRecord } from "@/types";
 import { createServerSupabaseClient } from "./createServerSupabaseClient";
 
 // TODO: Is this how am I gonna get attendances for a user?
-const getStudentAttendances = async (): Promise<AttendanceRecord[]> => {
+const getStudentAttendances = async (
+  studentId,
+): Promise<AttendanceRecord[]> => {
   const supabase = createServerSupabaseClient();
 
   const {
     data: { session },
   } = await supabase.auth.getSession();
+  console.log(session);
 
   const { data } = await supabase
     .from("attendance_record")
     .select("*")
-    .eq("student_id", session?.user?.id);
+    .eq("student_id", studentId);
 
   if (!data) return [];
 

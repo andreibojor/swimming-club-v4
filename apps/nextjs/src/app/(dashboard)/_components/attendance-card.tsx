@@ -32,6 +32,14 @@ export function AttendanceCard({ student }) {
   const supabase = createClientComponentClient<Database>();
   const router = useRouter();
 
+  const getInitials = (name) => {
+    const initials = name
+      .split(" ")
+      .map((n) => n[0])
+      .join("");
+    return initials;
+  };
+
   useEffect(() => {
     const channel = supabase
       .channel("realtime students")
@@ -59,7 +67,9 @@ export function AttendanceCard({ student }) {
         <div className="flex items-center space-x-2">
           <Avatar>
             <AvatarImage src={`${student.avatar_url}`} />
-            <AvatarFallback>CSC</AvatarFallback>
+            <AvatarFallback>
+              {() => getInitials(student.full_name)}
+            </AvatarFallback>
           </Avatar>
           <div>
             <p className="text-sm font-medium leading-none">

@@ -85,13 +85,15 @@ export default async function ProfilePage() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-
   const userDetails = await getUserDetails(user.id);
   const studentsByParent = await getStudentsByParent(user.id);
-  console.log(getStudentsByParent);
   const products = await getActiveProductsWithPrices();
-  const attendances = await getStudentAttendances();
-  const selectedDates = attendances.map((attendance) => attendance.date);
+  // const attendances = await getStudentAttendances(user.id);
+
+  // const selectedDates = attendances.map((attendance) => attendance.date);
+
+  // const attendances = await getStudentAttendances(user.id);
+  // const dates = attendances.map((attendance) => attendance.date);
 
   return (
     <>
@@ -164,7 +166,7 @@ export default async function ProfilePage() {
                     >
                       <div className="flex flex-col justify-normal gap-4 md:flex-row md:justify-between">
                         {/* <AttendancePieChart attendancesLeft={3} /> */}
-                        <Calendar mode="multiple" selected={selectedDates} />
+                        {/* <Calendar mode="multiple" selected={selectedDates} /> */}
                       </div>
                     </TabsContent>
                   ))}
@@ -172,7 +174,7 @@ export default async function ProfilePage() {
               ) : (
                 <div className="flex flex-col justify-normal gap-4 md:flex-row md:justify-between">
                   {/* <AttendancePieChart attendancesLeft={3} /> */}
-                  <Calendar mode="multiple" selected={selectedDates} />
+                  {/* <Calendar mode="multiple" selected={selectedDates} /> */}
                 </div>
               )}
             </CardContent>
