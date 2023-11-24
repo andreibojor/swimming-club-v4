@@ -146,13 +146,17 @@ export default async function ProfilePage({
             </CardHeader> */}
             {/* className="flex flex-col items-center justify-between md:flex-row" */}
             <CardContent>
+              <Link href={`?student=${userDetails?.id}`}>
+                {userDetails?.full_name}
+              </Link>
               {studentsByParent?.map((student) => (
                 <Link key={student.id} href={`?student=${student.id}`}>
                   {student.full_name}
                 </Link>
               ))}
+              <AddStudentForm userDetails={userDetails} />
               <Calendar mode="multiple" selected={dates} />
-              {userDetails?.role === "parent" ? (
+              {/* {userDetails?.role === "parent" ? (
                 <Tabs
                   defaultValue={studentsByParent[0]?.id}
                   className="space-y-4 overflow-auto"
@@ -164,9 +168,9 @@ export default async function ProfilePage({
                       </TabsTrigger>
                     ))}
                   </TabsList>
-                  <AddStudentForm userDetails={userDetails} />
+                
 
-                  {/* TAB CONTENT */}
+        
                   {studentsByParent?.map((student) => (
                     <TabsContent
                       key={student.id}
@@ -174,7 +178,7 @@ export default async function ProfilePage({
                       className="space-y-4"
                     >
                       <div className="flex flex-col justify-normal gap-4 md:flex-row md:justify-between">
-                        {/* <AttendancePieChart attendancesLeft={3} /> */}
+                        <AttendancePieChart attendancesLeft={3} />
                         <Calendar mode="multiple" selected={dates} />
                       </div>
                     </TabsContent>
@@ -182,10 +186,10 @@ export default async function ProfilePage({
                 </Tabs>
               ) : (
                 <div className="flex flex-col justify-normal gap-4 md:flex-row md:justify-between">
-                  {/* <AttendancePieChart attendancesLeft={3} /> */}
-                  {/* <Calendar mode="multiple" selected={selectedDates} /> */}
+                  <AttendancePieChart attendancesLeft={3} />
+                  <Calendar mode="multiple" selected={selectedDates} />
                 </div>
-              )}
+              )} */}
             </CardContent>
           </Card>
         </div>
