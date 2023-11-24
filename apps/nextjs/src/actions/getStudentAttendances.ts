@@ -8,11 +8,6 @@ const getStudentAttendances = async (
 ): Promise<AttendanceRecord[]> => {
   const supabase = createServerSupabaseClient();
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-  console.log(session);
-
   const { data } = await supabase
     .from("attendance_record")
     .select("*")

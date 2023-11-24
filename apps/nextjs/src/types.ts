@@ -41,6 +41,7 @@ export interface ProductWithPrice extends Product {
 
 export interface Student {
   id: string;
+  full_name?: string;
   pool?: string;
   lessons_left?: number;
   professional_student?: boolean;

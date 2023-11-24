@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createServerSupabaseClient } from "@/actions/createServerSupabaseClient";
 import getActiveProductsWithPrices from "@/actions/getActiveProductsWithPrices";
 import getStudentAttendances from "@/actions/getStudentAttendances";
@@ -80,20 +81,22 @@ const invoices = [
   },
 ];
 
-export default async function ProfilePage() {
+export default async function ProfilePage({
+  searchParams,
+}: Record<string, string | string[] | undefined>) {
   const supabase = createServerSupabaseClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
+  const studentId = searchParams.student || `${user.id}`;
+
   const userDetails = await getUserDetails(user.id);
   const studentsByParent = await getStudentsByParent(user.id);
   const products = await getActiveProductsWithPrices();
-  // const attendances = await getStudentAttendances(user.id);
+  const attendances = await getStudentAttendances(studentId);
 
-  // const selectedDates = attendances.map((attendance) => attendance.date);
-
-  // const attendances = await getStudentAttendances(user.id);
-  // const dates = attendances.map((attendance) => attendance.date);
+  const dates = attendances.map((attendance) => attendance.date);
 
   return (
     <>
@@ -143,6 +146,12 @@ export default async function ProfilePage() {
             </CardHeader> */}
             {/* className="flex flex-col items-center justify-between md:flex-row" */}
             <CardContent>
+              {studentsByParent?.map((student) => (
+                <Link key={student.id} href={`?student=${student.id}`}>
+                  {student.full_name}
+                </Link>
+              ))}
+              <Calendar mode="multiple" selected={dates} />
               {userDetails?.role === "parent" ? (
                 <Tabs
                   defaultValue={studentsByParent[0]?.id}
@@ -166,7 +175,7 @@ export default async function ProfilePage() {
                     >
                       <div className="flex flex-col justify-normal gap-4 md:flex-row md:justify-between">
                         {/* <AttendancePieChart attendancesLeft={3} /> */}
-                        {/* <Calendar mode="multiple" selected={selectedDates} /> */}
+                        <Calendar mode="multiple" selected={dates} />
                       </div>
                     </TabsContent>
                   ))}
