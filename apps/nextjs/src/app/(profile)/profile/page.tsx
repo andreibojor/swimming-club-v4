@@ -104,7 +104,7 @@ export default async function ProfilePage({
         <SubscribeButton products={products} />
         <div className="flex flex-col justify-between gap-5 md:flex-row">
           <Card className="w-full md:w-1/3">
-            <CardHeader>
+            <CardHeader className="pb-0">
               <Avatar className="h-[80px] w-[80px]">
                 <AvatarImage
                   src={`${userDetails?.avatar_url}`}
@@ -125,13 +125,13 @@ export default async function ProfilePage({
                     Phone: {`${userDetails?.phone}`}
                   </p>
                   <p className="text-sm font-medium leading-none">
-                    {/* Pool: {userDetails?.pool} */}
+                    Pool: {userDetails?.pool}
                   </p>
                   <p className="text-sm font-medium leading-none">
                     Role: {userDetails?.role}
                   </p>
                   <p className="text-sm font-medium leading-none">
-                    {/* Status: {userDetails?.active ? `Active` : `Inactive`} */}
+                    Status: {userDetails?.active ? `Active` : `Inactive`}
                   </p>
                 </div>
               </div>
@@ -146,15 +146,28 @@ export default async function ProfilePage({
             </CardHeader> */}
             {/* className="flex flex-col items-center justify-between md:flex-row" */}
             <CardContent>
-              <Link href={`?student=${userDetails?.id}`}>
-                {userDetails?.full_name}
-              </Link>
-              {studentsByParent?.map((student) => (
-                <Link key={student.id} href={`?student=${student.id}`}>
-                  {student.full_name}
-                </Link>
-              ))}
-              <AddStudentForm userDetails={userDetails} />
+              {userDetails?.role === "parent" && (
+                <div className="flex">
+                  <Link
+                    href={`?student=${userDetails?.id}`}
+                    className="block rounded-lg border px-4 py-2"
+                  >
+                    {userDetails?.full_name}
+                  </Link>
+                  <div className="flex">
+                    {studentsByParent?.map((student) => (
+                      <Link
+                        key={student.id}
+                        href={`?student=${student.id}`}
+                        className="block rounded-lg border px-4 py-2"
+                      >
+                        {student.full_name}
+                      </Link>
+                    ))}
+                  </div>
+                  <AddStudentForm userDetails={userDetails} />
+                </div>
+              )}
               <Calendar mode="multiple" selected={dates} />
               {/* {userDetails?.role === "parent" ? (
                 <Tabs
@@ -164,13 +177,17 @@ export default async function ProfilePage({
                   <TabsList>
                     {studentsByParent?.map((student) => (
                       <TabsTrigger key={student.id} value={student.id}>
-                        {student.full_name}
+                        <Link
+                          key={student.id}
+                          href={`?student=${student.id}`}
+                          // className="mx-2 block border border-red-700 px-4 py-2"
+                        >
+                          {student.full_name}
+                        </Link>
                       </TabsTrigger>
                     ))}
                   </TabsList>
-                
 
-        
                   {studentsByParent?.map((student) => (
                     <TabsContent
                       key={student.id}
