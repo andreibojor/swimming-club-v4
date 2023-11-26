@@ -93,6 +93,9 @@ export default async function ProfilePage({
 
   const userDetails = await getUserDetails(user.id);
   const studentsByParent = await getStudentsByParent(user.id);
+  const sortedStudentsByParent = studentsByParent.sort((a, b) =>
+    a.full_name.localeCompare(b.full_name),
+  );
   const products = await getActiveProductsWithPrices();
   const attendances = await getStudentAttendances(studentId);
 
@@ -141,7 +144,7 @@ export default async function ProfilePage({
             {userDetails?.role === "parent" && (
               <CardContent>
                 <Tabs
-                  defaultValue={studentsByParent[0]?.id}
+                  defaultValue={sortedStudentsByParent[0]?.id}
                   className="space-y-4 overflow-auto"
                 >
                   <TabsList>
@@ -154,7 +157,7 @@ export default async function ProfilePage({
                         {userDetails?.full_name}
                       </Link>
                     </TabsTrigger>
-                    {studentsByParent?.map((student) => (
+                    {sortedStudentsByParent?.map((student) => (
                       <TabsTrigger key={student.id} value={student.id}>
                         <Link
                           key={student.id}
