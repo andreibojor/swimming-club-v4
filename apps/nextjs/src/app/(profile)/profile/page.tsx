@@ -138,13 +138,6 @@ export default async function ProfilePage({
             </CardContent>
           </Card>
           <Card className="w-full pt-6 md:w-2/3">
-            {/* <CardHeader>
-              <CardTitle>Rick Sanchez</CardTitle>
-              <CardDescription>
-                Anyone with the link can view this document.
-              </CardDescription>
-            </CardHeader> */}
-            {/* className="flex flex-col items-center justify-between md:flex-row" */}
             {userDetails?.role === "parent" && (
               <CardContent>
                 <Tabs
@@ -179,6 +172,15 @@ export default async function ProfilePage({
                     <Calendar mode="multiple" selected={dates} />
                   </div>
                 </Tabs>
+              </CardContent>
+            )}
+
+            {userDetails?.role === "student" && (
+              <CardContent>
+                <div className="flex flex-col justify-normal gap-4 md:flex-row md:justify-between">
+                  <AttendancePieChart attendancesLeft={3} />
+                  <Calendar mode="multiple" selected={dates} />
+                </div>
               </CardContent>
             )}
           </Card>

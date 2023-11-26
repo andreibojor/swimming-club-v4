@@ -37,6 +37,7 @@ export function AttendanceCard({ student }) {
       .split(" ")
       .map((n) => n[0])
       .join("");
+
     return initials;
   };
 
@@ -67,9 +68,7 @@ export function AttendanceCard({ student }) {
         <div className="flex items-center space-x-2">
           <Avatar>
             <AvatarImage src={`${student.avatar_url}`} />
-            <AvatarFallback>
-              {() => getInitials(student.full_name)}
-            </AvatarFallback>
+            <AvatarFallback>{getInitials(student.full_name)}</AvatarFallback>
           </Avatar>
           <div>
             <p className="text-sm font-medium leading-none">
