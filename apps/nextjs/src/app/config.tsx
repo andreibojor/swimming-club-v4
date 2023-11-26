@@ -4,11 +4,12 @@ import { Component, CreditCard, Globe } from "lucide-react";
 import * as Icons from "@acme/ui/src/icons";
 
 export const siteConfig = {
-  name: "Acme Corp",
-  description:
-    "Next.js starter kit that includes everything you need to build a modern web application. Mobile application preconfigured, ready to go.",
+  name: "Swimming Club",
+  description: "Lectii de inot in Dej, Cluj-Napoca, Sancraiu",
   github: "https://github.com/juliusmarminge/acme-corp",
   twitter: "https://twitter.com/jullerino",
+  facebook: "https://www.facebook.com/julius.marminge",
+  instagram: "https://www.instagram.com/juliusmarminge/",
 };
 
 export const navItems = [

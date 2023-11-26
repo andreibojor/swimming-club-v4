@@ -60,6 +60,9 @@ export default function DashboardTabs({ pools, students }) {
     (student) => student.pool === selectedPool,
   );
 
+  const sortedStudents = filteredStudents.sort((a, b) =>
+    a.full_name.localeCompare(b.full_name),
+  );
   // const totalStudents = filteredStudents.length;
   const presentStudents = "";
   const absentStudents = "";
@@ -108,7 +111,7 @@ export default function DashboardTabs({ pools, students }) {
                     </div>
                   </div> */}
                 </div>
-                <AttendancePanel students={filteredStudents} />
+                <AttendancePanel students={sortedStudents} />
               </TabsContent>
             ))}
           </CardContent>

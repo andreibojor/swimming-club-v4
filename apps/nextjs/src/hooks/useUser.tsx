@@ -39,7 +39,7 @@ export const MyUserContextProvider = (props: Props) => {
       .from("subscriptions")
       .select("*, prices(*, products(*))")
       .in("status", ["trialing", "active"])
-      .single();
+      .eq("id", session?.user.id);
 
   useEffect(() => {
     if (user && !isLoadingData && !userDetails && !subscription) {
@@ -82,72 +82,3 @@ export const useUser = () => {
   }
   return context;
 };
-
-// USE USER WITHOUT SUBSCRIPTION
-// interface UserContextType {
-//   accessToken: string | null;
-//   user: User | null;
-//   userDetails: UserDetails | null;
-//   isLoading: boolean;
-// }
-
-// export const UserContext = createContext<UserContextType | undefined>(
-//   undefined,
-// );
-
-// export type Props = Record<string, any>;
-
-// export const MyUserContextProvider = (props: Props) => {
-//   const {
-//     session,
-//     isLoading: isLoadingUser,
-//     supabaseClient: supabase,
-//   } = useSessionContext();
-//   const user = useSupaUser();
-//   const accessToken = session?.access_token ?? null;
-//   const [isLoadingData, setIsloadingData] = useState(false);
-//   const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
-
-//   const getUserDetails = (userId) =>
-//     supabase.from("users").select("*").eq("id", userId).single();
-
-//   useEffect(() => {
-//     if (user && !isLoadingData && !userDetails) {
-//       setIsloadingData(true);
-//       // eslint-disable-next-line @typescript-eslint/no-floating-promises
-//       Promise.allSettled([getUserDetails(user.id)]).then((results) => {
-//         const userDetailsPromise = results[0];
-
-//         if (userDetailsPromise.status === "fulfilled") {
-//           setUserDetails(userDetailsPromise.value.data as UserDetails);
-//         } else if (userDetailsPromise.status === "rejected") {
-//           console.error(
-//             "Error fetching user details:",
-//             userDetailsPromise.reason,
-//           );
-//         }
-
-//         setIsloadingData(false);
-//       });
-//     } else if (!user && !isLoadingUser && !isLoadingData) {
-//       setUserDetails(null);
-//     }
-//   }, [user, isLoadingUser]);
-
-//   const value = {
-//     accessToken,
-//     user,
-//     userDetails,
-//     isLoading: isLoadingUser || isLoadingData,
-//   };
-
-//   return <UserContext.Provider value={value} {...props} />;
-// };
-
-// export const useUser = () => {
-//   const context = useContext(UserContext);
-//   if (context === undefined) {
-//     throw new Error(`useUser must be used within a MyUserContextProvider.`);
-//   }
-//   return context;
-// };

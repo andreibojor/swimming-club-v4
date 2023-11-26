@@ -6,6 +6,7 @@ import { useUser } from "@/hooks/useUser";
 import { postData } from "@/libs/helpers";
 import { getStripe } from "@/libs/stripeClient";
 import type { Price, ProductWithPrice } from "@/types";
+import { BounceLoader } from "react-spinners";
 
 // import { toast } from "react-hot-toast";
 
@@ -13,6 +14,7 @@ import { Button } from "@acme/ui";
 
 interface SubscribeModalProps {
   products: ProductWithPrice[];
+  professionalStudent: boolean | undefined;
 }
 
 const formatPrice = (price: Price) => {
@@ -25,10 +27,14 @@ const formatPrice = (price: Price) => {
   return priceString;
 };
 
-const SubscribeButton: React.FC<SubscribeModalProps> = ({ products }) => {
+const SubscribeButton: React.FC<SubscribeModalProps> = ({
+  products,
+  professionalStudent,
+}) => {
   const subscribeModal = useSubscribeModal();
   const { user, isLoading, subscription } = useUser();
-
+  console.log(subscription);
+  console.log(user);
   const [priceIdLoading, setPriceIdLoading] = useState<string>();
 
   const handleCheckout = async (price: Price) => {
@@ -48,25 +54,45 @@ const SubscribeButton: React.FC<SubscribeModalProps> = ({ products }) => {
       setPriceIdLoading(undefined);
     }
   };
-  // console.log(products);
+
   return (
     <>
       <div>
-        {products.map((product) => {
+        <BounceLoader color="#22c55e" size={40} />
+        {products.map((product, index) => {
           if (!product.prices?.length) {
             return <div key={product.id}>No prices available</div>;
           }
 
-          return product.prices.map((price) => (
-            <Button
-              key={price.id}
-              onClick={() => handleCheckout(price)}
-              disabled={isLoading || price.id === priceIdLoading}
-              className="mb-4"
-            >
-              {`Subscribe for ${formatPrice(price)} a ${price.interval}`}
-            </Button>
-          ));
+          if (professionalStudent === false && index === 0) {
+            const price = product.prices[0];
+            return (
+              <Button
+                key={price.id}
+                onClick={() => handleCheckout(price)}
+                disabled={isLoading || price.id === priceIdLoading}
+                className="mb-4"
+              >
+                {`Subscribe for ${formatPrice(price)} a ${price.interval}`}
+              </Button>
+            );
+          }
+
+          if (professionalStudent === true && index === 1) {
+            const price = product.prices[0];
+            return (
+              <Button
+                key={price.id}
+                onClick={() => handleCheckout(price)}
+                disabled={isLoading || price.id === priceIdLoading}
+                className="mb-4"
+              >
+                {`Subscribe ${formatPrice(price)} a ${price.interval}`}
+              </Button>
+            );
+          }
+
+          return null;
         })}
       </div>
     </>

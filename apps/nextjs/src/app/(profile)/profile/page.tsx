@@ -101,7 +101,6 @@ export default async function ProfilePage({
   return (
     <>
       <div className="flex w-full max-w-screen-lg animate-fade-up flex-col gap-5 p-5 xl:px-0">
-        <SubscribeButton products={products} />
         <div className="flex flex-col justify-between gap-5 md:flex-row">
           <Card className="w-full md:w-1/3">
             <CardHeader className="pb-0">
@@ -133,81 +132,55 @@ export default async function ProfilePage({
                   <p className="text-sm font-medium leading-none">
                     Status: {userDetails?.active ? `Active` : `Inactive`}
                   </p>
+                  <AddStudentForm userDetails={userDetails} />
                 </div>
               </div>
             </CardContent>
           </Card>
-          <Card className="w-full md:w-2/3">
+          <Card className="w-full pt-6 md:w-2/3">
             {/* <CardHeader>
-              <CardTitle>{ Rick Sanchez }</CardTitle>
+              <CardTitle>Rick Sanchez</CardTitle>
               <CardDescription>
-                 Anyone with the link can view this document.
+                Anyone with the link can view this document.
               </CardDescription>
             </CardHeader> */}
             {/* className="flex flex-col items-center justify-between md:flex-row" */}
-            <CardContent>
-              {userDetails?.role === "parent" && (
-                <div className="flex">
-                  <Link
-                    href={`?student=${userDetails?.id}`}
-                    className="block rounded-lg border px-4 py-2"
-                  >
-                    {userDetails?.full_name}
-                  </Link>
-                  <div className="flex">
-                    {studentsByParent?.map((student) => (
-                      <Link
-                        key={student.id}
-                        href={`?student=${student.id}`}
-                        className="block rounded-lg border px-4 py-2"
-                      >
-                        {student.full_name}
-                      </Link>
-                    ))}
-                  </div>
-                  <AddStudentForm userDetails={userDetails} />
-                </div>
-              )}
-              <Calendar mode="multiple" selected={dates} />
-              {/* {userDetails?.role === "parent" ? (
+            {userDetails?.role === "parent" && (
+              <CardContent>
                 <Tabs
                   defaultValue={studentsByParent[0]?.id}
                   className="space-y-4 overflow-auto"
                 >
                   <TabsList>
+                    <TabsTrigger value={userDetails?.id}>
+                      <Link
+                        className="h-full w-full"
+                        scroll={false}
+                        href={`?student=${userDetails?.id}`}
+                      >
+                        {userDetails?.full_name}
+                      </Link>
+                    </TabsTrigger>
                     {studentsByParent?.map((student) => (
                       <TabsTrigger key={student.id} value={student.id}>
                         <Link
                           key={student.id}
+                          className="h-full w-full"
+                          scroll={false}
                           href={`?student=${student.id}`}
-                          // className="mx-2 block border border-red-700 px-4 py-2"
                         >
                           {student.full_name}
                         </Link>
                       </TabsTrigger>
                     ))}
                   </TabsList>
-
-                  {studentsByParent?.map((student) => (
-                    <TabsContent
-                      key={student.id}
-                      value={student.id}
-                      className="space-y-4"
-                    >
-                      <div className="flex flex-col justify-normal gap-4 md:flex-row md:justify-between">
-                        <AttendancePieChart attendancesLeft={3} />
-                        <Calendar mode="multiple" selected={dates} />
-                      </div>
-                    </TabsContent>
-                  ))}
+                  <div className="flex flex-col justify-normal gap-4 md:flex-row md:justify-between">
+                    <AttendancePieChart attendancesLeft={3} />
+                    <Calendar mode="multiple" selected={dates} />
+                  </div>
                 </Tabs>
-              ) : (
-                <div className="flex flex-col justify-normal gap-4 md:flex-row md:justify-between">
-                  <AttendancePieChart attendancesLeft={3} />
-                  <Calendar mode="multiple" selected={selectedDates} />
-                </div>
-              )} */}
-            </CardContent>
+              </CardContent>
+            )}
           </Card>
         </div>
         <div className="flex justify-between gap-0 md:gap-5">
