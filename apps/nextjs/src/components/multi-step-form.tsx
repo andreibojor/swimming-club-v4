@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useUser } from "@/hooks/useUser";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
@@ -98,6 +99,7 @@ export function MultiStepForm({ userDetails }) {
   const [isOpenDialog, setIsOpenDialog] = useState(false);
 
   const supabaseClient = useSupabaseClient();
+
   useEffect(() => {
     userDetails?.completed_registration
       ? setIsOpenDialog(false)

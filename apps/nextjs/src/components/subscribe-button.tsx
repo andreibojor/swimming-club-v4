@@ -34,8 +34,7 @@ const SubscribeButton: React.FC<SubscribeModalProps> = ({
 }) => {
   const subscribeModal = useSubscribeModal();
   const { user, isLoading, subscription } = useUser();
-  console.log(subscription);
-  console.log(user);
+
   const [priceIdLoading, setPriceIdLoading] = useState<string>();
 
   const { studentId, setStudentIdState }: StudentIdInterface = useStudentId();

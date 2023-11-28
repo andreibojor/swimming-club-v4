@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
@@ -82,6 +83,8 @@ export default function AddStudentForm({ userDetails }) {
   const supabase = createClientComponentClient();
   const supabaseClient = useSupabaseClient();
 
+  const router = useRouter();
+
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues,
@@ -124,6 +127,8 @@ export default function AddStudentForm({ userDetails }) {
         </>
       ),
     });
+
+    router.refresh();
   };
 
   return (
