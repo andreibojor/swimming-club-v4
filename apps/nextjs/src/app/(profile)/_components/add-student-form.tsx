@@ -80,6 +80,8 @@ const defaultValues: Partial<ProfileFormValues> = {
 };
 
 export default function AddStudentForm({ userDetails }) {
+  const [isOpenDialog, setIsOpenDialog] = useState(false);
+
   const supabase = createClientComponentClient();
   const supabaseClient = useSupabaseClient();
 
@@ -127,12 +129,15 @@ export default function AddStudentForm({ userDetails }) {
         </>
       ),
     });
-
+    setIsOpenDialog(false);
     router.refresh();
   };
 
   return (
-    <Dialog>
+    <Dialog
+      open={isOpenDialog}
+      onOpenChange={() => setIsOpenDialog(!isOpenDialog)}
+    >
       <DialogTrigger asChild>
         <Button
           variant="default"
