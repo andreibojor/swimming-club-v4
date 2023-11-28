@@ -106,6 +106,8 @@ export function MultiStepForm({ userDetails }) {
       : setIsOpenDialog(true);
   }, []);
 
+  const router = useRouter();
+
   const onSubmit = async (data: ProfileFormValues) => {
     const {
       phoneNumber,
@@ -174,6 +176,8 @@ export function MultiStepForm({ userDetails }) {
         </>
       ),
     });
+
+    router.refresh();
   };
 
   return (
