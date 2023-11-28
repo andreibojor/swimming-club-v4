@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useStudentId, type StudentIdInterface } from "@/hooks/useStudentId";
 import useSubscribeModal from "@/hooks/useSubscribeModal";
 import { useUser } from "@/hooks/useUser";
 import { postData } from "@/libs/helpers";
@@ -37,6 +38,8 @@ const SubscribeButton: React.FC<SubscribeModalProps> = ({
   console.log(user);
   const [priceIdLoading, setPriceIdLoading] = useState<string>();
 
+  const { studentId, setStudentIdState }: StudentIdInterface = useStudentId();
+
   const handleCheckout = async (price: Price) => {
     setPriceIdLoading(price.id);
 
@@ -58,7 +61,7 @@ const SubscribeButton: React.FC<SubscribeModalProps> = ({
   return (
     <>
       <div>
-        <BounceLoader color="#22c55e" size={40} />
+        {/* <BounceLoader color="#22c55e" size={40} /> */}
         {products.map((product, index) => {
           if (!product.prices?.length) {
             return <div key={product.id}>No prices available</div>;

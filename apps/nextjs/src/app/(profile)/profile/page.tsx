@@ -35,6 +35,7 @@ import {
 } from "@acme/ui";
 
 import AddStudentForm from "../_components/add-student-form";
+import StudentPanel from "../_components/student-panel";
 
 const invoices = [
   {
@@ -143,6 +144,28 @@ export default async function ProfilePage({
           <Card className="w-full pt-6 md:w-2/3">
             {userDetails?.role === "parent" && (
               <CardContent>
+                <StudentPanel
+                  userDetails={userDetails}
+                  sortedStudentsByParent={sortedStudentsByParent}
+                  dates={dates}
+                  products={products}
+                />
+              </CardContent>
+            )}
+
+            {userDetails?.role === "student" && (
+              <CardContent>
+                <div className="flex flex-col justify-normal gap-4 md:flex-row md:justify-between">
+                  <AttendancePieChart attendancesLeft={3} />
+                  <Calendar mode="multiple" selected={dates} />
+                </div>
+              </CardContent>
+            )}
+          </Card>
+
+          {/* <Card className="w-full pt-6 md:w-2/3">
+            {userDetails?.role === "parent" && (
+              <CardContent>
                 <Tabs
                   defaultValue={sortedStudentsByParent[0]?.id}
                   className="space-y-4 overflow-auto"
@@ -158,20 +181,27 @@ export default async function ProfilePage({
                       </Link>
                     </TabsTrigger>
                     {sortedStudentsByParent?.map((student) => (
-                      <TabsTrigger key={student.id} value={student.id}>
-                        <Link
-                          key={student.id}
-                          className="h-full w-full"
-                          scroll={false}
-                          href={`?student=${student.id}`}
-                        >
-                          {student.full_name}
-                        </Link>
-                      </TabsTrigger>
+                      <div key={student.id}>
+                        <TabsTrigger key={student.id} value={student.id}>
+                          <Link
+                            key={student.id}
+                            className="h-full w-full"
+                            scroll={false}
+                            href={`?student=${student.id}`}
+                          >
+                            {student.full_name}
+                          </Link>
+                        </TabsTrigger>
+                      </div>
                     ))}
                   </TabsList>
+
                   <div className="flex flex-col justify-normal gap-4 md:flex-row md:justify-between">
                     <AttendancePieChart attendancesLeft={3} />
+                    <SubscribeButton
+                      products={products}
+                      professionalStudent={false}
+                    />
                     <Calendar mode="multiple" selected={dates} />
                   </div>
                 </Tabs>
@@ -186,7 +216,7 @@ export default async function ProfilePage({
                 </div>
               </CardContent>
             )}
-          </Card>
+          </Card> */}
         </div>
         <div className="flex justify-between gap-0 md:gap-5">
           <div className="none md:w-1/3"></div>
