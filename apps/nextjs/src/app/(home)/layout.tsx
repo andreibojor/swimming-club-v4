@@ -18,13 +18,13 @@ export default async function HomeLayout(props: { children: ReactNode }) {
 
   const {
     data: { session },
-  } = supabase.auth.getSession();
+  } = await supabase.auth.getSession();
 
   let userDetails, userRole;
 
   // // Only call getUserDetails if session exists
   if (session) {
-    userDetails = getUserDetails(session.user.id);
+    userDetails = await getUserDetails(session.user.id);
     // Check if userDetails and userDetails.user are defined before trying to access role
     if (userDetails?.user) {
       userRole = userDetails.user.role;
