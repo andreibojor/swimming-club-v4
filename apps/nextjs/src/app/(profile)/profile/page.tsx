@@ -90,10 +90,10 @@ export default async function ProfilePage({
     data: { user },
   } = await supabase.auth.getUser();
 
-  const studentId = searchParams.student || `${user.id}`;
+  const studentId = searchParams.student || `${user?.id}`;
 
-  const userDetails = await getUserDetails(user.id);
-  const studentsByParent = await getStudentsByParent(user.id);
+  const userDetails = await getUserDetails(user?.id);
+  const studentsByParent = await getStudentsByParent(user?.id);
   const sortedStudentsByParent = studentsByParent.sort((a, b) =>
     a.full_name.localeCompare(b.full_name),
   );
