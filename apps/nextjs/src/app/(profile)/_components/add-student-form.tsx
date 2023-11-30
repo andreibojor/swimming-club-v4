@@ -129,6 +129,7 @@ export default function AddStudentForm({ userDetails }) {
         </>
       ),
     });
+
     setIsOpenDialog(false);
     router.refresh();
   };

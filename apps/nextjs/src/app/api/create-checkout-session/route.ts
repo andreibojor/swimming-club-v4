@@ -6,7 +6,12 @@ import { createOrRetrieveCustomer } from "@/libs/supabaseAdmin";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 
 export async function POST(request: Request) {
-  const { price, quantity = 1, metadata = {} } = await request.json();
+  const {
+    price,
+    quantity = 1,
+    metadata = {},
+    studentId,
+  } = await request.json();
 
   try {
     const supabase = createRouteHandlerClient({
@@ -35,7 +40,10 @@ export async function POST(request: Request) {
       allow_promotion_codes: true,
       subscription_data: {
         trial_from_plan: true,
-        metadata,
+        metadata: {
+          ...metadata,
+          studentId, // Add studentId to the metadata
+        },
       },
       success_url: `${getURL()}/profile`,
       cancel_url: `${getURL()}/`,

@@ -45,7 +45,7 @@ const SubscribeButton: React.FC<SubscribeModalProps> = ({
     try {
       const { sessionId } = await postData({
         url: "/api/create-checkout-session",
-        data: { price },
+        data: { price, studentId },
       });
 
       const stripe = await getStripe();

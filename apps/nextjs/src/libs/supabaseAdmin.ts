@@ -101,6 +101,7 @@ const manageSubscriptionStatusChange = async (
   subscriptionId: string,
   customerId: string,
   createAction = false,
+  studentId: string,
 ) => {
   // Get customer's UUID from mapping table.
   const { data: customerData, error: noCustomerError } = await supabaseAdmin
@@ -120,6 +121,7 @@ const manageSubscriptionStatusChange = async (
     {
       id: subscription.id,
       user_id: uuid,
+      student_id: studentId,
       metadata: subscription.metadata,
       // @ts-ignore
       status: subscription.status,

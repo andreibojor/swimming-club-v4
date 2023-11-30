@@ -98,8 +98,8 @@ export default async function ProfilePage({
     a.full_name.localeCompare(b.full_name),
   );
   const products = await getActiveProductsWithPrices();
-  const attendances = await getStudentAttendances(studentId);
 
+  const attendances = await getStudentAttendances(studentId);
   const dates = attendances.map((attendance) => attendance.date);
 
   return (
