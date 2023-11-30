@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { createServerSupabaseClient } from "@/actions/createServerSupabaseClient";
 import getActiveProductsWithPrices from "@/actions/getActiveProductsWithPrices";
 import getStudentAttendances from "@/actions/getStudentAttendances";
@@ -6,8 +5,6 @@ import getStudentsByParent from "@/actions/getStudentsByParent";
 import getUserDetails from "@/actions/getUserDetails";
 import AttendancePieChart from "@/components/attendance-piechart";
 import { MultiStepForm } from "@/components/multi-step-form";
-import SubscribeButton from "@/components/subscribe-button";
-import SubscribeModal from "@/components/subscribe-modal";
 
 import {
   Avatar,
@@ -27,11 +24,6 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-  cn,
 } from "@acme/ui";
 
 import AddStudentForm from "../_components/add-student-form";
@@ -82,6 +74,15 @@ const invoices = [
   },
 ];
 
+async function fetchUserDetails(userId) {
+  try {
+    return await getUserDetails(userId);
+  } catch (error) {
+    console.error("Error fetching user details:", error);
+    return null;
+  }
+}
+
 export default async function ProfilePage({
   searchParams,
 }: Record<string, string | string[] | undefined>) {
@@ -90,9 +91,15 @@ export default async function ProfilePage({
     data: { user },
   } = await supabase.auth.getUser();
 
-  const studentId = searchParams.student || `${user?.id}`;
+  // Check if user is available
+  if (!user?.id) {
+    // Handle scenario where user is not available
+    console.error("User is not defined");
+    return <div>User not found</div>;
+  }
 
-  const userDetails = await getUserDetails(user?.id);
+  const userDetails = await fetchUserDetails(user.id);
+  const studentId = searchParams.student || `${user?.id}`;
   const studentsByParent = await getStudentsByParent(user.id);
   const sortedStudentsByParent = studentsByParent.sort((a, b) =>
     a.full_name.localeCompare(b.full_name),
