@@ -7,6 +7,7 @@ import DashboardLink from "@/components/dashboard-link";
 import { SiteFooter } from "@/components/footer";
 import { MobileDropdown } from "@/components/mobile-nav";
 import { UserNav } from "@/components/user-nav";
+import { UserDetails } from "@/types";
 
 import { buttonVariants } from "@acme/ui";
 import * as Icons from "@acme/ui/src/icons";
@@ -16,23 +17,33 @@ import { MainNav } from "../(dashboard)/_components/main-nav";
 export default async function HomeLayout(props: { children: ReactNode }) {
   const supabase = createServerSupabaseClient();
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  const { data: { session } = {} } = await supabase.auth.getSession();
 
-  let userDetails, userRole;
+  const userRole = await fetchUserRole(session);
 
-  // // Only call getUserDetails if session exists
-  if (session) {
-    userDetails = await getUserDetails(session.user.id);
-    // Check if userDetails and userDetails.user are defined before trying to access role
-    if (userDetails?.user) {
-      userRole = userDetails.user.role;
-    } else {
-      // Handle the error appropriately
-      console.error("userDetails or userDetails.user is undefined");
+  async function fetchUserRole(session) {
+    if (!session) return;
+
+    try {
+      const userDetails = await getUserDetails(session.user.id);
+      return userDetails?.user?.role;
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+      return null;
     }
   }
+
+  // // Only call getUserDetails if session exists
+  // if (session) {
+  //   userDetails = await getUserDetails(session.user.id);
+  //   // Check if userDetails and userDetails.user are defined before trying to access role
+  //   if (userDetails?.user) {
+  //     userRole = userDetails.user.role;
+  //   } else {
+  //     // Handle the error appropriately
+  //     console.error("userDetails or userDetails.user is undefined");
+  //   }
+  // }
 
   return (
     <div className="flex min-h-screen flex-col">
