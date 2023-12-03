@@ -27,6 +27,7 @@ import {
 import * as Icons from "@acme/ui/src/icons";
 
 import { AttendanceButton } from "./attendance-button";
+import SwimmerCard from "./swimmer-card";
 
 export function AttendanceCard({ student }) {
   const supabase = createClientComponentClient<Database>();
@@ -70,19 +71,21 @@ export function AttendanceCard({ student }) {
             <AvatarImage src={`${student.avatar_url}`} />
             <AvatarFallback>{getInitials(student.full_name)}</AvatarFallback>
           </Avatar>
+          {/* <SwimmerCard student={student} /> */}
           <div>
             <p className="text-sm font-medium leading-none">
               {student.full_name}
             </p>
           </div>
 
-          {/* <div>
+          <div>
             <p className="text-sm font-medium leading-none">
               Attendances Left: {student.lessons_left}
             </p>
-          </div> */}
+          </div>
         </div>
         <AttendanceButton student={student} />
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
@@ -95,7 +98,6 @@ export function AttendanceCard({ student }) {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-[160px]">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem>Edit</DropdownMenuItem>
             <DropdownMenuItem>Make a copy</DropdownMenuItem>
             <DropdownMenuItem>Favorite</DropdownMenuItem>
             <DropdownMenuSeparator />

@@ -41,7 +41,8 @@ export default function StudentPanel({
   return (
     <>
       <Tabs
-        defaultValue={sortedStudentsByParent[0]?.id}
+        // defaultValue={sortedStudentsByParent[0]?.id}
+        defaultValue={userDetails?.id}
         className="space-y-4 overflow-auto"
       >
         <TabsList>
@@ -52,7 +53,7 @@ export default function StudentPanel({
             <Link
               className="h-full w-full"
               scroll={false}
-              href={`?student=${userDetails?.id}`}
+              href={`/${userDetails?.id}`}
             >
               {userDetails?.full_name}
             </Link>
@@ -66,7 +67,7 @@ export default function StudentPanel({
                 <Link
                   className="h-full w-full"
                   scroll={false}
-                  href={`?student=${student.id}`}
+                  href={`?stundent=${student.id}`}
                 >
                   {student.full_name}
                 </Link>

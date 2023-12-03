@@ -6,7 +6,7 @@ import { UserNav } from "@/components/user-nav";
 
 import * as Icons from "@acme/ui/src/icons";
 
-import { siteConfig } from "../config";
+// import { siteConfig } from "../config";
 
 export default function ProfileLayout(props: { children: React.ReactNode }) {
   return (
@@ -16,7 +16,7 @@ export default function ProfileLayout(props: { children: React.ReactNode }) {
           <Link href="/">
             <span className="flex text-lg font-bold tracking-tight">
               <Icons.Logo className="mr-2 h-6 w-6" />
-              {siteConfig.name}
+              {/* {siteConfig.name} */}
             </span>
           </Link>
         </div>

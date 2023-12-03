@@ -27,14 +27,14 @@ export default async function DashboardPage() {
   // TODO: use .reduce to get the right number of students?
 
   return (
-    <DashboardShell
-      title="Dashboard"
-      description="Get an overview of how the project is going"
-    >
-      <div className="flex w-full max-w-screen-lg animate-fade-up flex-col gap-5 p-5 xl:px-0">
-        <div className="flex flex-col justify-between gap-5">
-          <DashboardTabs pools={pools} students={students} />
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+    // <DashboardShell
+    //   title="Dashboard"
+    //   description="Get an overview of how the project is going"
+    // >
+    <div className="flex w-full max-w-screen-lg animate-fade-up flex-col gap-5 p-5 xl:px-0">
+      <div className="flex flex-col justify-between gap-5">
+        <DashboardTabs pools={pools} students={students} />
+        {/* <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
             {marketingFeatures.map((feature) => (
               <Card key={feature.title} className={cn("p-2")}>
                 <CardHeader>{feature.icon}</CardHeader>
@@ -46,9 +46,9 @@ export default async function DashboardPage() {
                 </CardContent>
               </Card>
             ))}
-          </div>
-        </div>
+          </div> */}
       </div>
-    </DashboardShell>
+    </div>
+    // </DashboardShell>
   );
 }

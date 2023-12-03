@@ -26,8 +26,8 @@ import {
   TableRow,
 } from "@acme/ui";
 
-import AddStudentForm from "../_components/add-student-form";
-import StudentPanel from "../_components/student-panel";
+import AddStudentForm from "./_components/add-student-form";
+import StudentPanel from "./_components/student-panel";
 
 const invoices = [
   {
@@ -84,9 +84,14 @@ async function fetchUserDetails(userId) {
 }
 
 export default async function ProfilePage({
+  params,
   searchParams,
 }: Record<string, string | string[] | undefined>) {
   const supabase = createServerSupabaseClient();
+
+  // Extract the studentId from params
+  const studentIdFromParams = params.studentId;
+
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -99,7 +104,10 @@ export default async function ProfilePage({
   }
 
   const userDetails = await fetchUserDetails(user.id);
-  const studentId = searchParams.student || `${user?.id}`;
+  // Use either the studentId from the URL or the user's own ID
+  const studentId =
+    studentIdFromParams || searchParams.student || `${user?.id}`;
+
   const studentsByParent = await getStudentsByParent(user.id);
   const sortedStudentsByParent = studentsByParent.sort((a, b) =>
     a.full_name.localeCompare(b.full_name),
