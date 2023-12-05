@@ -53,7 +53,7 @@ export default function StudentPanel({
             <Link
               className="h-full w-full"
               scroll={false}
-              href={`/${userDetails?.id}`}
+              href={`?stundent=${userDetails?.id}`}
             >
               {userDetails?.full_name}
             </Link>
