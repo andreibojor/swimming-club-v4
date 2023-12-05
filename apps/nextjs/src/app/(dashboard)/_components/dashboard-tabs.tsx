@@ -32,23 +32,6 @@ export default function DashboardTabs({ pools, students }) {
     setSelectedPool(poolValue);
   };
 
-  // const supabase = createClientComponentClient<Database>();
-  // useEffect(() => {
-  //   const subscription = supabase
-  //     .from("attendance_record")
-  //     .on("*", (payload) => {
-  //       // Update the state with the new data
-  //       setStudentsByPool(payload.new);
-  //     })
-
-  //     .subscribe();
-
-  //   return () => {
-  //     // Remove the subscription when the component unmounts
-  //     subscription.unsubscribe();
-  //   };
-  // }, []);
-
   const { date } = useDate();
 
   const formattedDatabaseDate = `${date.getFullYear()}-${String(

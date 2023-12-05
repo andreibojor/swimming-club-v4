@@ -66,7 +66,7 @@ const SubscribeButton: React.FC<SubscribeModalProps> = ({
             return <div key={product.id}>No prices available</div>;
           }
 
-          if (professionalStudent === false) {
+          if (professionalStudent === false && index === 0) {
             const price = product.prices[0];
             return (
               <Button
@@ -80,7 +80,7 @@ const SubscribeButton: React.FC<SubscribeModalProps> = ({
             );
           }
 
-          if (professionalStudent === true) {
+          if (professionalStudent === true && index === 1) {
             const price = product.prices[0];
             return (
               <Button

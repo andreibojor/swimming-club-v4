@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { Database } from "@/types_db";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
@@ -17,12 +17,10 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-  Progress,
 } from "@acme/ui";
 import * as Icons from "@acme/ui/src/icons";
 
@@ -30,6 +28,7 @@ import { AttendanceButton } from "./attendance-button";
 import SwimmerCard from "./swimmer-card";
 
 export function AttendanceCard({ student }) {
+  const [lessonsLeft, setLessonsLeft] = useState(student.lessons_left);
   const supabase = createClientComponentClient<Database>();
   const router = useRouter();
 
@@ -44,16 +43,19 @@ export function AttendanceCard({ student }) {
 
   useEffect(() => {
     const channel = supabase
-      .channel("realtime students")
+      .channel(`student-updates`)
       .on(
         "postgres_changes",
         {
-          event: "*",
+          event: "UPDATE",
           schema: "public",
-          table: "attendance_record",
+          table: "students",
+          filter: `id=eq.${student.id}`,
         },
-        () => {
-          router.refresh();
+        (payload) => {
+          if (payload.new.lessons_left) {
+            setLessonsLeft(payload.new.lessons_left);
+          }
         },
       )
       .subscribe();
@@ -61,7 +63,7 @@ export function AttendanceCard({ student }) {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [supabase, router]);
+  }, [supabase, student.id]);
 
   return (
     <div className="flex flex-col gap-1">
@@ -80,7 +82,7 @@ export function AttendanceCard({ student }) {
 
           <div>
             <p className="text-sm font-medium leading-none">
-              Attendances Left: {student.lessons_left}
+              Attendances Left: {lessonsLeft}
             </p>
           </div>
         </div>
@@ -123,10 +125,6 @@ export function AttendanceCard({ student }) {
               </DropdownMenuSubContent>
             </DropdownMenuSub>
             <DropdownMenuSeparator />
-            {/* <DropdownMenuItem>
-              Delete
-              <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
-            </DropdownMenuItem> */}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
