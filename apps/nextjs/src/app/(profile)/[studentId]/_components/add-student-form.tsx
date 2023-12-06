@@ -166,7 +166,7 @@ export default function AddStudentForm({ userDetails }) {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Ionut Popescu" {...field} />
+                    <Input placeholder="Nume si prenume" {...field} />
                   </FormControl>
 
                   <FormMessage />

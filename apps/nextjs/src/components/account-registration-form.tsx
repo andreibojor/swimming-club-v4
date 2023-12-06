@@ -78,7 +78,7 @@ const defaultValues: Partial<ProfileFormValues> = {
   medicalCertificate: null,
 };
 
-export function MultiStepForm({ userDetails }) {
+export function AccountRegistrationForm({ userDetails }) {
   const supabase = createClientComponentClient();
   const [formStep, setFormStep] = useState(0);
 
@@ -142,6 +142,11 @@ export function MultiStepForm({ userDetails }) {
     const updateProfessionalStudentAction = await supabase
       .from("students")
       .update({ professional_student: swimmerLevel })
+      .eq("id", userDetails?.id);
+
+    const updateParentIdAction = await supabase
+      .from("students")
+      .update({ parent_id: userDetails?.id })
       .eq("id", userDetails?.id);
 
     const updateMedicalCertificatePathAction = await supabase

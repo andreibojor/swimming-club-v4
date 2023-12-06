@@ -3,8 +3,8 @@ import getActiveProductsWithPrices from "@/actions/getActiveProductsWithPrices";
 import getStudentAttendances from "@/actions/getStudentAttendances";
 import getStudentsByParent from "@/actions/getStudentsByParent";
 import getUserDetails from "@/actions/getUserDetails";
+import { AccountRegistrationForm } from "@/components/account-registration-form";
 import AttendancePieChart from "@/components/attendance-piechart";
-import { MultiStepForm } from "@/components/multi-step-form";
 import { UserDetails } from "@/types";
 
 import {
@@ -236,7 +236,7 @@ export default async function ProfilePage({
             )}
           </Card> */}
         </div>
-        <div className="flex justify-between gap-0 md:gap-5">
+        {/* <div className="flex justify-between gap-0 md:gap-5">
           <div className="none md:w-1/3"></div>
           <Card className="w-full md:w-2/3">
             <CardHeader>
@@ -273,9 +273,9 @@ export default async function ProfilePage({
               </Table>
             </CardContent>
           </Card>
-        </div>
+        </div> */}
       </div>
-      <MultiStepForm userDetails={userDetails} />
+      <AccountRegistrationForm userDetails={userDetails} />
     </>
   );
 }

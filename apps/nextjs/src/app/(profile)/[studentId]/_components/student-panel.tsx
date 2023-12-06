@@ -46,7 +46,7 @@ export default function StudentPanel({
         className="space-y-4 overflow-auto"
       >
         <TabsList>
-          <Link
+          {/* <Link
             className="h-full w-full"
             scroll={false}
             href={`?stundent=${userDetails?.id}`}
@@ -57,7 +57,7 @@ export default function StudentPanel({
             >
               {userDetails?.full_name}
             </TabsTrigger>
-          </Link>
+          </Link> */}
           {sortedStudentsByParent?.map((student) => (
             <Link
               className="h-full w-full"
