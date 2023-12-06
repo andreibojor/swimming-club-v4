@@ -3,11 +3,9 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useUser } from "@/hooks/useUser";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -26,18 +24,13 @@ import {
   FormLabel,
   FormMessage,
   Input,
-  Label,
-  RadioGroup,
-  RadioGroupItem,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-  cn,
   toast,
 } from "@acme/ui";
-import * as Icons from "@acme/ui/src/icons";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB in bytes
 const ALLOWED_FILE_TYPES = [
