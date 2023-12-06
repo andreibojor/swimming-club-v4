@@ -41,7 +41,7 @@ export default function StudentPanel({
   return (
     <>
       <Tabs
-        // defaultValue={sortedStudentsByParent[0]?.id}
+        // defaultValue={sortedStudentsByParent[0]?.id} s
         defaultValue={userDetails?.id}
         className="space-y-4 overflow-auto"
       >
