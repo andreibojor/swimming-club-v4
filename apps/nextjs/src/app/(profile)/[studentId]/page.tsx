@@ -151,7 +151,9 @@ export default async function ProfilePage({
                   <p className="text-sm font-medium leading-none">
                     Status: {userDetails?.active ? `Active` : `Inactive`}
                   </p>
-                  <AddStudentForm userDetails={userDetails} />
+                  {userDetails?.role === "parent" && (
+                    <AddStudentForm userDetails={userDetails} />
+                  )}
                 </div>
               </div>
             </CardContent>
