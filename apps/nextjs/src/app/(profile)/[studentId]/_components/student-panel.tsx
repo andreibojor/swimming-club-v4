@@ -46,33 +46,34 @@ export default function StudentPanel({
         className="space-y-4 overflow-auto"
       >
         <TabsList>
-          <TabsTrigger
-            value={userDetails?.id}
-            onClick={() => setStudentId(userDetails?.id)}
+          <Link
+            className="h-full w-full"
+            scroll={false}
+            href={`?stundent=${userDetails?.id}`}
           >
+            <TabsTrigger
+              value={userDetails?.id}
+              onClick={() => setStudentId(userDetails?.id)}
+            >
+              {userDetails?.full_name}
+            </TabsTrigger>
+          </Link>
+          {sortedStudentsByParent?.map((student) => (
             <Link
               className="h-full w-full"
               scroll={false}
-              href={`?stundent=${userDetails?.id}`}
+              href={`?stundent=${student.id}`}
+              key={student.id}
             >
-              {userDetails?.full_name}
-            </Link>
-          </TabsTrigger>
-          {sortedStudentsByParent?.map((student) => (
-            <div key={student.id}>
-              <TabsTrigger
-                value={student.id}
-                onClick={() => handleTabClick(student.id)}
-              >
-                <Link
-                  className="h-full w-full"
-                  scroll={false}
-                  href={`?stundent=${student.id}`}
+              <div>
+                <TabsTrigger
+                  value={student.id}
+                  onClick={() => handleTabClick(student.id)}
                 >
                   {student.full_name}
-                </Link>
-              </TabsTrigger>
-            </div>
+                </TabsTrigger>
+              </div>
+            </Link>
           ))}
         </TabsList>
 

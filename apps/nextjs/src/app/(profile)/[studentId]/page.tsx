@@ -5,6 +5,7 @@ import getStudentsByParent from "@/actions/getStudentsByParent";
 import getUserDetails from "@/actions/getUserDetails";
 import AttendancePieChart from "@/components/attendance-piechart";
 import { MultiStepForm } from "@/components/multi-step-form";
+import { UserDetails } from "@/types";
 
 import {
   Avatar,
