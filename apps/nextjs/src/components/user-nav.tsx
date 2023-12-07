@@ -66,7 +66,7 @@ export async function UserNav() {
           <DropdownMenuGroup>
             <DropdownMenuItem asChild>
               {/* <Link href={`/${user.id}/settings`}> */}
-              <Link href={`/${userDetails?.id}`}>
+              <Link href={`/${userDetails?.id}?student=${userDetails?.id}`}>
                 <User className="mr-2 h-4 w-4" />
                 <span>Profile</span>
                 <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
