@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import AttendancePieChart from "@/components/attendance-piechart";
 import SubscribeButton from "@/components/subscribe-button";
@@ -19,6 +19,33 @@ export default function StudentPanel({
   const { studentId, setStudentId } = useStudentId();
 
   const supabase = createClientComponentClient();
+
+  useEffect(() => {
+    async function fetchInitialStudentData() {
+      try {
+        const initialStudentId = userDetails?.id; // or another default value
+        if (initialStudentId) {
+          const { data, error } = await supabase
+            .from("students") // replace 'students' with your actual table name
+            .select("professional_student")
+            .eq("id", initialStudentId)
+            .single();
+
+          if (error) {
+            console.error("Failed to fetch student:", error);
+            return;
+          }
+          setProfessionalStudent(data?.professional_student);
+        }
+      } catch (error) {
+        console.error("Error fetching initial student data:", error);
+      } finally {
+        console.log("Done fetching initial student data");
+      }
+    }
+
+    fetchInitialStudentData();
+  }, [userDetails?.id]); // Dependency array to run this effect when userDetails.id changes
 
   const handleTabClick = async (studentId: string) => {
     // Update the Zustand state
@@ -65,14 +92,12 @@ export default function StudentPanel({
               href={`?student=${student.id}`}
               key={student.id}
             >
-              <div>
-                <TabsTrigger
-                  value={student.id}
-                  onClick={() => handleTabClick(student.id)}
-                >
-                  {student.full_name}
-                </TabsTrigger>
-              </div>
+              <TabsTrigger
+                value={student.id}
+                onClick={() => handleTabClick(student.id)}
+              >
+                {student.full_name}
+              </TabsTrigger>
             </Link>
           ))}
         </TabsList>
