@@ -41,7 +41,7 @@ export default function StudentPanel({
   return (
     <>
       <Tabs
-        // defaultValue={sortedStudentsByParent[0]?.id} s
+        // defaultValue={sortedStudentsByParent[0]?.id}
         defaultValue={userDetails?.id}
         className="space-y-4 overflow-auto"
       >
@@ -49,7 +49,7 @@ export default function StudentPanel({
           {/* <Link
             className="h-full w-full"
             scroll={false}
-            href={`?stundent=${userDetails?.id}`}
+            href={`?student=${userDetails?.id}`}
           >
             <TabsTrigger
               value={userDetails?.id}
@@ -62,7 +62,7 @@ export default function StudentPanel({
             <Link
               className="h-full w-full"
               scroll={false}
-              href={`?stundent=${student.id}`}
+              href={`?student=${student.id}`}
               key={student.id}
             >
               <div>

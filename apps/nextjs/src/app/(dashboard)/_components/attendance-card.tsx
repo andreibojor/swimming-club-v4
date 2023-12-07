@@ -73,18 +73,18 @@ export function AttendanceCard({ student }) {
             <AvatarImage src={`${student.avatar_url}`} />
             <AvatarFallback>{getInitials(student.full_name)}</AvatarFallback>
           </Avatar>
-          {/* <SwimmerCard student={student} /> */}
+          <SwimmerCard student={student} />
           <div>
             <p className="text-sm font-medium leading-none">
               {student.full_name}
             </p>
           </div>
 
-          <div>
+          {/* <div>
             <p className="text-sm font-medium leading-none">
               Attendances Left: {lessonsLeft}
             </p>
-          </div>
+          </div> */}
         </div>
         <AttendanceButton student={student} />
 
