@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
@@ -82,13 +80,12 @@ const defaultValues: Partial<ProfileFormValues> = {
   medicalCertificate: null,
 };
 
-export default function SwimmerCard({ student }) {
+export default function SwimmerCard({ student, children }) {
   const [isOpenDialog, setIsOpenDialog] = useState(false);
+  console.log(student);
 
   const supabase = createClientComponentClient();
   const supabaseClient = useSupabaseClient();
-
-  const router = useRouter();
 
   const getInitials = (name) => {
     const initials = name
@@ -146,6 +143,23 @@ export default function SwimmerCard({ student }) {
     router.refresh();
   };
 
+  async function getMedicalCertificate() {
+    const { data: studentData, error } = await supabase
+      .from("students")
+      .select("medical_certificate_path")
+      .eq("id", student.id);
+
+    const medicalCertificatePath = studentData[0]?.medical_certificate_path;
+
+    const { data: medicalCertificateUrl } = await supabase.storage
+      .from("medical-certificates")
+      .getPublicUrl(medicalCertificatePath);
+
+    console.log(medicalCertificateUrl);
+
+    window.open(medicalCertificateUrl.publicUrl, "_blank");
+  }
+
   return (
     <Dialog
       open={isOpenDialog}
@@ -160,12 +174,12 @@ export default function SwimmerCard({ student }) {
           }}
           // className="w-full flex-1 justify-start px-2 py-1.5 text-sm font-[400]"
         >
-          Profile
+          {children}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[450px]">
-        <DialogHeader className="items-center">
-          <Avatar className="h-16 w-16">
+        <DialogHeader className="mb-6 items-center">
+          <Avatar className="mb-2 h-16 w-16">
             <AvatarImage src={`${student.avatar_url}`} />
             <AvatarFallback className="text-xl">
               {getInitials(student.full_name)}
@@ -176,24 +190,45 @@ export default function SwimmerCard({ student }) {
             Add another student for swimming lessons
           </DialogDescription> */}
         </DialogHeader>
-        <div className="space-y-4">
-          <div className="flex flex-col justify-between space-y-4">
-            <p className="text-sm font-medium leading-none">
-              Parent: {`${student.phone}`}
-            </p>
-            <p className="text-sm font-medium leading-none">
-              Phone: {`${student.phone}`}
-            </p>
-            <p className="text-sm font-medium leading-none">
-              Pool: {student.pool}
-            </p>
-            <p className="text-sm font-medium leading-none">
-              Class:
-              {` ${student.professional_student ? "Advanced" : "Beginner"}`}
-            </p>
-            <p className="text-sm font-medium leading-none">
-              Lessons Left: {student.lessons_left}
-            </p>
+        <div className="space-y-6">
+          <div className="flex flex-col justify-between space-y-8">
+            <div className="align flex items-center gap-3">
+              <Icons.User />
+              <p className="text-base font-medium">Parent:</p>
+              <p className="text-base font-bold leading-none">
+                {`${student.phone}`}
+              </p>
+            </div>
+
+            <div className="align flex items-center gap-3">
+              <Icons.Phone />
+              <p className="text-base font-medium">Phone:</p>
+              <p className="text-base font-bold leading-none">
+                {`${student.phone}`}
+              </p>
+            </div>
+
+            <div className="align flex items-center gap-3">
+              <Icons.Waves />
+              <p className="text-base font-medium">Pool:</p>
+              <p className="text-base font-bold leading-none">{student.pool}</p>
+            </div>
+
+            <div className="align flex items-center gap-3">
+              <Icons.GraduationCap />
+              <p className="text-base font-medium">Class:</p>
+              <p className="text-base font-bold leading-none">
+                {` ${student.professional_student ? "Advanced" : "Beginner"}`}
+              </p>
+            </div>
+
+            <div className="align flex items-center gap-3">
+              <Icons.Calendar />
+              <p className="text-base font-medium">Lessons left:</p>
+              <p className="text-base font-bold leading-none">
+                {student.lessons_left}
+              </p>
+            </div>
             {/* <p className="text-sm font-medium leading-none">
               Role: {userDetails?.role}
             </p> */}
@@ -202,6 +237,12 @@ export default function SwimmerCard({ student }) {
             </p> */}
             {/* <AddStudentForm userDetails={userDetails} /> */}
           </div>
+        </div>
+
+        <div className="mt-5">
+          <Button onClick={() => getMedicalCertificate()}>
+            <Icons.Eye />
+          </Button>
         </div>
         {/* <Calendar mode="multiple" /> */}
         {/* <Form {...form}>
