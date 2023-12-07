@@ -47,6 +47,7 @@ export interface Student {
   professional_student?: boolean;
   active?: boolean;
   medical_certificate_path?: string;
+  parent_id?: string;
 }
 
 export interface Subscription {
@@ -65,6 +66,7 @@ export interface Subscription {
   canceled_at?: string;
   trial_start?: string;
   trial_end?: string;
+  student_id?: string;
   prices?: Price;
 }
 
