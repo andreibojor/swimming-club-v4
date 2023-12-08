@@ -26,6 +26,7 @@ import {
   TableHeader,
   TableRow,
 } from "@acme/ui";
+import * as Icons from "@acme/ui/src/icons";
 
 import AddStudentForm from "./_components/add-student-form";
 import StudentPanel from "./_components/student-panel";
@@ -136,23 +137,65 @@ export default async function ProfilePage({
             </CardHeader>
             <CardContent>
               <Separator className="my-4" />
-              <div className="space-y-4">
-                <h4 className="text-sm font-medium text-muted-foreground">
+              <div className="space-y-4 pt-3">
+                <h4 className="text-base font-medium text-muted-foreground">
                   DETAILS
                 </h4>
-                <div className="flex flex-col justify-between space-y-4">
-                  <p className="text-sm font-medium leading-none">
-                    Phone: {`${userDetails?.phone}`}
-                  </p>
-                  <p className="text-sm font-medium leading-none">
-                    Pool: {userDetails?.pool}
-                  </p>
-                  <p className="text-sm font-medium leading-none">
-                    Role: {userDetails?.role}
-                  </p>
-                  <p className="text-sm font-medium leading-none">
-                    Status: {userDetails?.active ? `Active` : `Inactive`}
-                  </p>
+                <div className="flex flex-col justify-between space-y-6">
+                  <div className="flex items-center">
+                    <Icons.Phone color="#2563eb" />
+                    <p className="ml-4 text-base font-normal leading-none">
+                      Phone:
+                    </p>
+                    <p className="ml-2 text-base font-semibold leading-none">
+                      {userDetails.phone}
+                    </p>
+                  </div>
+
+                  <div className="flex items-center">
+                    <Icons.Waves color="#2563eb" />
+                    <p className="ml-4 text-base font-normal leading-none">
+                      Pool:
+                    </p>
+                    <p className="ml-2 text-base font-bold leading-none">
+                      {userDetails?.pool}
+                    </p>
+                  </div>
+
+                  <div className="flex items-center">
+                    <Icons.User color="#2563eb" />
+                    <p className="ml-4 text-base font-normal leading-none">
+                      Role:
+                    </p>
+                    <p className="ml-2 text-base font-bold leading-none">
+                      {userDetails?.role}
+                    </p>
+                  </div>
+
+                  <div className="flex items-center">
+                    {userDetails?.active ? (
+                      <>
+                        <Icons.Smile color="#2563eb" />
+                        <p className="ml-4 text-base font-normal leading-none">
+                          Status:
+                        </p>
+                        <p className="ml-2 text-base font-bold leading-none">
+                          Active
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        <Icons.Frown color="#2563eb" />
+                        <p className="ml-4 text-base font-normal leading-none">
+                          Status:
+                        </p>
+                        <p className="ml-2 text-base font-bold leading-none">
+                          Inactive
+                        </p>
+                      </>
+                    )}
+                  </div>
+
                   {userDetails?.role === "parent" && (
                     <AddStudentForm userDetails={userDetails} />
                   )}

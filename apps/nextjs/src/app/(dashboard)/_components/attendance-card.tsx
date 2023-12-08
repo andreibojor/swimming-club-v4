@@ -76,16 +76,15 @@ export function AttendanceCard({ student }) {
             </Avatar>
 
             <div>
-              <p className="text-sm font-medium leading-none">
+              <p className="text-base font-semibold leading-none">
                 {student.full_name}
               </p>
             </div>
 
-            <div>
-              <p className="text-sm font-medium leading-none">
-                Attendances Left: {lessonsLeft}
-              </p>
-            </div>
+            <p className="text-base font-medium leading-none">
+              Attendances Left:
+            </p>
+            <p className="text-base font-semibold">{lessonsLeft}</p>
           </div>
         </SwimmerCard>
         <AttendanceButton student={student} />

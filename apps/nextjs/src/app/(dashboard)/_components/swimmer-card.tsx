@@ -81,6 +81,7 @@ const defaultValues: Partial<ProfileFormValues> = {
 };
 
 export default function SwimmerCard({ student, children }) {
+  const [certificateError, setCertificateError] = useState(false);
   const [isOpenDialog, setIsOpenDialog] = useState(false);
   console.log(student);
 
@@ -144,20 +145,25 @@ export default function SwimmerCard({ student, children }) {
   };
 
   async function getMedicalCertificate() {
-    const { data: studentData, error } = await supabase
-      .from("students")
-      .select("medical_certificate_path")
-      .eq("id", student.id);
+    try {
+      const { data: studentData, error } = await supabase
+        .from("students")
+        .select("medical_certificate_path")
+        .eq("id", student.id);
 
-    const medicalCertificatePath = studentData[0]?.medical_certificate_path;
+      const medicalCertificatePath = studentData[0]?.medical_certificate_path;
 
-    const { data: medicalCertificateUrl } = await supabase.storage
-      .from("medical-certificates")
-      .getPublicUrl(medicalCertificatePath);
+      const { data: medicalCertificateUrl } = await supabase.storage
+        .from("medical-certificates")
+        .getPublicUrl(medicalCertificatePath);
 
-    console.log(medicalCertificateUrl);
+      console.log(medicalCertificateUrl);
 
-    window.open(medicalCertificateUrl.publicUrl, "_blank");
+      window.open(medicalCertificateUrl.publicUrl, "_blank");
+    } catch (error) {
+      console.error("An error occurred:", error);
+      setCertificateError(true);
+    }
   }
 
   return (
@@ -191,41 +197,43 @@ export default function SwimmerCard({ student, children }) {
           </DialogDescription> */}
         </DialogHeader>
         <div className="space-y-6">
-          <div className="flex flex-col justify-between space-y-8">
-            <div className="align flex items-center gap-3">
-              <Icons.User />
-              <p className="text-base font-medium">Parent:</p>
-              <p className="text-base font-bold leading-none">
+          <div className="flex flex-col justify-between space-y-6">
+            <div className="flex items-center">
+              <Icons.User color="#2563eb" />
+              <p className="ml-4 text-base font-normal">Parent:</p>
+              <p className="ml-2 text-base font-semibold leading-none">
                 {`${student.phone}`}
               </p>
             </div>
 
-            <div className="align flex items-center gap-3">
-              <Icons.Phone />
-              <p className="text-base font-medium">Phone:</p>
-              <p className="text-base font-bold leading-none">
+            <div className="flex items-center">
+              <Icons.Phone color="#2563eb" />
+              <p className="ml-4 text-base font-normal">Phone:</p>
+              <p className="ml-2 text-base font-semibold leading-none">
                 {`${student.phone}`}
               </p>
             </div>
 
-            <div className="align flex items-center gap-3">
-              <Icons.Waves />
-              <p className="text-base font-medium">Pool:</p>
-              <p className="text-base font-bold leading-none">{student.pool}</p>
+            <div className="flex items-center">
+              <Icons.Waves color="#2563eb" />
+              <p className="ml-4 text-base font-normal">Pool:</p>
+              <p className="ml-2 text-base font-semibold leading-none">
+                {student.pool}
+              </p>
             </div>
 
-            <div className="align flex items-center gap-3">
-              <Icons.GraduationCap />
-              <p className="text-base font-medium">Class:</p>
-              <p className="text-base font-bold leading-none">
+            <div className="flex items-center">
+              <Icons.GraduationCap color="#2563eb" />
+              <p className="ml-4 text-base font-normal">Class:</p>
+              <p className="ml-2 text-base font-semibold leading-none">
                 {` ${student.professional_student ? "Advanced" : "Beginner"}`}
               </p>
             </div>
 
-            <div className="align flex items-center gap-3">
-              <Icons.Calendar />
-              <p className="text-base font-medium">Lessons left:</p>
-              <p className="text-base font-bold leading-none">
+            <div className="flex items-center">
+              <Icons.Calendar color="#2563eb" />
+              <p className="ml-4 text-base font-normal">Lessons left:</p>
+              <p className="ml-2 text-base font-semibold leading-none">
                 {student.lessons_left}
               </p>
             </div>
@@ -240,7 +248,10 @@ export default function SwimmerCard({ student, children }) {
         </div>
 
         <div className="mt-5">
-          <Button onClick={() => getMedicalCertificate()}>
+          <Button
+            disabled={certificateError}
+            onClick={() => getMedicalCertificate()}
+          >
             <Icons.Eye />
           </Button>
         </div>
