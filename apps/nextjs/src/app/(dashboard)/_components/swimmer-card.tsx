@@ -83,12 +83,27 @@ const defaultValues: Partial<ProfileFormValues> = {
 export default function SwimmerCard({ student, children }) {
   const [certificateError, setCertificateError] = useState(false);
   const [isOpenDialog, setIsOpenDialog] = useState(false);
-  console.log(student);
+  const [studentAttendances, setStudentAttendances] = useState([]);
 
   const supabase = createClientComponentClient();
-  const supabaseClient = useSupabaseClient();
+  const getStudentAttendances = async (studentId) => {
+    const { data } = await supabase
+      .from("attendance_record")
+      .select("*")
+      .eq("student_id", student?.id);
 
-  const getInitials = (name) => {
+    if (!data) return [];
+
+    const formattedAttendances = data.map((attendance: any) => ({
+      id: attendance.id,
+      date: new Date(attendance.date),
+    }));
+
+    const dates = formattedAttendances.map((attendance) => attendance.date);
+    setStudentAttendances(dates);
+  };
+
+  const getInitials = (name: string) => {
     const initials = name
       .split(" ")
       .map((n) => n[0])
@@ -157,8 +172,6 @@ export default function SwimmerCard({ student, children }) {
         .from("medical-certificates")
         .getPublicUrl(medicalCertificatePath);
 
-      console.log(medicalCertificateUrl);
-
       window.open(medicalCertificateUrl.publicUrl, "_blank");
     } catch (error) {
       console.error("An error occurred:", error);
@@ -178,6 +191,7 @@ export default function SwimmerCard({ student, children }) {
             animationDelay: "0.40s",
             animationFillMode: "forwards",
           }}
+          onClick={() => getStudentAttendances(student.id)}
           // className="w-full flex-1 justify-start px-2 py-1.5 text-sm font-[400]"
         >
           {children}
@@ -255,6 +269,12 @@ export default function SwimmerCard({ student, children }) {
             <Icons.Eye />
           </Button>
         </div>
+        {/* <Calendar mode="multiple" /> */}
+        <Calendar
+          mode="multiple"
+          selected={studentAttendances}
+          className="flex justify-center"
+        />
         {/* <Calendar mode="multiple" /> */}
         {/* <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">

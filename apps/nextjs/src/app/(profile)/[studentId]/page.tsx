@@ -106,7 +106,7 @@ export default async function ProfilePage({
   }
 
   const userDetails = await fetchUserDetails(user.id);
-  console.log("userDetails", userDetails);
+
   // Use either the studentId from the URL or the user's own ID
   const studentId =
     studentIdFromParams || searchParams.student || `${user?.id}`;

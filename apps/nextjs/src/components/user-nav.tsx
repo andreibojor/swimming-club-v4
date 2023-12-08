@@ -72,23 +72,23 @@ export async function UserNav() {
                 <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              {/* <Link href={`/${user.id}/billing`}> */}
+            {/* <DropdownMenuItem asChild>
+              <Link href={`/${user.id}/billing`}>
               <Link href={`/dashboard`}>
                 <CreditCard className="mr-2 h-4 w-4" />
                 <span>Billing</span>
                 <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
               </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem disabled>
+            </DropdownMenuItem> */}
+            {/* <DropdownMenuItem disabled>
               <Settings className="mr-2 h-4 w-4" />
               <span>Settings</span>
               <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-            </DropdownMenuItem>
-            <DropdownMenuItem disabled>
+            </DropdownMenuItem> */}
+            {/* <DropdownMenuItem disabled>
               <PlusCircle className="mr-2 h-4 w-4" />
               <span>New Team</span>
-            </DropdownMenuItem>
+            </DropdownMenuItem> */}
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild>

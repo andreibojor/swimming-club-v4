@@ -32,7 +32,7 @@ export function AttendanceCard({ student }) {
   const supabase = createClientComponentClient<Database>();
   const router = useRouter();
 
-  const getInitials = (name) => {
+  const getInitials = (name: string) => {
     const initials = name
       .split(" ")
       .map((n) => n[0])
@@ -76,15 +76,15 @@ export function AttendanceCard({ student }) {
             </Avatar>
 
             <div>
-              <p className="text-base font-semibold leading-none">
+              <p className="text-sm font-medium leading-none">
                 {student.full_name}
               </p>
             </div>
 
-            <p className="text-base font-medium leading-none">
+            <p className="text-sm font-medium leading-none">
               Attendances Left:
             </p>
-            <p className="text-base font-semibold">{lessonsLeft}</p>
+            <p className="text-sm font-medium">{lessonsLeft}</p>
           </div>
         </SwimmerCard>
         <AttendanceButton student={student} />
