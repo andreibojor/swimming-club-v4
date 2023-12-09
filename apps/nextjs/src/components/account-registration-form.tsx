@@ -102,29 +102,17 @@ export function AccountRegistrationForm({ userDetails }) {
   const router = useRouter();
 
   const onSubmit = async (data: ProfileFormValues) => {
-    const {
-      phoneNumber,
-      medicalCertificate,
-      name,
-      pool,
-      userRole,
-      swimmerLevel,
-    } = data;
+    const { phoneNumber, medicalCertificate, pool, userRole, swimmerLevel } =
+      data;
 
     // in users table
-    const updateUserPhoneAction = await supabase
+    const updateUserTableAction = await supabase
       .from("users")
-      .update({ phone: phoneNumber })
-      .eq("id", userDetails?.id);
-
-    const updateUserRoleAction = await supabase
-      .from("users")
-      .update({ role: userRole })
-      .eq("id", userDetails?.id);
-
-    const updateCompletedRegistrationAction = await supabase
-      .from("users")
-      .update({ completed_registration: true })
+      .update({
+        phone: phoneNumber,
+        role: userRole,
+        completed_registration: true,
+      })
       .eq("id", userDetails?.id);
 
     const { data: medicalCertificateData } = await supabaseClient.storage
@@ -137,22 +125,12 @@ export function AccountRegistrationForm({ userDetails }) {
     // in students table
     const updateStudentPoolAction = await supabase
       .from("students")
-      .update({ pool: pool })
-      .eq("id", userDetails?.id);
-
-    const updateProfessionalStudentAction = await supabase
-      .from("students")
-      .update({ professional_student: swimmerLevel })
-      .eq("id", userDetails?.id);
-
-    const updateParentIdAction = await supabase
-      .from("students")
-      .update({ parent_id: userDetails?.id })
-      .eq("id", userDetails?.id);
-
-    const updateMedicalCertificatePathAction = await supabase
-      .from("students")
-      .update({ medical_certificate_path: medicalCertificateData?.path })
+      .update({
+        pool: pool,
+        professional_student: swimmerLevel,
+        parent_id: userDetails?.id,
+        medical_certificate_path: medicalCertificateData?.path,
+      })
       .eq("id", userDetails?.id);
 
     setIsOpenDialog(false);

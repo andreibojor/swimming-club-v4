@@ -47,13 +47,13 @@ const ALLOWED_FILE_TYPES = [
 const profileFormSchema = z.object({
   // TODO: https://github.com/shadcn-ui/ui/issues/884
   name: z.string().min(3),
-  // phoneNumber: z
-  //   .string()
-  //   .min(10)
-  //   .max(10)
-  //   .refine((val) => !isNaN(val as unknown as number), {
-  //     message: "Your phone number contains other characters than digits.",
-  //   }),
+  phoneNumber: z
+    .string()
+    .min(10)
+    .max(10)
+    .refine((val) => !isNaN(val as unknown as number), {
+      message: "Your phone number contains other characters than digits.",
+    }),
   pool: z.string({
     required_error: "Please select the performance level.",
   }),
@@ -94,7 +94,7 @@ export default function AddStudentForm({ userDetails }) {
   });
 
   const onSubmit = async (data: ProfileFormValues) => {
-    const { name, pool, swimmerLevel, medicalCertificate } = data;
+    const { name, phoneNumber, pool, swimmerLevel, medicalCertificate } = data;
     const newStudentId = uuidv4();
 
     const { data: medicalCertificateData } = await supabaseClient.storage
@@ -108,7 +108,7 @@ export default function AddStudentForm({ userDetails }) {
       id: newStudentId,
       full_name: name,
       parent_id: userDetails.id,
-      // phone_number: phoneNumber,
+      phone: phoneNumber,
       pool: pool,
       professional_student: swimmerLevel,
       medical_certificate_path: medicalCertificateData?.path,
@@ -173,6 +173,22 @@ export default function AddStudentForm({ userDetails }) {
                 </FormItem>
               )}
             />
+
+            <FormField
+              control={form.control}
+              name="phoneNumber"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Phone</FormLabel>
+                  <FormControl>
+                    <Input placeholder="0751123456" {...field} />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             <FormField
               control={form.control}
               name="swimmerLevel"

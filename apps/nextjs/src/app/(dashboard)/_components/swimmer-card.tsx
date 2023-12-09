@@ -133,10 +133,27 @@ export default function SwimmerCard({ student, children }) {
       .eq("id", userId)
       .single();
 
+    const parentId = studentData?.parent_id;
+    let parentName = null;
+    if (parentId) {
+      const { data: parentData, error: parentError } = await supabase
+        .from("users")
+        .select("full_name") // Adjust field name as necessary
+        .eq("id", parentId)
+        .single();
+
+      if (parentError) {
+        console.log("Error fetching parent data:", parentError);
+      } else {
+        parentName = parentData?.full_name;
+      }
+    }
+
     error && console.log(error);
     const allData = {
       ...userData,
       ...studentData,
+      parent_name: parentName,
     };
 
     setStudentData(allData);
@@ -240,7 +257,7 @@ export default function SwimmerCard({ student, children }) {
               <Icons.User color="#2563eb" />
               <p className="ml-4 text-base font-normal">Parent:</p>
               <p className="ml-2 text-base font-semibold leading-none">
-                {`${studentData.parent_id}`}
+                {`${studentData.parent_name}`}
               </p>
             </div>
 
