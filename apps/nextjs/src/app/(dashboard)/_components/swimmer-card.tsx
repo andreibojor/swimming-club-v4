@@ -84,13 +84,14 @@ export default function SwimmerCard({ student, children }) {
   const [certificateError, setCertificateError] = useState(false);
   const [isOpenDialog, setIsOpenDialog] = useState(false);
   const [studentAttendances, setStudentAttendances] = useState([]);
+  const [studentData, setStudentData] = useState({} as any);
 
   const supabase = createClientComponentClient();
-  const getStudentAttendances = async (studentId) => {
+  const getStudentAttendances = async (studentId: string) => {
     const { data } = await supabase
       .from("attendance_record")
       .select("*")
-      .eq("student_id", student?.id);
+      .eq("student_id", studentId);
 
     if (!data) return [];
 
@@ -101,22 +102,45 @@ export default function SwimmerCard({ student, children }) {
 
     const dates = formattedAttendances.map((attendance) => attendance.date);
     setStudentAttendances(dates);
+    getStudentData(studentId);
   };
 
-  const getInitials = (name: string) => {
-    const initials = name
-      .split(" ")
-      .map((n) => n[0])
-      .join("");
+  // const getInitials = (name: string) => {
+  //   const initials = name
+  //     .split(" ")
+  //     .map((n) => n[0])
+  //     .join("");
 
-    return initials;
-  };
+  //   return initials;
+  // };
 
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues,
     mode: "onChange",
   });
+
+  const getStudentData = async (userId: string): Promise => {
+    const { data: userData, error } = await supabase
+      .from("users")
+      .select("*")
+      .eq("id", userId)
+      .single();
+
+    const { data: studentData, error: studentError } = await supabase
+      .from("students")
+      .select("*")
+      .eq("id", userId)
+      .single();
+
+    error && console.log(error);
+    const allData = {
+      ...userData,
+      ...studentData,
+    };
+
+    setStudentData(allData);
+  };
 
   const onSubmit = async (data: ProfileFormValues) => {
     // const { name, pool, swimmerLevel, medicalCertificate } = data;
@@ -200,12 +224,12 @@ export default function SwimmerCard({ student, children }) {
       <DialogContent className="sm:max-w-[450px]">
         <DialogHeader className="mb-6 items-center">
           <Avatar className="mb-2 h-16 w-16">
-            <AvatarImage src={`${student.avatar_url}`} />
+            <AvatarImage src={`${studentData.avatar_url}`} />
             <AvatarFallback className="text-xl">
-              {getInitials(student.full_name)}
+              {/* {studentData && getInitials(studentData?.full_name)} */}
             </AvatarFallback>
           </Avatar>
-          <DialogTitle>{student.full_name}</DialogTitle>
+          <DialogTitle>{studentData.full_name}</DialogTitle>
           {/* <DialogDescription>
             Add another student for swimming lessons
           </DialogDescription> */}
@@ -216,7 +240,7 @@ export default function SwimmerCard({ student, children }) {
               <Icons.User color="#2563eb" />
               <p className="ml-4 text-base font-normal">Parent:</p>
               <p className="ml-2 text-base font-semibold leading-none">
-                {`${student.phone}`}
+                {`${studentData.parent_id}`}
               </p>
             </div>
 
@@ -224,7 +248,7 @@ export default function SwimmerCard({ student, children }) {
               <Icons.Phone color="#2563eb" />
               <p className="ml-4 text-base font-normal">Phone:</p>
               <p className="ml-2 text-base font-semibold leading-none">
-                {`${student.phone}`}
+                {`${studentData.phone}`}
               </p>
             </div>
 
@@ -232,7 +256,7 @@ export default function SwimmerCard({ student, children }) {
               <Icons.Waves color="#2563eb" />
               <p className="ml-4 text-base font-normal">Pool:</p>
               <p className="ml-2 text-base font-semibold leading-none">
-                {student.pool}
+                {studentData.pool}
               </p>
             </div>
 
@@ -240,7 +264,9 @@ export default function SwimmerCard({ student, children }) {
               <Icons.GraduationCap color="#2563eb" />
               <p className="ml-4 text-base font-normal">Class:</p>
               <p className="ml-2 text-base font-semibold leading-none">
-                {` ${student.professional_student ? "Advanced" : "Beginner"}`}
+                {` ${
+                  studentData.professional_student ? "Advanced" : "Beginner"
+                }`}
               </p>
             </div>
 
@@ -248,15 +274,15 @@ export default function SwimmerCard({ student, children }) {
               <Icons.Calendar color="#2563eb" />
               <p className="ml-4 text-base font-normal">Lessons left:</p>
               <p className="ml-2 text-base font-semibold leading-none">
-                {student.lessons_left}
+                {studentData.lessons_left}
               </p>
             </div>
-            {/* <p className="text-sm font-medium leading-none">
-              Role: {userDetails?.role}
-            </p> */}
-            {/* <p className="text-sm font-medium leading-none">
-              Status: {userDetails?.active ? `Active` : `Inactive`}
-            </p> */}
+            <p className="text-sm font-medium leading-none">
+              Role: {studentData?.role}
+            </p>
+            <p className="text-sm font-medium leading-none">
+              Status: {studentData?.active ? `Active` : `Inactive`}
+            </p>
             {/* <AddStudentForm userDetails={userDetails} /> */}
           </div>
         </div>

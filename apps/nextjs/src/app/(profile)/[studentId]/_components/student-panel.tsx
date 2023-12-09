@@ -16,9 +16,26 @@ export default function StudentPanel({
   products,
 }) {
   const [professionalStudent, setProfessionalStudent] = useState(false);
+  const [studentAttences, setStudentAttences] = useState(dates);
+  const supabase = createClientComponentClient();
   const { studentId, setStudentId } = useStudentId();
 
-  const supabase = createClientComponentClient();
+  const getStudentAttendances = async (studentId: string) => {
+    const { data } = await supabase
+      .from("attendance_record")
+      .select("*")
+      .eq("student_id", studentId);
+
+    if (!data) return [];
+
+    const formattedAttendances = data.map((attendance: any) => ({
+      id: attendance.id,
+      date: new Date(attendance.date),
+    }));
+
+    const dates = formattedAttendances.map((attendance) => attendance.date);
+    setStudentAttences(dates);
+  };
 
   useEffect(() => {
     async function fetchInitialStudentData() {
@@ -63,6 +80,7 @@ export default function StudentPanel({
       return;
     }
     setProfessionalStudent(data?.professional_student);
+    getStudentAttendances(studentId);
   };
 
   return (
@@ -108,7 +126,7 @@ export default function StudentPanel({
             products={products}
             professionalStudent={professionalStudent}
           />
-          <Calendar mode="multiple" selected={dates} />
+          <Calendar mode="multiple" selected={studentAttences} />
         </div>
       </Tabs>
     </>

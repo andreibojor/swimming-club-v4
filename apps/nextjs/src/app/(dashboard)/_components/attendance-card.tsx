@@ -21,6 +21,7 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
+  Separator,
 } from "@acme/ui";
 import * as Icons from "@acme/ui/src/icons";
 
@@ -130,6 +131,7 @@ export function AttendanceCard({ student }) {
         </DropdownMenu>
       </div>
       {/* <Progress value={student.lessons_left} max={25} className="h-1 w-full" /> */}
+      <Separator className="my-2" />
     </div>
   );
 }

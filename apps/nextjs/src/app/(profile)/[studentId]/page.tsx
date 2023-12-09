@@ -76,7 +76,7 @@ const invoices = [
   },
 ];
 
-async function fetchUserDetails(userId) {
+async function fetchUserDetails(userId: string) {
   try {
     return await getUserDetails(userId);
   } catch (error) {

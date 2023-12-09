@@ -24,6 +24,7 @@ import {
   FormLabel,
   FormMessage,
   Input,
+  ScrollArea,
   Select,
   SelectContent,
   SelectItem,
@@ -180,147 +181,154 @@ export function AccountRegistrationForm({ userDetails }) {
         onOpenChange={() => setIsOpenDialog(!isOpenDialog)}
       >
         <DialogContent className="sm:max-w-[450px]">
-          <DialogHeader>
-            <DialogTitle>Finish registration process</DialogTitle>
-            <DialogDescription>
-              Add the necessary details for sign up
-            </DialogDescription>
-          </DialogHeader>
+          <ScrollArea className="TEST max-h-[90vh]">
+            <DialogHeader>
+              <DialogTitle>Finish registration process</DialogTitle>
+              <DialogDescription>
+                Add the necessary details for sign up
+              </DialogDescription>
+            </DialogHeader>
 
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              <FormField
-                control={form.control}
-                name="userRole"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Select your role</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-8"
+              >
+                <FormField
+                  control={form.control}
+                  name="userRole"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Select your role</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select your user role" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="parent">Parent</SelectItem>
+                          <SelectItem value="student">Student</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormDescription></FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormDescription>
+                  Select the desired payment method.
+                </FormDescription>
+
+                <FormField
+                  control={form.control}
+                  name="phoneNumber"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Phone</FormLabel>
                       <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select your user role" />
-                        </SelectTrigger>
+                        <Input placeholder="0751123456" {...field} />
                       </FormControl>
-                      <SelectContent>
-                        <SelectItem value="parent">Parent</SelectItem>
-                        <SelectItem value="student">Student</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormDescription></FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormDescription>
-                Select the desired payment method.
-              </FormDescription>
 
-              <FormField
-                control={form.control}
-                name="phoneNumber"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Phone</FormLabel>
-                    <FormControl>
-                      <Input placeholder="0751123456" {...field} />
-                    </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                <FormField
+                  control={form.control}
+                  name="swimmerLevel"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Performance Level</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select the level of your performance" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="FALSE">Beginner</SelectItem>
+                          <SelectItem value="TRUE">Advanced</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormDescription>
+                        You can request your swimming teacher to promote you
+                        <Link href="/examples/forms">email settings</Link>.
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-              <FormField
-                control={form.control}
-                name="swimmerLevel"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Performance Level</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
+                <FormField
+                  control={form.control}
+                  name="pool"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Pool Location</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select the level of your performance" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="Cluj-Napoca">
+                            Cluj-Napoca
+                          </SelectItem>
+                          <SelectItem value="Dej">Dej</SelectItem>
+                          <SelectItem value="Sancraiu">Sâncraiu</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormDescription>
+                        You can request your swimming teacher to promote you
+                        <Link href="/examples/forms">email settings</Link>.
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="medicalCertificate"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Medical Certificate</FormLabel>
                       <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select the level of your performance" />
-                        </SelectTrigger>
+                        <Input
+                          type="file"
+                          accept=".pdf"
+                          placeholder="MedicalCertificate.pdf"
+                          // Use event.target.files to access the uploaded file
+                          onChange={(e) => {
+                            // Update the form state with the selected file
+                            field.onChange(e.target.files?.[0]);
+                          }}
+                        />
                       </FormControl>
-                      <SelectContent>
-                        <SelectItem value="FALSE">Beginner</SelectItem>
-                        <SelectItem value="TRUE">Advanced</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormDescription>
-                      You can request your swimming teacher to promote you
-                      <Link href="/examples/forms">email settings</Link>.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                      <FormDescription>
+                        Please upload your medical certificate in .pdf format.
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-              <FormField
-                control={form.control}
-                name="pool"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Pool Location</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select the level of your performance" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="Cluj-Napoca">Cluj-Napoca</SelectItem>
-                        <SelectItem value="Dej">Dej</SelectItem>
-                        <SelectItem value="Sancraiu">Sâncraiu</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormDescription>
-                      You can request your swimming teacher to promote you
-                      <Link href="/examples/forms">email settings</Link>.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="medicalCertificate"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Medical Certificate</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="file"
-                        accept=".pdf"
-                        placeholder="MedicalCertificate.pdf"
-                        // Use event.target.files to access the uploaded file
-                        onChange={(e) => {
-                          // Update the form state with the selected file
-                          field.onChange(e.target.files?.[0]);
-                        }}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      Please upload your medical certificate in .pdf format.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <Button type="submit">Submit</Button>
-            </form>
-          </Form>
+                <Button type="submit">Submit</Button>
+              </form>
+            </Form>
+          </ScrollArea>
         </DialogContent>
       </Dialog>
     </>
