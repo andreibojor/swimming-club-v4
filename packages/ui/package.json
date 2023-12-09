@@ -59,7 +59,7 @@
     "@acme/eslint-config": "0.2.0",
     "@acme/tailwind-config": "0.1.0",
     "@tanstack/react-table": "^8.10.7",
-    "@types/react": "^18.2.42",
+    "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "date-fns": "^2.30.0",
     "eslint": "^8.55.0",
