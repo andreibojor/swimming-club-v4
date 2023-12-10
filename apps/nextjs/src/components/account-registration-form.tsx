@@ -238,7 +238,7 @@ export function AccountRegistrationForm({ userDetails }) {
                       </Select>
                       <FormDescription>
                         You can request your swimming teacher to promote you
-                        <Link href="/examples/forms">email settings</Link>.
+                        {/* <Link href="/examples/forms">email settings</Link>. */}
                       </FormDescription>
                       <FormMessage />
                     </FormItem>

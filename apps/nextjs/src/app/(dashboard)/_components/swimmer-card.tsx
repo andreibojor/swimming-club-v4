@@ -253,13 +253,15 @@ export default function SwimmerCard({ student, children }) {
         </DialogHeader>
         <div className="space-y-6">
           <div className="flex flex-col justify-between space-y-6">
-            <div className="flex items-center">
-              <Icons.User color="#2563eb" />
-              <p className="ml-4 text-base font-normal">Parent:</p>
-              <p className="ml-2 text-base font-semibold leading-none">
-                {`${studentData.parent_name}`}
-              </p>
-            </div>
+            {studentData.role === "student" && (
+              <div className="flex items-center">
+                <Icons.User color="#2563eb" />
+                <p className="ml-4 text-base font-normal">Parent:</p>
+                <p className="ml-2 text-base font-semibold leading-none">
+                  {`${studentData.parent_name}`}
+                </p>
+              </div>
+            )}
 
             <div className="flex items-center">
               <Icons.Phone color="#2563eb" />

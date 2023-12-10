@@ -12,6 +12,7 @@ export const ArrowRight = Lucide.ArrowRight;
 export const BankNote = Lucide.Banknote;
 export const CaretSort = Lucide.SortAsc;
 export const Calendar = Lucide.Calendar;
+export const CalendarCheck = Lucide.CalendarCheck;
 export const ChevronDown = Lucide.ChevronDown;
 export const Check = Lucide.Check;
 export const CheckCircle = Lucide.CheckCircle;

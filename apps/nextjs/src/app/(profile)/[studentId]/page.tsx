@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { createServerSupabaseClient } from "@/actions/createServerSupabaseClient";
 import getActiveProductsWithPrices from "@/actions/getActiveProductsWithPrices";
 import getStudentAttendances from "@/actions/getStudentAttendances";
@@ -90,20 +91,16 @@ export default async function ProfilePage({
   searchParams,
 }: Record<string, string | string[] | undefined>) {
   const supabase = createServerSupabaseClient();
-
-  // Extract the studentId from params
-  const studentIdFromParams = params.studentId;
-
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // Check if user is available
-  if (!user?.id) {
-    // Handle scenario where user is not available
-    console.error("User is not defined");
-    return <div>User not found</div>;
+  if (!user) {
+    redirect("/sign-in");
   }
+
+  // Extract the studentId from params
+  const studentIdFromParams = params.studentId;
 
   const userDetails = await fetchUserDetails(user.id);
 
@@ -119,7 +116,7 @@ export default async function ProfilePage({
 
   const attendances = await getStudentAttendances(studentId);
   const dates = attendances.map((attendance) => attendance.date);
-
+  console.log(userDetails);
   return (
     <>
       <div className="flex w-full max-w-screen-lg animate-fade-up flex-col gap-5 p-5 xl:px-0">
@@ -143,31 +140,31 @@ export default async function ProfilePage({
                 </h4>
                 <div className="flex flex-col justify-between space-y-6">
                   <div className="flex items-center">
-                    <Icons.Phone color="#2563eb" />
-                    <p className="ml-4 text-base font-normal leading-none">
+                    <Icons.Phone color="#2563eb" className="h-5 w-5" />
+                    <p className="ml-2 text-base font-normal leading-none">
                       Phone:
                     </p>
-                    <p className="ml-2 text-base font-semibold leading-none">
-                      {userDetails.phone}
+                    <p className="ml-2 text-base font-normal leading-none">
+                      {userDetails?.phone}
                     </p>
                   </div>
 
                   <div className="flex items-center">
-                    <Icons.Waves color="#2563eb" />
-                    <p className="ml-4 text-base font-normal leading-none">
+                    <Icons.Waves color="#2563eb" className="h-5 w-5" />
+                    <p className="ml-2 text-base font-normal leading-none">
                       Pool:
                     </p>
-                    <p className="ml-2 text-base font-bold leading-none">
+                    <p className="ml-2 text-base font-normal leading-none">
                       {userDetails?.pool}
                     </p>
                   </div>
 
                   <div className="flex items-center">
-                    <Icons.User color="#2563eb" />
-                    <p className="ml-4 text-base font-normal leading-none">
+                    <Icons.User color="#2563eb" className="h-5 w-5" />
+                    <p className="ml-2 text-base font-normal leading-none">
                       Role:
                     </p>
-                    <p className="ml-2 text-base font-bold leading-none">
+                    <p className="ml-2 text-base font-normal leading-none">
                       {userDetails?.role}
                     </p>
                   </div>
@@ -175,25 +172,33 @@ export default async function ProfilePage({
                   <div className="flex items-center">
                     {userDetails?.active ? (
                       <>
-                        <Icons.Smile color="#2563eb" />
-                        <p className="ml-4 text-base font-normal leading-none">
+                        <Icons.Smile color="#2563eb" className="h-5 w-5" />
+                        <p className="ml-2 text-base font-normal leading-none">
                           Status:
                         </p>
-                        <p className="ml-2 text-base font-bold leading-none">
+                        <p className="ml-2 text-base font-normal leading-none">
                           Active
                         </p>
                       </>
                     ) : (
                       <>
-                        <Icons.Frown color="#2563eb" />
-                        <p className="ml-4 text-base font-normal leading-none">
+                        <Icons.Frown color="#2563eb" className="h-5 w-5" />
+                        <p className="ml-2 text-base font-normal leading-none">
                           Status:
                         </p>
-                        <p className="ml-2 text-base font-bold leading-none">
+                        <p className="ml-2 text-base font-normal leading-none">
                           Inactive
                         </p>
                       </>
                     )}
+                  </div>
+                  <div className="flex items-center">
+                    <Icons.CalendarCheck color="#2563eb" className="h-5 w-5" />
+                    <p className="ml-2 text-base font-normal">Expires at:</p>
+                    <p className="ml-2 text-base font-normal leading-none">
+                      {`${userDetails?.phone}`}
+                      si expired at
+                    </p>
                   </div>
 
                   {userDetails?.role === "parent" && (

@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation";
+import { createServerSupabaseClient } from "@/actions/createServerSupabaseClient";
 import getStudents from "@/actions/getStudents";
 
 import DashboardTabs from "../_components/dashboard-tabs";
@@ -11,6 +13,15 @@ const pools = [
 ];
 
 export default async function DashboardPage() {
+  const supabase = createServerSupabaseClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/sign-in");
+  }
+
   const students = await getStudents();
 
   return (
