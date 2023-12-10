@@ -19,7 +19,7 @@ export default async function DashboardPage() {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect("/sign-in");
+    redirect("/signin");
   }
 
   const students = await getStudents();

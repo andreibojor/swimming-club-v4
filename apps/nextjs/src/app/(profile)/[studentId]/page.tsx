@@ -96,7 +96,7 @@ export default async function ProfilePage({
   } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect("/sign-in");
+    redirect("/signin");
   }
 
   // Extract the studentId from params
