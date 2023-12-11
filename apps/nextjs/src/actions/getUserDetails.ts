@@ -40,7 +40,7 @@ const getUserDetails = async (userId: string): Promise<UserDetails[]> => {
     parent_name: parentName,
   };
 
-  // console.log(allData);
+  console.log(allData);
   return allData;
 };
 

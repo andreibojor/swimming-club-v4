@@ -26,6 +26,7 @@ import {
   FormLabel,
   FormMessage,
   Input,
+  ScrollArea,
   Select,
   SelectContent,
   SelectItem,
@@ -151,103 +152,104 @@ export default function AddStudentForm({ userDetails }) {
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[450px]">
-        <DialogHeader>
-          <DialogTitle>Add a student</DialogTitle>
-          <DialogDescription>
-            Add another student for swimming lessons
-          </DialogDescription>
-        </DialogHeader>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Nume si prenume" {...field} />
-                  </FormControl>
-
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="phoneNumber"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Phone</FormLabel>
-                  <FormControl>
-                    <Input placeholder="0751123456" {...field} />
-                  </FormControl>
-
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="swimmerLevel"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Performance Level</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
+        <ScrollArea className="max-h-[90vh]">
+          <DialogHeader>
+            <DialogTitle>Add a student</DialogTitle>
+            <DialogDescription>
+              Add another student for swimming lessons
+            </DialogDescription>
+          </DialogHeader>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
                     <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select the level of your performance" />
-                      </SelectTrigger>
+                      <Input placeholder="Nume si prenume" {...field} />
                     </FormControl>
-                    <SelectContent>
-                      <SelectItem value="FALSE">Beginner</SelectItem>
-                      <SelectItem value="TRUE">Advanced</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormDescription>
-                    You can request your swimming teacher to promote you
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
 
-            <FormField
-              control={form.control}
-              name="pool"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Pool Location</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="phoneNumber"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Phone</FormLabel>
                     <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select the level of your performance" />
-                      </SelectTrigger>
+                      <Input placeholder="0751123456" {...field} />
                     </FormControl>
-                    <SelectContent>
-                      <SelectItem value="Cluj-Napoca">Cluj-Napoca</SelectItem>
-                      <SelectItem value="Dej">Dej</SelectItem>
-                      <SelectItem value="Sancraiu">Sâncraiu</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormDescription>
-                    You can request your swimming teacher to promote you
-                    <Link href="/examples/forms">email settings</Link>.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
 
-            {/* <FormField
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="swimmerLevel"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Performance Level</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select the level of your performance" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="FALSE">Beginner</SelectItem>
+                        <SelectItem value="TRUE">Advanced</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormDescription>
+                      You can request your swimming teacher to promote you
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="pool"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Pool Location</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select the level of your performance" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="Cluj-Napoca">Cluj-Napoca</SelectItem>
+                        <SelectItem value="Dej">Dej</SelectItem>
+                        <SelectItem value="Sancraiu">Sâncraiu</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormDescription>
+                      You can request your swimming teacher to promote you
+                      <Link href="/examples/forms">email settings</Link>.
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* <FormField
               control={form.control}
               name="phoneNumber"
               render={({ field }) => (
@@ -262,34 +264,35 @@ export default function AddStudentForm({ userDetails }) {
               )}
             /> */}
 
-            <FormField
-              control={form.control}
-              name="medicalCertificate"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Medical Certificate</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="file"
-                      accept=".pdf"
-                      placeholder="MedicalCertificate.pdf"
-                      // Use event.target.files to access the uploaded file
-                      onChange={(e) => {
-                        // Update the form state with the selected file
-                        field.onChange(e.target.files?.[0]);
-                      }}
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    Please upload your medical certificate in .pdf format.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit">Submit</Button>
-          </form>
-        </Form>
+              <FormField
+                control={form.control}
+                name="medicalCertificate"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Medical Certificate</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="file"
+                        accept=".pdf"
+                        placeholder="MedicalCertificate.pdf"
+                        // Use event.target.files to access the uploaded file
+                        onChange={(e) => {
+                          // Update the form state with the selected file
+                          field.onChange(e.target.files?.[0]);
+                        }}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      Please upload your medical certificate in .pdf format.
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit">Submit</Button>
+            </form>
+          </Form>
+        </ScrollArea>
       </DialogContent>
     </Dialog>
   );

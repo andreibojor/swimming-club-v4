@@ -85,38 +85,32 @@ export default function StudentPanel({
 
   return (
     <>
-      <Tabs
-        // defaultValue={sortedStudentsByParent[0]?.id}
-        defaultValue={userDetails?.id}
-        className="space-y-4 overflow-auto"
-      >
-        <TabsList>
-          {/* <Link
+      <Tabs defaultValue={userDetails.id} className="space-y-4">
+        <TabsList className="flex justify-normal overflow-x-auto md:inline-flex md:justify-center">
+          <Link
             className="h-full w-full"
             scroll={false}
-            href={`?student=${userDetails?.id}`}
+            href={`?stundent=${userDetails?.id}`}
           >
-            <TabsTrigger
-              value={userDetails?.id}
-              onClick={() => setStudentId(userDetails?.id)}
-            >
+            <TabsTrigger value={userDetails?.id}>
               {userDetails?.full_name}
             </TabsTrigger>
-          </Link> */}
+          </Link>
           {sortedStudentsByParent?.map((student) => (
-            <Link
-              className="h-full w-full"
-              scroll={false}
-              href={`?student=${student.id}`}
+            // <Link
+            //   className="h-full w-full"
+            //   scroll={false}
+            //   href={`?student=${student.id}`}
+            //   key={student.id}
+            // >
+            <TabsTrigger
               key={student.id}
+              value={student.id}
+              onClick={() => handleTabClick(student.id)}
             >
-              <TabsTrigger
-                value={student.id}
-                onClick={() => handleTabClick(student.id)}
-              >
-                {student.full_name}
-              </TabsTrigger>
-            </Link>
+              {student.full_name}
+            </TabsTrigger>
+            // </Link>
           ))}
         </TabsList>
 
