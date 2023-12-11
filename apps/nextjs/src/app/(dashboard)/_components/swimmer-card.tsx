@@ -296,12 +296,20 @@ export default function SwimmerCard({ student, children }) {
                 {studentData.lessons_left}
               </p>
             </div>
+            <div className="flex items-center">
+              <Icons.CalendarCheck color="#2563eb" className="h-5 w-5" />
+              <p className="ml-2 text-base font-normal">Expires at:</p>
+              <p className="ml-2 text-base font-normal leading-none">
+                add expiration date
+              </p>
+            </div>
             <p className="text-sm font-medium leading-none">
               Role: {studentData?.role}
             </p>
             <p className="text-sm font-medium leading-none">
               Status: {studentData?.active ? `Active` : `Inactive`}
             </p>
+
             {/* <AddStudentForm userDetails={userDetails} /> */}
           </div>
         </div>
