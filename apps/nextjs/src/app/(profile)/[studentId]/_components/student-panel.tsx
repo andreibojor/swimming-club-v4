@@ -14,6 +14,7 @@ export default function StudentPanel({
   sortedStudentsByParent,
   dates,
   products,
+  allStudentDetails,
 }) {
   const [professionalStudent, setProfessionalStudent] = useState(false);
   const [studentAttences, setStudentAttences] = useState(dates);

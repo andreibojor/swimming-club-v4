@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
@@ -81,7 +80,6 @@ const defaultValues: Partial<ProfileFormValues> = {
 
 export function AccountRegistrationForm({ userDetails }) {
   const supabase = createClientComponentClient();
-  const [formStep, setFormStep] = useState(0);
 
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
@@ -98,6 +96,7 @@ export function AccountRegistrationForm({ userDetails }) {
       ? setIsOpenDialog(false)
       : setIsOpenDialog(true);
   }, []);
+
   const router = useRouter();
   const onSubmit = async (data: ProfileFormValues) => {
     const {
@@ -110,19 +109,13 @@ export function AccountRegistrationForm({ userDetails }) {
     } = data;
 
     // in users table
-    const updateUserPhoneAction = await supabase
+    const updateUserData = await supabase
       .from("users")
-      .update({ phone: phoneNumber })
-      .eq("id", userDetails?.id);
-
-    const updateUserRoleAction = await supabase
-      .from("users")
-      .update({ role: userRole })
-      .eq("id", userDetails?.id);
-
-    const updateCompletedRegistrationAction = await supabase
-      .from("users")
-      .update({ completed_registration: true })
+      .update({
+        phone: phoneNumber,
+        role: userRole,
+        completed_registration: true,
+      })
       .eq("id", userDetails?.id);
 
     const { data: medicalCertificateData } = await supabaseClient.storage
@@ -133,24 +126,15 @@ export function AccountRegistrationForm({ userDetails }) {
       });
 
     // in students table
-    const updateStudentPoolAction = await supabase
+    const updateStudentData = await supabase
       .from("students")
-      .insert({ pool: pool })
-      .eq("id", userDetails?.id);
-
-    const updateProfessionalStudentAction = await supabase
-      .from("students")
-      .insert({ professional_student: swimmerLevel })
-      .eq("id", userDetails?.id);
-
-    const updateParentIdAction = await supabase
-      .from("students")
-      .insert({ parent_id: userDetails?.id })
-      .eq("id", userDetails?.id);
-
-    const updateMedicalCertificatePathAction = await supabase
-      .from("students")
-      .insert({ medical_certificate_path: medicalCertificateData?.path })
+      .update({
+        pool: pool,
+        professional_student: swimmerLevel,
+        parent_id: userDetails?.id,
+        active: false,
+        medical_certificate_path: medicalCertificateData?.path,
+      })
       .eq("id", userDetails?.id);
 
     setIsOpenDialog(false);

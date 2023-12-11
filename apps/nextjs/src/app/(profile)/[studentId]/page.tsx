@@ -110,7 +110,6 @@ export default async function ProfilePage({
   const dates = attendances.map((attendance) => attendance.date);
 
   const allStudentDetails = await getAllStudentDetails(studentId);
-  console.log(allStudentDetails);
 
   return (
     <>
@@ -120,12 +119,12 @@ export default async function ProfilePage({
             <CardHeader className="pb-0">
               <Avatar className="h-[80px] w-[80px]">
                 <AvatarImage
-                  src={`${userDetails?.avatar_url}`}
+                  src={`${allStudentDetails?.avatar_url}`}
                   alt="Avatar Image"
                 />
                 <AvatarFallback>CSC</AvatarFallback>
               </Avatar>
-              <CardTitle>{userDetails?.full_name}</CardTitle>
+              <CardTitle>{allStudentDetails?.full_name}</CardTitle>
             </CardHeader>
             <CardContent>
               <Separator className="my-4" />
@@ -140,7 +139,7 @@ export default async function ProfilePage({
                       Phone:
                     </p>
                     <p className="ml-2 text-base font-normal leading-none">
-                      {userDetails?.phone}
+                      {allStudentDetails?.phone}
                     </p>
                   </div>
 
@@ -150,7 +149,7 @@ export default async function ProfilePage({
                       Pool:
                     </p>
                     <p className="ml-2 text-base font-normal leading-none">
-                      {userDetails?.pool}
+                      {allStudentDetails?.pool}
                     </p>
                   </div>
 
@@ -160,12 +159,12 @@ export default async function ProfilePage({
                       Role:
                     </p>
                     <p className="ml-2 text-base font-normal leading-none">
-                      {userDetails?.role}
+                      {allStudentDetails?.role}
                     </p>
                   </div>
 
                   <div className="flex items-center">
-                    {userDetails?.active ? (
+                    {allStudentDetails?.active ? (
                       <>
                         <Icons.Smile color="#2563eb" className="h-5 w-5" />
                         <p className="ml-2 text-base font-normal leading-none">
@@ -210,6 +209,7 @@ export default async function ProfilePage({
                   sortedStudentsByParent={sortedStudentsByParent}
                   dates={dates}
                   products={products}
+                  allStudentDetail={allStudentDetails}
                 />
               </CardContent>
             )}
