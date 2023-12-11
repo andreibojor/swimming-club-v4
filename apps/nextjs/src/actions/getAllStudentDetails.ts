@@ -35,11 +35,19 @@ const getAllStudentDetails = async (
     }
   }
 
+  const { data: studentSubscriptionData, error: studentSubscriptionError } =
+    await supabase
+      .from("subscriptions")
+      .select("current_period_start, current_period_end")
+      .eq("user_id", studentId)
+      .single();
+
   error && console.log(error);
   const allData = {
     ...userData,
     ...studentData,
     parent_name: parentName,
+    ...studentSubscriptionData,
   };
 
   return allData;

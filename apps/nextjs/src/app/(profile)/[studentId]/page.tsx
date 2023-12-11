@@ -111,7 +111,7 @@ export default async function ProfilePage({
   const dates = attendances.map((attendance) => attendance.date);
 
   const allStudentDetails = await getAllStudentDetails(studentId);
-
+  console.log(allStudentDetails);
   return (
     <>
       <div className="flex w-full max-w-screen-lg animate-fade-up flex-col gap-5 p-5 xl:px-0">
