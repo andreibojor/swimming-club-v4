@@ -135,7 +135,7 @@ export default async function ProfilePage({
                 </h4>
                 <div className="flex flex-col justify-between space-y-6">
                   <div className="flex items-center">
-                    <Icons.Phone color="#3b82f6" className="h-5 w-5" />
+                    <Icons.Phone className="h-5 w-5 text-[#3B82F6]" />
                     <p className="ml-2 text-base font-normal leading-none">
                       Phone:
                     </p>
@@ -145,7 +145,7 @@ export default async function ProfilePage({
                   </div>
 
                   <div className="flex items-center">
-                    <Icons.Waves color="#3b82f6" className="h-5 w-5" />
+                    <Icons.Waves className="h-5 w-5 text-[#3B82F6]" />
                     <p className="ml-2 text-base font-normal leading-none">
                       Pool:
                     </p>
@@ -155,7 +155,7 @@ export default async function ProfilePage({
                   </div>
 
                   <div className="flex items-center">
-                    <Icons.User color="#3b82f6" className="h-5 w-5" />
+                    <Icons.User className="h-5 w-5 text-[#3B82F6]" />
                     <p className="ml-2 text-base font-normal leading-none">
                       Role:
                     </p>
@@ -167,7 +167,7 @@ export default async function ProfilePage({
                   <div className="flex items-center">
                     {allStudentDetails?.active ? (
                       <>
-                        <Icons.Smile color="#3b82f6" className="h-5 w-5" />
+                        <Icons.Smile className="h-5 w-5 text-[#3B82F6]" />
                         <p className="ml-2 text-base font-normal leading-none">
                           Status:
                         </p>
@@ -177,7 +177,7 @@ export default async function ProfilePage({
                       </>
                     ) : (
                       <>
-                        <Icons.Frown color="#3b82f6" className="h-5 w-5" />
+                        <Icons.Frown className="h-5 w-5 text-[#3B82F6]" />
                         <p className="ml-2 text-base font-normal leading-none">
                           Status:
                         </p>
@@ -188,7 +188,7 @@ export default async function ProfilePage({
                     )}
                   </div>
                   <div className="flex items-center">
-                    <Icons.CalendarCheck color="#3b82f6" className="h-5 w-5" />
+                    <Icons.CalendarCheck className="h-5 w-5 text-[#3B82F6]" />
                     <p className="ml-2 text-base font-normal">Expires at:</p>
                     <p className="ml-2 text-base font-normal leading-none">
                       {`${new Date(

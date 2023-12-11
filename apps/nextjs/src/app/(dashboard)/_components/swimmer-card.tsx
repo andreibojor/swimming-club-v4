@@ -255,34 +255,34 @@ export default function SwimmerCard({ student, children }) {
           <div className="flex flex-col justify-between space-y-6">
             {studentData.role === "student" && (
               <div className="flex items-center">
-                <Icons.User color="#3b82f6" />
-                <p className="ml-4 text-base font-normal">Parent:</p>
-                <p className="ml-2 text-base font-semibold leading-none">
+                <Icons.User className="h-5 w-5 text-[#3B82F6]" />
+                <p className="ml-2 text-base font-normal">Parent:</p>
+                <p className="ml-2 text-base font-normal leading-none">
                   {`${studentData.parent_name}`}
                 </p>
               </div>
             )}
 
             <div className="flex items-center">
-              <Icons.Phone color="#3b82f6" />
-              <p className="ml-4 text-base font-normal">Phone:</p>
-              <p className="ml-2 text-base font-semibold leading-none">
+              <Icons.Phone className="h-5 w-5 text-[#3B82F6]" />
+              <p className="ml-2 text-base font-normal">Phone:</p>
+              <p className="ml-2 text-base font-normal leading-none">
                 {`${studentData.phone}`}
               </p>
             </div>
 
             <div className="flex items-center">
-              <Icons.Waves color="#3b82f6" />
-              <p className="ml-4 text-base font-normal">Pool:</p>
-              <p className="ml-2 text-base font-semibold leading-none">
+              <Icons.Waves className="h-5 w-5 text-[#3B82F6]" />
+              <p className="ml-2 text-base font-normal">Pool:</p>
+              <p className="ml-2 text-base font-normal leading-none">
                 {studentData.pool}
               </p>
             </div>
 
             <div className="flex items-center">
-              <Icons.GraduationCap color="#3b82f6" />
-              <p className="ml-4 text-base font-normal">Class:</p>
-              <p className="ml-2 text-base font-semibold leading-none">
+              <Icons.GraduationCap className="h-5 w-5 text-[#3B82F6]" />
+              <p className="ml-2 text-base font-normal">Class:</p>
+              <p className="ml-2 text-base font-normal leading-none">
                 {` ${
                   studentData.professional_student ? "Advanced" : "Beginner"
                 }`}
@@ -290,14 +290,14 @@ export default function SwimmerCard({ student, children }) {
             </div>
 
             <div className="flex items-center">
-              <Icons.Calendar color="#3b82f6" />
-              <p className="ml-4 text-base font-normal">Lessons left:</p>
-              <p className="ml-2 text-base font-semibold leading-none">
+              <Icons.Calendar className="h-5 w-5 text-[#3B82F6]" />
+              <p className="ml-2 text-base font-normal">Lessons left:</p>
+              <p className="ml-2 text-base font-normal leading-none">
                 {studentData.lessons_left}
               </p>
             </div>
             <div className="flex items-center">
-              <Icons.CalendarCheck color="#3b82f6" className="h-5 w-5" />
+              <Icons.CalendarCheck className="h-5 w-5 text-[#3B82F6]" />
               <p className="ml-2 text-base font-normal">Expires at:</p>
               <p className="ml-2 text-base font-normal leading-none">
                 add expiration date
