@@ -255,7 +255,7 @@ export default function SwimmerCard({ student, children }) {
           <div className="flex flex-col justify-between space-y-6">
             {studentData.role === "student" && (
               <div className="flex items-center">
-                <Icons.User color="#2563eb" />
+                <Icons.User color="#3b82f6" />
                 <p className="ml-4 text-base font-normal">Parent:</p>
                 <p className="ml-2 text-base font-semibold leading-none">
                   {`${studentData.parent_name}`}
@@ -264,7 +264,7 @@ export default function SwimmerCard({ student, children }) {
             )}
 
             <div className="flex items-center">
-              <Icons.Phone color="#2563eb" />
+              <Icons.Phone color="#3b82f6" />
               <p className="ml-4 text-base font-normal">Phone:</p>
               <p className="ml-2 text-base font-semibold leading-none">
                 {`${studentData.phone}`}
@@ -272,7 +272,7 @@ export default function SwimmerCard({ student, children }) {
             </div>
 
             <div className="flex items-center">
-              <Icons.Waves color="#2563eb" />
+              <Icons.Waves color="#3b82f6" />
               <p className="ml-4 text-base font-normal">Pool:</p>
               <p className="ml-2 text-base font-semibold leading-none">
                 {studentData.pool}
@@ -280,7 +280,7 @@ export default function SwimmerCard({ student, children }) {
             </div>
 
             <div className="flex items-center">
-              <Icons.GraduationCap color="#2563eb" />
+              <Icons.GraduationCap color="#3b82f6" />
               <p className="ml-4 text-base font-normal">Class:</p>
               <p className="ml-2 text-base font-semibold leading-none">
                 {` ${
@@ -290,14 +290,14 @@ export default function SwimmerCard({ student, children }) {
             </div>
 
             <div className="flex items-center">
-              <Icons.Calendar color="#2563eb" />
+              <Icons.Calendar color="#3b82f6" />
               <p className="ml-4 text-base font-normal">Lessons left:</p>
               <p className="ml-2 text-base font-semibold leading-none">
                 {studentData.lessons_left}
               </p>
             </div>
             <div className="flex items-center">
-              <Icons.CalendarCheck color="#2563eb" className="h-5 w-5" />
+              <Icons.CalendarCheck color="#3b82f6" className="h-5 w-5" />
               <p className="ml-2 text-base font-normal">Expires at:</p>
               <p className="ml-2 text-base font-normal leading-none">
                 add expiration date
