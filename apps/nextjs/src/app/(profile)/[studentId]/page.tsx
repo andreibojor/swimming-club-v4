@@ -7,6 +7,7 @@ import getStudentsByParent from "@/actions/getStudentsByParent";
 import getUserDetails from "@/actions/getUserDetails";
 import { AccountRegistrationForm } from "@/app/(profile)/[studentId]/_components/account-registration-form";
 import AttendancePieChart from "@/components/attendance-piechart";
+import SubscribeButton from "@/components/subscribe-button";
 import { UserDetails } from "@/types";
 
 import {
@@ -217,9 +218,13 @@ export default async function ProfilePage({
             {userDetails?.role === "student" && (
               <CardContent>
                 <div className="flex flex-col justify-normal gap-4 md:flex-row md:justify-between">
-                  <AttendancePieChart attendancesLeft={3} />
+                  {/* <AttendancePieChart attendancesLeft={3} /> */}
                   <Calendar mode="multiple" selected={dates} />
                 </div>
+                <SubscribeButton
+                  products={products}
+                  professionalStudent={false}
+                />
               </CardContent>
             )}
           </Card>
@@ -279,7 +284,7 @@ export default async function ProfilePage({
             )}
           </Card> */}
         </div>
-        {/* <div className="flex justify-between gap-0 md:gap-5">
+        <div className="flex justify-between gap-0 md:gap-5">
           <div className="none md:w-1/3"></div>
           <Card className="w-full md:w-2/3">
             <CardHeader>
@@ -316,7 +321,7 @@ export default async function ProfilePage({
               </Table>
             </CardContent>
           </Card>
-        </div> */}
+        </div>
       </div>
       <AccountRegistrationForm userDetails={userDetails} />
     </>
