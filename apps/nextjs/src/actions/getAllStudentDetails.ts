@@ -38,7 +38,7 @@ const getAllStudentDetails = async (
   const { data: studentSubscriptionData, error: studentSubscriptionError } =
     await supabase
       .from("subscriptions")
-      .select("current_period_start, current_period_end")
+      .select("current_period_start, current_period_end, status")
       .eq("user_id", studentId)
       .single();
 

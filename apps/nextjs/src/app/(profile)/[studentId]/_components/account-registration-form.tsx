@@ -132,7 +132,6 @@ export function AccountRegistrationForm({ userDetails }) {
         pool: pool,
         professional_student: swimmerLevel,
         parent_id: userDetails?.id,
-        active: false,
         medical_certificate_path: medicalCertificateData?.path,
       })
       .eq("id", userDetails?.id);

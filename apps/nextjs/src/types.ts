@@ -45,10 +45,11 @@ export interface Student {
   pool?: string;
   lessons_left?: number;
   professional_student?: boolean;
-  active?: boolean;
+  // active?: boolean;
   medical_certificate_path?: string;
   parent_id?: string;
   phone_number?: string;
+  parent_name?: string;
 }
 
 export interface Subscription {
