@@ -88,7 +88,7 @@ export function AccountRegistrationForm({ userDetails }) {
     defaultValues,
     mode: "onChange",
   });
-
+  // console.log(userDetails);
   const [isOpenDialog, setIsOpenDialog] = useState(false);
 
   const supabaseClient = useSupabaseClient();
@@ -98,21 +98,31 @@ export function AccountRegistrationForm({ userDetails }) {
       ? setIsOpenDialog(false)
       : setIsOpenDialog(true);
   }, []);
-
   const router = useRouter();
-
   const onSubmit = async (data: ProfileFormValues) => {
-    const { phoneNumber, medicalCertificate, pool, userRole, swimmerLevel } =
-      data;
+    const {
+      phoneNumber,
+      medicalCertificate,
+      name,
+      pool,
+      userRole,
+      swimmerLevel,
+    } = data;
 
     // in users table
-    const updateUserTableAction = await supabase
+    const updateUserPhoneAction = await supabase
       .from("users")
-      .update({
-        phone: phoneNumber,
-        role: userRole,
-        completed_registration: true,
-      })
+      .update({ phone: phoneNumber })
+      .eq("id", userDetails?.id);
+
+    const updateUserRoleAction = await supabase
+      .from("users")
+      .update({ role: userRole })
+      .eq("id", userDetails?.id);
+
+    const updateCompletedRegistrationAction = await supabase
+      .from("users")
+      .update({ completed_registration: true })
       .eq("id", userDetails?.id);
 
     const { data: medicalCertificateData } = await supabaseClient.storage
@@ -125,13 +135,22 @@ export function AccountRegistrationForm({ userDetails }) {
     // in students table
     const updateStudentPoolAction = await supabase
       .from("students")
-      .update({
-        pool: pool,
-        professional_student: swimmerLevel,
-        parent_id: userDetails?.id,
-        active: false,
-        medical_certificate_path: medicalCertificateData?.path,
-      })
+      .insert({ pool: pool })
+      .eq("id", userDetails?.id);
+
+    const updateProfessionalStudentAction = await supabase
+      .from("students")
+      .insert({ professional_student: swimmerLevel })
+      .eq("id", userDetails?.id);
+
+    const updateParentIdAction = await supabase
+      .from("students")
+      .insert({ parent_id: userDetails?.id })
+      .eq("id", userDetails?.id);
+
+    const updateMedicalCertificatePathAction = await supabase
+      .from("students")
+      .insert({ medical_certificate_path: medicalCertificateData?.path })
       .eq("id", userDetails?.id);
 
     setIsOpenDialog(false);
@@ -140,8 +159,6 @@ export function AccountRegistrationForm({ userDetails }) {
       title: "You submitted the following values:",
       description: (
         <>
-          <h1>user details</h1>
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4"></pre>
           <h1>data</h1>
           <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
             <code className="text-white">{JSON.stringify(data, null, 2)}</code>
@@ -271,7 +288,6 @@ export function AccountRegistrationForm({ userDetails }) {
                       </Select>
                       <FormDescription>
                         You can request your swimming teacher to promote you
-                        <Link href="/examples/forms">email settings</Link>.
                       </FormDescription>
                       <FormMessage />
                     </FormItem>

@@ -1,10 +1,11 @@
 import { redirect } from "next/navigation";
 import { createServerSupabaseClient } from "@/actions/createServerSupabaseClient";
 import getActiveProductsWithPrices from "@/actions/getActiveProductsWithPrices";
+import getAllStudentDetails from "@/actions/getAllStudentDetails";
 import getStudentAttendances from "@/actions/getStudentAttendances";
 import getStudentsByParent from "@/actions/getStudentsByParent";
 import getUserDetails from "@/actions/getUserDetails";
-import { AccountRegistrationForm } from "@/components/account-registration-form";
+import { AccountRegistrationForm } from "@/app/(profile)/[studentId]/_components/account-registration-form";
 import AttendancePieChart from "@/components/attendance-piechart";
 import { UserDetails } from "@/types";
 
@@ -77,15 +78,6 @@ const invoices = [
   },
 ];
 
-async function fetchUserDetails(userId: string) {
-  try {
-    return await getUserDetails(userId);
-  } catch (error) {
-    console.error("Error fetching user details:", error);
-    return null;
-  }
-}
-
 export default async function ProfilePage({
   params,
   searchParams,
@@ -102,7 +94,7 @@ export default async function ProfilePage({
   // Extract the studentId from params
   const studentIdFromParams = params.studentId;
 
-  const userDetails = await fetchUserDetails(user.id);
+  const userDetails = await getUserDetails(user.id);
 
   // Use either the studentId from the URL or the user's own ID
   const studentId =
@@ -116,6 +108,9 @@ export default async function ProfilePage({
 
   const attendances = await getStudentAttendances(studentId);
   const dates = attendances.map((attendance) => attendance.date);
+
+  const allStudentDetails = await getAllStudentDetails(studentId);
+  console.log(allStudentDetails);
 
   return (
     <>
@@ -196,8 +191,7 @@ export default async function ProfilePage({
                     <Icons.CalendarCheck color="#2563eb" className="h-5 w-5" />
                     <p className="ml-2 text-base font-normal">Expires at:</p>
                     <p className="ml-2 text-base font-normal leading-none">
-                      {`${userDetails?.phone}`}
-                      si expired at
+                      add expiration date
                     </p>
                   </div>
 

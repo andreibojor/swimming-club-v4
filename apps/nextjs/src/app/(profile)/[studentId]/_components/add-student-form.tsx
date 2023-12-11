@@ -105,11 +105,12 @@ export default function AddStudentForm({ userDetails }) {
         upsert: false,
       });
 
-    const updateStudentPoolAction = await supabase.from("students").insert({
+    const updateStudentData = await supabase.from("students").insert({
       id: newStudentId,
       full_name: name,
       parent_id: userDetails.id,
       pool: pool,
+      active: false,
       student_phone: phoneNumber,
       professional_student: swimmerLevel,
       medical_certificate_path: medicalCertificateData?.path,
