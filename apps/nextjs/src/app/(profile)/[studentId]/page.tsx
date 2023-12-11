@@ -191,7 +191,13 @@ export default async function ProfilePage({
                     <Icons.CalendarCheck color="#2563eb" className="h-5 w-5" />
                     <p className="ml-2 text-base font-normal">Expires at:</p>
                     <p className="ml-2 text-base font-normal leading-none">
-                      add expiration date
+                      {`${new Date(
+                        allStudentDetails.current_period_end,
+                      ).toLocaleDateString("en-GB", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric",
+                      })}`}
                     </p>
                   </div>
 
