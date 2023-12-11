@@ -210,7 +210,7 @@ export default async function ProfilePage({
                   sortedStudentsByParent={sortedStudentsByParent}
                   dates={dates}
                   products={products}
-                  allStudentDetail={allStudentDetails}
+                  allStudentDetails={allStudentDetails}
                 />
               </CardContent>
             )}
