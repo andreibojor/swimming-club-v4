@@ -27,6 +27,7 @@ import {
   FormLabel,
   FormMessage,
   Input,
+  ScrollArea,
   Select,
   SelectContent,
   SelectItem,
@@ -239,95 +240,96 @@ export default function SwimmerCard({ student, children }) {
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[450px]">
-        <DialogHeader className="mb-6 items-center">
-          <Avatar className="mb-2 h-16 w-16">
-            <AvatarImage src={`${studentData.avatar_url}`} />
-            <AvatarFallback className="text-xl">
-              {/* {studentData && getInitials(studentData?.full_name)} */}
-            </AvatarFallback>
-          </Avatar>
-          <DialogTitle>{studentData.full_name}</DialogTitle>
-          {/* <DialogDescription>
+        <ScrollArea className="max-h-[92vh]">
+          <DialogHeader className="mb-6 items-center">
+            <Avatar className="mb-2 h-16 w-16">
+              <AvatarImage src={`${studentData.avatar_url}`} />
+              <AvatarFallback className="text-xl">
+                {/* {studentData && getInitials(studentData?.full_name)} */}
+              </AvatarFallback>
+            </Avatar>
+            <DialogTitle>{studentData.full_name}</DialogTitle>
+            {/* <DialogDescription>
             Add another student for swimming lessons
           </DialogDescription> */}
-        </DialogHeader>
-        <div className="space-y-6">
-          <div className="flex flex-col justify-between space-y-6">
-            {studentData.role === "student" && (
+          </DialogHeader>
+          <div className="space-y-6">
+            <div className="flex flex-col justify-between space-y-6">
+              {studentData.role === "student" && (
+                <div className="flex items-center">
+                  <Icons.User className="h-5 w-5 text-[#3B82F6]" />
+                  <p className="ml-2 text-base font-normal">Parent:</p>
+                  <p className="ml-2 text-base font-normal leading-none">
+                    {`${studentData.parent_name}`}
+                  </p>
+                </div>
+              )}
+
               <div className="flex items-center">
-                <Icons.User className="h-5 w-5 text-[#3B82F6]" />
-                <p className="ml-2 text-base font-normal">Parent:</p>
+                <Icons.Phone className="h-5 w-5 text-[#3B82F6]" />
+                <p className="ml-2 text-base font-normal">Phone:</p>
                 <p className="ml-2 text-base font-normal leading-none">
-                  {`${studentData.parent_name}`}
+                  {`${studentData.phone}`}
                 </p>
               </div>
-            )}
 
-            <div className="flex items-center">
-              <Icons.Phone className="h-5 w-5 text-[#3B82F6]" />
-              <p className="ml-2 text-base font-normal">Phone:</p>
-              <p className="ml-2 text-base font-normal leading-none">
-                {`${studentData.phone}`}
-              </p>
-            </div>
+              <div className="flex items-center">
+                <Icons.Waves className="h-5 w-5 text-[#3B82F6]" />
+                <p className="ml-2 text-base font-normal">Pool:</p>
+                <p className="ml-2 text-base font-normal leading-none">
+                  {studentData.pool}
+                </p>
+              </div>
 
-            <div className="flex items-center">
-              <Icons.Waves className="h-5 w-5 text-[#3B82F6]" />
-              <p className="ml-2 text-base font-normal">Pool:</p>
-              <p className="ml-2 text-base font-normal leading-none">
-                {studentData.pool}
-              </p>
-            </div>
+              <div className="flex items-center">
+                <Icons.GraduationCap className="h-5 w-5 text-[#3B82F6]" />
+                <p className="ml-2 text-base font-normal">Class:</p>
+                <p className="ml-2 text-base font-normal leading-none">
+                  {` ${studentData.swimmer_level}`}
+                </p>
+              </div>
 
-            <div className="flex items-center">
-              <Icons.GraduationCap className="h-5 w-5 text-[#3B82F6]" />
-              <p className="ml-2 text-base font-normal">Class:</p>
-              <p className="ml-2 text-base font-normal leading-none">
-                {` ${studentData.swimmer_level}`}
+              <div className="flex items-center">
+                <Icons.Calendar className="h-5 w-5 text-[#3B82F6]" />
+                <p className="ml-2 text-base font-normal">Lessons left:</p>
+                <p className="ml-2 text-base font-normal leading-none">
+                  {studentData.lessons_left}
+                </p>
+              </div>
+              <div className="flex items-center">
+                <Icons.CalendarCheck className="h-5 w-5 text-[#3B82F6]" />
+                <p className="ml-2 text-base font-normal">Expires at:</p>
+                <p className="ml-2 text-base font-normal leading-none">
+                  add expiration date
+                </p>
+              </div>
+              <p className="text-sm font-medium leading-none">
+                Role: {studentData?.role}
               </p>
-            </div>
+              <p className="text-sm font-medium leading-none">
+                Status: {studentData?.active ? `Active` : `Inactive`}
+              </p>
 
-            <div className="flex items-center">
-              <Icons.Calendar className="h-5 w-5 text-[#3B82F6]" />
-              <p className="ml-2 text-base font-normal">Lessons left:</p>
-              <p className="ml-2 text-base font-normal leading-none">
-                {studentData.lessons_left}
-              </p>
+              {/* <AddStudentForm userDetails={userDetails} /> */}
             </div>
-            <div className="flex items-center">
-              <Icons.CalendarCheck className="h-5 w-5 text-[#3B82F6]" />
-              <p className="ml-2 text-base font-normal">Expires at:</p>
-              <p className="ml-2 text-base font-normal leading-none">
-                add expiration date
-              </p>
-            </div>
-            <p className="text-sm font-medium leading-none">
-              Role: {studentData?.role}
-            </p>
-            <p className="text-sm font-medium leading-none">
-              Status: {studentData?.active ? `Active` : `Inactive`}
-            </p>
-
-            {/* <AddStudentForm userDetails={userDetails} /> */}
           </div>
-        </div>
 
-        <div className="mt-5">
-          <Button
-            disabled={certificateError}
-            onClick={() => getMedicalCertificate()}
-          >
-            <Icons.Eye />
-          </Button>
-        </div>
-        {/* <Calendar mode="multiple" /> */}
-        <Calendar
-          mode="multiple"
-          selected={studentAttendances}
-          className="flex justify-center"
-        />
-        {/* <Calendar mode="multiple" /> */}
-        {/* <Form {...form}>
+          <div className="mt-5">
+            <Button
+              disabled={certificateError}
+              onClick={() => getMedicalCertificate()}
+            >
+              <Icons.Eye />
+            </Button>
+          </div>
+          {/* <Calendar mode="multiple" /> */}
+          <Calendar
+            mode="multiple"
+            selected={studentAttendances}
+            className="flex justify-center"
+          />
+          {/* <Calendar mode="multiple" /> */}
+          {/* <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
               control={form.control}
@@ -444,6 +446,7 @@ export default function SwimmerCard({ student, children }) {
             <Button type="submit">Submit</Button>
           </form>
         </Form> */}
+        </ScrollArea>
       </DialogContent>
     </Dialog>
   );

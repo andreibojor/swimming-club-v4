@@ -133,6 +133,7 @@ export function AccountRegistrationForm({ userDetails }) {
         swimmer_level: swimmerLevel,
         parent_id: userDetails?.id,
         medical_certificate_path: medicalCertificateData?.path,
+        student_phone: phoneNumber,
       })
       .eq("id", userDetails?.id);
 
