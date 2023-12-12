@@ -1,7 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import { useStudentId, type StudentIdInterface } from "@/hooks/useStudentId";
+import {
+  useStudentIdForStripe,
+  type IStudentIdForStripe,
+} from "@/hooks/useStudentIdForStripe";
 import useSubscribeModal from "@/hooks/useSubscribeModal";
 import { useUser } from "@/hooks/useUser";
 import { postData } from "@/libs/helpers";
@@ -37,7 +40,10 @@ const SubscribeButton: React.FC<SubscribeModalProps> = ({
 
   const [priceIdLoading, setPriceIdLoading] = useState<string>();
 
-  const { studentId, setStudentIdState }: StudentIdInterface = useStudentId();
+  const {
+    studentIdForStripe,
+    setStudentIdForStripeState,
+  }: IStudentIdForStripe = useStudentIdForStripe();
 
   const handleCheckout = async (price: Price) => {
     setPriceIdLoading(price.id);
@@ -45,7 +51,7 @@ const SubscribeButton: React.FC<SubscribeModalProps> = ({
     try {
       const { sessionId } = await postData({
         url: "/api/create-checkout-session",
-        data: { price, studentId },
+        data: { price, studentIdForStripe },
       });
 
       const stripe = await getStripe();
