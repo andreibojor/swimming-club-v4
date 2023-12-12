@@ -10,7 +10,7 @@ export async function POST(request: Request) {
     price,
     quantity = 1,
     metadata = {},
-    studentIdForStripe,
+    studentIdStripe,
   } = await request.json();
 
   try {
@@ -42,10 +42,10 @@ export async function POST(request: Request) {
         trial_from_plan: true,
         metadata: {
           ...metadata,
-          studentIdForStripe, // Add studentId to the metadata
+          studentIdStripe, // Add studentId to the metadata
         },
       },
-      success_url: `${getURL()}/${studentIdForStripe}?student=${studentIdForStripe}`,
+      success_url: `${getURL()}/${studentIdStripe}?student=${studentIdStripe}`,
       cancel_url: `${getURL()}/`,
     });
 

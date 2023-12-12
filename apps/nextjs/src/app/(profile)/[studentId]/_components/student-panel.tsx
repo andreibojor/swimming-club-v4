@@ -19,8 +19,7 @@ export default function StudentPanel({
   const [professionalStudent, setProfessionalStudent] = useState(false);
   const [studentAttences, setStudentAttences] = useState(dates);
   const supabase = createClientComponentClient();
-  const { studentIdStripe: studentIdForStripe, setStudentIdForStripe } =
-    useStudentIdStripe();
+  const { studentIdStripe, setStudentIdStripe } = useStudentIdStripe();
 
   const getStudentAttendances = async (studentId: string) => {
     const { data } = await supabase
@@ -68,7 +67,7 @@ export default function StudentPanel({
 
   const handleTabClick = async (studentId: string) => {
     // Update the Zustand state
-    setStudentIdForStripe(studentId);
+    setStudentIdStripe(studentId);
 
     // Fetch the student's details from Supabase
     const { data, error } = await supabase
