@@ -15,7 +15,9 @@ const getAllStudentDetails = async (
 
   const { data: studentData, error: studentError } = await supabase
     .from("students")
-    .select("*")
+    .select(
+      "id, full_name, pool, swimmer_level, lessons_left, medical_certificate_path, student_phone, parent_id",
+    )
     .eq("id", studentId)
     .single();
 

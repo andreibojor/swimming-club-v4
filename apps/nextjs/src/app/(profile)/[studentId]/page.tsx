@@ -7,8 +7,6 @@ import getStudentsByParent from "@/actions/getStudentsByParent";
 import getUserDetails from "@/actions/getUserDetails";
 import { AccountRegistrationForm } from "@/app/(profile)/[studentId]/_components/account-registration-form";
 import AttendancePieChart from "@/components/attendance-piechart";
-import SubscribeButton from "@/components/subscribe-button";
-import { UserDetails } from "@/types";
 
 import {
   Avatar,
@@ -32,6 +30,7 @@ import {
 import * as Icons from "@acme/ui/src/icons";
 
 import AddStudentForm from "./_components/add-student-form";
+import ParentPanel from "./_components/parent-panel";
 import StudentPanel from "./_components/student-panel";
 
 const invoices = [
@@ -111,7 +110,7 @@ export default async function ProfilePage({
   const dates = attendances.map((attendance) => attendance.date);
 
   const allStudentDetails = await getAllStudentDetails(studentId);
-  console.log(allStudentDetails);
+
   return (
     <>
       <div className="flex w-full max-w-screen-lg animate-fade-up flex-col gap-5 p-5 xl:px-0">
@@ -211,7 +210,7 @@ export default async function ProfilePage({
           <Card className="w-full pt-6 md:w-2/3">
             {userDetails?.role === "parent" && (
               <CardContent>
-                <StudentPanel
+                <ParentPanel
                   userDetails={userDetails}
                   sortedStudentsByParent={sortedStudentsByParent}
                   dates={dates}
@@ -223,13 +222,11 @@ export default async function ProfilePage({
 
             {userDetails?.role === "student" && (
               <CardContent>
-                <div className="flex flex-col justify-normal gap-4 md:flex-row md:justify-between">
-                  {/* <AttendancePieChart attendancesLeft={3} /> */}
-                  <Calendar mode="multiple" selected={dates} />
-                </div>
-                <SubscribeButton
+                <StudentPanel
+                  userDetails={userDetails}
+                  dates={dates}
                   products={products}
-                  professionalStudent={false}
+                  allStudentDetails={allStudentDetails}
                 />
               </CardContent>
             )}

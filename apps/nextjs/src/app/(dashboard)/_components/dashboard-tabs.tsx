@@ -1,17 +1,14 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useState } from "react";
 import { CustomCalendar } from "@/components/day-picker";
 import { useDate } from "@/hooks/useDate";
-import type { Database } from "@/types_db";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-  Separator,
   Tabs,
   TabsContent,
   TabsList,

@@ -254,7 +254,7 @@ export default function SwimmerCard({ student, children }) {
           </DialogDescription> */}
           </DialogHeader>
           <div className="space-y-6">
-            <div className="flex flex-col justify-between space-y-6">
+            <div className="flex flex-col justify-between space-y-4">
               {studentData.role === "student" && (
                 <div className="flex items-center">
                   <Icons.User className="h-5 w-5 text-[#3B82F6]" />

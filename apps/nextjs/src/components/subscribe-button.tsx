@@ -18,7 +18,8 @@ import { Button } from "@acme/ui";
 
 interface SubscribeModalProps {
   products: ProductWithPrice[];
-  professionalStudent: boolean | undefined;
+  swimmerLevel: string;
+  studentIdStripe: string;
 }
 
 const formatPrice = (price: Price) => {
@@ -33,15 +34,13 @@ const formatPrice = (price: Price) => {
 
 const SubscribeButton: React.FC<SubscribeModalProps> = ({
   products,
-  professionalStudent,
+  swimmerLevel,
+  studentIdStripe,
 }) => {
   const subscribeModal = useSubscribeModal();
   const { user, isLoading, subscription } = useUser();
   console.log(subscription);
   const [priceIdLoading, setPriceIdLoading] = useState<string>();
-
-  const { studentIdStripe, setStudentIdStripeState }: IStudentIdStripe =
-    useStudentIdStripe();
 
   const handleCheckout = async (price: Price) => {
     setPriceIdLoading(price.id);
@@ -70,7 +69,7 @@ const SubscribeButton: React.FC<SubscribeModalProps> = ({
             return <div key={product.id}>No prices available</div>;
           }
 
-          if (professionalStudent === false && index === 0) {
+          if (swimmerLevel === "beginner" && index === 0) {
             const price = product.prices[0];
             return (
               <Button
@@ -84,7 +83,7 @@ const SubscribeButton: React.FC<SubscribeModalProps> = ({
             );
           }
 
-          if (professionalStudent === true && index === 1) {
+          if (swimmerLevel === "pro" && index === 1) {
             const price = product.prices[0];
             return (
               <Button
