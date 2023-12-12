@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import AttendancePieChart from "@/components/attendance-piechart";
 import SubscribeButton from "@/components/subscribe-button";
-import { useStudentIdForStripe } from "@/hooks/useStudentIdForStripe";
+import { useStudentIdStripe } from "@/hooks/useStudentIdStripe";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 import { Calendar, Tabs, TabsList, TabsTrigger } from "@acme/ui";
@@ -19,7 +19,8 @@ export default function StudentPanel({
   const [professionalStudent, setProfessionalStudent] = useState(false);
   const [studentAttences, setStudentAttences] = useState(dates);
   const supabase = createClientComponentClient();
-  const { studentIdForStripe, setStudentIdForStripe } = useStudentIdForStripe();
+  const { studentIdStripe: studentIdForStripe, setStudentIdForStripe } =
+    useStudentIdStripe();
 
   const getStudentAttendances = async (studentId: string) => {
     const { data } = await supabase
