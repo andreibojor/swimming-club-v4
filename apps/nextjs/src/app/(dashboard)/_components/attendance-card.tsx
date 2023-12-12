@@ -78,7 +78,7 @@ export function AttendanceCard({ student }) {
 
             <div>
               <p className="text-sm font-medium leading-none">
-                {student?.full_name}
+                {student.full_name}
               </p>
             </div>
 
@@ -90,7 +90,7 @@ export function AttendanceCard({ student }) {
         </SwimmerCard>
         <AttendanceButton student={student} />
 
-        <DropdownMenu>
+        {/* <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
               variant="ghost"
@@ -108,13 +108,13 @@ export function AttendanceCard({ student }) {
             <DropdownMenuSub>
               <DropdownMenuSubTrigger>Move to</DropdownMenuSubTrigger>
               <DropdownMenuSubContent>
-                {/* <DropdownMenuRadioGroup value={pools.name}>
+                <DropdownMenuRadioGroup value={pools.name}>
                   {pools.map((pool) => (
                     <DropdownMenuRadioItem key={pool.id} value={pool.value}>
                       {pool.name}
                     </DropdownMenuRadioItem>
                   ))}
-                </DropdownMenuRadioGroup> */}
+                </DropdownMenuRadioGroup>
                 <DropdownMenuRadioGroup value={`${student.pool}`}>
                   <DropdownMenuRadioItem value="Cluj-Napoca">
                     Cluj-Napoca
@@ -128,7 +128,7 @@ export function AttendanceCard({ student }) {
             </DropdownMenuSub>
             <DropdownMenuSeparator />
           </DropdownMenuContent>
-        </DropdownMenu>
+        </DropdownMenu> */}
       </div>
       {/* <Progress value={student.lessons_left} max={25} className="h-1 w-full" /> */}
       <Separator className="my-2" />

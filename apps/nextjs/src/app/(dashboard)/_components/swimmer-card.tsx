@@ -176,7 +176,7 @@ export default function SwimmerCard({ student, children }) {
     //   parent_id: userDetails.id,
     //   // phone_number: phoneNumber,
     //   pool: pool,
-    //   professional_student: swimmerLevel,
+    //   swimmer_level: swimmerLevel,
     //   medical_certificate_path: medicalCertificateData?.path,
     // });
 
@@ -283,9 +283,7 @@ export default function SwimmerCard({ student, children }) {
               <Icons.GraduationCap className="h-5 w-5 text-[#3B82F6]" />
               <p className="ml-2 text-base font-normal">Class:</p>
               <p className="ml-2 text-base font-normal leading-none">
-                {` ${
-                  studentData.professional_student ? "Advanced" : "Beginner"
-                }`}
+                {` ${studentData.swimmer_level}`}
               </p>
             </div>
 

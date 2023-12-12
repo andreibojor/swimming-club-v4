@@ -112,7 +112,7 @@ export default function AddStudentForm({ userDetails }) {
       pool: pool,
       active: false,
       student_phone: phoneNumber,
-      professional_student: swimmerLevel,
+      swimmer_level: swimmerLevel,
       medical_certificate_path: medicalCertificateData?.path,
     });
 

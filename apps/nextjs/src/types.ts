@@ -44,7 +44,7 @@ export interface Student {
   full_name?: string;
   pool?: string;
   lessons_left?: number;
-  professional_student?: boolean;
+  swimmer_level: "beginner" | "advanced" | "pro";
   // active?: boolean;
   medical_certificate_path?: string;
   parent_id?: string;

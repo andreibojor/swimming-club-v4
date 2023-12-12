@@ -130,7 +130,7 @@ export function AccountRegistrationForm({ userDetails }) {
       .from("students")
       .update({
         pool: pool,
-        professional_student: swimmerLevel,
+        swimmer_level: swimmerLevel,
         parent_id: userDetails?.id,
         medical_certificate_path: medicalCertificateData?.path,
       })
@@ -233,8 +233,9 @@ export function AccountRegistrationForm({ userDetails }) {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="FALSE">Beginner</SelectItem>
-                          <SelectItem value="TRUE">Advanced</SelectItem>
+                          <SelectItem value="beginner">Beginner</SelectItem>
+                          <SelectItem value="advanced">Advanced</SelectItem>
+                          <SelectItem value="pro">Performance</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormDescription>

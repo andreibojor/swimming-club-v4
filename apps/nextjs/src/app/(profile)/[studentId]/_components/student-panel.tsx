@@ -16,7 +16,7 @@ export default function StudentPanel({
   products,
   allStudentDetails,
 }) {
-  const [professionalStudent, setProfessionalStudent] = useState(false);
+  const [professionalStudent, setProfessionalStudent] = useState("");
   const [studentAttences, setStudentAttences] = useState(dates);
   const supabase = createClientComponentClient();
   const { studentIdStripe, setStudentIdStripe } = useStudentIdStripe();
@@ -45,7 +45,7 @@ export default function StudentPanel({
         if (initialStudentId) {
           const { data, error } = await supabase
             .from("students") // replace 'students' with your actual table name
-            .select("professional_student")
+            .select("swimmer_level")
             .eq("id", initialStudentId)
             .single();
 
@@ -53,7 +53,7 @@ export default function StudentPanel({
             console.error("Failed to fetch student:", error);
             return;
           }
-          setProfessionalStudent(data?.professional_student);
+          setProfessionalStudent(data?.swimmer_level);
         }
       } catch (error) {
         console.error("Error fetching initial student data:", error);
@@ -72,7 +72,7 @@ export default function StudentPanel({
     // Fetch the student's details from Supabase
     const { data, error } = await supabase
       .from("students") // replace 'students' with your actual table name
-      .select("professional_student")
+      .select("swimmer_level")
       .eq("id", studentId)
       .single();
 
@@ -80,7 +80,7 @@ export default function StudentPanel({
       console.error("Failed to fetch student:", error);
       return;
     }
-    setProfessionalStudent(data?.professional_student);
+    setProfessionalStudent(data?.swimmer_level);
     getStudentAttendances(studentId);
   };
 
