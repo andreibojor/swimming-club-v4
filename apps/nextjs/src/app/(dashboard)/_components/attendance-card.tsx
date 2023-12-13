@@ -82,10 +82,10 @@ export function AttendanceCard({ student }) {
               </p>
             </div>
 
-            <p className="text-sm font-medium leading-none">
+            {/* <p className="text-sm font-medium leading-none">
               Attendances Left:
             </p>
-            <p className="text-sm font-medium">{lessonsLeft}</p>
+            <p className="text-sm font-medium">{lessonsLeft}</p> */}
           </div>
         </SwimmerCard>
         <AttendanceButton student={student} />

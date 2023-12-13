@@ -234,7 +234,7 @@ export default function SwimmerCard({ student, children }) {
             animationFillMode: "forwards",
           }}
           onClick={() => getStudentAttendances(student.id)}
-          // className="w-full flex-1 justify-start px-2 py-1.5 text-sm font-[400]"
+          className="w-full flex-1 justify-start px-0 py-1.5 text-sm font-[400]"
         >
           {children}
         </Button>
