@@ -132,7 +132,7 @@ export default async function ProfilePage({
                 <h4 className="text-base font-medium text-muted-foreground">
                   DETAILS
                 </h4>
-                <div className="flex flex-col justify-between space-y-6">
+                <div className="flex flex-col justify-between space-y-4">
                   <div className="flex items-center">
                     <Icons.Phone className="h-5 w-5 text-[#3B82F6]" />
                     <p className="ml-2 text-base font-normal leading-none">

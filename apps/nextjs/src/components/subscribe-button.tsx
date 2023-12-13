@@ -39,7 +39,7 @@ const SubscribeButton: React.FC<SubscribeModalProps> = ({
 }) => {
   const subscribeModal = useSubscribeModal();
   const { user, isLoading, subscription } = useUser();
-  console.log(subscription);
+
   const [priceIdLoading, setPriceIdLoading] = useState<string>();
 
   const handleCheckout = async (price: Price) => {

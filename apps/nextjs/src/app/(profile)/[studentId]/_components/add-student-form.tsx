@@ -208,8 +208,9 @@ export default function AddStudentForm({ userDetails }) {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="FALSE">Beginner</SelectItem>
-                        <SelectItem value="TRUE">Advanced</SelectItem>
+                        <SelectItem value="beginner">Beginner</SelectItem>
+                        <SelectItem value="advanced">Advanced</SelectItem>
+                        <SelectItem value="pro">Performance</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormDescription>

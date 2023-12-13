@@ -86,9 +86,10 @@ export default function ParentPanel({
 
   return (
     <>
-      <Tabs defaultValue={userDetails?.id} className="space-y-4">
+      {/* <Tabs defaultValue={userDetails?.id} className="space-y-4"> */}
+      <Tabs className="space-y-4">
         <TabsList className="flex justify-normal overflow-x-auto md:inline-flex md:justify-center">
-          <Link
+          {/* <Link
             className="h-full w-full"
             scroll={false}
             href={`?stundent=${userDetails?.id}`}
@@ -96,7 +97,7 @@ export default function ParentPanel({
             <TabsTrigger value={userDetails?.id}>
               {userDetails?.full_name}
             </TabsTrigger>
-          </Link>
+          </Link> */}
           {sortedStudentsByParent?.map((student) => (
             // <Link
             //   className="h-full w-full"
