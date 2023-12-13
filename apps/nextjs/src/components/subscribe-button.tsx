@@ -83,7 +83,10 @@ const SubscribeButton: React.FC<SubscribeModalProps> = ({
             );
           }
 
-          if (swimmerLevel === "pro" && index === 1) {
+          if (
+            (swimmerLevel === "pro" && index === 1) ||
+            (swimmerLevel === "advanced" && index === 1)
+          ) {
             const price = product.prices[0];
             return (
               <Button

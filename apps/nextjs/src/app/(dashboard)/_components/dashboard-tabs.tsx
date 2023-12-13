@@ -9,6 +9,8 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
+  ScrollArea,
+  Separator,
   Tabs,
   TabsContent,
   TabsList,
@@ -91,6 +93,7 @@ export default function DashboardTabs({ pools, students }) {
                     </div>
                   </div> */}
                 </div>
+
                 <AttendancePanel students={sortedStudents} />
               </TabsContent>
             ))}
