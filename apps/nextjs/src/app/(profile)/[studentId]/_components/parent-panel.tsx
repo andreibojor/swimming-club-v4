@@ -9,7 +9,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 import { Calendar, Tabs, TabsList, TabsTrigger } from "@acme/ui";
 
-export default function ParentPanel({
+export default function StudentPanel({
   userDetails,
   sortedStudentsByParent,
   dates,
@@ -57,13 +57,11 @@ export default function ParentPanel({
         }
       } catch (error) {
         console.error("Error fetching initial student data:", error);
-      } finally {
-        console.log("Done fetching initial student data");
       }
     }
 
     fetchInitialStudentData();
-  }, [userDetails]); // Dependency array to run this effect when userDetails.id changes
+  }, [userDetails?.id]); // Dependency array to run this effect when userDetails.id changes
 
   const handleTabClick = async (studentId: string) => {
     // Update the Zustand state
@@ -86,8 +84,7 @@ export default function ParentPanel({
 
   return (
     <>
-      {/* <Tabs defaultValue={userDetails?.id} className="space-y-4"> */}
-      <Tabs className="space-y-4">
+      <Tabs defaultValue={userDetails?.id} className="space-y-4">
         <TabsList className="flex justify-normal overflow-x-auto md:inline-flex md:justify-center">
           {/* <Link
             className="h-full w-full"
@@ -99,26 +96,30 @@ export default function ParentPanel({
             </TabsTrigger>
           </Link> */}
           {sortedStudentsByParent?.map((student) => (
-            // <Link
-            //   className="h-full w-full"
-            //   scroll={false}
-            //   href={`?student=${student.id}`}
-            //   key={student.id}
-            // >
-            <TabsTrigger
+            <Link
+              className="h-full w-full"
+              scroll={false}
+              href={`?student=${student.id}`}
               key={student.id}
-              value={student.id}
-              onClick={() => handleTabClick(student.id)}
             >
-              {student.full_name}
-            </TabsTrigger>
-            // </Link>
+              <TabsTrigger
+                key={student.id}
+                value={student.id}
+                onClick={() => handleTabClick(student.id)}
+              >
+                {student.full_name}
+              </TabsTrigger>
+            </Link>
           ))}
         </TabsList>
 
         <div className="flex flex-col justify-normal gap-4 md:flex-row md:justify-between">
           {/* <AttendancePieChart attendancesLeft={3} /> */}
-          <SubscribeButton products={products} swimmerLevel={swimmerLevel} />
+          <SubscribeButton
+            products={products}
+            swimmerLevel={swimmerLevel}
+            studentIdStripe={studentIdStripe}
+          />
           <Calendar mode="multiple" selected={studentAttences} />
         </div>
       </Tabs>

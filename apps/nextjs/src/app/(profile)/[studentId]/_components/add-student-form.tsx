@@ -110,7 +110,6 @@ export default function AddStudentForm({ userDetails }) {
       full_name: name,
       parent_id: userDetails.id,
       pool: pool,
-      active: false,
       student_phone: phoneNumber,
       swimmer_level: swimmerLevel,
       medical_certificate_path: medicalCertificateData?.path,
