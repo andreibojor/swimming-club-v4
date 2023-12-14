@@ -86,7 +86,6 @@ export default async function ProfilePage({
   const {
     data: { user },
   } = await supabase.auth.getUser();
-
   if (!user) {
     redirect("/signin");
   }
@@ -102,7 +101,6 @@ export default async function ProfilePage({
     a.full_name.localeCompare(b.full_name),
   );
   const products = await getActiveProductsWithPrices();
-
   const attendances = await getStudentAttendances(studentId);
   const dates = attendances.map((attendance) => attendance.date);
 
@@ -110,6 +108,7 @@ export default async function ProfilePage({
   console.log(`studentIdFromParams: ${studentIdParams}`);
   console.log(`searchParams.student: ${searchParams.student}`);
   console.log("--------------------");
+
   return (
     <>
       <div className="flex w-full max-w-screen-lg animate-fade-up flex-col gap-5 p-5 xl:px-0">
@@ -141,7 +140,6 @@ export default async function ProfilePage({
                       {allStudentDetails?.phone}
                     </p>
                   </div>
-
                   <div className="flex items-center">
                     <Icons.Waves className="h-5 w-5 text-[#3B82F6]" />
                     <p className="ml-2 text-base font-normal leading-none">
@@ -151,7 +149,6 @@ export default async function ProfilePage({
                       {allStudentDetails?.pool}
                     </p>
                   </div>
-
                   <div className="flex items-center">
                     <Icons.User className="h-5 w-5 text-[#3B82F6]" />
                     <p className="ml-2 text-base font-normal leading-none">
@@ -161,7 +158,6 @@ export default async function ProfilePage({
                       {allStudentDetails?.role}
                     </p>
                   </div>
-
                   <div className="flex items-center">
                     {allStudentDetails?.active ? (
                       <>
@@ -198,7 +194,6 @@ export default async function ProfilePage({
                       })}`}
                     </p>
                   </div>
-
                   {userDetails?.role === "parent" && (
                     <AddStudentForm userDetails={userDetails} />
                   )}
@@ -219,7 +214,6 @@ export default async function ProfilePage({
                 />
               </CardContent>
             )}
-
             {userDetails?.role === "student" && (
               <CardContent>
                 <StudentPanel
@@ -231,7 +225,6 @@ export default async function ProfilePage({
               </CardContent>
             )}
           </Card>
-
           {/* <Card className="w-full pt-6 md:w-2/3">
             {userDetails?.role === "parent" && (
               <CardContent>
@@ -264,7 +257,6 @@ export default async function ProfilePage({
                       </div>
                     ))}
                   </TabsList>
-
                   <div className="flex flex-col justify-normal gap-4 md:flex-row md:justify-between">
                     <AttendancePieChart attendancesLeft={3} />
                     <SubscribeButton
@@ -276,7 +268,6 @@ export default async function ProfilePage({
                 </Tabs>
               </CardContent>
             )}
-
             {userDetails?.role === "student" && (
               <CardContent>
                 <div className="flex flex-col justify-normal gap-4 md:flex-row md:justify-between">

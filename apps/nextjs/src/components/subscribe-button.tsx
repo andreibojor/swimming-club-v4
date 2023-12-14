@@ -9,7 +9,6 @@ import type { Price, ProductWithPrice } from "@/types";
 import { BounceLoader } from "react-spinners";
 
 // import { toast } from "react-hot-toast";
-
 import { Button } from "@acme/ui";
 
 interface SubscribeModalProps {
@@ -24,7 +23,6 @@ const formatPrice = (price: Price) => {
     currency: price.currency,
     minimumFractionDigits: 0,
   }).format((price?.unit_amount || 0) / 100);
-
   return priceString;
 };
 
@@ -36,16 +34,13 @@ const SubscribeButton: React.FC<SubscribeModalProps> = ({
   const { user, isLoading, subscription } = useUser();
 
   const [priceIdLoading, setPriceIdLoading] = useState<string>();
-
   const handleCheckout = async (price: Price) => {
     setPriceIdLoading(price.id);
-
     try {
       const { sessionId } = await postData({
         url: "/api/create-checkout-session",
         data: { price, studentIdStripe },
       });
-
       const stripe = await getStripe();
       stripe?.redirectToCheckout({ sessionId });
     } catch (error) {
@@ -63,7 +58,6 @@ const SubscribeButton: React.FC<SubscribeModalProps> = ({
           if (!product.prices?.length) {
             return <div key={product.id}>No prices available</div>;
           }
-
           if (swimmerLevel === "beginner" && index === 0) {
             const price = product.prices[0];
             return (
@@ -77,7 +71,6 @@ const SubscribeButton: React.FC<SubscribeModalProps> = ({
               </Button>
             );
           }
-
           if (
             (swimmerLevel === "pro" && index === 1) ||
             (swimmerLevel === "advanced" && index === 1)
@@ -94,12 +87,10 @@ const SubscribeButton: React.FC<SubscribeModalProps> = ({
               </Button>
             );
           }
-
           return null;
         })}
       </div>
     </>
   );
 };
-
 export default SubscribeButton;

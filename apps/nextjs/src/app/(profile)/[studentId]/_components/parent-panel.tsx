@@ -25,18 +25,14 @@ export default function StudentPanel({
       .from("attendance_record")
       .select("*")
       .eq("student_id", studentId);
-
     if (!data) return [];
-
     const formattedAttendances = data.map((attendance: any) => ({
       id: attendance.id,
       date: new Date(attendance.date),
     }));
-
     const dates = formattedAttendances.map((attendance) => attendance.date);
     setStudentAttences(dates);
   };
-
   useEffect(() => {
     async function fetchInitialStudentData() {
       try {
@@ -66,7 +62,6 @@ export default function StudentPanel({
       .select("swimmer_level")
       .eq("id", studentId)
       .single();
-
     if (error) {
       console.error("Failed to fetch student:", error);
       return;
@@ -96,7 +91,6 @@ export default function StudentPanel({
             </Link>
           ))}
         </TabsList>
-
         <div className="flex flex-col justify-normal gap-4 md:flex-row md:justify-between">
           {/* <AttendancePieChart attendancesLeft={3} /> */}
           <SubscribeButton
