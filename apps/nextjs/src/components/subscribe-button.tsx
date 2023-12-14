@@ -1,10 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-  useStudentIdStripe,
-  type IStudentIdStripe,
-} from "@/hooks/useStudentIdStripe";
 import useSubscribeModal from "@/hooks/useSubscribeModal";
 import { useUser } from "@/hooks/useUser";
 import { postData } from "@/libs/helpers";
@@ -37,7 +33,6 @@ const SubscribeButton: React.FC<SubscribeModalProps> = ({
   swimmerLevel,
   studentIdStripe,
 }) => {
-  const subscribeModal = useSubscribeModal();
   const { user, isLoading, subscription } = useUser();
 
   const [priceIdLoading, setPriceIdLoading] = useState<string>();

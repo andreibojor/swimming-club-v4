@@ -90,15 +90,12 @@ export default async function ProfilePage({
   if (!user) {
     redirect("/signin");
   }
-
-  // Extract the studentId from params
-  const studentIdFromParams = params.studentId;
-
   const userDetails = await getUserDetails(user.id);
 
+  // Extract the student ID from params
+  const studentIdParams = params.studentId;
   // Use either the studentId from the URL or the user's own ID
-  const studentId =
-    studentIdFromParams || searchParams.student || `${user?.id}`;
+  const studentId = studentIdParams || searchParams.student || `${user?.id}`;
 
   const studentsByParent = await getStudentsByParent(user.id);
   const sortedStudentsByParent = studentsByParent.sort((a, b) =>
@@ -110,7 +107,9 @@ export default async function ProfilePage({
   const dates = attendances.map((attendance) => attendance.date);
 
   const allStudentDetails = await getAllStudentDetails(studentId);
-
+  console.log(`studentIdFromParams: ${studentIdParams}`);
+  console.log(`searchParams.student: ${searchParams.student}`);
+  console.log("--------------------");
   return (
     <>
       <div className="flex w-full max-w-screen-lg animate-fade-up flex-col gap-5 p-5 xl:px-0">
@@ -211,11 +210,12 @@ export default async function ProfilePage({
             {userDetails?.role === "parent" && (
               <CardContent>
                 <ParentPanel
-                  userDetails={userDetails}
                   sortedStudentsByParent={sortedStudentsByParent}
                   dates={dates}
                   products={products}
                   allStudentDetails={allStudentDetails}
+                  studentIdSearchParams={searchParams.student}
+                  studentIdParams={studentIdParams}
                 />
               </CardContent>
             )}
