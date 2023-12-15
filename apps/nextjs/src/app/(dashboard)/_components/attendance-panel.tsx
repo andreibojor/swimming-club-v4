@@ -9,9 +9,7 @@ export function AttendancePanel({ students }) {
     <>
       <ScrollArea className="h-[555px]">
         {students?.map((student) => (
-          <>
-            <AttendanceCard key={student.id} student={student} />
-          </>
+          <AttendanceCard key={student.id} student={student} />
         ))}
       </ScrollArea>
     </>

@@ -45,7 +45,7 @@ export async function POST(request: Request) {
           studentIdStripe, // Add studentId to the metadata
         },
       },
-      success_url: `${getURL()}/${studentIdStripe}?student=${studentIdStripe}`,
+      success_url: `${getURL()}/`,
       cancel_url: `${getURL()}/`,
     });
 

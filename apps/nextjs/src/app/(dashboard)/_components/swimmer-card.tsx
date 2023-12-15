@@ -264,7 +264,6 @@ export default function SwimmerCard({ student, children }) {
                   </p>
                 </div>
               )}
-
               <div className="flex items-center">
                 <Icons.Phone className="h-5 w-5 text-[#3B82F6]" />
                 <p className="ml-2 text-base font-normal">Phone:</p>
@@ -289,13 +288,16 @@ export default function SwimmerCard({ student, children }) {
                 </p>
               </div>
 
-              <div className="flex items-center">
-                <Icons.Calendar className="h-5 w-5 text-[#3B82F6]" />
-                <p className="ml-2 text-base font-normal">Lessons left:</p>
-                <p className="ml-2 text-base font-normal leading-none">
-                  {studentData.lessons_left}
-                </p>
-              </div>
+              {studentData.swimmer_level === "beginner" && (
+                <div className="flex items-center">
+                  <Icons.Calendar className="h-5 w-5 text-[#3B82F6]" />
+                  <p className="ml-2 text-base font-normal">Lessons left:</p>
+                  <p className="ml-2 text-base font-normal leading-none">
+                    {studentData.lessons_left}
+                  </p>
+                </div>
+              )}
+
               <div className="flex items-center">
                 <Icons.CalendarCheck className="h-5 w-5 text-[#3B82F6]" />
                 <p className="ml-2 text-base font-normal">Expires at:</p>
