@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import ModalProvider from "@/providers/ModalProvider";
 import SupabaseProvider from "@/providers/SupabaseProvider";
 import UserProvider from "@/providers/UserProvider";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import { Toaster, cn } from "@acme/ui";
 
@@ -67,6 +68,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
           </UserProvider>
         </SupabaseProvider>
         <Toaster />
+        <SpeedInsights />
       </body>
     </html>
   );
