@@ -92,7 +92,11 @@ export default function StudentPanel({
           ))}
         </TabsList>
         <div className="flex flex-col justify-normal gap-4 md:flex-row md:justify-between">
-          {/* <AttendancePieChart attendancesLeft={3} /> */}
+          {swimmerLevel === "beginner" ? (
+            <AttendancePieChart attendancesLeft={3} />
+          ) : (
+            ""
+          )}
           <SubscribeButton
             products={products}
             swimmerLevel={swimmerLevel}
