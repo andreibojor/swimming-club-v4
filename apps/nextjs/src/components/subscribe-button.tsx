@@ -49,7 +49,7 @@ const SubscribeButton: React.FC<SubscribeModalProps> = ({
       setPriceIdLoading(undefined);
     }
   };
-  console.log(products);
+
   return (
     <>
       <div>

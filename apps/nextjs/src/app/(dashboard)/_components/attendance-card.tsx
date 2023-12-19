@@ -81,11 +81,14 @@ export function AttendanceCard({ student }) {
                 {student.full_name}
               </p>
             </div>
-
-            {/* <p className="text-sm font-medium leading-none">
-              Attendances Left:
-            </p>
-            <p className="text-sm font-medium">{lessonsLeft}</p> */}
+            {student.swimmer_level === "beginner" && (
+              <>
+                <p className="text-sm font-medium leading-none">
+                  Attendances Left:
+                </p>
+                <p className="text-sm font-medium">{lessonsLeft}</p>
+              </>
+            )}
           </div>
         </SwimmerCard>
         <AttendanceButton student={student} />
