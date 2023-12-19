@@ -49,7 +49,7 @@ const SubscribeButton: React.FC<SubscribeModalProps> = ({
       setPriceIdLoading(undefined);
     }
   };
-
+  console.log(products);
   return (
     <>
       <div>
@@ -57,6 +57,19 @@ const SubscribeButton: React.FC<SubscribeModalProps> = ({
         {products.map((product, index) => {
           if (!product.prices?.length) {
             return <div key={product.id}>No prices available</div>;
+          }
+          if (swimmerLevel === "beginner" && index === 2) {
+            const price = product.prices[0];
+            return (
+              <Button
+                key={price.id}
+                onClick={() => handleCheckout(price)}
+                disabled={isLoading || price.id === priceIdLoading}
+                className="mb-4"
+              >
+                {`Buy 1 lesson ${formatPrice(price)}`}
+              </Button>
+            );
           }
           if (swimmerLevel === "beginner" && index === 0) {
             const price = product.prices[0];

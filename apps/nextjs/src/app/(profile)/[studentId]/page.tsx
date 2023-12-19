@@ -199,11 +199,12 @@ export default async function ProfilePage({
                   )}
                 </div>
               </div>
+              <AccountRegistrationForm userDetails={userDetails} />
             </CardContent>
           </Card>
           <Card className="w-full pt-6 md:w-2/3">
-            {userDetails?.role === "parent" && (
-              <CardContent>
+            <CardContent>
+              {userDetails?.role === "parent" && (
                 <ParentPanel
                   sortedStudentsByParent={sortedStudentsByParent}
                   dates={dates}
@@ -212,18 +213,17 @@ export default async function ProfilePage({
                   studentIdSearchParams={searchParams.student}
                   studentIdParams={studentIdParams}
                 />
-              </CardContent>
-            )}
-            {userDetails?.role === "student" && (
-              <CardContent>
+              )}
+
+              {userDetails?.role === "student" && (
                 <StudentPanel
                   userDetails={userDetails}
                   dates={dates}
                   products={products}
                   allStudentDetails={allStudentDetails}
                 />
-              </CardContent>
-            )}
+              )}
+            </CardContent>
           </Card>
           {/* <Card className="w-full pt-6 md:w-2/3">
             {userDetails?.role === "parent" && (
@@ -317,7 +317,6 @@ export default async function ProfilePage({
           </Card>
         </div>
       </div>
-      <AccountRegistrationForm userDetails={userDetails} />
     </>
   );
 }

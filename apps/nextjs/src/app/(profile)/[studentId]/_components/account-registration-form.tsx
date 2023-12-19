@@ -15,6 +15,7 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
   Form,
   FormControl,
   FormDescription,
@@ -31,6 +32,7 @@ import {
   SelectValue,
   toast,
 } from "@acme/ui";
+import * as Icons from "@acme/ui/src/icons";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB in bytes
 const ALLOWED_FILE_TYPES = [
@@ -160,6 +162,23 @@ export function AccountRegistrationForm({ userDetails }) {
         open={isOpenDialog}
         onOpenChange={() => setIsOpenDialog(!isOpenDialog)}
       >
+        {userDetails?.completed_registration === true ? (
+          ""
+        ) : (
+          <DialogTrigger asChild>
+            <Button
+              variant="default"
+              style={{
+                animationDelay: "0.40s",
+                animationFillMode: "forwards",
+              }}
+            >
+              Complete your registration{" "}
+              <Icons.PlusCircle className="ml-2 h-5 w-5" />
+            </Button>
+          </DialogTrigger>
+        )}
+
         <DialogContent className="sm:max-w-[450px]">
           <ScrollArea className="TEST max-h-[90vh]">
             <DialogHeader>
