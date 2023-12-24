@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import SubscribeButton from "@/app/(profile)/[studentId]/_components/subscribe-button";
 import AttendancePieChart from "@/components/attendance-piechart";
-import SubscribeButton from "@/components/subscribe-button";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 import { Calendar, Tabs, TabsList, TabsTrigger } from "@acme/ui";

@@ -26,7 +26,7 @@ export async function POST(request: Request) {
       email: user?.email || "",
     });
 
-    const session = await stripe.checkout.sessions.create({
+    const sessionOptions = {
       payment_method_types: ["card"],
       billing_address_collection: "required",
       customer,
@@ -36,7 +36,6 @@ export async function POST(request: Request) {
           quantity,
         },
       ],
-      mode: "subscription",
       allow_promotion_codes: true,
       subscription_data: {
         trial_from_plan: true,
@@ -47,11 +46,18 @@ export async function POST(request: Request) {
       },
       success_url: `${getURL()}/`,
       cancel_url: `${getURL()}/`,
-    });
+    };
+
+    // Handle recurring subscription logic
+    if (price.type === "recurring") {
+      sessionOptions.mode = "subscription";
+    }
+
+    const session = await stripe.checkout.sessions.create(sessionOptions);
 
     return NextResponse.json({ sessionId: session.id });
   } catch (err: any) {
-    console.log(err);
+    console.log("Error in create-checkout-session:", err);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }

@@ -12,12 +12,16 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
+  Button,
   Calendar,
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
+  Input,
+  Label,
   Separator,
   Table,
   TableBody,
@@ -181,6 +185,17 @@ export default async function ProfilePage({
                       </>
                     )}
                   </div>
+                  {allStudentDetails?.swimmer_level === "beginner" && (
+                    <div className="flex items-center">
+                      <Icons.User className="h-5 w-5 text-[#3B82F6]" />
+                      <p className="ml-2 text-base font-normal leading-none">
+                        Lessons left:
+                      </p>
+                      <p className="ml-2 text-base font-normal leading-none">
+                        {allStudentDetails?.lessons_left}
+                      </p>
+                    </div>
+                  )}
                   <div className="flex items-center">
                     <Icons.CalendarCheck className="h-5 w-5 text-[#3B82F6]" />
                     <p className="ml-2 text-base font-normal">Expires at:</p>
@@ -216,12 +231,14 @@ export default async function ProfilePage({
               )}
 
               {userDetails?.role === "student" && (
-                <StudentPanel
-                  userDetails={userDetails}
-                  dates={dates}
-                  products={products}
-                  allStudentDetails={allStudentDetails}
-                />
+                <>
+                  <StudentPanel
+                    userDetails={userDetails}
+                    dates={dates}
+                    products={products}
+                    allStudentDetails={allStudentDetails}
+                  />
+                </>
               )}
             </CardContent>
           </Card>

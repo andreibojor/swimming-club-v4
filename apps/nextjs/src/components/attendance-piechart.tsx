@@ -7,7 +7,7 @@ const COLORS = ["#00C49F", "#0088FE"];
 export default function AttendancePieChart({ attendancesLeft }) {
   const data = [
     { name: "Group A", value: attendancesLeft },
-    { name: "Group B", value: 25 },
+    { name: "Group B", value: 8 },
   ];
 
   return (
